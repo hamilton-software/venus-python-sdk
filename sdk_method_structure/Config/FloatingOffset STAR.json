@@ -1,0 +1,18 @@
+{
+  "waste": "Waste",
+  "solidWaste": {
+    "xOffset": 0.0,
+    "yCoord": 341.0,
+    "zCoord": 235.0
+  },
+  "NTR_waste": {
+    "xOffset": -52.3,
+    "yCoord": 335.8,
+    "zCoord": 238.3
+  },
+  "liquid_waste": {
+    "xOffset": -8.0,
+    "yCoord": 341.0,
+    "zCoord": 187.0
+  }
+}

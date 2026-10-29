@@ -1,0 +1,114 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_dw_rgt_96l",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Ham_DW_Rgt_96L",
+  "labwareClass": "reservoir",
+  "source": {
+    "system": "venus",
+    "originalId": "Ham_DW_Rgt_96L",
+    "originalFile": "Ham_DW_Rgt_96L.rck / ham_dw_rgt_96.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 47.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 13.0,
+        "y": 11.5,
+        "z": 0.0
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "rectangle",
+          "width": 9.0,
+          "depth": 9.0
+        },
+        "totalDepth": 44.0,
+        "maxPipettingDepth": 0.5,
+        "bottomWallThickness": 2.5,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "rectangular_prism",
+              "height": 44.0,
+              "width": 9.0,
+              "depth": 9.0
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 42.0
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 4
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 46.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "connectedContainerGroups": {
+    "connected": {
+      "containers": [
+        "default"
+      ],
+      "connectionTopology": "base"
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

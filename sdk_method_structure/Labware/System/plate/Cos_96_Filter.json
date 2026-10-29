@@ -1,0 +1,104 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:cos_96_filter",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Corning 96 filter.rck",
+  "description": "Corning plate with 96 filter wells",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "Cos_96_Filter",
+    "originalFile": "Cos_96_Filter.rck / cos_96_filter.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 14.5
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 14.0,
+        "y": 11.5,
+        "z": 0.2
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 6.9
+        },
+        "totalDepth": 12.2,
+        "maxPipettingDepth": 0.0,
+        "bottomWallThickness": 2.1,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 12.2,
+              "diameterBottom": 6.4,
+              "diameterTop": 6.9
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 14.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 16.0
+          },
+          "hamilton:touch_off": {
+            "enabled": true,
+            "frontMm": 3.25,
+            "backMm": 3.25,
+            "leftMm": 3.25,
+            "rightMm": 3.25,
+            "baseMm": 0.0,
+            "heightMm": 9.8
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 13.0
+  },
+  "visualModel": {
+    "previewImageRef": "Cos_96_Filter.png",
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

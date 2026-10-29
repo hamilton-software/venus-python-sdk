@@ -1,0 +1,146 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 184,
+      "type": "VEC3",
+      "max": [
+        9.8000001907348633,
+        32.799995422363281,
+        44.900001525878906
+      ],
+      "min": [
+        -9.8000001907348633,
+        -32.799995422363281,
+        -44.900001525878906
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 184,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 492,
+      "type": "SCALAR",
+      "max": [
+        183
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 6384,
+      "uri": "rgt_cont_60ml_BC.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 2208,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2208,
+      "byteLength": 2208,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 4416,
+      "byteLength": 1968,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.89999997615814209,
+          0.89999997615814209,
+          0.89999997615814209,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.79761421680450439
+      },
+      "emissiveFactor": [
+        0.18000000715255737,
+        0.18000000715255737,
+        0.18000000715255737
+      ],
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Poly_Geom_Data",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "$MergedNode_0",
+      "mesh": 0
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

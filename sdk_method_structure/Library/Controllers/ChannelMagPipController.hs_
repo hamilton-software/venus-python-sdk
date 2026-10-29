@@ -1,0 +1,25 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/23/2026 4:17:57 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace ChannelMagPipController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function channels_MagPip_aspirate( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_detectLiquidLevel( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_dispense( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_dispenseOnTheFly( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_getStatus( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_moveAxis( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_tipCheck( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_tipEject( device & ML_STAR ) variable {  return (0); }
+function channels_MagPip_tipPickup( device & ML_STAR ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-23 16:17$$checksum=f24db55c$$length=083$$

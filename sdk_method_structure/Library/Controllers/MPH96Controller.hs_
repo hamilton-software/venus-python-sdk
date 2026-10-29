@@ -1,0 +1,27 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/23/2026 4:16:30 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace MPH96Controller {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function mph96_aspirate( device & ML_STAR ) variable {  return (0); }
+function mph96_clearTipSupport( device & ML_STAR ) variable {  return (0); }
+function mph96_detectLiquidLevel( device & ML_STAR ) variable {  return (0); }
+function mph96_dispense( device & ML_STAR ) variable {  return (0); }
+function mph96_getStatus( device & ML_STAR ) variable {  return (0); }
+function mph96_moveAxis( device & ML_STAR ) variable {  return (0); }
+function mph96_parkBack( device & ML_STAR ) variable {  return (0); }
+function mph96_parkFront( device & ML_STAR ) variable {  return (0); }
+function mph96_tipEject( device & ML_STAR ) variable {  return (0); }
+function mph96_tipPickup( device & ML_STAR ) variable {  return (0); }
+function mph96_tipPickupPartial( device & ML_STAR ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-23 16:16$$checksum=8515e74e$$length=083$$

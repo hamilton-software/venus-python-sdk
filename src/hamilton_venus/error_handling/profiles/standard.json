@@ -1,0 +1,247 @@
+{
+  "name": "Standard_Lab_Profile",
+  "default": {
+    "actions": [],
+    "max_retries": 0,
+    "allow_operator": true,
+    "inputs": {}
+  },
+  "error_defaults": {
+    "NOT_EXECUTED": {
+      "actions": [
+        "REPEAT"
+      ],
+      "max_retries": 1,
+      "allow_operator": true,
+      "inputs": {}
+    }
+  },
+  "operations": {
+    "tip_pickup": {
+      "TIP_PRESENT": {
+        "actions": [
+          "EXCLUDE"
+        ],
+        "max_retries": 1,
+        "allow_operator": false,
+        "inputs": {}
+      },
+      "NO_TIP": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "EXECUTION": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "HARDWARE": {
+        "actions": [
+          "REPEAT",
+          "ABORT"
+        ],
+        "max_retries": 1,
+        "allow_operator": false,
+        "inputs": {}
+      },
+      "NOT_EXECUTED": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 2,
+        "allow_operator": false,
+        "inputs": {}
+      },
+      "OTHER": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      }
+    },
+    "aspirate": {
+      "IMPROPER": {
+        "actions": [
+          "REPEAT",
+          "CONTINUE"
+        ],
+        "max_retries": 2,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "CLOT": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 2,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "INSUFFICIENT": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "LIQUID_LEVEL": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 2,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "NO_TIP": {
+        "actions": [
+          "EXCLUDE"
+        ],
+        "max_retries": 0,
+        "allow_operator": false,
+        "inputs": {}
+      },
+      "EXECUTION": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "HARDWARE": {
+        "actions": [
+          "REPEAT",
+          "ABORT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "UNEXPECTED_CLLD": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "ANTI_DROP": {
+        "actions": [
+          "CONTINUE"
+        ],
+        "max_retries": 1,
+        "allow_operator": false,
+        "inputs": {}
+      },
+      "OTHER": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      }
+    },
+    "dispense": {
+      "INSUFFICIENT": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "PRESSURE_LLD": {
+        "actions": [
+          "EXCLUDE"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "CLOT": {
+        "actions": [
+          "EXCLUDE"
+        ],
+        "max_retries": 0,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "IMPROPER": {
+        "actions": [
+          "EXCLUDE"
+        ],
+        "max_retries": 0,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "LIQUID_LEVEL": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "NOT_ASPIRATED": {
+        "actions": [
+          "AVAILABLE"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "EXECUTION": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 2,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "HARDWARE": {
+        "actions": [
+          "REPEAT",
+          "ABORT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "UNEXPECTED_CLLD": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      },
+      "ANTI_DROP": {
+        "actions": [
+          "CONTINUE"
+        ],
+        "max_retries": 0,
+        "allow_operator": false,
+        "inputs": {}
+      },
+      "OTHER": {
+        "actions": [
+          "REPEAT"
+        ],
+        "max_retries": 1,
+        "allow_operator": true,
+        "inputs": {}
+      }
+    }
+  }
+}

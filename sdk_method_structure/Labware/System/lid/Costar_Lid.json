@@ -1,0 +1,40 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:cos_96_filter_l",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Cover for Corning filter 96 (Landscape)",
+  "description": "Cover for Corning plate with 96 filter wells (Landscape)",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Cos_96_Filter_L",
+    "originalFile": "Cos_96_Filter_L.lid",
+    "convertedDate": "2026-09-29",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.5,
+    "y": 85.2,
+    "z": 7.9
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 7.5
+      }
+    }
+  ],
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 1.5,
+      "coveredStackHeight": 15.5,
+      "stackHeight": 7.9,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

@@ -1,0 +1,168 @@
+//global device DeviceID("","",hslTrue);
+variable bearerToken("");
+variable instrumentType("");
+variable disableStatusCommunication(1);
+variable disableIdleCommunication(1);
+
+namespace Instruments
+{
+     function CallFunction(device DeviceID);
+}
+
+function HSLExecuteCommand(variable i_strNamespace, variable i_strCommand, variable i_blnUseDevice);
+
+namespace VenusSDK
+{
+
+// -----------------------------------------------------------------------------
+// Included libraries
+// -----------------------------------------------------------------------------
+
+ #include "ASWStandard\\TraceLevel\\TraceLevel.hsl" 
+ #include "HSLStrLib.hsl"
+ #include "..\\Library\\API_Helper.hs_"
+ #include "..\\Library\\DeckLoad_Helper.hs_"
+ #include "..\\Library\\SDK_GlobalVariables.hsl" 
+
+variable strCategory("");
+variable blnPreviousFound(hslFalse);
+variable blnSpecifiedFound(hslFalse);
+variable functionFound(hslFalse);
+variable useDevice(hslFalse);
+variable nameSpace("");
+
+function InitializeCommands()
+{
+      private variable l_strController;
+      private variable l_intIndex;
+      
+      API_Helper::UpdateControllerInitializeList();
+      for(l_intIndex = 0; l_intIndex < CONTROLLER::ControllerPaths.GetSize(); l_intIndex++)
+      {
+         l_strController = CONTROLLER::ControllerPaths[l_intIndex];
+         Trace("Controller:  ", l_strController);
+         << l_strController;
+      }
+}
+
+function CallFunctions()
+{
+   functionFound = API_Helper::GetCurrentCommandDetails(nameSpace, useDevice);
+   onerror goto HandleError;
+   //Initialize controllers as they are used for the first time
+   if(functionFound)
+   {
+      InitializeCommands();
+      HSLExecuteCommand(nameSpace, SDK::CurrentCommand, useDevice);
+      functionFound = hslFalse;
+   }
+
+   onerror goto 0;
+   return;
+   HandleError : {Trace("Command failed to load...");}
+}
+
+function LoadAndWaitForCommands()
+{
+   device DeviceID(SDK::DeckLayout, SDK::DeviceName, hslTrue);
+   g_DeviceID = DeviceID;
+   //If Deck already contains tip counters, initialize them so they are ready to go
+   DeckLoad::CheckAndInitializeTipCounters(DeviceID);
+   DeckLoad::CheckAndInitializeTipSupports(DeviceID);
+   DeckLoad::CheckAndInitializeNTRWaste(DeviceID);
+   
+   //Initialize the system
+   SDK::CurrentCategory = "Instrument";
+   SDK::CurrentCommand = "status.connect";
+
+   //Instruments::CallFunction(DeviceID);
+   CallFunctions();
+   API_Helper::Command_Unknown(SDK::CurrentID,SDK::CurrentCategory,SDK::CurrentCommand);
+   SDK::IsConnected = hslTrue;
+   API_Helper::SetConnectionStatus();
+
+   while (SDK::CurrentCommand != "status.terminate")
+   {
+      SDK::CurrentCommand = "";
+      API_Helper::ListenForCommands(SDK::CurrentID,SDK::CurrentCategory,SDK::CurrentCommand,SDK::CurrentParamsOriginal);
+      SDK::CurrentParams = StrMakeLowerCopy(SDK::CurrentParamsOriginal);
+      API_Helper::SetCommunicationStatus("Command Received");
+      CallFunctions();
+      API_Helper::Command_Unknown(SDK::CurrentID,SDK::CurrentCategory,SDK::CurrentCommand);
+   }
+   API_Helper::SetCommunicationStatus("Terminate");
+}
+
+   method main()
+   {
+      private variable l_strController;
+      private variable l_intDeviceIndex;
+      private variable l_strDeviceController;
+      Trace("Instrument Type:  ",instrumentType);
+      SDK::BearerToken = bearerToken;
+      SDK::InstrumentType = instrumentType;
+      SDK::DisableStatusCommunication = disableStatusCommunication;
+      SDK::DisableIdleCommunication = disableIdleCommunication;
+      API_Helper::InitVariables();
+
+      //DeviceGenerator::InitializeCommands();
+
+      API_Helper::SetConnectionStatus();
+
+      l_strController = SDK::ExecutorPath + "\\" + SDK::CommandFile + ".hsl";
+      Trace("Executor:  ",l_strController);
+      //Load controller
+      << l_strController;
+
+      SDK::CurrentCommand = "";
+      API_Helper::SetReadyStatus(hslTrue);
+      while (SDK::CurrentCommand != "status.connect")
+      {
+         SDK::CurrentCommand = "";
+         API_Helper::ListenForCommands(SDK::CurrentID,SDK::CurrentCategory,SDK::CurrentCommand,SDK::CurrentParamsOriginal);
+         SDK::CurrentParams = StrMakeLowerCopy(SDK::CurrentParamsOriginal);
+         API_Helper::SetCommunicationStatus("Command Received");
+         if(SDK::CurrentCommand == "status.connect")
+         {
+            
+            break;
+         }
+         if(SDK::CurrentCommand == "status.terminate")
+         {
+            API_Helper::SetCommunicationStatus("Terminate");
+            API_Helper::SetReadyStatus(hslFalse);
+            return;
+         }
+         CallFunctions();
+         API_Helper::Command_Unknown(SDK::CurrentID,SDK::CurrentCategory,SDK::CurrentCommand);
+      }
+      Trace("Layout Mode:  ",SDK::LoadLayout);
+      if(SDK::LoadLayout == 1){
+         DeckLoad::InitializePreviousDeck(blnPreviousFound);
+         if(!blnPreviousFound){
+            SDK::LoadLayout = 0;
+         }
+      }
+      if(SDK::LoadLayout == 2){
+         DeckLoad::InitializeActiveLayout();
+         DeckLoad::InitializeSpecifiedDeck(blnSpecifiedFound);
+         DeckLoad::CheckAndMoveModels();
+         if(!blnSpecifiedFound){
+            SDK::LoadLayout = 0;
+         }
+      }
+      if(SDK::LoadLayout == 0){
+         DeckLoad::InitializeActiveLayout();
+         DeckLoad::InitializeBlankDeck();
+      }
+      API_Helper::SetIdleStatus(hslFalse);
+      LoadAndWaitForCommands();
+      SDK::IsConnected = hslFalse;
+      API_Helper::SetConnectionStatus();
+      API_Helper::SetIdleStatus(hslTrue);
+      
+   return;
+   }
+
+} // namespace VenusSDK
+// $$author=Bare_B$$valid=0$$time=2026-10-23 12:16$$checksum=6b3451c6$$length=085$$

@@ -1,0 +1,5 @@
+
+function __EvalExpr__()
+{Instrument::status_terminate();}
+
+// $$author=Bare_B$$valid=2$$time=2026-10-14 17:08$$checksum=4a7c69d9$$length=083$$

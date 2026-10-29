@@ -1,0 +1,24 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/23/2026 3:49:45 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace LiquidController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function liquidClass_getLiquidClass(  ) variable {  return (0); }
+function liquidClass_getLiquidClasses(  ) variable {  return (0); }
+function liquidClass_getLiquidDevices(  ) variable {  return (0); }
+function liquidClass_getLiquidNames(  ) variable {  return (0); }
+function liquidClass_getTipTypes(  ) variable {  return (0); }
+function liquidClass_pullLiquidClasses(  ) variable {  return (0); }
+function liquidClass_pushLiquidClasses(  ) variable {  return (0); }
+function liquidClass_updateLiquidClass(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-23 15:49$$checksum=a145b3bd$$length=083$$

@@ -1,0 +1,144 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 146,
+      "type": "VEC3",
+      "max": [
+        64.207756042480469,
+        17.254552841186523,
+        42.227638244628906
+      ],
+      "min": [
+        -63.292228698730469,
+        6.9655418395996094,
+        -42.772354125976562
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 146,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 300,
+      "type": "SCALAR",
+      "max": [
+        145
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 4704,
+      "uri": "Greiner Clear Lid.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 1752,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1752,
+      "byteLength": 1752,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 3504,
+      "byteLength": 1200,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material_003",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.88292497396469116,
+          0.88292497396469116,
+          0.88292497396469116,
+          0.800000011920929
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Cube_001",
+      "primitives": [
+        {
+          "extensions": {
+            "FB_ngon_encoding": {}
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Cube_001",
+      "mesh": 0
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

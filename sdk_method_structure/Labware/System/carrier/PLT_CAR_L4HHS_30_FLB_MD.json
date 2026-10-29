@@ -1,0 +1,178 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:plt_car_l4hhs_30_flb_md_a00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "PLT_CAR_L4HHS_30_FLB_MD_A00",
+  "description": "Carrier with 4 Hamilton heater shaker for flatt bottom mtp",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "PLT_CAR_L4HHS_30_FLB_MD_A00",
+    "originalFile": "PLT_CAR_L4HHS_30_FLB_MD_A00.tml",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 157.5,
+    "y": 497.0,
+    "z": 90.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 80.25,
+        "y": 418.0,
+        "z": 112.7
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 80.25,
+        "y": 298.0,
+        "z": 112.7
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 80.25,
+        "y": 178.0,
+        "z": 112.7
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "4": {
+      "origin": {
+        "x": 80.25,
+        "y": 58.0,
+        "z": 112.7
+      },
+      "label": "Position 4",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "4",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "color": "#C0C0C0",
+    "opacity": 1
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "countOfBcPositions": 0,
+      "isAutoLoad": false,
+      "isLoadable": false,
+      "isRecognizable": false,
+      "carrierLabel": "PLT_CAR_L4HHS_30_FLB_MD_A00",
+      "noReadBarcode": true,
+      "positionsAreRecognizable": false,
+      "widthAsTracks": 7
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

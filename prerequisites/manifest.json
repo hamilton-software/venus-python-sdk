@@ -1,0 +1,68 @@
+{
+  "format_version": "1.0",
+  "prerequisites": [
+    {
+      "name": "hsltime",
+      "display_name": "Hamilton HSLTime Library",
+      "required_version": "1.1",
+      "installer_pattern": "^Hamilton HSLTime Library Installer v([0-9][0-9.]*)\\.exe$",
+      "registry_name_pattern": "HSLTime"
+    },
+    {
+      "name": "hslextensions",
+      "display_name": "Hamilton HSL Extensions",
+      "required_version": "1.1.0",
+      "installer_pattern": "^Hamilton\\.HSLExtensions\\.Setup_v([0-9][0-9.]*)\\.msi$",
+      "registry_name_pattern": "HSL ?Extensions"
+    },
+    {
+      "name": "hslhttp",
+      "display_name": "Hamilton HSLHttp Library",
+      "required_version": "2.9",
+      "installer_pattern": "^Hamilton_HSLHttp_v([0-9][0-9.]*)\\.exe$",
+      "registry_name_pattern": "HSLHttp"
+    },
+    {
+      "name": "hslfilewriter",
+      "display_name": "HSL File Writer Library",
+      "required_version": "1.0.1",
+      "installer_pattern": "^HslFileWriter-V([0-9][0-9.]*)\\.exe$",
+      "registry_name_pattern": "HSL ?File ?Writer"
+    },
+    {
+      "name": "hsljson",
+      "display_name": "HSLJson Library",
+      "required_version": "4.6",
+      "installer_pattern": "^HSLJson Library v([0-9][0-9.]*) Installer\\.exe$",
+      "registry_name_pattern": "HSLJson"
+    },
+    {
+      "name": "hsllabwareconverter",
+      "display_name": "HSL Labware Converter",
+      "required_version": "2.0.6",
+      "installer_pattern": "^HSLLabwareConverter_[Vv]([0-9][0-9.]*)\\.exe$",
+      "registry_name_pattern": "HSL ?Labware ?Converter"
+    },
+    {
+      "name": "hslliquidsconverter",
+      "display_name": "HSL Liquids Converter",
+      "required_version": "1.4",
+      "installer_pattern": "^HSLLiquidsConverter_([0-9][0-9.]*)_Setup\\.exe$",
+      "registry_name_pattern": "HSL ?Liquids ?Converter"
+    },
+    {
+      "name": "tipmanagement",
+      "display_name": "Hamilton Advanced Tip Management Library",
+      "required_version": "3.1.0",
+      "installer_pattern": "^Install Hamilton Advanced Tip Management Library [Vv]([0-9][0-9.]*)\\.exe$",
+      "registry_name_pattern": "Advanced Tip Management"
+    },
+    {
+      "name": "hsllabwraccess",
+      "display_name": "HSLLabwrAccess Library",
+      "required_version": "3.1",
+      "installer_pattern": "^Install HSLLabwrAccess [Vv]([0-9][0-9.]*)\\.exe$",
+      "registry_name_pattern": "HSLLabwrAccess"
+    }
+  ]
+}

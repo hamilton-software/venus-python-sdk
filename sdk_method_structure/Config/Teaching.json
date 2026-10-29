@@ -1,0 +1,65 @@
+{
+  "teaching.1mL.setTeachingChannel": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Sets the 1 mL channel used for teaching. Not allowed while a teaching needle is held.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.getTeachingChannel": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Returns the 1 mL channel used for teaching.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.pickupTeachingNeedle": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Picks up a teaching needle with the teaching channel and measures its length.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.ejectTeachingNeedle": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Returns the teaching needle to its pickup position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.isNeedlePickedUp": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Returns whether the teaching channel is holding a teaching needle.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.getLabwareDimensions": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Returns a labware's center, bottom and height, and a well's center, bottom and depth.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.moveChannelToPosition": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Moves the teaching channel to an X/Y/Z position (needle tip coordinates) over a traverse height.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.measureZHeight": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Searches down with the teaching needle until a Z stall and returns the stall height.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  },
+  "teaching.1mL.measureXY": {
+    "nameSpace": "Teaching1mLController",
+    "description": "Steps along one axis probing Z with the teaching needle until a wall is found and returns its coordinate.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Teaching1mLController.smt"
+  }
+}

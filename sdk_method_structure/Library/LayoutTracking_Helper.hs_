@@ -1,0 +1,64 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/20/2026 10:15:15 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace LayoutTracking {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function AddCarrier( variable i_strCarrierJSON, variable i_intLeftTrack, variable i_strLabwareID, variable i_blnIsPortrait ) void { }
+function AddCarrierToSite( variable i_strLabwareJSON, variable i_strLabware, variable i_strCarrier, variable i_strSite, variable i_fltHeight ) variable {  return (0); }
+function AddLid( device & Device, variable i_strLabware, variable i_strCarrier, variable i_strSite, variable i_fltStackHeight, variable i_fltLidHeight, variable i_fltLidThickness ) variable {  return (0); }
+function AddLiquidWaste( variable i_strLabwareID, variable i_fltX, variable i_fltY, variable i_fltZ, variable i_fltAngle ) void { }
+function AddPlate( variable i_strLabware, variable i_strCarrier, variable i_strSite, variable i_fltStackHeight, variable i_fltHeight ) variable {  return (0); }
+function AddReservoir( variable i_strLabware, variable i_strCarrier, variable i_strSite, variable i_fltHeight ) variable {  return (0); }
+function AddSampleCarrier( variable i_strCarrierJSON, variable i_intLeftTrack, variable i_strLabwareID ) void { }
+function AddTip( variable i_strLabware, variable i_strCarrier, variable i_strSite, variable i_fltStackHeight, variable i_fltHeight, variable i_blnStackable ) variable {  return (0); }
+function AddTransportSite( variable i_strLabwareID, variable i_fltX, variable i_fltY, variable i_fltZ, variable i_fltAngle ) void { }
+function AddTransportTool( variable i_strToolLabware, variable i_intToolType ) void { }
+function AddVantageLiquidWaste( variable i_strLabwareID, variable i_fltX, variable i_fltY, variable i_fltZ, variable i_fltAngle ) void { }
+function AddVantageTransportTool( variable i_strLabwareID, variable i_intToolType, variable i_intLeftTrack ) void { }
+function CheckSequenceForTopLabware( device & Device, sequence i_seqLabware, variable i_blnIgnoreLid, variable & o_strMessage ) variable {  return (0); }
+function CheckSite( variable i_strCarrier, variable i_strSite, variable & o_strSecondCarrier, variable & o_strSecondSite ) variable {  return (0); }
+function GetAllTransportTools( variable & o_arrTransportTools[], variable & o_arrToolIDs[] ) variable {  return (0); }
+function GetAvailableTracks( variable & o_arrAvailableTracks[] ) variable {  return (0); }
+function GetCarrierInfo( variable i_strCarrier, variable & o_strDescription, variable & o_strType, variable & o_blnPortrait ) void { }
+function GetCarrierSites( variable i_strJSON, variable & o_arrSites[] ) variable {  return (0); }
+function GetCarrierTracks( variable i_strCarrier, variable & o_intLeftTrack, variable & o_intRightTrack ) variable {  return (0); }
+function GetCarriers( variable & o_arrCarriers[] ) variable {  return (0); }
+function GetEmptySitesOnCarrier( variable i_strCarrier, variable & o_arrEmptySites[] ) void { }
+function GetLabwareCurrentLocation( device & Instrument, variable i_strLabware, variable & o_strTemplate, variable & o_strSite ) variable {  return (0); }
+function GetLabwareLid( variable i_strCarrier, variable i_strSite, variable i_strLabware, variable & o_strLid ) variable {  return (0); }
+function GetLabwareOnCarrier( variable i_strCarrier, variable & o_arrLabwareOnCarrier[], variable & o_arrLabwareType[] ) variable {  return (0); }
+function GetLidFileValues( variable & i_strFilePath, variable & o_fltStackHeight, variable & o_fltRackBaseToCoverBase, variable & o_fltLiddedStackHeight, variable & o_fltLidHeight, variable & o_fltLidThickness ) variable {  return (0); }
+function GetRackFileValues( variable & i_strFilePath, variable & o_fltRackHeight, variable & o_fltStackHeight ) variable {  return (0); }
+function GetSpecificTransportToolSequence( variable i_intType, sequence & o_seqTransportTool ) variable {  return (0); }
+function GetTopLabware( variable i_strCarrier, variable i_strSite, variable & o_strLabware, variable & o_strType, variable & o_strLid ) variable {  return (0); }
+function GetTrackOccupied( variable i_intTrack, variable & o_blnTrackOccupied, variable & o_intSensorTrack, variable & o_blnSensorAvailable, variable & o_strCarrier ) void { }
+function GetTransportToolSequence( variable i_blnQCG, variable i_bln1mL, sequence & o_seqTransportTool, variable & o_intType ) variable {  return (0); }
+function GetUsedSitesOnCarrier( variable i_strCarrier, variable & o_arrUsedSites[], variable & o_arrLabwareCount[] ) void { }
+function GetUsedTracks( variable & o_arrUsedTracks[] ) variable {  return (0); }
+function GetZOrigin( device & Device, variable i_strLabware ) variable {  return (0); }
+function Init( variable i_intMinTrack, variable i_intMaxTrack, variable i_blnInitCarrierTracking ) void { }
+function InitArrayOfTracks( variable & i_arrActiveTracks[], variable i_blnInitCarrierTracking ) void { }
+function IsCarrierPortrait( variable i_strCarrier ) variable {  return (0); }
+function IsSiteUsed( variable i_strCarrier, variable i_strSite ) variable {  return (0); }
+function IsTop( variable i_strLabware, variable i_strCarrier, variable i_strSite ) variable {  return (0); }
+function IsTrackRangeAvailable( variable i_intTrack, variable i_intWidth ) variable {  return (0); }
+function IsWasteLocation( variable i_strLabware ) variable {  return (0); }
+function MakeLabwareInvisible( device & Device, variable i_strLabwareID ) void { }
+function MakeLabwareVisible( device & Device, variable i_strLabwareID ) void { }
+function RemoveCarrier( variable i_strCarrier ) void { }
+function RemoveLabwareFromSite( variable i_strLabware, variable i_strCarrier, variable i_strSite ) variable {  return (0); }
+function RemoveTransportTool( variable i_intType ) variable {  return (0); }
+function SetRelativePositionForLabwareID( device & Instrument, variable i_strLabwareID, variable i_fltPositionX, variable i_fltPositionY, variable i_fltPositionZ, variable i_fltPositionR ) void { }
+function Update( variable i_strCarrier, variable i_intLeftTrack, variable i_intRightTrack, variable i_blnSensorAvailable ) void { }
+function UpdateCarrierTrack( variable i_strCarrier, variable i_intNewTrack ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-20 22:15$$checksum=09b0f29f$$length=083$$

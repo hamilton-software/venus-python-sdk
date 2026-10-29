@@ -1,0 +1,43 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/21/2026 10:26:16 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace TipCounterTracking {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function ChannelDefragmentTipSequence_ATML( device & ML_STAR, variable i_strTipCounter, variable i_intDefragmentationDirection ) variable {  return (0); }
+function CleanupTipSupport_ATML( device & ML_STAR, variable & o_intRemainingTips ) variable {  return (0); }
+function EditTipCounter_ATML( variable i_strTipCounter, variable i_strAvailableTipsKey, object & i_objJSON ) void { }
+function GetDefaultSequenceFromTipRack( variable i_strTipCounter, variable i_strLabware, sequence & o_seqPositions ) void { }
+function GetMissingRacks_ATML( variable i_strTipCounter, variable & o_arrMissingRacks[] ) void { }
+function GetTipCounterDetails( variable i_strTipCounter, variable & o_arrLabware[], variable & o_intTotalTips, variable & o_intTipType, variable & o_intRackType, variable & o_arrDeviceCompatibility[] ) void { }
+function GetTipCounterSequence( variable i_strTipCounter, sequence & o_seqSequence ) void { }
+function GetTipCounter_ATML( variable i_strTipCounter, object & io_objReturn ) void { }
+function GetTipCounters( variable & o_arrTipCounters[] ) void { }
+function GetTipSupportSequence( variable i_strTipSupport, sequence & o_seqTipSupport ) void { }
+function GetTipSupports( variable & o_arrTipSupports[] ) void { }
+function GetTips_ATML( variable i_strTipCounter, variable i_blnAvailable, sequence & o_seqPositions ) variable {  return (0); }
+function InitializeNTRWaste_ATML( sequence i_seqNTR ) void { }
+function InitializeTipCounter_ATML( device & ML_STAR, variable i_strTipCounter, variable i_intRackType, sequence & io_seqTipSequence ) void { }
+function InitializeTipSupport_ATML( device & ML_STAR, sequence & io_seqTipSequence ) void { }
+function IsLabwareTips( device & Device, variable i_strLabware, variable & o_strTipCounter ) variable {  return (0); }
+function PerformMultiLayerDefragmentation( device & ML_STAR, variable i_strTipCounter, variable i_intDefragmentationDirection ) variable {  return (0); }
+function PerformTransportForCleanUp_ATML( device & ML_STAR, sequence & i_seqTipSupportPosition, variable i_blnPickupColumnWise ) variable {  return (0); }
+function PerformTransportForLowerLayer_ATML( device & ML_STAR, variable i_strTipCounter, variable i_intNumberOfRequiredColsRows, variable i_blnPickupColumnWise, variable i_blnTransportForCleanupRequired ) variable {  return (0); }
+function PerformTransport_ATML( device & ML_STAR, variable i_strTipCounter, variable i_strChannelPattern ) variable {  return (0); }
+function ResetTipCounter_ATML( device & Device, variable i_strTipCounter ) void { }
+function ShowTipCounter_ATML( device & ML_STAR, variable i_strTipCounter, sequence & o_seqPositions ) void { }
+function ShowTipCounters_ATML( device & ML_STAR, variable & i_arrTipCounter[], sequence & o_arrPositions[] ) void { }
+function StartLogging_ATML(  ) void { }
+function TipCounterCheck( device & Device, variable i_strParameterName, variable i_strTipCounter ) void { }
+function UpdateTipCountingTracking( variable i_strTipCounter, sequence i_seqPositions, variable i_intTipType, variable & i_arrDeviceCompatibility[], variable i_intRackType ) void { }
+function UpdateTipSupportTracking( variable i_strLabwareName, sequence i_seqPositions ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-21 22:26$$checksum=f53e7faf$$length=083$$

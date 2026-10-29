@@ -1,0 +1,53 @@
+#pragma global
+
+  #include "C:\\Program Files (x86)\\HAMILTON\\SDK\\Library\\SDK_GlobalVariables.hsl"
+  #include "ASWStandard\\ASWGlobal\\ASWGlobal.hsl"
+  #include "HSLStrLib.hsl"
+  #include "ASWStandard\\TraceLevel\\TraceLevel.hsl"
+
+//DeviceID(SDK::,SDK::DeviceName
+private function WriteAndExecute(variable i_strFilePath, variable i_strContent)
+{
+  object objWriter;
+  onerror goto HandleError;
+  objWriter.CreateObject("Hamilton.HslFileWriter.TextFileWriter");
+  objWriter.WriteTextFile(i_strFilePath, i_strContent);
+  objWriter.ReleaseObject();
+
+  AddCheckSum(i_strFilePath, "//", hslTrue);
+
+  << i_strFilePath;
+
+  #ifdef HSL_RUNTIME
+     __EvalExpr__();
+  #endif
+
+  << i_strFilePath;
+
+  onerror goto 0;
+  HandleError : {
+    objWriter.ReleaseObject();
+  }
+}
+
+function HSLExecuteCommand(variable i_strNamespace, variable i_strCommand, variable i_blnUseDevice)
+{
+  variable tmpFile;
+  variable code;
+
+  StrReplace(i_strCommand,".","_");
+  if(!i_blnUseDevice)
+  {
+    tmpFile = SDK::ExecutorPath + "\\Command.hsl";
+    code = "\nfunction __EvalExpr__()\n{"+i_strNamespace+"::"+i_strCommand+"();}\n";
+  }
+  else
+  {
+    tmpFile = SDK::ExecutorPath + "\\CommandDevice.hsl";
+    code = "\nfunction __EvalExpr__()\n{\ndevice DeviceID(\"\",\"\",hslTrue);\nDeviceID = GetDeviceRef(SDK::DeviceName);\n"+i_strNamespace+"::"+i_strCommand+"(DeviceID);\n}\n";
+  }
+
+  WriteAndExecute(tmpFile, code);
+}
+
+// $$author=Bare_B$$valid=0$$time=2026-08-31 14:34$$checksum=94adb914$$length=083$$

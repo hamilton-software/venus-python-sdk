@@ -1,0 +1,1223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hamilton:schemas:microlab:labware:v1",
+  "title": "Hamilton MicrolabAPI Labware Definition Schema",
+  "description": "Defines laboratory hardware for the Hamilton MicrolabAPI. Supports minimal through fully-detailed definitions. Coordinate origin is left-front-bottom of the labware bounding box (X+ right, Y+ back, Z+ up).",
+  "$comment": "Schema family overview: geometric primitives are defined in the geometry schema (urn:hamilton:schemas:microlab:geometry:v1); site types in the site schema (urn:hamilton:schemas:microlab:site:v1); the shared alignment primitive in the alignment schema (urn:hamilton:schemas:microlab:alignment:v1); labware-specific types in $defs below. The schema's $id carries the major version only ('v1'); minor/patch evolution does not invalidate existing references — the precise version that a definition was authored against is carried inside that definition's schemaVersion field. Cross-schema $refs use URN form (the sibling schemas' $id values) because relative-path $refs don't compose with URN $id (URNs have no path component, so there's no base for relative resolution per RFC 3986). The Hamilton MicrolabAPI serves each schema document at a stable endpoint and ships a URN→endpoint catalog for clients; a public-domain resolver may be added later without changing the URNs. Validator setups that don't have access to the catalog must register each sibling schema under its URN in code — e.g., ajv.addSchema(geometrySchema, 'urn:hamilton:schemas:microlab:geometry:v1').",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "schemaVersion", "labwareClass", "displayName", "dimensions"],
+
+  "mlapi:units": {
+    "$comment": "Custom annotation declaring the unit conventions used throughout this schema. Validators ignore unknown top-level keywords; tooling and documentation generators can consume this block to render units in field descriptions, generated API docs, or downstream client code. The convention applies uniformly across all numeric fields below — individual fields don't repeat units in their description text.",
+    "distance": "mm",
+    "volume": "uL",
+    "weight": "g",
+    "force": "N",
+    "angle": "degrees"
+  },
+
+  "properties": {
+
+    "$schema": {
+      "$comment": "Optional standard JSON-Schema annotation that authoring tools (e.g., VS Code) use to locate this schema for IntelliSense. Allowed at the document root so example/instance files can carry it without tripping additionalProperties:false. When present, must reference this schema's URN.",
+      "type": "string",
+      "const": "urn:hamilton:schemas:microlab:labware:v1"
+    },
+
+    "id": {
+      "$comment": "The 'hamilton' publisher namespace is publisher-locked via signing. This field carries no version or hash suffix — the catalog holds exactly one current representation per id, and MicrolabAPI computes a content hash over the canonical form and reports it alongside the definition rather than embedding it. Versioning, history, and lineage of definitions live in the client's own repository, outside the API contract. Cross-references to other labware (contentsRef, labwareRef) use PublisherRef, the same bare form.",
+      "$ref": "#/$defs/PublisherIdentifier",
+      "description": "Globally unique identifier in bare publisher:identifier form. Mixed-case identifier portion is permitted to accommodate converted Hamilton legacy naming.",
+      "examples": [
+        "hamilton:nunc_96_flat",
+        "mylab:custom_tube_rack_v2",
+        "hamilton:TR384t50gchm4COR"
+      ]
+    },
+
+    "schemaVersion": {
+      "$comment": "Pattern accepts any 1.x.y (optionally with a prerelease suffix) so additive minor increments don't invalidate definitions authored against earlier 1.x revisions. Breaking changes raise the major and the URN also becomes :v2. Current target is 1.0.0-alpha.1 (pre-release; structure may still shift).",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+(-[a-z0-9.]+)?$",
+      "description": "Version of the labware schema this definition conforms to. Any 1.x.y form (with optional prerelease tag like -alpha.1) is accepted; the URN's :v1 fixes the major."
+    },
+
+    "displayName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Human-readable name shown in UIs and reports."
+    },
+
+    "description": {
+      "type": "string",
+      "maxLength": 4000,
+      "description": "Free-text description shown in UIs, search results, and authoring tools to help users distinguish similar items."
+    },
+
+    "labwareClass": {
+      "$comment": "Free-form snake_case identifier rather than a closed enum so vendors can introduce new structural categories without a schema-version change. Four recommended values — probe, tool, assembly, tip_rack — trigger required class-specific blocks via the root allOf coupling; the 'lid' class is recommended too but carries no dedicated block (a lid is identified by labwareClass plus an alignmentFeature). All other values (recommended or custom) use only common fields plus customAttributes. Block names map from snake_case class value to camelCase block name (tip_rack → tipRack) because keys live in the camelCase surface while open-vocabulary values live in the snake_case surface.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]+$",
+      "description": "Structural category. Recommended values: plate, tip_rack, tube_rack, carrier, reservoir, probe, tool, lid, assembly, tube, adapter. Custom values follow the same snake_case shape."
+    },
+
+    "manufacturer": {
+      "description": "Manufacturer and product-line identification for traceability, catalog matching, and reorder workflows. Does not affect physical or operational behavior.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name":       { "type": "string", "minLength": 1, "maxLength": 200, "description": "Manufacturer company name (e.g., 'Thermo Fisher Scientific')." },
+        "brand":      { "type": "string", "minLength": 1, "maxLength": 100, "description": "Brand or product line (e.g., 'Nunc')." },
+        "partNumber": { "type": "string", "minLength": 1, "maxLength": 100, "description": "Manufacturer-assigned part or catalog number." },
+        "catalogUrl": { "type": "string", "format": "uri", "maxLength": 2000, "description": "URL to the product's manufacturer catalog page." }
+      }
+    },
+
+    "source": {
+      "$comment": "Records the previous *system* a converter pulled from — not lineage between definitions in this catalog. The catalog records no derivation pointer; a client that adapts an existing definition tracks that relationship in its own repository, outside the API contract. The 'system' field is free-form (snake_case) so third-party authoring tools, LIMS exports, and customer pipelines can record their own provenance — Hamilton-supplied converters use the standard values listed below.",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Conversion provenance — where this definition originated when imported rather than authored fresh.",
+      "properties": {
+        "system": {
+          "$comment": "Lowercase snake_case even for branded product names (VENUS, InstinctV, MLPrep). This is a match identifier compared by string equality, not display text — a display layer maps 'venus' to 'VENUS'. The mixed-case allowance on the labware id does not apply here: system names a chosen category, not a preserved legacy lookup key.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]+$",
+          "description": "Originating system identifier. Recommended values: 'venus', 'instinctv', 'mlprep', 'manual'. Other values accepted — e.g., third-party authoring tools or LIMS exports."
+        },
+        "originalId":    { "type": "string", "minLength": 1, "maxLength": 200, "description": "Logical identifier in the source system (e.g., VENUS rack name 'HTF_L'; InstinctV DocumentReference; MLPrep catalog SKU). The source system's primary key for this definition." },
+        "originalFile":  { "type": "string", "maxLength": 500, "description": "Source file path or name (e.g., 'HTF_L.rck'). For multi-file source definitions, list all files separated by ' / ' (e.g., 'HTF_L.rck / ht.ctr' for a VENUS rack+ctr pair). Optional when originalId already encodes the file location." },
+        "convertedDate": { "type": "string", "format": "date", "description": "ISO date the conversion was performed." },
+        "convertedBy":   { "type": "string", "maxLength": 200, "description": "Tool or person that performed the conversion (e.g., 'MicrolabAPI LabwareConverter v1.0')." },
+        "notes":         { "type": "string", "maxLength": 2000, "description": "Free-text notes about quirks, assumptions, or ambiguities the converter flagged." }
+      }
+    },
+
+    "dimensions": {
+      "$comment": "Outer rectangular bounding box of the labware at its defined origin — the x/y/z worst-case envelope that encloses every external feature. Used by visualization fallback (draw-a-box when no 3D model is present) and as the coarse collision envelope. Fine-grained external features that don't fill the bounding box uniformly (carrier corner tabs, multiflex pedestal posts, raised rims, mounting brackets) are declared in collisionShapes for tighter collision-detection geometry. The bounding box must enclose all such features; collisionShapes describes their internal structure for consumers that need it.",
+      "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Dimensions3D",
+      "description": "Outer rectangular bounding box (mm). Origin at left-front-bottom corner of the labware."
+    },
+
+    "material": {
+      "$comment": "Consumed by capacitive-LLD sensitivity selection (different dielectrics → different default sensitivity), chemical-compatibility checks (which solvents are safe in contact), temperature-range validation (e.g., polystyrene degrades above ~70°C, polypropylene tolerates higher), and rendering hints. Omit for composite labware where no single material dominates — assemblies should describe their components' materials individually. Recommended values: 'polypropylene', 'polystyrene', 'polycarbonate', 'cyclo_olefin', 'glass', 'quartz', 'stainless_steel', 'aluminum', 'peek'. Custom values (PMMA, PTFE, PFA, anodized aluminum, etc.) follow the same snake_case shape — consumer logic that branches on material must fall back gracefully when it sees an unrecognized value.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]+$",
+      "description": "Primary construction material of the labware body."
+    },
+
+    "weight": {
+      "$comment": "Read by centrifuge balancing (the protocol planner must balance the rotor), integrated-scale presence detection, and any process that totals payload mass. Omit if unknown or if the labware is intentionally never centrifuged or weighed (e.g., a fixed deck adapter).",
+      "type": "number",
+      "description": "Empty mass of the labware in grams (no liquid, no child labware)."
+    },
+
+    "containerGrids": {
+      "$comment": "Object form (rather than an array with an 'id' field) gives JSON-level uniqueness enforcement on the grid id. Single-grid labware conventionally uses key 'default'; multi-grid labware (e.g., dispense control plates) uses semantic keys like 'dispense' and 'collection'. All cross-grid references — addressing, audit/diagnostic logs, intra-labware passthroughs, per-container barcode reads — use the qualified form 'gridId.containerName' (e.g., 'dispense.A1') uniformly, even for single-grid labware ('default.A1'), so consumers never have to special-case 'single grid'.",
+      "type": "object",
+      "description": "Map of grid identifier → ContainerGrid. Each grid holds wells, tube positions, or tip positions. Single-grid labware uses key 'default'.",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9_-]*$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/ContainerGrid" }
+    },
+
+    "connectedContainerGroups": {
+      "$comment": "Object form (rather than an array with an 'id' field) gives JSON-level uniqueness enforcement on the group id — matching containerGrids, sites, and the other identified collections. The group id is the KEY. Containers not listed in any group are treated as independent (the default for most labware).",
+      "type": "object",
+      "description": "Map of group identifier → ConnectedContainerGroup. Each group is a set of containers that share a single volume pool (e.g. a reagent trough, a divided reservoir with a bottom interconnect).",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9_-]*$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/ConnectedContainerGroup" }
+    },
+
+    "intraLabwarePassthroughs": {
+      "type": "array",
+      "description": "Volume flows between container grids within this labware (e.g., a dispense control plate where the top grid drains into the bottom grid).",
+      "items": { "$ref": "#/$defs/IntraLabwarePassthrough" }
+    },
+
+    "sites": {
+      "$comment": "Sites are addressable placement locations that materialize as runtime Parts — a carrier exposes labware positions, a multiflex base exposes module positions, a deck exposes deck positions. In labware definitions each site carries both placement (origin + optional rotationZ, in labware coordinates) and the shared SiteDefinition payload. They are NOT for attachment points that need no independent addressing: a lid seat lives on the labware's own alignmentReceptacles, and same-type stacking on the `selfStack` shorthand — not as a site, so a labware that only receives a lid or stacks on itself needs no sites.",
+      "type": "object",
+      "description": "Map of site identifier → LabwareSite. Site identifiers (e.g. 'pos_a1', 'module_3', 'lid_park') are the keys; each value defines site placement in labware coordinates plus the SiteDefinition payload.",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9_-]*$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/LabwareSite" }
+    },
+
+    "alignmentFeatures": {
+      "$comment": "The placeable side of the alignment contract: named, located features that mate with a site's (or another labware's) alignmentReceptacles of the same name and position this labware. Compatibility is by alignment name; placement is offset subtraction; mismatches warn, never block. The primitive lives in urn:hamilton:schemas:microlab:alignment:v1.",
+      "type": "array",
+      "description": "Named alignment features that locate this labware onto a site or another labware (a plate onto a carrier, a lid onto a plate, or a copy onto a different but compatible tray). Same-type self-stacking uses the `selfStack` shorthand instead of a feature here.",
+      "items": { "$ref": "urn:hamilton:schemas:microlab:alignment:v1#/$defs/Alignment" }
+    },
+
+    "alignmentReceptacles": {
+      "$comment": "The supporting side of the alignment contract ON THE LABWARE ITSELF — where another part attaches to this labware: a lid seat, or a cross-type stacked-tray receptacle. (Same-type self-stacking is the `selfStack` shorthand, which synthesizes its own self-matching receptacle — not authored here.) Each is the shared Alignment (alignment:v1), matched by name against a placed part's alignmentFeatures. Use this for attachment points that need no independent addressing; use `sites` for addressable placement locations (carrier slots, deck positions, module bays) that materialize as runtime Parts.",
+      "type": "array",
+      "description": "Named alignment receptacles on this labware — where another part (a lid, a compatible tray) seats on it. The supporting side of the alignment contract (urn:hamilton:schemas:microlab:alignment:v1).",
+      "items": { "$ref": "urn:hamilton:schemas:microlab:alignment:v1#/$defs/Alignment" }
+    },
+
+    "selfStack": {
+      "$comment": "Shorthand for same-definition stacking, the common case for most stackable labware. Equivalent to a self-matching alignment that the consumer synthesizes from this definition's own identity — a feature at the base (z 0) plus a receptacle at z = height, both keyed to this definition so only an identical copy stacks. Mutually exclusive with hand-authoring that self-matching pair: declaring selfStack together with a same-name alignmentFeature/alignmentReceptacle pair is an authoring error. Cross-type stacking (a copy resting on a different but compatible labware) still uses an explicit shared alignment name, not selfStack. A physical stack-count limit, if ever needed, is a system/stacker concern carried in customAttributes, not here.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["height"],
+      "description": "Declares that an identical copy of this labware stacks on top of it — the common-case shorthand for self-stacking. The consumer expands it to a self-matching alignment (a feature at the base, a receptacle at z = height).",
+      "properties": {
+        "height": {
+          "type": "number",
+          "description": "Stack pitch — the Z increment (mm) per stacked copy: an identical copy's base rests this far above this labware's base. Less than the labware's full height when copies nest."
+        }
+      }
+    },
+
+    "collisionShapes": {
+      "$comment": "Distinct from container segments (interior well geometry) and presenceDetectionZones (sensor-detection regions). Collision bodies use the shared geometry Solid3D; they are coarse over-approximations, so the prism/frustum primitives are the usual choice (spherical_cap/paraboloid are typically volume-curve shapes), but the catalog is not restricted.",
+      "type": "object",
+      "description": "Map of shape identifier → CollisionShape. Each value describes an external feature beyond container interiors that matters for collision detection (carrier corner tabs, mounting brackets, multiflex pedestal posts, raised rims).",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9_-]*$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/CollisionShape" }
+    },
+
+    "gripPoints": {
+      "$comment": "Open-by-design — any registered publisher can add their own entry without modifying others'. Same publisher-namespace rules as labware IDs apply. propertyNames constrains the key format; the value schema constrains each entry to a non-empty array of GripPoint variants.",
+      "type": "object",
+      "description": "Instrument-specific grip parameters. Keys are instrument identifiers in publisher form (e.g. 'hamilton:iswap'). Each value is an array of grip-point variants.",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": { "$ref": "#/$defs/GripPoint" }
+      }
+    },
+
+    "barcodeLocations": {
+      "$comment": "A labware may declare multiple barcode locations — e.g. a tube rack with a side barcode on the rack itself AND per-container barcodes on each tube. Each entry describes where the barcode physically is; whether the runtime's reader can reach that location from a given site is determined at system-composition time.",
+      "type": "object",
+      "description": "Map of barcode-location identifier → BarcodeLocation. Identifiers (e.g. 'side_barcode', 'top_id') are the keys.",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9_-]*$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/BarcodeLocation" }
+    },
+
+    "presenceDetectionZones": {
+      "$comment": "Prevents false-absence readings on labware with open interiors (e.g. Nestable Tip Racks with legs). At system-composition time the deployment tool picks the zone that best overlaps each sensor position and warns if no zone overlaps a sensor.",
+      "type": "object",
+      "description": "Map of zone identifier → PresenceDetectionZone. Each value is an explicit region of guaranteed solid material. Define per-leg for NTRs; define a center zone for solid-base plates.",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9_-]*$"
+      },
+      "additionalProperties": { "$ref": "#/$defs/PresenceDetectionZone" }
+    },
+
+    "visualModel": {
+      "$ref": "#/$defs/VisualModel"
+    },
+
+    "probe": {
+      "$comment": "Required when labwareClass is 'probe'; also permitted when the labware item plays a probe role alongside another class. Public fields cover volume tracking, collision detection, and tip selection. The probe's proprietary internal geometry (e.g., the exact bore profile) is not modeled — the public physical fields are the contract.",
+      "$ref": "#/$defs/ProbeData"
+    },
+
+    "tool": {
+      "$comment": "Required when labwareClass is 'tool'; also permitted when the labware item plays a tool role alongside another class. Operations (gripping, reading, sensing) remain runtime-layer concerns; this block carries physical properties only.",
+      "$ref": "#/$defs/ToolData"
+    },
+
+    "assembly": {
+      "$comment": "Required when labwareClass is 'assembly'; also permitted when the labware item plays an assembly role alongside another class.",
+      "$ref": "#/$defs/AssemblyData"
+    },
+
+    "tipRack": {
+      "$comment": "Required when labwareClass is 'tip_rack'; also permitted when the labware item plays a tip-rack role alongside another class (a wash station with both wells and tip-cleaning positions, for example).",
+      "$ref": "#/$defs/TipRackData"
+    },
+
+    "tags": {
+      "$comment": "Two acceptable shapes: bare tags ('deep_well', 'sterile') and publisher-namespaced tags ('hamilton:validated', 'mylab:gmp_approved').",
+      "type": "array",
+      "description": "Short string labels for filtering, search, and categorization. Each entry is snake_case with an optional 'publisher:' prefix; duplicates are rejected.",
+      "items": {
+        "type": "string",
+        "pattern": "^([a-z][a-z0-9_-]*:)?[a-z0-9][a-z0-9_-]*$",
+        "maxLength": 64
+      },
+      "uniqueItems": true,
+      "examples": [["sbs_footprint", "deep_well", "sterile", "hamilton:validated"]]
+    },
+
+    "customAttributes": {
+      "$comment": "Same publisher-namespace rules as labware IDs — the publisher portion follows the registry/signing policy. With a limited set of labware-authoring publishers, collisions are rare; if the namespace ever needs to broaden to permit unregistered third parties, reverse-DNS keys can be re-introduced via schema evolution. Values are unconstrained JSON by design — namespace owners are responsible for their own value-shape validation, and should publish a JSON Schema for their value shape and maintain it like a public API contract. A per-namespace sub-schema registry can be added without breaking existing definitions when one becomes worthwhile.",
+      "type": "object",
+      "description": "Namespaced extension attributes for specific instruments, UIs, or workflows. Keys are publisher-form identifiers (e.g. 'hamilton:star'); each value is an arbitrary JSON object owned by that publisher.",
+      "minProperties": 1,
+      "additionalProperties": { "type": "object" },
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+      },
+      "examples": [{
+        "hamilton:star": { "tipEjectHeight": 2.5 },
+        "mylab:lims":    { "catalogNumber": "12-3456-78", "storageCondition": "2-8°C" }
+      }]
+    }
+
+  },
+
+  "allOf": [
+    {
+      "$comment": "labwareClass → class-completeness coupling. Each defined labwareClass requires the aspects that make it usable when that class is declared: probe requires probe + material; tool requires tool; assembly requires assembly + alignmentFeatures; tip_rack requires tipRack + containerGrids + alignmentFeatures; plate, tube, tube_rack, and reservoir require containerGrids + alignmentFeatures; carrier requires sites + alignmentFeatures; adapter requires alignmentFeatures and either sites or alignmentReceptacles; lid requires alignmentFeatures. Where alignmentFeatures is required at least one feature is required (minItems 1); containerGrids and sites already require at least one entry. A custom / unknown labwareClass matches no branch and is held only to the universal rules. Additional class-specific blocks may appear alongside when the labware item physically plays more than one role — a wash station classed as 'plate' may also carry a tipRack block, and each block is validated against its own contract. These completeness rules are part of the base contract and are checked at catalog acceptance; adding them to the base is additive before the v1 freeze and would be breaking after it.",
+      "allOf": [
+        { "if": { "properties": { "labwareClass": { "const": "probe" }     }, "required": ["labwareClass"] }, "then": { "required": ["probe", "material"] } },
+        { "if": { "properties": { "labwareClass": { "const": "tool" }      }, "required": ["labwareClass"] }, "then": { "required": ["tool"] } },
+        { "if": { "properties": { "labwareClass": { "const": "assembly" }  }, "required": ["labwareClass"] }, "then": { "required": ["assembly", "alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } },
+        { "if": { "properties": { "labwareClass": { "const": "tip_rack" }  }, "required": ["labwareClass"] }, "then": { "required": ["tipRack", "containerGrids", "alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } },
+        { "if": { "properties": { "labwareClass": { "const": "plate" }     }, "required": ["labwareClass"] }, "then": { "required": ["containerGrids", "alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } },
+        { "if": { "properties": { "labwareClass": { "const": "tube" }      }, "required": ["labwareClass"] }, "then": { "required": ["containerGrids", "alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } },
+        { "if": { "properties": { "labwareClass": { "const": "tube_rack" } }, "required": ["labwareClass"] }, "then": { "required": ["containerGrids", "alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } },
+        { "if": { "properties": { "labwareClass": { "const": "reservoir" } }, "required": ["labwareClass"] }, "then": { "required": ["containerGrids", "alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } },
+        { "if": { "properties": { "labwareClass": { "const": "carrier" }   }, "required": ["labwareClass"] }, "then": { "required": ["sites", "alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } },
+        { "if": { "properties": { "labwareClass": { "const": "adapter" }   }, "required": ["labwareClass"] }, "then": { "required": ["alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } }, "anyOf": [ { "required": ["sites"] }, { "required": ["alignmentReceptacles"] } ] } },
+        { "if": { "properties": { "labwareClass": { "const": "lid" }       }, "required": ["labwareClass"] }, "then": { "required": ["alignmentFeatures"], "properties": { "alignmentFeatures": { "minItems": 1 } } } }
+      ]
+    }
+  ],
+
+  "$defs": {
+
+    "LabwareSite": {
+      "$comment": "Labware-local site: the shared SiteDefinition payload (footprint, alignmentReceptacles, label, customAttributes) flattened in via allOf + $ref, plus the labware-local placement fields origin and rotationZ. unevaluatedProperties:false closes the object across the $ref — the JSON-Schema-2020-12 idiom for 'shared payload + local fields, still closed' (a plain additionalProperties:false cannot see the $ref'd properties and would reject footprint). footprint is required here (labware sites always carry one); the shared definition leaves it optional so standalone system sites may omit it. System-level materialization composes origin/rotationZ with the parent transformation into a SystemSite transformation.",
+      "type": "object",
+      "allOf": [
+        { "$ref": "urn:hamilton:schemas:microlab:site:v1#/$defs/SiteDefinition" }
+      ],
+      "required": ["origin", "footprint"],
+      "description": "One site declared on a labware definition: the shared site-contract payload (footprint, alignmentReceptacles, label, customAttributes) plus placement in labware coordinates (origin, rotationZ).",
+      "properties": {
+        "origin": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point3D",
+          "description": "Center of the site's footprint in labware coordinates (mm) — the origin of the site's local frame, on which its footprint is centered and from which its alignmentReceptacles offsets are measured. A placed child labware's footprint center seats here; for a centered seat a receptacle states only z. (Center-anchored like a container position, its labware-level analog — see conventions.md §8.)"
+        },
+        "rotationZ": {
+          "type": "number",
+          "default": 0,
+          "description": "Optional rotation about Z (degrees) of the site's local frame relative to the labware frame."
+        }
+      },
+      "unevaluatedProperties": false
+    },
+
+    "ContainerGrid": {
+      "$comment": "The grid's identifier is the KEY under which this ContainerGrid is stored in the parent labware's containerGrids map — not a field on this object. Cross-grid container addressing uses the 'gridId.containerName' form (e.g., 'dispense.A1').",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["columns", "rows", "columnPitch", "rowPitch", "iterationOrder", "firstContainerCenter", "containerDefinition"],
+      "properties": {
+
+        "columns": { "type": "integer", "minimum": 1, "description": "Number of columns in the grid." },
+        "rows":    { "type": "integer", "minimum": 1, "description": "Number of rows in the grid." },
+
+        "columnPitch": {
+          "type": "number",
+          "description": "Center-to-center X spacing between columns (mm). 9.0 for SBS standard."
+        },
+        "rowPitch": {
+          "type": "number",
+          "description": "Center-to-center Y spacing between rows (mm). 9.0 for SBS standard."
+        },
+
+        "iterationOrder": {
+          "$comment": "Indices are per-grid; multi-grid labware uses the qualified form 'gridId.containerName' to disambiguate. Channel-mapped pipetting (e.g., CO-RE 8-channel picking 8 tips at once) at runtime relies on this mapping; consumers that address by name can ignore it. Required (not defaulted) so authors always declare the choice consciously — getting it wrong silently mis-orders multi-channel operations. The default annotation tells authoring tools the sensible starting value (column_major matches SBS plates) but the field must still be written.",
+          "type": "string",
+          "enum": ["column_major", "row_major"],
+          "default": "column_major",
+          "description": "Canonical mapping from linear index (1..N) to [row, column] position within this grid. 'column_major' (SBS convention): A1=1, B1=2, ..., H1=8, A2=9, ..., H12=96. 'row_major' (common tip-rack convention): A1=1, A2=2, ..., A12=12, B1=13, ..., H12=96."
+        },
+
+        "firstContainerCenter": {
+          "$comment": "Anchor for all per-container Z math: volumeModel.lookupTable's h=0 entry maps to this Z, segments[0] starts at this Z and stacks upward, and pipetting-descent targets are computed as firstContainerCenter.z + height_above_floor. This Z is the cavity floor's height above the labware base (Z=0); the plastic under the cavity is a separate fact (bottomWallThickness on ContainerDefinition), which places the container's exterior bottom at firstContainerCenter.z minus bottomWallThickness.",
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point3D",
+          "description": "XYZ of the center of the first container's interior floor, in labware coordinates (mm) — the per-position geometric anchor (X/Y is the position center; Z is the cavity floor above the labware base). For a liquid container, that floor is the surface liquid rests on; a tip- or tube-rack position holds no liquid, so its Z is simply the cavity's bottom reference (where a bottoming occupant rests). 'First container' is A1 / position [0,0] / linear index 1 — whichever naming convention the grid uses."
+        },
+
+        "namingConvention": {
+          "$comment": "Defaults produce A1–H12 for SBS plates (rowStyle=alpha on Y axis, columnStyle=numeric on X axis, format=[row][col]). Alpha labels past Z continue as AA, AB, AC, … AZ, BA, … (bijective base-26, like spreadsheet column letters) — not the doubled AA, BB, CC form — so a 32-row 1536 plate is A–Z then AA–AF. Override format for tube racks (e.g., '[col]' for 1..N numbering), custom plates, or any non-SBS layout.",
+          "type": "object",
+          "additionalProperties": false,
+          "description": "How container names are generated from row/column position.",
+          "properties": {
+            "rowAxis":     { "type": "string", "enum": ["x", "y"], "default": "y", "description": "Which labware axis increments the row label." },
+            "rowStyle":    { "type": "string", "enum": ["alpha", "numeric"], "default": "alpha", "description": "Whether rows are labeled as letters (A, B, ...) or digits (1, 2, ...)." },
+            "columnStyle": { "type": "string", "enum": ["alpha", "numeric"], "default": "numeric", "description": "Whether columns are labeled as letters or digits." },
+            "format": {
+              "$comment": "Template controls both layout (row/col ordering) and any surrounding text. The substitution tokens are [row] and [col]; everything else is emitted verbatim. Examples: '[row][col]' → 'A1' (SBS); '[col][row]' → '1A'; '[col]' → '1', '2', ..., '24' (column-only, useful for numbered tube racks); 'Pos_[col]' → 'Pos_1'; 'T-[row]-[col]' → 'T-A-1'. For per-position arbitrary names that can't be expressed as a template, a future enhancement on containerOverrides would be needed.",
+              "type": "string",
+              "default": "[row][col]",
+              "description": "Template string. [row] and [col] are substitution tokens; everything else is emitted verbatim. Default '[row][col]' yields SBS-style naming."
+            }
+          }
+        },
+
+        "containerDefinition": {
+          "$ref": "#/$defs/ContainerDefinition",
+          "description": "Default container definition applied to every position in the grid."
+        },
+
+        "containerOverrides": {
+          "$comment": "Use for positions that share the grid's geometry and spacing but differ in a small operational way — typical use is marking alignment-pin or corner positions disabled, or fine-tuning per-position pipetting parameters. NOT intended for positions with fundamentally different geometry; declare a separate grid in the parent labware's containerGrids map for those. Only declared fields are overridden; all other fields inherit from containerDefinition.",
+          "type": "object",
+          "description": "Per-position overrides keyed by container name (e.g. 'A1'). Only specified fields are overridden.",
+          "minProperties": 1,
+          "additionalProperties": { "$ref": "#/$defs/ContainerDefinitionOverride" }
+        },
+
+        "customAttributes": {
+          "$comment": "Grid-scoped vendor extensions keyed by publisher namespace — facts that apply to this grid as a whole rather than to the labware as a whole or to one container. Same publisher-form keys and opaque-object values as the labware-root customAttributes; values are owned by the namespace publisher.",
+          "type": "object",
+          "description": "Namespaced extension attributes scoped to this grid. Keys are publisher-form identifiers (e.g. 'hamilton:star').",
+          "minProperties": 1,
+          "additionalProperties": { "type": "object" },
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$" }
+        }
+
+      }
+    },
+
+    "ContainerDefinition": {
+      "$comment": "'Container' here names the physical cavity at a grid position — not the contents. openingDimensions and totalDepth describe the cavity whether the position holds liquid directly (a well), a tip (contentsRef → probe), or a tube (contentsRef → tube): totalDepth is always required — it drives crash detection on pickup and fit checks, and lets consumers rely on it without null-checking. volumeModel is the liquid volume-at-height curve and is required only for containers that hold liquid directly — i.e. when there is no contentsRef. A tip- or tube-rack position holds no liquid itself: its occupant's volume lives on the referenced probe or tube (contentsRef), so the position may omit volumeModel. See the allOf rule below.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["totalDepth"],
+      "allOf": [
+        {
+          "$comment": "volumeModel (the liquid volume-at-height curve) is required only for containers that hold liquid directly — i.e. when there is no contentsRef. A tip- or tube-rack position delegates its occupant's volume to the referenced probe/tube and may omit it.",
+          "if": { "not": { "required": ["contentsRef"] } },
+          "then": { "required": ["volumeModel"] }
+        }
+      ],
+      "dependentRequired": {
+        "pipettingChannelGeometry": ["volumeModel"]
+      },
+      "properties": {
+
+        "openingDimensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Top opening geometry of the container — the cross-section a probe enters through.",
+          "properties": {
+            "shape":        { "type": "string", "enum": ["circle", "rectangle", "rounded_rectangle"], "description": "Opening cross-section shape." },
+            "diameter":     { "type": "number", "description": "circle: diameter (mm)" },
+            "width":        { "type": "number", "description": "rectangle / rounded_rectangle: X dimension (mm)" },
+            "depth":        { "type": "number", "description": "rectangle / rounded_rectangle: Y dimension (mm)" },
+            "cornerRadius": { "type": "number", "description": "rounded_rectangle: corner curve radius (mm)" }
+          },
+          "allOf": [
+            { "$comment": "shape → required cross-section dimensions, matching the inferredFromShape and Shape2D coupling pattern (the if fires only when shape is present, so omitting openingDimensions entirely stays legal).",
+              "if": { "properties": { "shape": { "const": "circle" } }, "required": ["shape"] },
+              "then": { "required": ["diameter"] } },
+            { "if": { "properties": { "shape": { "enum": ["rectangle", "rounded_rectangle"] } }, "required": ["shape"] },
+              "then": { "required": ["width", "depth"] } }
+          ]
+        },
+
+        "totalDepth": {
+          "type": "number",
+          "description": "Total depth from top opening to cavity bottom (mm)."
+        },
+
+        "maxPipettingDepth": {
+          "$comment": "Optional — if absent, consumers may derive a default from totalDepth minus a manufacturer-recommended safety margin. Declare explicitly when the safety margin matters (deep wells with delicate bottoms, conical-tip containers, narrow capillaries).",
+          "type": "number",
+          "description": "Maximum safe pipetting depth from the top of the container (mm). The runtime will not descend below this point."
+        },
+
+        "bottomWallThickness": {
+          "type": "number",
+          "description": "Thickness of the container's bottom wall (mm) — from the cavity interior floor down to that container's own exterior bottom. Skirt-independent: the container's exterior bottom sits at firstContainerCenter.z minus this value. Used for magnet / heat-block proximity and under-plate collision. Distinct from firstContainerCenter.z (the floor's height above the labware base) and from the alignment contactZ (where the labware seats onto a site)."
+        },
+
+        "volumeModel": {
+          "$ref": "#/$defs/VolumeModel",
+          "description": "Liquid volume-at-height model for the container's interior. Required for containers that hold liquid directly (no contentsRef); a tip- or tube-rack position may omit it. See VolumeModel for the three-tier precedence."
+        },
+
+        "pipettingChannelGeometry": {
+          "$comment": "Supplementary to the volumeModel, never a tier of it: volume and liquid-level math never read this field, and its presence does not weaken the volumeModel requirement (dependentRequired above — a container carrying this field must carry a volumeModel). Resolution for a restricted channel: this authored shape if present, otherwise the runtime derives the shape from volumeModel.segments; a container whose volume model is only a lookupTable has nothing to derive from and needs this field to be usable on restricted channels. Deliberately NOT validated against the volume model — explicit control is the point (an author may present a restricted channel with a deviating shape, e.g. a safety margin near a delicate bottom); consistency checking is at most advisory, never blocking. Unrestricted channel families consume the full volume model and ignore this field.",
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/CylindricalConicalGeometry",
+          "description": "What restricted pipetting channels receive for this container: the cylindrical-conical shape (a truncated cone joined flush under a cylindrical shaft). Optional; when absent, the runtime derives the shape from volumeModel.segments."
+        },
+
+        "liquidDetection": {
+          "$ref": "#/$defs/LiquidDetectionProperties",
+          "description": "Per-container LLD capability profile (whether the container can be sensed, and per-mode sensitivity)."
+        },
+
+        "workingVolumeMin": {
+          "$comment": "Distinct from the geometric minimum — this is the manufacturer-recommended minimum volume for reliable pipetting and assay performance.",
+          "type": "number",
+          "description": "Recommended minimum working volume (uL). Below this, meniscus detection and dispensing accuracy degrade."
+        },
+
+        "workingVolumeMax": {
+          "$comment": "Distinct from max geometric volume — this is the manufacturer-recommended safe fill to avoid overflow during shaking, centrifugation, or thermal expansion.",
+          "type": "number",
+          "description": "Recommended maximum working volume (uL). Above this, spillage risk increases under agitation or thermal expansion."
+        },
+
+        "contentsRef": {
+          "$comment": "Bare publisher:identifier; resolves at activation to the catalog's current representation. Content hashes are pinned by MicrolabAPI at execution time, never authored into the definition.",
+          "$ref": "#/$defs/PublisherRef",
+          "description": "Reference to the labware definition for the item occupying this container — typically a probe (tip or needle) or a tube."
+        },
+
+        "alignmentReceptacles": {
+          "$comment": "The supporting side of the alignment contract for the occupant seated in this container position — used only when the occupant does not simply rest on the cavity floor (a tip riding on its collar shoulder, a tube biased to one side by a leaf-spring). Each is the shared Alignment (alignment:v1), matched by name against the occupant's alignmentFeatures. Offsets are in this container's own frame: z above the cavity interior floor (the firstContainerCenter.z plane), x/y from the position center. Several may be declared when different occupants seat differently in the same position; the greatest resting Z wins. Omit for the common case where the occupant rests on the floor — firstContainerCenter.z locates it and the contentsRef target carries the occupant's own geometry.",
+          "type": "array",
+          "description": "Optional occupant-seating receptacles for this container position — where a held tip or tube seats when it does not rest on the cavity floor. The supporting side of the alignment contract (urn:hamilton:schemas:microlab:alignment:v1).",
+          "items": { "$ref": "urn:hamilton:schemas:microlab:alignment:v1#/$defs/Alignment" }
+        },
+
+        "interiorObstructions": {
+          "$comment": "Keyed map of interior solid features that occupy space inside this container — wave-breaks, mixing baffles, structural dividers, support struts, vendor-defined no-pipette zones. Consumed by pipette-motion planning (channel-group spacing, tip descent) which sweeps proposed paths against these shapes. By convention NOT used for volume-tracking math — the volumeModel is the authoritative liquid-volume curve, so an author who wants to account for displaced volume bakes the correction into volumeModel.lookupTable. Geometry vocabulary parallels CollisionShape (the same shared geometry Solid3D) but the field is per-ContainerDefinition rather than top-level on the labware, because the pattern is typically uniform across all positions in a grid (every well of a 96-tube rack with the same wave-break; every position of a reagent tub with the same center partition). The obstruction's logical identifier is the KEY in this map. Origin is in container-local coordinates: z=0 at the cavity floor, X/Y in the container's local frame.",
+          "type": "object",
+          "description": "Per-container interior obstructions (wave-breaks, struts, dividers) that occupy 3D space inside the cavity. Read by pipette-motion planning; not used for volume math.",
+          "minProperties": 1,
+          "propertyNames": { "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+          "additionalProperties": { "$ref": "#/$defs/InteriorObstruction" }
+        },
+
+        "customAttributes": {
+          "$comment": "Container-scoped vendor extensions keyed by publisher namespace — per-cavity facts the core vocabulary does not carry (a coating note, a LIMS well attribute). Applies to every position in the grid; per-position differences go on the matching ContainerDefinitionOverride. Same publisher-form keys and opaque-object values as the labware-root customAttributes.",
+          "type": "object",
+          "description": "Namespaced extension attributes scoped to this container. Keys are publisher-form identifiers (e.g. 'hamilton:star').",
+          "minProperties": 1,
+          "additionalProperties": { "type": "object" },
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$" }
+        }
+
+      }
+    },
+
+    "ContainerDefinitionOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Partial override of ContainerDefinition for a specific grid position. Only the listed fields can be overridden; everything else inherits from the grid's containerDefinition.",
+      "properties": {
+        "maxPipettingDepth": { "type": "number", "description": "Per-position maximum pipetting depth (mm). Overrides the grid default." },
+        "volumeModel":       { "$ref": "#/$defs/VolumeModel", "description": "Per-position volume model. Overrides the grid default." },
+        "liquidDetection":   { "$ref": "#/$defs/LiquidDetectionProperties", "description": "Per-position LLD profile. Overrides the grid default." },
+        "disabled": {
+          "type": "boolean",
+          "description": "Mark this position as unavailable (e.g. damaged well, alignment pin position)."
+        },
+        "customAttributes": {
+          "$comment": "Per-position vendor extensions keyed by publisher namespace — adds to or overrides the grid containerDefinition's customAttributes for this one position. Same publisher-form keys and opaque-object values as the labware-root customAttributes.",
+          "type": "object",
+          "description": "Namespaced extension attributes for this specific position. Keys are publisher-form identifiers (e.g. 'hamilton:star').",
+          "minProperties": 1,
+          "additionalProperties": { "type": "object" },
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$" }
+        }
+      }
+    },
+
+    "VolumeModel": {
+      "$comment": "Three tiers of increasing realism. Any combination can be provided; the runtime uses the highest-precedence tier present, in the order lookupTable > segments > inferredFromShape. Empirical measurement wins over analytic models because real labware deviates from ideal geometry (manufacturing tolerances, draft angles, fillets, meniscus effects). When segments and lookupTable disagree, the lookupTable is ground truth — authors should correct or remove segments rather than rely on stale parametric data.",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Volume-at-height model for a container. At least one of lookupTable, segments, or inferredFromShape is required.",
+      "anyOf": [
+        { "required": ["lookupTable"] },
+        { "required": ["segments"] },
+        { "required": ["inferredFromShape"] }
+      ],
+      "properties": {
+
+        "lookupTable": {
+          "$comment": "Keys are height in mm from container bottom; values are volume in uL. The runtime interpolates linearly between points. Highest-precedence tier — empirical data wins over analytic models when both are present.",
+          "type": "object",
+          "description": "Empirical height (mm) → volume (uL) calibration points (highest precedence). Interpolated at runtime.",
+          "additionalProperties": { "type": "number" },
+          "examples": [{ "0.0": 0, "5.0": 96.8, "10.0": 193.6 }]
+        },
+
+        "segments": {
+          "$comment": "Segment 0 is the deepest point of the container. The runtime integrates each segment's volume formula to produce V(h). The segment vocabulary covers six volume-precise primitive shapes — see the shared geometry Solid3D for the type enum. Used only when lookupTable is absent.",
+          "type": "array",
+          "description": "Parametric geometric segments (medium precedence), ordered bottom-to-top.",
+          "minItems": 1,
+          "items": { "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Solid3D" }
+        },
+
+        "inferredFromShape": {
+          "$comment": "The runtime derives an approximate volume curve analytically from the declared shape. Suitable for flat-bottom and simple V/U-bottom containers; accuracy degrades for complex geometries. Shape-specific required dimensions are enforced via allOf below. The totalDepth and cross-section dimensions here deliberately restate the container's totalDepth and openingDimensions so this analytic tier is self-contained — the structures are intentionally kept separate (do not merge them); a consistency check requires the restated values to agree with the container's when both are present.",
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Simple shape descriptor for analytic volume approximation (minimal tier).",
+          "required": ["shape", "totalDepth", "maxVolume"],
+          "properties": {
+            "shape": {
+              "type": "string",
+              "enum": [
+                "flat_bottom_cylinder",
+                "flat_bottom_rectangle",
+                "v_bottom_cylinder",
+                "v_bottom_rectangle",
+                "u_bottom",
+                "round_bottom",
+                "parabolic_bottom"
+              ],
+              "description": "Idealised container shape."
+            },
+            "diameter":   { "type": "number", "description": "Circular shapes: opening / cross-section diameter (mm)" },
+            "width":      { "type": "number", "description": "Rectangular shapes: X dimension (mm)" },
+            "depth":      { "type": "number", "description": "Rectangular shapes: Y dimension (mm)" },
+            "totalDepth": { "type": "number", "description": "Total container depth (mm)" },
+            "maxVolume":  { "type": "number", "description": "Nominal maximum volume (uL)" }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "shape": { "enum": ["flat_bottom_cylinder", "v_bottom_cylinder", "u_bottom", "round_bottom", "parabolic_bottom"] } } },
+              "then": { "required": ["diameter"] }
+            },
+            {
+              "if": { "properties": { "shape": { "enum": ["flat_bottom_rectangle", "v_bottom_rectangle"] } } },
+              "then": { "required": ["width", "depth"] }
+            }
+          ]
+        }
+
+      }
+    },
+
+    "CollisionShape": {
+      "$comment": "Distinct from container segments (interior geometry) and PresenceDetectionZone (sensor regions). The 'shape' uses the shared geometry Solid3D; external collision bodies are coarse over-approximations, so the prism/frustum primitives are the usual choice (volume-precise shapes like paraboloid / spherical_cap are rarely needed) but the catalog is not restricted. Designed to grow over time: future additions like meshRef (for proprietary 3D models) or composite multi-primitive bodies can be added here. The shape's logical identifier is the KEY in the parent labware's collisionShapes map.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape", "origin"],
+      "description": "One external collision-relevant feature on the labware (carrier corner tab, mounting bracket, multiflex pedestal post, raised rim).",
+      "properties": {
+        "shape": {
+          "$comment": "Geometric primitive for the collision body — the shared geometry Solid3D (cylinder, rectangular_prism, conical_frustum, rectangular_frustum, spherical_cap, paraboloid). Collision shapes are coarse over-approximations: the prism/frustum primitives are the usual choice for carrier bodies, posts, brackets, and tapered rims, but the catalog is not restricted. Dimensional fields use diameter to stay consistent with container segments and manufacturer spec sheets.",
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Solid3D"
+        },
+        "origin": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point3D",
+          "description": "Position of the shape's origin in labware coordinates (mm): the shape's center in X/Y, at its base (bottom) in Z, extruding upward by its height. Center-in-X/Y matches the radially-symmetric primitives (cylinder, frustum, spherical_cap, paraboloid) that have no corner; see conventions.md §8 (coordinate anchoring)."
+        },
+        "rotationZ": { "type": "number", "description": "Optional rotation around Z (degrees). Defaults to 0." }
+      }
+    },
+
+    "InteriorObstruction": {
+      "$comment": "One interior solid feature inside a ContainerDefinition's cavity. The shape sub-object uses the shared geometry Solid3D (cylinder, rectangular_prism, conical_frustum, rectangular_frustum, spherical_cap, paraboloid), the same body vocabulary as CollisionShape — though the two surfaces describe different concerns (CollisionShape = external collision body; InteriorObstruction = interior pipette-avoidance). If interior geometry later needs a primitive that makes no sense externally (e.g., a 'sloped_baffle'), this $ref can be narrowed to a dedicated def without affecting CollisionShape. Position origin is in CONTAINER-LOCAL coordinates: z=0 at the cavity floor, X/Y in the container's local frame, not labware coordinates. Shape-specific required fields are enforced inside Solid3D; the outer 'shape' and 'origin' are top-level required.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape", "origin"],
+      "description": "One interior obstruction (wave-break, baffle, divider, strut) occupying 3D space inside a container cavity.",
+      "properties": {
+        "shape": {
+          "$comment": "Geometric primitive for the obstruction body — the shared geometry Solid3D, matching CollisionShape. Coarse over-approximations: the prism/frustum primitives are the usual choice for wave-breaks, baffles, dividers, and support struts, but the catalog is not restricted.",
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Solid3D"
+        },
+        "origin": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point3D",
+          "description": "Position of the obstruction's origin in container-local coordinates (mm). z=0 at the cavity floor."
+        },
+        "rotationZ": {
+          "type": "number",
+          "description": "Optional rotation around Z (degrees). Defaults to 0."
+        }
+      }
+    },
+
+    "PassthroughMode": {
+      "$comment": "Shared volume-flow shape vocabulary, referenced by both IntraLabwarePassthrough.mode (flow between grids within one labware) and ContainerPassthrough.mode (flow between components in an assembly). A single definition keeps the two passthrough mechanisms from diverging: a mode added here affects both. How each mode distributes volume is documented at each referencing site.",
+      "type": "string",
+      "enum": ["one_to_one","one_to_many","many_to_one","mapped"]
+    },
+
+    "PassthroughMap": {
+      "$comment": "Shared structural shape for the explicit per-position correspondence used when a passthrough's mode is 'mapped'. Referenced by both IntraLabwarePassthrough.map and ContainerPassthrough.map; each referencing site documents its own naming context (grid vs component) in a description sibling. A single definition keeps the two map shapes from diverging.",
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+        ]
+      }
+    },
+
+    "IntraLabwarePassthrough": {
+      "$comment": "Exactly one of two reference forms must be used per entry: (1) POSITION-LEVEL — 'from' + 'to' specify single source and target containers via qualified gridId.containerName; (2) GRID-LEVEL — 'fromGrid' + 'toGrid' specify whole-grid passthrough, with the per-position mapping determined by 'mode'. Mixing the two forms is rejected by the oneOf below. When mode='mapped', the 'map' field is required and provides explicit unqualified-name correspondences between source and target grids.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "description": "One volume-flow declaration between grids within this labware (e.g., a dispense control plate where the 'dispense' grid drains into the 'collection' grid).",
+      "properties": {
+        "from": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*\\.[A-Za-z0-9_-]+$",
+          "description": "Position-level source container as qualified 'gridId.containerName' (e.g., 'dispense.A1'). Used only with 'to'; mutually exclusive with 'fromGrid' / 'toGrid'."
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*\\.[A-Za-z0-9_-]+$",
+          "description": "Position-level target container as qualified 'gridId.containerName' (e.g., 'collection.A1'). Used only with 'from'; mutually exclusive with 'fromGrid' / 'toGrid'."
+        },
+        "fromGrid": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "description": "Grid-level source grid id (key in containerGrids). Used only with 'toGrid'; mutually exclusive with 'from' / 'to'."
+        },
+        "toGrid": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "description": "Grid-level target grid id (key in containerGrids). Used only with 'fromGrid'; mutually exclusive with 'from' / 'to'."
+        },
+        "mode": {
+          "$comment": "Volume-distribution semantics. Position-level (from/to) entries should declare 'one_to_one' (the only sensible value for a single-source-to-single-target pair). Grid-level (fromGrid/toGrid) entries: 'one_to_one' requires equal grid sizes and pairs positions by linear index — source volume V transfers fully to the paired target. 'one_to_many' fans each source to N targets (N derived from grid geometry — e.g., a 1×8 source to each column of an 8×8 target); source volume V is divided EQUALLY (V/N per target), conserving mass. 'many_to_one' converges N sources to each target; each source's full volume contributes, target accumulates the sum. 'mapped' uses the explicit 'map' field for non-uniform correspondences. Non-uniform / weighted distribution is not modeled — re-open when a concrete labware needs it.",
+          "$ref": "#/$defs/PassthroughMode",
+          "description": "Flow shape between source and target containers."
+        },
+        "map": {
+          "$ref": "#/$defs/PassthroughMap",
+          "description": "Required when mode='mapped'. Map of source container name → target. Value is a single target name (1:1 mapping; duplicate values across keys express many:1 convergence) OR an array of target names (1:N fan-out, with equal split). Names are UNQUALIFIED — grid context comes from fromGrid/toGrid or from/to. Examples: { 'A1': 'A1', 'A2': 'B1' } for 1:1; { 'A1': ['B1', 'C1', 'D1'] } for 1:3 fan-out."
+        }
+      },
+      "oneOf": [
+        { "required": ["from", "to"] },
+        { "required": ["fromGrid", "toGrid"] }
+      ],
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "mapped" } }, "required": ["mode"] },
+          "then": { "required": ["map"] }
+        },
+        {
+          "$comment": "Position-level (from/to) entries describe one source flowing to one target, so the only coherent mode is one_to_one and an explicit map is not allowed. Non-uniform routing — fan-out, convergence, or arbitrary correspondence — uses the grid-level (fromGrid/toGrid) form with mode one_to_many / many_to_one / mapped.",
+          "if": { "required": ["from"] },
+          "then": {
+            "properties": { "mode": { "const": "one_to_one" } },
+            "not": { "required": ["map"] }
+          }
+        }
+      ]
+    },
+
+    "LiquidDetectionProperties": {
+      "$comment": "Carries only container-intrinsic detection facts: whether the container can be sensed at all, and the geometric seek start. Per-mode detection sensitivity (capacitive vs pressure) is deliberately NOT here — the correct value depends on many variables the labware definition cannot know (liquid type, tip, carrier mounting, deck grounding), so a per-container default would be confidently wrong. Sensitivity defaults live on the liquid class and are overridable per aspiration at the operation endpoint. supportsLLD: false is for genuinely unsensing containers (airtight lids, foaming-reagent wells with contraindicated workflows).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supportsLLD"],
+      "description": "Per-container liquid-level-detection capability profile.",
+      "properties": {
+        "supportsLLD": { "type": "boolean", "description": "Whether this container can be sensed by any LLD mode at all. False only for genuinely unsensing cases." },
+        "liquidSeekingStartHeight": {
+          "type": "number",
+          "description": "Z clearance above the container top where LLD search begins (mm). The probe descends from this height searching for the liquid surface."
+        }
+      }
+    },
+
+    "ConnectedContainerGroup": {
+      "$comment": "The group's identifier is the KEY under which this group is stored in the parent labware's connectedContainerGroups map — not a field on this object. References use the qualified 'gridId.containerName' form to disambiguate across grids in multi-grid labware (e.g., 'default.A1', 'dispense.A1'); for single-grid labware the gridId is conventionally 'default'. A bare 'gridId' (no '.containerName') is shorthand for every container in that grid — use it when a whole grid is one pool (a 96-position trough), so the group need not list all positions; a consumer expands the bare grid id to its full position set.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["containers", "connectionTopology"],
+      "description": "A set of containers that share a single volume pool (reagent trough, divided reservoir with bottom interconnect, 96-pyramid distribution tray).",
+      "properties": {
+        "containers": {
+          "type": "array",
+          "description": "Container references sharing this volume pool: each item is either a qualified 'gridId.containerName' or a bare 'gridId' meaning all containers in that grid. Examples: whole grid ['trough'] (one pool addressed at many positions); specific containers ['default.A1','default.B1','default.C1']; mixed/multi-grid ['pyramids','pool.A1'].",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]*(\\.[A-Za-z0-9_-]+)?$"
+          }
+        },
+        "connectionTopology": {
+          "$comment": "On 'merged_above': it models a tray that is partitioned at the bottom but one shared pool above a certain height (a 96-pyramid distribution tray). That merge height is not a field — it is read from the geometry. Each bottom position carries its partition shape in its volumeModel.segments; a partition taller than its neighbors (a wave-break above a pyramid tip) just extends that position's segment stack upward. The shared pool above is modeled as a separate container — typically a 1x1 'pool' grid — whose firstContainerCenter.z sits at the top of the partitions.",
+          "type": "string",
+          "enum": ["base", "side", "full", "merged_above"],
+          "description": "How the containers in this group are connected. 'base': freely equalising at the bottom (typical divided reservoir with bottom interconnect; all positions share liquid from z=0 upward). 'side': lateral port (a side opening allows flow between positions; may restrict the rate). 'full': single open cavity with multiple access points (no real partitions — the group describes one big cavity that consumers can address by any included position). 'merged_above': containers are isolated up to their individual top Z, then merge into a shared volume above."
+        },
+        "maxVolume": {
+          "type": "number",
+          "description": "Total shared pool capacity (uL). May differ from the sum of individual containers' working-volume maxes — this is the group-level geometric capacity."
+        },
+        "liquidSeekingStartHeight": {
+          "type": "number",
+          "description": "Z clearance above the container top where LLD search begins for the group (mm). Overrides any per-container liquidSeekingStartHeight when the group is referenced (liquid level is equal across all members)."
+        }
+      }
+    },
+
+    "GripPoint": {
+      "$comment": "Geometry plus one labware-side tolerance. The grip's contact height is center.z (center is the contact midpoint) — there is no separate height field. Operating parameters (actual grip force, transport/approach speeds, hold time) are the instrument's decision at runtime, optionally tuned via customAttributes; the definition carries only maxGripForce, the labware's own physical tolerance, because it is a fact about the labware (how much squeeze it survives), not about any instrument. 'approach' is an array because symmetric labware can be gripped from multiple faces with identical geometry; list all faces from which this grip is reachable.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["center", "approach", "openWidth", "gripWidth"],
+      "description": "One grip-point variant for an instrument.",
+      "properties": {
+        "label": {
+          "$comment": "Optional stable handle so a client can select a specific grip variant by name instead of by array index (which is fragile across edits). Recommended unique within each instrument's grip-point array — see the labware validation-rules. snake_case, matching the open-vocabulary value shape.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]+$",
+          "maxLength": 60,
+          "description": "Optional client-facing identifier for this grip variant (e.g. 'landscape', 'portrait', 'narrow'). Lets a consumer reference a specific variant by name rather than by array index. Recommended unique within the instrument's grip-point array."
+        },
+        "center": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point3D",
+          "description": "XYZ midpoint between gripping members at contact, in labware coordinates (mm)."
+        },
+        "approach": {
+          "type": "array",
+          "description": "Faces of the labware from which this grip is reachable. Multiple values when the labware is symmetric across faces (e.g. ['front','back'] for a standard plate).",
+          "items": { "$ref": "#/$defs/LabwareFace" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "openWidth":   { "type": "number", "description": "Span between gripping members when approaching (mm)." },
+        "gripWidth":   { "type": "number", "description": "Span between gripping members at contact (mm)." },
+        "maxGripForce": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Maximum grip force the labware tolerates at this grip point (N) — a physical tolerance of the labware (a flexible lid or thin-walled plate deforms above it), not a prescribed operating force. A runtime gripping here must not exceed it; how firmly to grip within the bound is the instrument's decision. Omit when the labware imposes no limit beyond the instrument's own defaults."
+        },
+        "customAttributes": {
+          "$comment": "Per-grip-per-instrument extension fields keyed by publisher namespace (e.g., 'hamilton:transport', 'hamilton:lablync_joint_limits'). Used for instrument-specific tuning that isn't part of the core GripPoint vocabulary — Cartesian velocity / acceleration limits, joint-velocity limits, sway-angle constraints, approach/retract speeds, anything else the instrument plugin owns. Parallels the labware-root customAttributes pattern: namespace owners are responsible for their own value-shape validation; the schema does not enforce field shapes inside namespace blocks.",
+          "type": "object",
+          "description": "Namespaced extension attributes for instrument-specific per-grip tuning. Keys are publisher-form identifiers (e.g. 'hamilton:transport').",
+          "minProperties": 1,
+          "additionalProperties": { "type": "object" },
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$" },
+          "examples": [{
+            "hamilton:transport": { "maxVelocityMmPerS": 300, "maxAccelerationMmPerS2": 500, "approachVelocityMmPerS": 50 }
+          }]
+        }
+      }
+    },
+
+    "LabwareFace": {
+      "type": "string",
+      "enum": ["front", "back", "left", "right", "top", "bottom"],
+      "description": "One of the six faces of a labware's bounding box. Labware-domain type (relocated from the shared geometry schema, where it no longer had a cross-domain consumer)."
+    },
+
+    "BarcodeLocation": {
+      "$comment": "Described by two dimensions: surface (which body the barcode is on — the labware itself or one of its containers) and face (which face of that body, interpreted in the surface's frame). The number of distinct barcode reads expected at runtime is derived from those plus the optional grid scoping: surface=labware → 1 read; surface=container with no grid → one read per container across all containerGrids; surface=container with grid set → one read per container in the named grid. Single-container labware naturally falls out as 1 read. The 'unique' field separately captures whether each manufactured instance carries a distinct value (serial-printed) or all share a family identifier. For per-container reads in multi-grid labware, runtime reads are addressed by the qualified 'gridId.containerName' form ('dispense.A1' vs 'collection.A1'). Barcode hierarchy is resolved by traversal: the runtime reads the carrier barcode, then each child labware barcode through its site. Discrimination rules enforced via allOf below: surface=labware faces are the six labware-body faces (front/back/left/right/top/bottom); surface=container faces are the three container faces (side/top/bottom). The location's logical identifier is the KEY in the parent labware's barcodeLocations map.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "face"],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "enum": ["labware", "container"],
+          "description": "Which body the barcode is on. 'labware': a face of the whole labware (e.g., the front side of a microplate's plastic skirt) — yields one read. 'container': a face of each container the labware holds (e.g., the curved side of every tube in a rack) — yields one read per container."
+        },
+        "face": {
+          "type": "string",
+          "enum": ["front","back","left","right","top","bottom","side"],
+          "description": "Which face of the surface. For surface=labware: the six labware-body faces (front/back/left/right/top/bottom). For surface=container: the three container faces (side/top/bottom). The allOf below enforces the right subset per surface."
+        },
+        "symbology": {
+          "type": "string",
+          "enum": ["code128","code39","itf","datamatrix","qr","pdf417","unknown"],
+          "description": "Barcode symbology the printed code uses."
+        },
+        "pattern": {
+          "$comment": "The validator does NOT compile this regex — runtime instrument code does, at autoload time, applying it to scanned values. When a labware's identifier mask cannot be expressed as a standard regex, leave this field unset and store the raw value under customAttributes (e.g., customAttributes['hamilton:autoload'].mask); the relevant converter or authoring tool is responsible for any source-system translation.",
+          "type": "string",
+          "maxLength": 500,
+          "description": "Optional regex describing the expected barcode value(s) for this labware family. Applied at runtime by autoload-style features to validate identity from a barcode read; not enforced by schema validation."
+        },
+        "unique": {
+          "type": "boolean",
+          "description": "True if each manufactured instance carries a unique barcode (serial-printed, distinguishes instances). False if all instances share a family identifier (distinguishes labware types, not instances). Omit when unknown."
+        },
+        "zone": {
+          "$comment": "Zone coordinates use u/v (2D on the face) to avoid confusion with 3D labware coordinates.",
+          "description": "Location on the face surface in u/v coordinates (mm). null if the reader determines the area (e.g. full container side or bottom).",
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["origin", "width", "height"],
+              "properties": {
+                "origin": { "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point2D", "description": "u/v offset on the face (mm). For front/back: u=X, v=Z. For left/right: u=Y, v=Z. For top/bottom: u=X, v=Y." },
+                "width":  { "type": "number", "description": "Zone width along the face's u axis (mm)." },
+                "height": { "type": "number", "description": "Zone height along the face's v axis (mm)." }
+              }
+            }
+          ]
+        },
+        "orientation": {
+          "type": ["string","null"],
+          "enum": ["horizontal","vertical",null],
+          "description": "Orientation of the barcode on the face. null when not specified."
+        },
+        "grid": {
+          "$comment": "Only meaningful with surface=container; enforced by the allOf below. Use for multi-grid labware where only some grids carry container barcodes — e.g., a dispense control plate where the dispense grid's tubes have side-readable barcodes but the collection grid's wells don't.",
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "description": "Restricts the per-container reads to containers in this named grid (key in containerGrids). Omit to apply across all grids."
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "surface": { "const": "labware" } }, "required": ["surface"] },
+          "then": { "properties": { "face": { "enum": ["front","back","left","right","top","bottom"] } } }
+        },
+        {
+          "if": { "properties": { "surface": { "const": "container" } }, "required": ["surface"] },
+          "then": { "properties": { "face": { "enum": ["side","top","bottom"] } } }
+        },
+        {
+          "$comment": "grid scoping only meaningful with surface=container",
+          "if": { "required": ["grid"] },
+          "then": { "properties": { "surface": { "const": "container" } } }
+        }
+      ]
+    },
+
+    "PresenceDetectionZone": {
+      "$comment": "Zones declare guaranteed solid material — they do not describe the full labware footprint. An NTR has zones only at its legs and top; the center is open. Each zone is a 2D footprint (Shape2D, same vocabulary as SiteDefinition.footprint) extruded vertically through zRange, positioned at center. Each zone lists the sensor types it is appropriate for via compatibleSensors. The validator does not perform sensor-coverage checks (the labware definition has no knowledge of specific instruments or their sensor positions); sensor-overlap validation is a system-composition concern, where the system-composition tool — knowing both the labware's zones and the instrument's sensor positions at each site — warns when no zone overlaps a sensor. Authors declare zones to cover the labware's typical sensor-overlap regions (center for solid-base plates, per-leg for NTRs, base-perimeter for carriers); coverage gaps surface downstream when a real deployment is configured. The zone's logical identifier is the KEY in the parent labware's presenceDetectionZones map.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["footprint", "center", "zRange", "compatibleSensors"],
+      "description": "One explicit region of guaranteed solid material for presence-detection sensors to read against.",
+      "properties": {
+        "footprint": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Shape2D",
+          "description": "2D footprint of the zone (circle / rectangle). Shape-specific required fields enforced by Shape2D's own allOf."
+        },
+        "center": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point2D",
+          "description": "XY center of the zone in labware coordinates (mm)."
+        },
+        "zRange": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/ZRange",
+          "description": "Z range where solid material is present (mm). Sensors must operate within this range."
+        },
+        "compatibleSensors": {
+          "type": "array",
+          "description": "Sensor types this zone is suitable for. Recommended values: 'optical', 'capacitive', 'ultrasonic', 'weight', 'vision'. Open snake_case vocabulary — a new sensor type does not require a schema version, and a consumer that does not recognize a value simply treats this zone as not applicable to that sensor.",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]+$"
+          }
+        }
+      }
+    },
+
+    "ProbeData": {
+      "$comment": "Tips and needles share this schema, distinguished by isReusable — a physical-construction fact (single-use disposable construction vs durable reusable construction), not whether a deployment chooses to reuse or discard a given probe. A probe labware is referenced by tip_rack container positions via containerDefinition.contentsRef. (Needle racks are just tip_racks whose contents happen to be reusable probes — the rack class doesn't change with isReusable.) Public fields cover volume tracking, collision detection, and tip selection; the probe's proprietary internal geometry (the exact bore profile) is not modeled — only its public physical facts.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["isReusable", "isConductive", "supportedLLDModes", "maxVolume", "length", "diameter"],
+      "description": "Probe-specific data (channel-mounted tip or needle). Required when labwareClass is 'probe'; also permitted when the labware item plays a probe role alongside another class.",
+      "properties": {
+        "isReusable":  { "type": "boolean", "description": "Whether the probe is constructed for repeated use (true — a durable, cleanable needle) or single use (false — a molded disposable tip). A physical-construction fact, not an operational policy: whether a deployment actually reuses or discards a given probe (washing tips between pipettes, scrapping a needle) is a runtime decision, not recorded here." },
+        "isConductive": {
+          "$comment": "Required explicitly — silent assumptions about conductivity risk capacitive-LLD failures on tips that look standard but aren't.",
+          "type": "boolean",
+          "description": "True if the tip body conducts (carbon-doped polypropylene or equivalent). Required for capacitive LLD; non-conductive tips can only use pressure LLD or no LLD."
+        },
+        "supportedLLDModes": {
+          "$comment": "Required — a probe's supported LLD modes are a knowable construction fact; a probe that cannot do LLD declares an empty array, not an omitted field. Capacitive LLD additionally requires isConductive: true.",
+          "type": "array",
+          "description": "LLD modes this probe can participate in. Empty array means the probe cannot perform LLD (e.g., teaching needles, specialty bonded-cap tips).",
+          "items": {
+            "type": "string",
+            "enum": ["capacitive", "pressure"]
+          },
+          "uniqueItems": true
+        },
+        "maxVolume":   { "type": "number", "description": "Nominal working maximum aspiration volume (uL) — the largest volume the tip is rated to handle in normal use." },
+        "maxTipCapacity": {
+          "$comment": "Distinct from maxVolume: the physical ceiling including overfill above the rated working volume (e.g., a tip rated 300 uL may physically hold ~400 uL). A runtime computing aspiration headroom needs both. Omit when equal to maxVolume; consumers treat absent as equal to maxVolume.",
+          "type": "number",
+          "description": "Physical maximum the tip can hold, including overfill above the rated working volume (uL). Omit when equal to maxVolume."
+        },
+        "deadVolume":  { "type": "number", "description": "Non-deliverable volume remaining in the tip after dispense (uL)." },
+        "hasFilter":   { "type": "boolean", "description": "True if the tip carries an internal filter." },
+        "probeType": {
+          "$comment": "Open vocabulary (snake_case) rather than a closed enum, so a new mechanical class can appear without a schema-version change — parallel to labwareClass, material, and ToolData.kind. Mechanically distinct classes only; functional designations (gel_loading, anti_static, etc.) belong in tags[] on the probe labware definition. Consumers that branch on probeType fall back gracefully on unrecognized values.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]+$",
+          "description": "Mechanical probe class. Recommended values: 'standard' (general pipetting probe), 'wide_bore' (enlarged orifice for viscous or particulate-laden samples), 'low_retention' (hydrophobic-treated to minimize residual volume), 'needle_blunt' (reusable flat-end needle), 'needle_beveled' (reusable angled-end needle). Custom values follow the same snake_case shape."
+        },
+        "length":           { "type": "number", "description": "Total probe length (mm)." },
+        "diameter":         { "type": "number", "description": "Maximum outer diameter (mm)." },
+        "collarHeight": {
+          "$comment": "Tip-intrinsic; does not depend on rack geometry. How much of the collar protrudes above any specific rack is a rack-relative computation done at runtime, not declared here.",
+          "type": "number",
+          "description": "Height of the probe's collar (mm) — the cylindrical sleeve at the top of the tip that engages with the pipetting channel."
+        },
+        "mountInterface": {
+          "$ref": "#/$defs/MountInterface",
+          "description": "Channel-mount engagement description for this probe. See MountInterface."
+        }
+      }
+    },
+
+    "MountInterface": {
+      "$comment": "Polymorphic, discriminated by mountKind. The mountKind value drives a required type-specific block (parallel to labwareClass and ToolData.kind). Recommended values today are 'channel' (Hamilton CO-RE pipetting channels, 384-head) and 'robot_wrist' (articulated-arm end-effector flange — e.g., LabLync). Other mount mechanisms (fixed deck mount, tool-changer dock, custom proprietary) are accommodated by the free-form pattern; they declare common fields plus customAttributes until a concrete block is added in a later schema revision. This block is NOT the tip-in-rack alignment (rack alignment lives in the tip's alignmentFeatures + the rack's containerDefinition.alignmentReceptacles). The channel-mount publishing surface is currently restricted to channel manufacturers — third-party channel-mounted tip and tool authoring is out of scope for v1 (instrument warranty implication).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mountKind", "compatibleHosts"],
+      "description": "How a probe (tip/needle) or tool (gripper, sensor, reader) physically engages with its host — the channel, wrist, or other attachment point it mounts onto.",
+      "properties": {
+        "mountKind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]+$",
+          "description": "Mount mechanism category. Recommended values: 'channel' (pipetting channel mount; requires the channel block), 'robot_wrist' (articulated-arm wrist mount; requires the robotWrist block). Custom values follow the same snake_case shape; unknown kinds trigger no block constraint."
+        },
+        "compatibleHosts": {
+          "$comment": "The host concept is owned by the instrument plugin that publishes it. A host id names the channel family / mount type the probe or tool engages — not how many are engaged at once (that is hostGroupSize). Channel-host examples: 'hamilton:core_channel_x1', 'hamilton:core_channel_x5', 'hamilton:core_96_head', 'hamilton:core_384_head', 'hamilton:magpip_channel'. Wrist-host example: 'hamilton:lablync_wrist'.",
+          "type": "array",
+          "description": "Publisher-form identifiers of host concepts this probe or tool fits.",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+          },
+          "minItems": 1
+        },
+        "hostGroupSize": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1,
+          "description": "Number of host engagement points engaged at once. 1 for a single disposable tip on one channel; N for fixed-array tools (e.g., 2 for a CO-RE grip tool engaging 2 channels; 96 for a CO-RE 96 head; 1 for a wrist-mounted tool engaging the single wrist host). Omit when unambiguous (default 1)."
+        },
+        "channel": {
+          "$comment": "Today this block is intentionally minimal — only the probe-relevant stop-disk depth is modeled. Channel-host-side identity is in compatibleHosts above. Grows as concrete cases emerge.",
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Channel-mount-specific physical fields. Present when mountKind = 'channel'.",
+          "properties": {
+            "stopDiskImmersionDepth": {
+              "type": "number",
+              "description": "Depth from the probe's top opening to its internal stop disk where the channel bottoms out during pickup (mm). Probe-relevant (irrelevant on a channel-mounted tool). Hamilton single-channel / 8-channel tips ≈ 8.0; Hamilton 384-head tips ≈ 7.55."
+            }
+          }
+        },
+        "robotWrist": {
+          "$comment": "Today only tcpOffset is modeled — sufficient for LabLync's current development scope. Additional fields (flange standard, payload mass, electrical/pneumatic passthrough) can be added when concrete needs surface.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tcpOffset"],
+          "description": "Wrist-mount-specific physical fields. Present when mountKind = 'robot_wrist'.",
+          "properties": {
+            "tcpOffset": {
+              "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point3D",
+              "description": "Tool Center Point offset from the wrist's flange origin (mm). Used by the robot controller to compute the TCP pose from the wrist pose for motion planning."
+            }
+          }
+        }
+      },
+      "allOf": [
+        { "$comment": "Bidirectional mountKind ↔ block coupling — same pattern as labwareClass and ToolData.kind.",
+          "allOf": [
+            { "if": { "properties": { "mountKind": { "const": "channel" } },     "required": ["mountKind"] }, "then": { "required": ["channel"] } },
+            { "if": { "properties": { "mountKind": { "const": "robot_wrist" } }, "required": ["mountKind"] }, "then": { "required": ["robotWrist"] } },
+
+            { "if": { "required": ["channel"] },    "then": { "properties": { "mountKind": { "const": "channel" } } } },
+            { "if": { "required": ["robotWrist"] }, "then": { "properties": { "mountKind": { "const": "robot_wrist" } } } }
+          ]
+        }
+      ]
+    },
+
+    "ToolData": {
+      "$comment": "Operations (gripping, reading) live in the runtime layer; this block carries physical properties only. mountInterface is optional — many real tools have no schema-relevant mount data (e.g., a LabLync end-effector permanently bolted to the wrist). When present, the host kind it engages is conveyed via mountInterface.compatibleHosts. The kind discriminator requires the matching kind-specific block; additional kind-specific blocks are permitted alongside when the tool item physically plays more than one kind (a gripper with an integrated barcode reader, for example).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "description": "Tool-specific data (channel- or wrist-mountable transport item). Required when labwareClass is 'tool'; also permitted when the labware item plays a tool role alongside another class.",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]+$",
+          "description": "Free-form snake_case identifier for the tool kind. Recommended standard values: 'gripper' (requires the gripper block), 'barcode_reader' / 'optical_sensor' / 'force_sensor' (each requires the sensor block). Custom values follow the same shape; unknown kinds carry no required block — the vocabulary is open, so there is no 'other' value. Additional kind-specific blocks may appear alongside the kind-matching one when the tool item plays more than one kind."
+        },
+        "mountInterface": {
+          "$ref": "#/$defs/MountInterface",
+          "description": "How this tool engages with its host. Omit for tools with no schema-relevant mount data (e.g., permanently bolted end-effectors)."
+        },
+        "gripper": {
+          "$comment": "'Opening width' is the dimension between the gripping members (fingers, jaws, plates, claws, depending on gripper style) at the named state. Operational concerns (grip force, speed, hold time) live on GripPoint variants per instrument, not here.",
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Gripper physical opening geometry. Required when kind = 'gripper'; also permitted when the tool item plays a gripper role alongside another kind.",
+          "properties": {
+            "minOpenWidth": { "type": "number", "description": "Minimum opening width between gripping members (mm)." },
+            "maxOpenWidth": { "type": "number", "description": "Maximum opening width between gripping members (mm)." }
+          }
+        },
+        "sensor": {
+          "$comment": "Required when kind is a sensor-type recommended value ('barcode_reader', 'optical_sensor', 'force_sensor'); also permitted when the tool item plays a sensor role alongside another kind.",
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Physical sensor parameters relevant for placement and field-of-view planning.",
+          "properties": {
+            "type": { "type": "string", "maxLength": 100, "description": "Sensor sub-type, e.g., 'optical_1d', 'optical_2d'." },
+            "focalDistanceMm": { "type": "number", "description": "Focal distance from the sensor face to the target plane (mm)." },
+            "fieldOfViewMm": { "type": "number", "description": "Field-of-view extent at the focal distance (mm)." },
+            "supportedSymbologies": {
+              "type": "array",
+              "description": "Barcode symbologies this sensor can decode.",
+              "items": { "type": "string", "enum": ["code128","code39","itf","datamatrix","qr","pdf417","unknown"] }
+            }
+          }
+        }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "gripper" } }, "required": ["kind"] },
+          "then": { "required": ["gripper"] } },
+        { "if": { "properties": { "kind": { "enum": ["barcode_reader","optical_sensor","force_sensor"] } }, "required": ["kind"] },
+          "then": { "required": ["sensor"] } }
+      ]
+    },
+
+    "PublisherIdentifier": {
+      "$comment": "Used by the labware's own 'id' field. Carries no version or hash suffix — the catalog holds one current representation per identifier, and content hashes are computed and reported by MicrolabAPI, never written into the document. Publisher portion follows the same registry/signing rules as the rest of the schema family (lowercase letters, digits, underscore, hyphen; starts with a letter). Identifier portion accepts mixed case to accommodate converted Hamilton legacy naming (e.g., 'hamilton:TR384t50gchm4COR').",
+      "type": "string",
+      "description": "Bare publisher:identifier form. No version or hash suffix.",
+      "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9][A-Za-z0-9_-]*$"
+    },
+
+    "PublisherRef": {
+      "$comment": "Bare publisher:identifier form — same shape as PublisherIdentifier, kept as a separate definition because it marks a reference to ANOTHER definition rather than the document's own id. A reference resolves to the catalog's current representation of that identifier at the moment it is used; authored content carries no version or hash suffix. MicrolabAPI pins content hashes at execution time (when a definition is loaded into the active system) and records them in audit entries — pinning is runtime evidence, not authored data. Publisher portion follows the same registry/signing rules as labware IDs; identifier portion allows mixed case to accommodate converted Hamilton legacy naming.",
+      "type": "string",
+      "description": "Publisher-form reference to another labware definition. Resolves to the catalog's current representation of that identifier.",
+      "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9][A-Za-z0-9_-]*$"
+    },
+
+    "TipRackData": {
+      "$comment": "Captures rack-level structural properties beyond what the common containerGrid + contentsRef pattern expresses.",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Tip-rack-specific data. Required when labwareClass is 'tip_rack'; also permitted when the labware item plays a tip-rack role alongside another class.",
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": ["nestable", "framed"],
+          "description": "Structural rack type. 'nestable' (NTR): open frame; tip collars protrude above the rack surface, allowing racks to nest into one another for storage. 'framed' (FTR): enclosing walls; tips seat below the rim. Determines collision-envelope behavior (whether tips protrude above the rack) and influences stacking interactions."
+        }
+      }
+    },
+
+    "AssemblyData": {
+      "$comment": "Effective collision height is derived from the component heights and the alignment offsets that seat each component on its parent (no separate nestingDepth); the labware-root dimensions is the authored coarse collision envelope and must enclose this derived stack height (a Catalog consistency check — see the labware validation-rules, assembly-graph section). containerPassthrough on components drives volume routing through filter layers.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["components"],
+      "description": "Assembly-specific data describing a pre-configured multi-labware stack. Required when labwareClass is 'assembly'; also permitted when the labware item plays an assembly role alongside another class.",
+      "properties": {
+        "components": {
+          "$comment": "The KEY identifies the component within the assembly (referenced by AssemblyComponent.parentComponent of children). Assemblies must declare at least two components.",
+          "type": "object",
+          "description": "Map of component identifier → AssemblyComponent.",
+          "minProperties": 2,
+          "propertyNames": {
+            "pattern": "^[a-z0-9][a-z0-9_-]*$"
+          },
+          "additionalProperties": { "$ref": "#/$defs/AssemblyComponent" }
+        }
+      }
+    },
+
+    "AssemblyComponent": {
+      "$comment": "The component's logical identifier is the KEY in the parent assembly's components map — there is no role field; the key labels the component and the parent-pointer graph fixes structure. A non-base component declares parentComponent (the component it sits on); the two are positioned by their matching alignments — the child's alignmentFeatures against the parent's alignmentReceptacles. The base is the single component that omits parentComponent — exactly one per assembly, enforced by the component-graph fitness function, not by any field.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["labwareRef"],
+      "description": "One component within an assembly stack.",
+      "properties": {
+        "labwareRef": {
+          "$comment": "Bare publisher:identifier; resolves at activation to the catalog's current representation. MicrolabAPI pins each component's content hash at execution time and records it in the active system and audit log — pinning is runtime evidence, not authored data.",
+          "$ref": "#/$defs/PublisherRef",
+          "description": "Reference to the labware definition for this component."
+        },
+        "parentComponent": { "type": "string", "description": "Key of the component this sits on (omit for the base). The child and parent are positioned by their matching alignments — the child's alignmentFeatures against the parent component's alignmentReceptacles. When more than one shared alignment name matches between the two, the seat is chosen by the standard alignment resolution (greatest summed preference, then greatest resting Z, then declaration order); the assembly declares no separate per-component selector." },
+        "containerPassthrough": {
+          "$ref": "#/$defs/ContainerPassthrough",
+          "description": "How liquid leaving this component's containers is routed onward (filter layers, drainage)."
+        }
+      }
+    },
+
+    "ContainerPassthrough": {
+      "$comment": "Critical for filter assemblies: the runtime cannot track volume correctly without knowing that liquid from the filter plate ends up in the collection plate. When mode='mapped', the 'map' field is required (parallel to IntraLabwarePassthrough). Volume-distribution semantics also parallel IntraLabwarePassthrough — see mode description.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "targetComponent"],
+      "description": "Where liquid goes after leaving a container in this assembly component.",
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/PassthroughMode",
+          "description": "Flow shape, with volume-distribution semantics. 'one_to_one': container N drains to container N of target (full volume transfers; most common). 'one_to_many': each source position fans to N target positions, source volume divided EQUALLY (V/N per target). 'many_to_one': N source positions converge to each target, each contributing its full volume; target accumulates the sum. 'mapped': uses the explicit 'map' field for non-uniform correspondences."
+        },
+        "targetComponent": {
+          "type": "string",
+          "description": "Key of the assembly component that receives the liquid."
+        },
+        "map": {
+          "$ref": "#/$defs/PassthroughMap",
+          "description": "Required when mode='mapped'. Source container name → target. Value is a single target name (1:1 mapping; duplicate values express many:1 convergence) OR an array of target names (1:N fan-out, equal split). Names are unqualified; the component context is set by targetComponent."
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "mapped" } }, "required": ["mode"] },
+          "then": { "required": ["map"] }
+        }
+      ]
+    },
+
+    "VisualModel": {
+      "$comment": "3D model files typically use center-center-bottom origin (natural for CAD and 3D-printer workflows) rather than the labware definition's left-front-bottom origin. modelOrigin declares the file convention; modelOffset provides an explicit correction. The MicrolabAPI asset server resolves URI references and relative paths.",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "3D model and preview-image references used for rendering.",
+      "properties": {
+        "modelRef":    { "type": "string", "maxLength": 2000, "description": "URI or relative path to the 3D model file." },
+        "modelFormat": { "type": "string", "pattern": "^[a-z][a-z0-9_-]+$", "description": "Format of the referenced model file. Recommended values: 'obj', 'stl', 'gltf', 'glb', 'step'. Open snake_case vocabulary — new model formats (e.g. '3mf', 'usd') do not require a schema version; a renderer that does not recognize the format falls back to the bounding box or preview image." },
+        "modelOrigin": {
+          "type": "string",
+          "enum": ["left_front_bottom","center_center_bottom","center_center_center"],
+          "default": "center_center_bottom",
+          "description": "Coordinate origin convention used inside the model file. Typically center_center_bottom for CAD-exported assets."
+        },
+        "modelOffset": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Point3D",
+          "description": "Translation (mm) applied to the model to align it with the labware definition origin. Auto-calculated from modelOrigin if omitted."
+        },
+        "previewImageRef": { "type": "string", "maxLength": 2000, "description": "URI or path to a 2D preview image (PNG/JPEG)." },
+        "color":   { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$", "description": "Hex color for simple schematic rendering when no model is available." },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1, "description": "Render opacity from 0 (transparent) to 1 (opaque)." }
+      }
+    }
+
+  }
+}

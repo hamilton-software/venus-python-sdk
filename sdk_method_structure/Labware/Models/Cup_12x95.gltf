@@ -1,0 +1,146 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 431,
+      "type": "VEC3",
+      "max": [
+        5.9999995231628418,
+        47.5,
+        5.9999995231628418
+      ],
+      "min": [
+        -5.9999995231628418,
+        -47.499996185302734,
+        -5.9999995231628418
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 431,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 2100,
+      "type": "SCALAR",
+      "max": [
+        430
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 18744,
+      "uri": "Cup_12x95.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 5172,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 5172,
+      "byteLength": 5172,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 10344,
+      "byteLength": 8400,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          0.75
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.93265491724014282
+      },
+      "emissiveFactor": [
+        0.22352899610996246,
+        0.22352899610996246,
+        0.22352899610996246
+      ],
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.75294101238250732,
+            0.75294101238250732,
+            0.75294101238250732
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "V_Model",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "$MergedNode_0",
+      "mesh": 0
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

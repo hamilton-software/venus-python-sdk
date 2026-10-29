@@ -1,0 +1,177 @@
+{
+  "labware.addLabwareDefinition": {
+    "nameSpace": "LabwareController",
+    "description": "Registers a new labware definition from an inline definition object.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LabwareController.smt"
+  },
+  "labware.deleteLabwareDefinition": {
+    "nameSpace": "LabwareController",
+    "description": "Deletes a labware definition.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LabwareController.smt"
+  },
+  "labware.getLabwareDefinition": {
+    "nameSpace": "LabwareController",
+    "description": "Returns a labware definition by name.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LabwareController.smt"
+  },
+  "labware.getLabwareDefinitions": {
+    "nameSpace": "LabwareController",
+    "description": "Returns all labware definitions, optionally filtered by type.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LabwareController.smt"
+  },
+  "labware.getLabwareTypes": {
+    "nameSpace": "LabwareController",
+    "description": "Returns the list of supported labware type categories.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LabwareController.smt"
+  },
+  "labware.importLabwareDefinition": {
+    "nameSpace": "LabwareController",
+    "description": "Imports a labware definition from a .rck file.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LabwareController.smt"
+  },
+  "labware.updateLabwareDefinition": {
+    "nameSpace": "LabwareController",
+    "description": "Updates an existing labware definition.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LabwareController.smt"
+  },
+  "liquidClass.getLiquidClass": {
+    "nameSpace": "LiquidController",
+    "description": "Returns the full definition of a liquid class by name.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "liquidClass.getLiquidClasses": {
+    "nameSpace": "LiquidController",
+    "description": "Returns liquid class names matching the given filter criteria.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "liquidClass.getLiquidDevices": {
+    "nameSpace": "LiquidController",
+    "description": "Returns the list of liquid handling devices (channels, heads) available for liquid classes.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "liquidClass.getLiquidNames": {
+    "nameSpace": "LiquidController",
+    "description": "Returns the list of defined liquid names.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "liquidClass.getTipTypes": {
+    "nameSpace": "LiquidController",
+    "description": "Returns the list of defined tip types and their properties.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "liquidClass.pullLiquidClasses": {
+    "nameSpace": "LiquidController",
+    "description": "Exports liquid class definitions by name.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "liquidClass.pushLiquidClasses": {
+    "nameSpace": "LiquidController",
+    "description": "Imports liquid class definitions by name.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "liquidClass.updateLiquidClass": {
+    "nameSpace": "LiquidController",
+    "description": "Updates an existing liquid class definition.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LiquidClassController.smt"
+  },
+  "tipPool.getAvailableTips": {
+    "nameSpace": "System",
+    "description": "Returns the available (unused) tip positions in a tip pool.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.getEmptyTips": {
+    "nameSpace": "System",
+    "description": "Returns the empty (already used) tip positions in a tip pool.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.getMissingRacks": {
+    "nameSpace": "System",
+    "description": "Returns the tip racks expected but missing from a tip pool.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.getTipCounter": {
+    "nameSpace": "System",
+    "description": "Returns the full tip counter state for a tip pool.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.getTipCounters": {
+    "nameSpace": "System",
+    "description": "Returns the list of defined tip counter names.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.initializeTipCounter": {
+    "nameSpace": "System",
+    "description": "Initializes a tip pool's tip counter to full.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.resetTipCounter": {
+    "nameSpace": "System",
+    "description": "Resets a tip pool's tip counter to full.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.setTipCounter": {
+    "nameSpace": "System",
+    "description": "Sets the available tip positions for a tip pool.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.showTipCounter": {
+    "nameSpace": "System",
+    "description": "Displays the current tip counter state for a tip pool in VENUS.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  },
+  "tipPool.showTipCounters": {
+    "nameSpace": "System",
+    "description": "Displays the current tip counter state for one or more tip pools in VENUS. Shows every tip pool if tipPools is omitted.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SystemController.smt"
+  }
+}

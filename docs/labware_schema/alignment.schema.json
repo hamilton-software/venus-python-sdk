@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hamilton:schemas:microlab:alignment:v1",
+  "schemaVersion": "1.0.0-alpha.1",
+  "title": "Hamilton MicrolabAPI Alignment Primitive Schema",
+  "description": "Shared alignment primitive for stating how one part mates with another, used across the Hamilton MicrolabAPI labware, site, and system schemas. An alignment is a named, located mating point; a feature (placeable side) and a receptacle (supporting side) that share a name are compatible, and the match positions the placed part by offset subtraction. Coordinate convention: left-front-bottom origin, X+ right, Y+ back, Z+ up. All dimensions in millimeters.",
+  "$comment": "Shared sub-schema library, referenced by the labware, site, and system schemas through the major-versioned URN ('v1'); it has no documents of its own, so it declares its current version in the top-level 'schemaVersion' rather than per document. Additive minor increments keep the ':v1' URN so existing references stay valid; consumers validate against the current minor. Current target 1.0.0-alpha.1 (pre-release; structure may still shift). Consuming schemas place the same Alignment under two role-named lists — 'alignmentFeatures' (placeable) and 'alignmentReceptacles' (supporting) — so the role is given by the list, not by a field here. Match resolution (preference, then greatest resting Z, then declaration order) is a consumer algorithm, not a schema constraint.",
+
+  "$defs": {
+
+    "Alignment": {
+      "type": "object",
+      "required": ["name", "offset"],
+      "additionalProperties": false,
+      "description": "A named, located mating point relative to its object's origin. Carried as an alignmentFeature (how this part attaches to another) or an alignmentReceptacle (where another part attaches to this one). A feature and a receptacle that share a name are compatible.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^([a-z][a-z0-9_-]*:)?[a-z][a-z0-9_-]+$",
+          "description": "Compatibility key — a feature and a receptacle with the same name mate (exact string). Bare snake_case is the shared cross-publisher vocabulary and the default (for example 'sbs_rim' or 'sbs_lid'). An optional 'publisher:' prefix marks a deliberately vendor-private mating (for example 'acme:cartridge_dock') that mates only the same publisher's parts; a shared mating must stay bare, since namespacing it would defeat the cross-vendor matching the vocabulary exists for."
+        },
+        "offset": { "$ref": "#/$defs/AlignmentOffset" },
+        "rotationZ": {
+          "type": "number",
+          "default": 0,
+          "description": "Rotation about the vertical (Z) axis applied when this alignment is used, in degrees. The placed part's rotation is the receptacle's rotationZ minus the feature's; both default to 0, so the common case states nothing."
+        },
+        "preference": {
+          "type": "number",
+          "default": 0,
+          "description": "Optional resolution override. When several alignments match, the match with the greatest summed preference (feature + receptacle) wins; equal preference falls through to the greatest resting Z, then declaration order. Default 0."
+        }
+      }
+    },
+
+    "AlignmentOffset": {
+      "type": "object",
+      "required": ["z"],
+      "additionalProperties": false,
+      "description": "Position of an alignment relative to its object's origin (mm). The coordinate frame remains the object's normal left-front-bottom origin; omitting X and Y means the consumer resolves them to the object's footprint center in that same frame, so the common case states only Z (the contact height).",
+      "properties": {
+        "x": { "type": "number", "description": "X relative to the object's origin (mm). Omitted: the object's footprint center." },
+        "y": { "type": "number", "description": "Y relative to the object's origin (mm). Omitted: the object's footprint center." },
+        "z": { "type": "number", "description": "Z of the contact relative to the object's base (mm)." }
+      }
+    }
+
+  }
+}

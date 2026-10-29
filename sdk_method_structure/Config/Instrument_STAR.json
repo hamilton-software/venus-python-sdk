@@ -1,0 +1,618 @@
+{
+  "autoload.getCarrierSensorStatus": {
+    "nameSpace": "AutoloadController",
+    "description": "Returns the sensor status for each carrier position on the autoloader.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.isTrackOccupied": {
+    "nameSpace": "AutoloadController",
+    "description": "Checks whether a specific autoloader track is currently occupied.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.loadCarrierById": {
+    "nameSpace": "AutoloadController",
+    "description": "Loads a carrier onto the autoloader by carrier ID, optionally scanning barcodes.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.loadCarrierByTrack": {
+    "nameSpace": "AutoloadController",
+    "description": "Loads a carrier onto the autoloader at a specific track, optionally scanning barcodes.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.moveTo": {
+    "nameSpace": "AutoloadController",
+    "description": "Moves the autoloader to a specified track.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.parkLeft": {
+    "nameSpace": "AutoloadController",
+    "description": "Parks the autoloader in the left position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.parkRight": {
+    "nameSpace": "AutoloadController",
+    "description": "Parks the autoloader in the right position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.unloadCarrierById": {
+    "nameSpace": "AutoloadController",
+    "description": "Unloads a carrier from the autoloader by carrier ID.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "autoload.unloadCarrierByTrack": {
+    "nameSpace": "AutoloadController",
+    "description": "Unloads a carrier from the autoloader at a specific track.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "AutoloadController.smt"
+  },
+  "channels.1mL.aspirate": {
+    "nameSpace": "Channel1mLController",
+    "description": "Aspirates liquid using the 1mL pipetting channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.detectLiquidLevel": {
+    "nameSpace": "Channel1mLController",
+    "description": "Detects the liquid level using the 1mL pipetting channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.dispense": {
+    "nameSpace": "Channel1mLController",
+    "description": "Dispenses liquid using the 1mL pipetting channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.dispenseOnTheFly": {
+    "nameSpace": "Channel1mLController",
+    "description": "Dispenses liquid on the fly while the 1mL channels move across labware.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.getStatus": {
+    "nameSpace": "Channel1mLController",
+    "description": "Returns the current position and tip status of each 1mL channel.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.moveAxis": {
+    "nameSpace": "Channel1mLController",
+    "description": "Moves the 1mL channels along the X, Y, or Z axis.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.tipCheck": {
+    "nameSpace": "Channel1mLController",
+    "description": "Checks which tips are currently loaded on the 1mL channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.tipEject": {
+    "nameSpace": "Channel1mLController",
+    "description": "Ejects tips from the 1mL channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.1mL.tipPickup": {
+    "nameSpace": "Channel1mLController",
+    "description": "Picks up tips using the 1mL channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "channels.5mL.aspirate": {
+    "nameSpace": "Channel5mLController",
+    "description": "Aspirates liquid using the 5mL pipetting channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.detectLiquidLevel": {
+    "nameSpace": "Channel5mLController",
+    "description": "Detects the liquid level using the 5mL pipetting channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.dispense": {
+    "nameSpace": "Channel5mLController",
+    "description": "Dispenses liquid using the 5mL pipetting channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.dispenseOnTheFly": {
+    "nameSpace": "Channel5mLController",
+    "description": "Dispenses liquid on the fly while the 5mL channels move across labware.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.getStatus": {
+    "nameSpace": "Channel5mLController",
+    "description": "Returns the current position and tip status of each 5mL channel.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.moveAxis": {
+    "nameSpace": "Channel5mLController",
+    "description": "Moves the 5mL channels along the X, Y, or Z axis.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.tipCheck": {
+    "nameSpace": "Channel5mLController",
+    "description": "Checks which tips are currently loaded on the 5mL channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.tipEject": {
+    "nameSpace": "Channel5mLController",
+    "description": "Ejects tips from the 5mL channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "channels.5mL.tipPickup": {
+    "nameSpace": "Channel5mLController",
+    "description": "Picks up tips using the 5mL channels.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "configuration.disableCleanup": {
+    "nameSpace": "STARController",
+    "description": "Disables the automatic cleanup routine on the instrument.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "configuration.getConfiguration": {
+    "nameSpace": "Instrument",
+    "description": "Returns the instrument's hardware configuration, including arms, channels, and deck properties.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "InstrumentController.smt"
+  },
+  "configuration.getDeckDimensions": {
+    "nameSpace": "Instrument",
+    "description": "Returns the physical dimensions of the instrument deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "InstrumentController.smt"
+  },
+  "configuration.getDeckTracks": {
+    "nameSpace": "Instrument",
+    "description": "Returns the total, autoloadable, and active tracks on the deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "InstrumentController.smt"
+  },
+  "configuration.getSerialNumber": {
+    "nameSpace": "STARController",
+    "description": "Returns the instrument's serial number.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "configuration.getWasteLocations": {
+    "nameSpace": "Instrument",
+    "description": "Returns the configured waste locations on the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "InstrumentController.smt"
+  },
+  "firmware.command": {
+    "nameSpace": "FirmwareController",
+    "description": "Sends a raw firmware-level command directly to the instrument.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "FirmwareController.smt"
+  },
+  "firmware.debugMode": {
+    "nameSpace": "FirmwareController",
+    "description": "Enables or disables firmware debug mode.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "FirmwareController.smt"
+  },
+  "frontCover.isClosed": {
+    "nameSpace": "STARController",
+    "description": "Checks whether the front cover is closed.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "frontCover.isLocked": {
+    "nameSpace": "STARController",
+    "description": "Checks whether the front cover is locked.",
+    "enabled": false,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "frontCover.lock": {
+    "nameSpace": "STARController",
+    "description": "Locks the front cover.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "frontCover.unlock": {
+    "nameSpace": "STARController",
+    "description": "Unlocks the front cover.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "maintenance.getDailyMaintenanceData": {
+    "nameSpace": "STARController",
+    "description": "Returns the current status of the daily maintenance procedure.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "maintenance.getVerificationData": {
+    "nameSpace": "STARController",
+    "description": "Returns the current status of the verification procedure.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "maintenance.getWeeklyMaintenanceData": {
+    "nameSpace": "STARController",
+    "description": "Returns the current status of the weekly maintenance procedure.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "mph96.aspirate": {
+    "nameSpace": "MPH96Controller",
+    "description": "Aspirates liquid using the 96-channel MPH head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.clearTipSupport": {
+    "nameSpace": "MPH96Controller",
+    "description": "Clears the tip support tracking for the MPH96 head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.detectLiquidLevel": {
+    "nameSpace": "MPH96Controller",
+    "description": "Detects the liquid level using the 96-channel MPH head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.dispense": {
+    "nameSpace": "MPH96Controller",
+    "description": "Dispenses liquid using the 96-channel MPH head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.getStatus": {
+    "nameSpace": "MPH96Controller",
+    "description": "Returns the current position and tip status of the MPH96 head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.moveAxis": {
+    "nameSpace": "MPH96Controller",
+    "description": "Moves the MPH96 head along a specified axis.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.parkBack": {
+    "nameSpace": "MPH96Controller",
+    "description": "Parks the MPH96 head in the back position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.parkFront": {
+    "nameSpace": "MPH96Controller",
+    "description": "Parks the MPH96 head in the front position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.tipEject": {
+    "nameSpace": "MPH96Controller",
+    "description": "Ejects tips from the MPH96 head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.tipPickup": {
+    "nameSpace": "MPH96Controller",
+    "description": "Picks up a full set of tips using the MPH96 head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "mph96.tipPickupPartial": {
+    "nameSpace": "MPH96Controller",
+    "description": "Picks up a partial set of tips using the MPH96 head.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "MPH96Controller.smt"
+  },
+  "pipArm.getXPosition": {
+    "nameSpace": "STARController",
+    "description": "Returns the current X position of the pipetting arm.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "pipArm.moveTo": {
+    "nameSpace": "STARController",
+    "description": "Moves the pipetting arm to a specified X position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "pipArm.parkLeft": {
+    "nameSpace": "STARController",
+    "description": "Parks the pipetting arm in the left position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "pipArm.parkRight": {
+    "nameSpace": "STARController",
+    "description": "Parks the pipetting arm in the right position.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "status.connect": {
+    "nameSpace": "STARController",
+    "description": "Connects to the instrument.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "status.getInstrumentType": {
+    "nameSpace": "Instrument",
+    "description": "Returns the instrument type (e.g. STAR, Vantage).",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "InstrumentController.smt"
+  },
+  "status.init": {
+    "nameSpace": "STARController",
+    "description": "Initializes the instrument.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "status.isConnected": {
+    "nameSpace": "Instrument",
+    "description": "Checks whether the instrument is connected.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "InstrumentController.smt"
+  },
+  "status.isIdle": {
+    "nameSpace": "Instrument",
+    "description": "Checks whether the instrument is idle.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "InstrumentController.smt"
+  },
+  "status.terminate": {
+    "nameSpace": "Instrument",
+    "description": "Terminates the connection to the instrument.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "InstrumentController.smt"
+  },
+  "statusLight.setFrontLight": {
+    "nameSpace": "STARController",
+    "description": "Sets the color, blink, and progress state of the front status light.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "STARController.smt"
+  },
+  "transport.1mL.clearHeldLabware": {
+    "nameSpace": "Channel1mLController",
+    "description": "Clears the tracked labware held by the 1mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.1mL.ejectGrips": {
+    "nameSpace": "Channel1mLController",
+    "description": "Ejects the transport grips on the 1mL arm.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.1mL.holdLid": {
+    "nameSpace": "Channel1mLController",
+    "description": "Holds a lid using the 1mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.1mL.isHoldingLabware": {
+    "nameSpace": "Channel1mLController",
+    "description": "Checks whether the 1mL transport gripper is currently holding labware.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.1mL.moveLabware": {
+    "nameSpace": "Channel1mLController",
+    "description": "Moves labware from one carrier/site to another using the 1mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.1mL.moveToWaste": {
+    "nameSpace": "Channel1mLController",
+    "description": "Moves labware to waste using the 1mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.1mL.presentAndScan": {
+    "nameSpace": "Channel1mLController",
+    "description": "Presents labware for barcode scanning using the 1mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.1mL.returnLabware": {
+    "nameSpace": "Channel1mLController",
+    "description": "Returns previously picked labware to its original or a new location using the 1mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel1mLController.smt"
+  },
+  "transport.5mL.clearHeldLabware": {
+    "nameSpace": "Channel5mLController",
+    "description": "Clears the tracked labware held by the 5mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.5mL.ejectGrips": {
+    "nameSpace": "Channel5mLController",
+    "description": "Ejects the transport grips on the 5mL arm.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.5mL.holdLid": {
+    "nameSpace": "Channel5mLController",
+    "description": "Holds a lid using the 5mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.5mL.isHoldingLabware": {
+    "nameSpace": "Channel5mLController",
+    "description": "Checks whether the 5mL transport gripper is currently holding labware.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.5mL.moveLabware": {
+    "nameSpace": "Channel5mLController",
+    "description": "Moves labware from one carrier/site to another using the 5mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.5mL.moveToWaste": {
+    "nameSpace": "Channel5mLController",
+    "description": "Moves labware to waste using the 5mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.5mL.presentAndScan": {
+    "nameSpace": "Channel5mLController",
+    "description": "Presents labware for barcode scanning using the 5mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.5mL.returnLabware": {
+    "nameSpace": "Channel5mLController",
+    "description": "Returns previously picked labware to its original or a new location using the 5mL transport gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "Channel5mLController.smt"
+  },
+  "transport.iswap.clearHeldLabware": {
+    "nameSpace": "iSWAPController",
+    "description": "Clears the tracked labware held by the iSWAP gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  },
+  "transport.iswap.getLabware": {
+    "nameSpace": "iSWAPController",
+    "description": "Returns the labware currently held by the iSWAP gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  },
+  "transport.iswap.isHoldingLabware": {
+    "nameSpace": "iSWAPController",
+    "description": "Checks whether the iSWAP gripper is currently holding labware.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  },
+  "transport.iswap.moveLabware": {
+    "nameSpace": "iSWAPController",
+    "description": "Moves labware from one carrier/site to another using the iSWAP gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  },
+  "transport.iswap.moveToWaste": {
+    "nameSpace": "iSWAPController",
+    "description": "Moves labware to waste using the iSWAP gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  },
+  "transport.iswap.park": {
+    "nameSpace": "iSWAPController",
+    "description": "Parks the iSWAP gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  },
+  "transport.iswap.presentAndScan": {
+    "nameSpace": "iSWAPController",
+    "description": "Presents labware for barcode scanning using the iSWAP gripper.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  },
+  "transport.iswap.putLabware": {
+    "nameSpace": "iSWAPController",
+    "description": "Places labware held by the iSWAP gripper at a target location.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "iSWAPController.smt"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hamilton:schemas:microlab:site:v1",
+  "schemaVersion": "1.0.0-alpha.1",
+  "title": "Hamilton MicrolabAPI Common Site Types",
+  "description": "Shared site definition used across the Hamilton MicrolabAPI schema family — by labware definitions (sites within labware) and system definitions (sites on the deck). A site is a named place where labware is located; it carries placement metadata plus the alignment receptacles that locate child labware. The mating primitive itself (named alignments matched by name, positioned by offset subtraction) lives in the shared alignment schema, urn:hamilton:schemas:microlab:alignment:v1. Coordinate convention matches the family: left-front-bottom origin, X+ right, Y+ back, Z+ up; mm. Alignment offsets are relative to the parent's origin.",
+  "$comment": "Shared sub-schema library, referenced by the labware and system schemas through the major-versioned URN ('v1'); it has no documents of its own, so it declares its current version in the top-level 'schemaVersion' rather than per document. Additive minor increments keep the ':v1' URN so existing references stay valid; consumers validate against the current minor. Current target 1.0.0-alpha.1 (pre-release; structure may still shift). A site declares the supporting side of the alignment contract (alignmentReceptacles); a labware declares the placeable side (alignmentFeatures). A feature and a receptacle with the same name mate; the offsets place the labware.",
+
+  "$defs": {
+
+    "SiteDefinition": {
+      "$comment": "Shared site payload, composed by each consumer (a labware's LabwareSite, a system's SystemSite) via allOf + a $ref to this definition; the consumer adds its own placement fields and closes the object with unevaluatedProperties. This definition therefore does NOT set additionalProperties:false (that would reject the consumer's placement fields) and does NOT itself require footprint — a labware site requires footprint via LabwareSite, while some standalone system sites may omit it. The site's logical identifier is the KEY in the consumer's site map; this payload carries no id field. A site receives placement through its alignmentReceptacles, each an alignment whose offset (relative to the site origin) positions the placed labware; a placement mismatch (no matching alignment name, an over-size footprint) is a soft signal, never a hard block.",
+      "type": "object",
+      "description": "Shared site-contract payload — footprint, the alignment receptacles that locate child labware, and per-site metadata. Flattened into LabwareSite / SystemSite by the consuming schema.",
+      "properties": {
+
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Human-readable display name for UIs."
+        },
+
+        "footprint": {
+          "$ref": "urn:hamilton:schemas:microlab:geometry:v1#/$defs/Shape2D",
+          "description": "2D footprint of the site, for visual rendering and the advisory footprint check (a placed labware whose footprint exceeds this logs an informational warning — never a block). Required on labware sites (via LabwareSite); optional on standalone system sites."
+        },
+
+        "alignmentReceptacles": {
+          "type": "array",
+          "description": "The supporting side of the alignment contract: named, located receptacles that mate with a placed labware's alignmentFeatures of the same name and position it. A site may declare several (e.g. a rim seat and a center seat — the higher resting contact wins). Each item is a shared Alignment (urn:hamilton:schemas:microlab:alignment:v1).",
+          "items": { "$ref": "urn:hamilton:schemas:microlab:alignment:v1#/$defs/Alignment" }
+        },
+
+        "customAttributes": {
+          "$comment": "Site-scoped vendor extensions keyed by publisher namespace. Site purpose is conveyed here by convention — customAttributes['hamilton:site_purpose'] = { \"purpose\": \"waste\" } marks this site as the liquid-waste destination — rather than by a typed role field on the site. Same publisher-form keys and opaque-object values as the labware-root customAttributes.",
+          "type": "object",
+          "description": "Namespaced extension attributes scoped to this site, including site purpose by convention. Keys are publisher-form identifiers (e.g. 'hamilton:site_purpose').",
+          "minProperties": 1,
+          "additionalProperties": { "type": "object" },
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$" }
+        }
+      }
+    }
+  }
+}

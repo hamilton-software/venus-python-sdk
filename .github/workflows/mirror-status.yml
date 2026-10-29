@@ -1,0 +1,16 @@
+name: mirror-status
+
+# Runs on every push from the Azure DevOps mirror job.
+# Does nothing except confirm the mirror is current and provide a status badge.
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror is current
+        run: echo "Mirrored from Azure DevOps successfully."

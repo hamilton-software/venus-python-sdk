@@ -1,0 +1,24 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 9/2/2026 9:05:50 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace DeckLoad {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function CheckAndInitializeNTRWaste( device & Device ) void { }
+function CheckAndInitializeTipCounters( device & Device ) void { }
+function CheckAndInitializeTipSupports( device & Device ) void { }
+function CheckAndMoveModels(  ) void { }
+function InitializeActiveLayout(  ) void { }
+function InitializeBlankDeck(  ) void { }
+function InitializePreviousDeck( variable & o_blnPreviousDeckFound ) void { }
+function InitializeSpecifiedDeck( variable & o_strSpecifiedDeckFound ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-09-02 21:05$$checksum=e19bb603$$length=083$$

@@ -1,0 +1,206 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 172,
+      "type": "VEC3",
+      "max": [
+        -0.75,
+        60.0,
+        519.5
+      ],
+      "min": [
+        -44.25,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 852,
+      "type": "SCALAR",
+      "max": [
+        171
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 248,
+      "type": "VEC3",
+      "max": [
+        -4.5,
+        127.09999084472656,
+        494.54998779296875
+      ],
+      "min": [
+        -40.399997711181641,
+        34.0999870300293,
+        15.100000381469727
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 1272,
+      "type": "SCALAR",
+      "max": [
+        247
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 13536,
+      "uri": "RGT_CAR_4R200.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 2064,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2064,
+      "byteLength": 3408,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 5472,
+      "byteLength": 2976,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 8448,
+      "byteLength": 5088,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Mat_Object",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.18000000715255737,
+          0.18000000715255737,
+          0.18000000715255737,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.871999979019165
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929
+          ]
+        }
+      }
+    },
+    {
+      "name": "Mat_Object_20",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.89999997615814209,
+          0.89999997615814209,
+          0.89999997615814209,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.871999979019165
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Frame_px5_1202_p",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 1,
+          "attributes": {
+            "POSITION": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Frame_px5_1202_p",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 1,
+          "indices": 3,
+          "attributes": {
+            "POSITION": 2
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Frame_px5_1202_p",
+      "children": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "Frame_px5_1202_p_node",
+      "mesh": 0
+    },
+    {
+      "name": "Frame_px5_1202_p_node_0",
+      "mesh": 1
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

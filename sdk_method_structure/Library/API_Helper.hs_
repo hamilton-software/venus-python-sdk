@@ -1,0 +1,39 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/23/2026 4:47:14 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace API_Helper {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function Command_Finish( variable & io_strID, variable i_blnSuccess, variable i_strJSONReturn ) void { }
+function Command_Unknown( variable & i_strID, variable i_strCategory, variable i_strAction ) void { }
+function GetCurrentCommandDetails( variable & o_strNameSpace, variable & o_blnUseDevice ) variable {  return (0); }
+function InitVariables(  ) void { }
+function InitializeStatusChannels(  ) void { }
+function ListenForCommands( variable & o_strID, variable & o_strCategory, variable & o_strAction, variable & o_strParameters ) void { }
+function QueryArrayElementObject( object & i_objJSON, variable i_strTargetKey, variable i_intIndex, variable i_blnOptional, object & o_jsonObject ) variable {  return (0); }
+function QueryArrayParameter( object & i_objJSON, variable i_strTargetKey, variable i_blnOptional, variable & o_arrValues[] ) variable {  return (0); }
+function QueryArrayParameterSize( object & i_objJSON, variable i_blnOptional, variable i_strTargetKey ) variable {  return (0); }
+function QueryJsonElementObject( object & i_objJSON, variable i_strTargetKey, variable i_blnOptional, object & o_jsonObject ) variable {  return (0); }
+function QueryParameter( object & i_objJSON, variable i_strTargetKey, variable i_intTargetType, variable i_Min, variable i_Max, variable i_blnOptional ) variable {  return (0); }
+function QueryParameter2( object & i_objJSON, variable i_strTargetKey, variable i_intTargetType, variable i_Min, variable i_Max, variable i_DefaultValue, variable i_blnOptional, variable i_blnMakeLower ) variable {  return (0); }
+function QueryParameters( object & i_objJSON, variable i_strTargetKey, variable i_intTargetType, variable i_Min, variable i_Max, variable i_blnOptional, variable i_intMaxArray, variable & o_arrResult[] ) variable {  return (0); }
+function RaiseError( variable i_strMessage, variable i_intErrorCode ) void { }
+function RemoveCharactersFromString( variable & io_strToCheck, variable i_strReplacementCharacter ) void { }
+function SetCommunicationStatus( variable i_strStatus ) void { }
+function SetConnectionStatus(  ) void { }
+function SetIdleStatus( variable i_blnIdle ) void { }
+function SetReadyStatus( variable i_blnReady ) void { }
+function UpdateControllerInitializeList(  ) void { }
+function _GetActiveDeviceControllers(  ) void { }
+function _GetCurrentCommandController( variable & o_strNameSpace ) variable {  return (0); }
+function _UpdateDeviceEnableStatus( variable i_strNameSpace, variable i_blnEnable ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-23 16:47$$checksum=63e3bf69$$length=083$$

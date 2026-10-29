@@ -1,0 +1,133 @@
+{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:5mlt_l",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "5ml Tip",
+  "description": "Tip Rack 24x 5ml Tip landscape oriented",
+  "labwareClass": "tip_rack",
+  "source": {
+    "system": "venus",
+    "originalId": "5mlT_L",
+    "originalFile": "5mlT_L.rck / 5mlt.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 122.4,
+    "y": 82.6,
+    "z": 7.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 6,
+      "rows": 4,
+      "columnPitch": 18.0,
+      "rowPitch": 18.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 16.3,
+        "y": 14.2,
+        "z": -93.2
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 13.85
+        },
+        "totalDepth": 118.0,
+        "maxPipettingDepth": 94.9,
+        "bottomWallThickness": 0.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 20.0,
+              "diameterBottom": 1.0,
+              "diameterTop": 6.0
+            },
+            {
+              "type": "conical_frustum",
+              "height": 60.0,
+              "diameterBottom": 6.0,
+              "diameterTop": 8.8
+            },
+            {
+              "type": "cylinder",
+              "height": 38.0,
+              "diameter": 13.85
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 118.0
+        },
+        "contentsRef": "hamilton:5mlt",
+        "alignmentReceptacles": [
+          {
+            "name": "core_tip_8498",
+            "offset": {
+              "z": 80.0
+            }
+          }
+        ],
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 118.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "core_tip_rack",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "previewImageRef": "5mlt_l.png",
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "tipRack": {
+    "style": "framed"
+  },
+  "customAttributes": {
+    "hamilton:rck_properties": {
+      "MlStarIsXLWasteRack": 1,
+      "MlStarXLTipRack": 25,
+      "hasDefaultSequence": 0,
+      "managedSequenceName": "MlStar5mlTip"
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

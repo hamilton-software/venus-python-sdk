@@ -1,0 +1,27 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 8/31/2026 5:15:49 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace FirmwareHelper {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function CheckForError( variable i_strFunctionName, variable i_strReturnValue, variable i_blnRaiseError ) variable {  return (0); }
+function FWSend_STAR( device & ML_STAR, variable i_strModule, variable i_strCommand, variable i_strNameOfStep, variable i_blnThrowError ) variable {  return (0); }
+function FWSend_Vantage( device & ML_STAR, variable i_strArm, variable i_strModule, variable i_strCommand, variable i_strNameOfStep, variable i_blnThrowError ) variable {  return (0); }
+function GetChannelNumber( variable & io_intChannelNumber ) void { }
+function ParameterGet( variable & o_strCurrentParameter ) void { }
+function ParameterReset(  ) void { }
+function ParameterSet( variable i_strParameterName, variable i_Value, variable i_fltConversionValue, variable i_intTotalDigits, variable i_blnSetParamForAllChannels ) void { }
+function ParametersSetArr( variable i_strParameterName, variable & i_arrValues[], variable i_fltConversionValue, variable i_intTotalDigits ) void { }
+function ParseFWReturn( variable i_strReturn, variable i_strParameter, variable i_fltConversion, variable i_intTotalValues, variable & o_blnParameterFound, variable & o_arrValues[] ) void { }
+function RemoveExcessDigits( variable & io_fltValue ) void { }
+function SetTraceLevel( variable i_intTraceLevel ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-08-31 17:15$$checksum=ba79ffd9$$length=083$$

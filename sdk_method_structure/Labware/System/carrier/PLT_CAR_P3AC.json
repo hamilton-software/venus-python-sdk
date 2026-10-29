@@ -1,0 +1,170 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:plt_car_p3ac_a01",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "PLT_CAR_P3AC_A01",
+  "description": "Carrier for 3 96 Deep Well Plates (portrait)",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "PLT_CAR_P3AC_A01",
+    "originalFile": "PLT_CAR_P3AC_A01.tml",
+    "convertedDate": "2026-07-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 135.0,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 87.1,
+        "y": 393.0,
+        "z": 85.9
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 86.0,
+        "depth": 127.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 0
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 87.1,
+        "y": 247.0,
+        "z": 85.9
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 86.0,
+        "depth": 127.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 0
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 87.1,
+        "y": 101.0,
+        "z": 85.9
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 86.0,
+        "depth": 127.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "barcodeLocations": {
+    "carrier_barcode": {
+      "surface": "labware",
+      "face": "front",
+      "symbology": "code128",
+      "pattern": "^P03.{5}$",
+      "orientation": "vertical"
+    }
+  },
+  "visualModel": {
+    "modelRef": "PLT_CAR_P3AC.gltf",
+    "modelFormat": "gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "previewImageRef": "plt_car_p3ac.png",
+    "color": "#FF00FF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 700,
+      "countOfBcPositions": 3,
+      "firstBcPosition": 1160,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "carrierLabel": "PLT_CAR_P3AC_A01",
+      "positionsAreRecognizable": false,
+      "rasterWidth": 1460,
+      "widthAsTracks": 6
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

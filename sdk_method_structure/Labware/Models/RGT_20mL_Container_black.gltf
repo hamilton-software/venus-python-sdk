@@ -1,0 +1,257 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 24,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0000009536743164,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 24,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 36,
+      "type": "SCALAR",
+      "max": [
+        23
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 7032,
+      "type": "VEC3",
+      "max": [
+        9.5500020980834961,
+        40.137416839599609,
+        66.899673461914062
+      ],
+      "min": [
+        -9.54999828338623,
+        -12.400001525878906,
+        -22.049999237060547
+      ]
+    },
+    {
+      "bufferView": 4,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 7032,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        0.99999749660491943
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 5,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 17106,
+      "type": "SCALAR",
+      "max": [
+        7031
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 237912,
+      "uri": "RGT_20mL_Container_black.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 288,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 288,
+      "byteLength": 288,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 576,
+      "byteLength": 144,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 720,
+      "byteLength": 84384,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 85104,
+      "byteLength": 84384,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 169488,
+      "byteLength": 68424,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "MTL0",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.17788800597190857,
+          0.17788800597190857,
+          0.17788800597190857,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Cube",
+      "primitives": [
+        {
+          "extensions": {
+            "FB_ngon_encoding": {}
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cube",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 1,
+          "indices": 5,
+          "attributes": {
+            "POSITION": 3,
+            "NORMAL": 4
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Cube",
+      "children": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "Cube_node",
+      "mesh": 0
+    },
+    {
+      "name": "Cube_node_0",
+      "mesh": 1
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

@@ -1,0 +1,76 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:alpaqua_magex",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Alpaqua Magnum Ex",
+  "description": "NOTE:  Drag labware to empty space on deck before snapping it onto a carrier.",
+  "labwareClass": "adapter",
+  "source": {
+    "system": "venus",
+    "originalId": "Alpaqua_MagEx",
+    "originalFile": "Alpaqua_MagEx.tml",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 35.14
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "magnet": {
+      "origin": {
+        "x": 63.8,
+        "y": 43.0,
+        "z": 24.83
+      },
+      "label": "Position Magnet",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "Magnet",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Alpaqua Magnum Ex Magnetic Stand.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": -2.0,
+      "y": -1.0,
+      "z": 0.0
+    },
+    "color": "#0000FF",
+    "opacity": 0,
+    "modelFormat": "gltf"
+  }
+}

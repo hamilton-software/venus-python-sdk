@@ -1,0 +1,142 @@
+{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_ftr_300wide1_55_filter",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "300ul Standard Volume 1.55mm Wide Bore Tip with Filter",
+  "description": "Rack with 96 300ul Standard Volume 1.55 mm wide bore black tips with filter",
+  "labwareClass": "tip_rack",
+  "source": {
+    "system": "venus",
+    "originalId": "Ham_FTR_300Wide1-55._Filter",
+    "originalFile": "Ham_FTR_300Wide1-55._Filter.rck / Tip_1.55mm300uL.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 122.4,
+    "y": 82.6,
+    "z": 11.5
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 11.7,
+        "y": 9.8,
+        "z": -42.0
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 0.0
+        },
+        "totalDepth": 51.6,
+        "maxPipettingDepth": 43.6,
+        "bottomWallThickness": 0.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 43.6,
+              "diameterBottom": 0.4,
+              "diameterTop": 6.8
+            },
+            {
+              "type": "cylinder",
+              "height": 8.0,
+              "diameter": 6.8
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 43.6
+        },
+        "contentsRef": "hamilton:tip_1_55mm300ul",
+        "alignmentReceptacles": [
+          {
+            "name": "core_tip_734",
+            "offset": {
+              "z": 43.6
+            }
+          }
+        ],
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 52.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "core_tip_rack",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "modelRef": "300uL_FTR.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -50.5
+    },
+    "previewImageRef": "FTR_300.png",
+    "color": "#A6CAF0",
+    "opacity": 1,
+    "modelFormat": "gltf"
+  },
+  "tipRack": {
+    "style": "framed"
+  },
+  "customAttributes": {
+    "hamilton:rck_properties": {
+      "hasDefaultSequence": 0,
+      "IsTipRack": 1,
+      "managedSequenceName": "MlStar300ulWideBore1_55_Filter",
+      "MlStarCore96TipRack": 65,
+      "MlStarIsCore96WasteRack": 1,
+      "MlStarIsWasteRack": 1,
+      "MlStarTipRack": 65,
+      "PartNumber": 235449,
+      "TipType": 2,
+      "TipTypeEnum": 65,
+      "MlStarIsMagWasteRack": 1
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

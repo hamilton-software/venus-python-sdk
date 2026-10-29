@@ -1,0 +1,4009 @@
+{
+  "Layout": {
+    "fileVersion": 5,
+    "dataDefs": [
+      {
+        "name": "DECKLAY",
+        "version": 5,
+        "instance": "ML_STAR",
+        "type": "dictionary",
+        "fields": {
+          "ActiveLayer": "base",
+          "Axis.X": 1,
+          "Axis.Y": 1,
+          "Axis.Z": 1,
+          "Deck": "ML_STAR2.dck",
+          "DefaultWash": "Waste",
+          "Instrument": "ML_STAR",
+          "Labware": [
+            {
+              "_idx": 1,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\liquid_waste.rck",
+              "Id": "liquid_waste",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": "",
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 1332,
+                  "Y": 341,
+                  "Z": 1
+                }
+              ],
+              "Template": "default",
+              "ZTrans": 187,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 2,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{77DF9B91-671E-4974-8380-38AD0B4E0D86}",
+              "DefSeqValid": 0,
+              "File": "ML_STAR\\384CoReHead\\Core384SlideWaste.tml",
+              "Id": "Core384SlideWaste_0001",
+              "Inst": "",
+              "SiteId": "96CORESlideWaste",
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": -385,
+                  "Y": -9.45,
+                  "Z": 1
+                }
+              ],
+              "Template": "default",
+              "ZTrans": 100,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 3,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 0,
+              "File": "ml_star\\384corehead\\core384slidewaste.rck",
+              "Id": "core384slidewaste_0001",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 1,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": -46.3,
+                  "Y": 116.9,
+                  "Z": 1
+                }
+              ],
+              "Template": "Core384SlideWaste_0001",
+              "ZTrans": 240,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 4,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{77DF9B91-671E-4974-8380-38AD0B4E0D86}",
+              "DefSeqValid": 0,
+              "File": "ML_STAR\\96CoreHead\\Core96SlideWaste.tml",
+              "Id": "Core96SlideWaste_0001",
+              "Inst": "",
+              "SiteId": "96CORESlideWaste",
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": -385,
+                  "Y": -9.45,
+                  "Z": 1
+                }
+              ],
+              "Template": "default",
+              "ZTrans": 100,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 5,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 0,
+              "File": "ml_star\\96corehead\\core96slidewaste.rck",
+              "Id": "core96slidewaste_0001",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 1,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": -42,
+                  "Y": 120.3,
+                  "Z": 1
+                }
+              ],
+              "Template": "Core96SlideWaste_0001",
+              "ZTrans": 205,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 6,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{77DF9B91-671E-4974-8380-38AD0B4E0D86}",
+              "DefSeqValid": 0,
+              "File": "ml_star\\core\\wasteblock.tml",
+              "Id": "WasteBlock",
+              "Inst": "",
+              "SiteId": "WasteBlock",
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 1318,
+                  "Y": 115,
+                  "Z": 1
+                }
+              ],
+              "Template": "default",
+              "ZTrans": 100,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 7,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 0,
+              "File": "ml_star\\core\\teachingneedleblock.rck",
+              "Id": "teachingNeedleBlock",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 1,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 1326.25,
+                  "Y": 529,
+                  "Z": 1
+                }
+              ],
+              "Template": "WasteBlock",
+              "ZTrans": 175,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 8,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "ml_star\\core\\waste2.rck",
+              "Id": "Waste",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 2,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 1340,
+                  "Y": 405,
+                  "Z": 1
+                }
+              ],
+              "Template": "WasteBlock",
+              "ZTrans": 186,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 9,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 0,
+              "File": "ml_star\\core\\verification.rck",
+              "Id": "RearVerification",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 3,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 1338.90002441,
+                  "Y": 429.600006104,
+                  "Z": 1
+                }
+              ],
+              "Template": "WasteBlock",
+              "ZTrans": 220,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 10,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "ml_star\\core\\verification.rck",
+              "Id": "FrontVerification",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 4,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 1330,
+                  "Y": 158,
+                  "Z": 1
+                }
+              ],
+              "Template": "WasteBlock",
+              "ZTrans": 187,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 11,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 0,
+              "File": "ML_STAR\\CORE\\TeachingNeedle5ml.rck",
+              "Id": "TeachingNeedle5ml_0001",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 7,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 1333,
+                  "Y": 185,
+                  "Z": 1
+                }
+              ],
+              "Template": "WasteBlock",
+              "ZTrans": 210,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 12,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{77DF9B91-671E-4974-8380-38AD0B4E0D86}",
+              "DefSeqValid": 0,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\tip_carrier.tml",
+              "Id": "tip_carrier",
+              "Inst": "",
+              "SiteId": "6T-1",
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 100,
+                  "Y": 63,
+                  "Z": 1
+                }
+              ],
+              "Template": "default",
+              "Viz": 1,
+              "ZTrans": 100,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 13,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\st_l.rck",
+              "Id": "st_l_0001",
+              "Inst": "",
+              "IsCovered": 0,
+              "LwProperties": [
+                {
+                  "_idx": 1,
+                  "Property": "managedSequenceName",
+                  "Value": "transfer_tips"
+                }
+              ],
+              "LwProperties.NumOfProps": 1,
+              "SiteId": 1,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 117.9,
+                  "Y": 529.8,
+                  "Z": 1
+                }
+              ],
+              "Template": "tip_carrier",
+              "Viz": 1,
+              "ZTrans": 214.95,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 14,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{77DF9B91-671E-4974-8380-38AD0B4E0D86}",
+              "DefSeqValid": 0,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\plate_carrier.tml",
+              "Id": "plate_carrier",
+              "Inst": "",
+              "SiteId": "6T-7",
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 235,
+                  "Y": 63,
+                  "Z": 1
+                }
+              ],
+              "Template": "default",
+              "ZTrans": 100,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 15,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\source_plate.rck",
+              "Id": "source_plate",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 1,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 253,
+                  "Y": 530.5,
+                  "Z": 1
+                }
+              ],
+              "Template": "plate_carrier",
+              "Viz": 1,
+              "ZTrans": 207.3,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 16,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\source_plate2.rck",
+              "Id": "source_plate2",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 2,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 253,
+                  "Y": 434.5,
+                  "Z": 1
+                }
+              ],
+              "Template": "plate_carrier",
+              "Viz": 1,
+              "ZTrans": 207.3,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 17,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\dest_plate.rck",
+              "Id": "dest_plate",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 3,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 253,
+                  "Y": 338.5,
+                  "Z": 1
+                }
+              ],
+              "Template": "plate_carrier",
+              "Viz": 1,
+              "ZTrans": 207.3,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 18,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\dest_plate2.rck",
+              "Id": "dest_plate2",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 4,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 253,
+                  "Y": 242.5,
+                  "Z": 1
+                }
+              ],
+              "Template": "plate_carrier",
+              "Viz": 1,
+              "ZTrans": 207.3,
+              "ZTransValue": 1
+            },
+            {
+              "_idx": 19,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{77DF9B91-671E-4974-8380-38AD0B4E0D86}",
+              "DefSeqValid": 0,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\reagent_carrier.tml",
+              "Id": "reagent_carrier",
+              "Inst": "",
+              "SiteId": "6T-15",
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 415,
+                  "Y": 63,
+                  "Z": 1
+                }
+              ],
+              "Template": "default",
+              "Viz": 1,
+              "ZTrans": 100,
+              "ZTransValue": 2
+            },
+            {
+              "_idx": 20,
+              "Angle": 0,
+              "BarcodeCnt": 0,
+              "Clsid": "{8E1D6C02-F939-11D1-8D14-008029ED67EA}",
+              "DefSeqValid": 1,
+              "File": "C:\\Program Files (x86)\\Hamilton\\SDK\\active layout\\reagent_trough.rck",
+              "Id": "reagent_trough",
+              "Inst": "",
+              "IsCovered": 0,
+              "SiteId": 1,
+              "TForm": [
+                {
+                  "_idx": 1,
+                  "X": 1,
+                  "Y": 0,
+                  "Z": 0
+                },
+                {
+                  "_idx": 2,
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 0
+                },
+                {
+                  "_idx": 3,
+                  "X": 438.85,
+                  "Y": 482.483,
+                  "Z": 1
+                }
+              ],
+              "Template": "reagent_carrier",
+              "ZTrans": 181,
+              "ZTransValue": 1
+            }
+          ],
+          "Labware.Cnt": 20,
+          "Layer": [
+            {
+              "_idx": 1,
+              "_items": [
+                {
+                  "_idx": 1,
+                  "LabwareName": "reagent_trough",
+                  "SeqName": "MaintenanceNeedles"
+                },
+                {
+                  "_idx": 2,
+                  "LabwareName": "tip_carrier",
+                  "SeqName": "MaintenanceNeedle5ml"
+                },
+                {
+                  "_idx": 3,
+                  "LabwareName": "source_plate",
+                  "SeqName": "Waste16"
+                },
+                {
+                  "_idx": 4,
+                  "LabwareName": "Core96SlideWaste_0001",
+                  "SeqName": "Waste12"
+                },
+                {
+                  "_idx": 5,
+                  "LabwareName": "core384slidewaste_0001",
+                  "SeqName": "Waste"
+                },
+                {
+                  "_idx": 6,
+                  "LabwareName": "plate_carrier",
+                  "SeqName": "Waste04"
+                },
+                {
+                  "_idx": 7,
+                  "LabwareName": "reagent_carrier",
+                  "SeqName": "FrontVerification"
+                },
+                {
+                  "_idx": 8,
+                  "LabwareName": "default",
+                  "SeqName": "transfer_tips"
+                },
+                {
+                  "_idx": 9,
+                  "LabwareName": "core96slidewaste_0001",
+                  "SeqName": "Waste08"
+                },
+                {
+                  "_idx": 10,
+                  "LabwareName": "teachingNeedleBlock",
+                  "SeqName": "RearVerification"
+                },
+                {
+                  "_idx": 11,
+                  "LabwareName": "dest_plate2",
+                  "SeqName": "DefChannelWaste_Waste"
+                },
+                {
+                  "_idx": 12,
+                  "LabwareName": "liquid_waste"
+                },
+                {
+                  "_idx": 13,
+                  "LabwareName": "source_plate2"
+                },
+                {
+                  "_idx": 14,
+                  "LabwareName": "Waste"
+                },
+                {
+                  "_idx": 15,
+                  "LabwareName": "Core384SlideWaste_0001"
+                },
+                {
+                  "_idx": 16,
+                  "LabwareName": "TeachingNeedle5ml_0001"
+                },
+                {
+                  "_idx": 17,
+                  "LabwareName": "FrontVerification"
+                },
+                {
+                  "_idx": 18,
+                  "LabwareName": "st_l_0001"
+                },
+                {
+                  "_idx": 19,
+                  "LabwareName": "RearVerification"
+                },
+                {
+                  "_idx": 20,
+                  "LabwareName": "dest_plate"
+                },
+                {
+                  "_idx": 21,
+                  "LabwareName": "WasteBlock"
+                }
+              ],
+              "LabwareCnt": 21,
+              "Name": "base",
+              "SeqCnt": 11,
+              "Viz": 1
+            }
+          ],
+          "Layer.Cnt": 1,
+          "PhoenixVersion": "6.6.0.581",
+          "Seq": [
+            {
+              "_idx": 1,
+              "Cnt": 1,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "TeachingNeedle5ml_0001",
+                  "PosId": 1
+                }
+              ],
+              "Name": "MaintenanceNeedle5ml",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 2,
+              "Cnt": 8,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 2
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 3
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 4
+                },
+                {
+                  "_idx": 5,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 5
+                },
+                {
+                  "_idx": 6,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 6
+                },
+                {
+                  "_idx": 7,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 7
+                },
+                {
+                  "_idx": 8,
+                  "ObjId": "teachingNeedleBlock",
+                  "PosId": 8
+                }
+              ],
+              "Name": "MaintenanceNeedles",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 3,
+              "Cnt": 16,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "Waste",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "Waste",
+                  "PosId": 2
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "Waste",
+                  "PosId": 3
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "Waste",
+                  "PosId": 4
+                },
+                {
+                  "_idx": 5,
+                  "ObjId": "Waste",
+                  "PosId": 5
+                },
+                {
+                  "_idx": 6,
+                  "ObjId": "Waste",
+                  "PosId": 6
+                },
+                {
+                  "_idx": 7,
+                  "ObjId": "Waste",
+                  "PosId": 7
+                },
+                {
+                  "_idx": 8,
+                  "ObjId": "Waste",
+                  "PosId": 8
+                },
+                {
+                  "_idx": 9,
+                  "ObjId": "Waste",
+                  "PosId": 9
+                },
+                {
+                  "_idx": 10,
+                  "ObjId": "Waste",
+                  "PosId": 10
+                },
+                {
+                  "_idx": 11,
+                  "ObjId": "Waste",
+                  "PosId": 11
+                },
+                {
+                  "_idx": 12,
+                  "ObjId": "Waste",
+                  "PosId": 12
+                },
+                {
+                  "_idx": 13,
+                  "ObjId": "Waste",
+                  "PosId": 13
+                },
+                {
+                  "_idx": 14,
+                  "ObjId": "Waste",
+                  "PosId": 14
+                },
+                {
+                  "_idx": 15,
+                  "ObjId": "Waste",
+                  "PosId": 15
+                },
+                {
+                  "_idx": 16,
+                  "ObjId": "Waste",
+                  "PosId": 16
+                }
+              ],
+              "Name": "Waste16",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 4,
+              "Cnt": 12,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "Waste",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "Waste",
+                  "PosId": 3
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "Waste",
+                  "PosId": 5
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "Waste",
+                  "PosId": 6
+                },
+                {
+                  "_idx": 5,
+                  "ObjId": "Waste",
+                  "PosId": 7
+                },
+                {
+                  "_idx": 6,
+                  "ObjId": "Waste",
+                  "PosId": 8
+                },
+                {
+                  "_idx": 7,
+                  "ObjId": "Waste",
+                  "PosId": 9
+                },
+                {
+                  "_idx": 8,
+                  "ObjId": "Waste",
+                  "PosId": 10
+                },
+                {
+                  "_idx": 9,
+                  "ObjId": "Waste",
+                  "PosId": 11
+                },
+                {
+                  "_idx": 10,
+                  "ObjId": "Waste",
+                  "PosId": 12
+                },
+                {
+                  "_idx": 11,
+                  "ObjId": "Waste",
+                  "PosId": 14
+                },
+                {
+                  "_idx": 12,
+                  "ObjId": "Waste",
+                  "PosId": 16
+                }
+              ],
+              "Name": "Waste12",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 5,
+              "Cnt": 16,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "Waste",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "Waste",
+                  "PosId": 2
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "Waste",
+                  "PosId": 3
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "Waste",
+                  "PosId": 4
+                },
+                {
+                  "_idx": 5,
+                  "ObjId": "Waste",
+                  "PosId": 5
+                },
+                {
+                  "_idx": 6,
+                  "ObjId": "Waste",
+                  "PosId": 6
+                },
+                {
+                  "_idx": 7,
+                  "ObjId": "Waste",
+                  "PosId": 7
+                },
+                {
+                  "_idx": 8,
+                  "ObjId": "Waste",
+                  "PosId": 8
+                },
+                {
+                  "_idx": 9,
+                  "ObjId": "Waste",
+                  "PosId": 9
+                },
+                {
+                  "_idx": 10,
+                  "ObjId": "Waste",
+                  "PosId": 10
+                },
+                {
+                  "_idx": 11,
+                  "ObjId": "Waste",
+                  "PosId": 11
+                },
+                {
+                  "_idx": 12,
+                  "ObjId": "Waste",
+                  "PosId": 12
+                },
+                {
+                  "_idx": 13,
+                  "ObjId": "Waste",
+                  "PosId": 13
+                },
+                {
+                  "_idx": 14,
+                  "ObjId": "Waste",
+                  "PosId": 14
+                },
+                {
+                  "_idx": 15,
+                  "ObjId": "Waste",
+                  "PosId": 15
+                },
+                {
+                  "_idx": 16,
+                  "ObjId": "Waste",
+                  "PosId": 16
+                }
+              ],
+              "Name": "Waste",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 6,
+              "Cnt": 4,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "Waste",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "Waste",
+                  "PosId": 6
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "Waste",
+                  "PosId": 11
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "Waste",
+                  "PosId": 16
+                }
+              ],
+              "Name": "Waste04",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 7,
+              "Cnt": 1,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "FrontVerification",
+                  "PosId": 1
+                }
+              ],
+              "Name": "FrontVerification",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 8,
+              "Cnt": 96,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "st_l_0001",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "st_l_0001",
+                  "PosId": 2
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "st_l_0001",
+                  "PosId": 3
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "st_l_0001",
+                  "PosId": 4
+                },
+                {
+                  "_idx": 5,
+                  "ObjId": "st_l_0001",
+                  "PosId": 5
+                },
+                {
+                  "_idx": 6,
+                  "ObjId": "st_l_0001",
+                  "PosId": 6
+                },
+                {
+                  "_idx": 7,
+                  "ObjId": "st_l_0001",
+                  "PosId": 7
+                },
+                {
+                  "_idx": 8,
+                  "ObjId": "st_l_0001",
+                  "PosId": 8
+                },
+                {
+                  "_idx": 9,
+                  "ObjId": "st_l_0001",
+                  "PosId": 9
+                },
+                {
+                  "_idx": 10,
+                  "ObjId": "st_l_0001",
+                  "PosId": 10
+                },
+                {
+                  "_idx": 11,
+                  "ObjId": "st_l_0001",
+                  "PosId": 11
+                },
+                {
+                  "_idx": 12,
+                  "ObjId": "st_l_0001",
+                  "PosId": 12
+                },
+                {
+                  "_idx": 13,
+                  "ObjId": "st_l_0001",
+                  "PosId": 13
+                },
+                {
+                  "_idx": 14,
+                  "ObjId": "st_l_0001",
+                  "PosId": 14
+                },
+                {
+                  "_idx": 15,
+                  "ObjId": "st_l_0001",
+                  "PosId": 15
+                },
+                {
+                  "_idx": 16,
+                  "ObjId": "st_l_0001",
+                  "PosId": 16
+                },
+                {
+                  "_idx": 17,
+                  "ObjId": "st_l_0001",
+                  "PosId": 17
+                },
+                {
+                  "_idx": 18,
+                  "ObjId": "st_l_0001",
+                  "PosId": 18
+                },
+                {
+                  "_idx": 19,
+                  "ObjId": "st_l_0001",
+                  "PosId": 19
+                },
+                {
+                  "_idx": 20,
+                  "ObjId": "st_l_0001",
+                  "PosId": 20
+                },
+                {
+                  "_idx": 21,
+                  "ObjId": "st_l_0001",
+                  "PosId": 21
+                },
+                {
+                  "_idx": 22,
+                  "ObjId": "st_l_0001",
+                  "PosId": 22
+                },
+                {
+                  "_idx": 23,
+                  "ObjId": "st_l_0001",
+                  "PosId": 23
+                },
+                {
+                  "_idx": 24,
+                  "ObjId": "st_l_0001",
+                  "PosId": 24
+                },
+                {
+                  "_idx": 25,
+                  "ObjId": "st_l_0001",
+                  "PosId": 25
+                },
+                {
+                  "_idx": 26,
+                  "ObjId": "st_l_0001",
+                  "PosId": 26
+                },
+                {
+                  "_idx": 27,
+                  "ObjId": "st_l_0001",
+                  "PosId": 27
+                },
+                {
+                  "_idx": 28,
+                  "ObjId": "st_l_0001",
+                  "PosId": 28
+                },
+                {
+                  "_idx": 29,
+                  "ObjId": "st_l_0001",
+                  "PosId": 29
+                },
+                {
+                  "_idx": 30,
+                  "ObjId": "st_l_0001",
+                  "PosId": 30
+                },
+                {
+                  "_idx": 31,
+                  "ObjId": "st_l_0001",
+                  "PosId": 31
+                },
+                {
+                  "_idx": 32,
+                  "ObjId": "st_l_0001",
+                  "PosId": 32
+                },
+                {
+                  "_idx": 33,
+                  "ObjId": "st_l_0001",
+                  "PosId": 33
+                },
+                {
+                  "_idx": 34,
+                  "ObjId": "st_l_0001",
+                  "PosId": 34
+                },
+                {
+                  "_idx": 35,
+                  "ObjId": "st_l_0001",
+                  "PosId": 35
+                },
+                {
+                  "_idx": 36,
+                  "ObjId": "st_l_0001",
+                  "PosId": 36
+                },
+                {
+                  "_idx": 37,
+                  "ObjId": "st_l_0001",
+                  "PosId": 37
+                },
+                {
+                  "_idx": 38,
+                  "ObjId": "st_l_0001",
+                  "PosId": 38
+                },
+                {
+                  "_idx": 39,
+                  "ObjId": "st_l_0001",
+                  "PosId": 39
+                },
+                {
+                  "_idx": 40,
+                  "ObjId": "st_l_0001",
+                  "PosId": 40
+                },
+                {
+                  "_idx": 41,
+                  "ObjId": "st_l_0001",
+                  "PosId": 41
+                },
+                {
+                  "_idx": 42,
+                  "ObjId": "st_l_0001",
+                  "PosId": 42
+                },
+                {
+                  "_idx": 43,
+                  "ObjId": "st_l_0001",
+                  "PosId": 43
+                },
+                {
+                  "_idx": 44,
+                  "ObjId": "st_l_0001",
+                  "PosId": 44
+                },
+                {
+                  "_idx": 45,
+                  "ObjId": "st_l_0001",
+                  "PosId": 45
+                },
+                {
+                  "_idx": 46,
+                  "ObjId": "st_l_0001",
+                  "PosId": 46
+                },
+                {
+                  "_idx": 47,
+                  "ObjId": "st_l_0001",
+                  "PosId": 47
+                },
+                {
+                  "_idx": 48,
+                  "ObjId": "st_l_0001",
+                  "PosId": 48
+                },
+                {
+                  "_idx": 49,
+                  "ObjId": "st_l_0001",
+                  "PosId": 49
+                },
+                {
+                  "_idx": 50,
+                  "ObjId": "st_l_0001",
+                  "PosId": 50
+                },
+                {
+                  "_idx": 51,
+                  "ObjId": "st_l_0001",
+                  "PosId": 51
+                },
+                {
+                  "_idx": 52,
+                  "ObjId": "st_l_0001",
+                  "PosId": 52
+                },
+                {
+                  "_idx": 53,
+                  "ObjId": "st_l_0001",
+                  "PosId": 53
+                },
+                {
+                  "_idx": 54,
+                  "ObjId": "st_l_0001",
+                  "PosId": 54
+                },
+                {
+                  "_idx": 55,
+                  "ObjId": "st_l_0001",
+                  "PosId": 55
+                },
+                {
+                  "_idx": 56,
+                  "ObjId": "st_l_0001",
+                  "PosId": 56
+                },
+                {
+                  "_idx": 57,
+                  "ObjId": "st_l_0001",
+                  "PosId": 57
+                },
+                {
+                  "_idx": 58,
+                  "ObjId": "st_l_0001",
+                  "PosId": 58
+                },
+                {
+                  "_idx": 59,
+                  "ObjId": "st_l_0001",
+                  "PosId": 59
+                },
+                {
+                  "_idx": 60,
+                  "ObjId": "st_l_0001",
+                  "PosId": 60
+                },
+                {
+                  "_idx": 61,
+                  "ObjId": "st_l_0001",
+                  "PosId": 61
+                },
+                {
+                  "_idx": 62,
+                  "ObjId": "st_l_0001",
+                  "PosId": 62
+                },
+                {
+                  "_idx": 63,
+                  "ObjId": "st_l_0001",
+                  "PosId": 63
+                },
+                {
+                  "_idx": 64,
+                  "ObjId": "st_l_0001",
+                  "PosId": 64
+                },
+                {
+                  "_idx": 65,
+                  "ObjId": "st_l_0001",
+                  "PosId": 65
+                },
+                {
+                  "_idx": 66,
+                  "ObjId": "st_l_0001",
+                  "PosId": 66
+                },
+                {
+                  "_idx": 67,
+                  "ObjId": "st_l_0001",
+                  "PosId": 67
+                },
+                {
+                  "_idx": 68,
+                  "ObjId": "st_l_0001",
+                  "PosId": 68
+                },
+                {
+                  "_idx": 69,
+                  "ObjId": "st_l_0001",
+                  "PosId": 69
+                },
+                {
+                  "_idx": 70,
+                  "ObjId": "st_l_0001",
+                  "PosId": 70
+                },
+                {
+                  "_idx": 71,
+                  "ObjId": "st_l_0001",
+                  "PosId": 71
+                },
+                {
+                  "_idx": 72,
+                  "ObjId": "st_l_0001",
+                  "PosId": 72
+                },
+                {
+                  "_idx": 73,
+                  "ObjId": "st_l_0001",
+                  "PosId": 73
+                },
+                {
+                  "_idx": 74,
+                  "ObjId": "st_l_0001",
+                  "PosId": 74
+                },
+                {
+                  "_idx": 75,
+                  "ObjId": "st_l_0001",
+                  "PosId": 75
+                },
+                {
+                  "_idx": 76,
+                  "ObjId": "st_l_0001",
+                  "PosId": 76
+                },
+                {
+                  "_idx": 77,
+                  "ObjId": "st_l_0001",
+                  "PosId": 77
+                },
+                {
+                  "_idx": 78,
+                  "ObjId": "st_l_0001",
+                  "PosId": 78
+                },
+                {
+                  "_idx": 79,
+                  "ObjId": "st_l_0001",
+                  "PosId": 79
+                },
+                {
+                  "_idx": 80,
+                  "ObjId": "st_l_0001",
+                  "PosId": 80
+                },
+                {
+                  "_idx": 81,
+                  "ObjId": "st_l_0001",
+                  "PosId": 81
+                },
+                {
+                  "_idx": 82,
+                  "ObjId": "st_l_0001",
+                  "PosId": 82
+                },
+                {
+                  "_idx": 83,
+                  "ObjId": "st_l_0001",
+                  "PosId": 83
+                },
+                {
+                  "_idx": 84,
+                  "ObjId": "st_l_0001",
+                  "PosId": 84
+                },
+                {
+                  "_idx": 85,
+                  "ObjId": "st_l_0001",
+                  "PosId": 85
+                },
+                {
+                  "_idx": 86,
+                  "ObjId": "st_l_0001",
+                  "PosId": 86
+                },
+                {
+                  "_idx": 87,
+                  "ObjId": "st_l_0001",
+                  "PosId": 87
+                },
+                {
+                  "_idx": 88,
+                  "ObjId": "st_l_0001",
+                  "PosId": 88
+                },
+                {
+                  "_idx": 89,
+                  "ObjId": "st_l_0001",
+                  "PosId": 89
+                },
+                {
+                  "_idx": 90,
+                  "ObjId": "st_l_0001",
+                  "PosId": 90
+                },
+                {
+                  "_idx": 91,
+                  "ObjId": "st_l_0001",
+                  "PosId": 91
+                },
+                {
+                  "_idx": 92,
+                  "ObjId": "st_l_0001",
+                  "PosId": 92
+                },
+                {
+                  "_idx": 93,
+                  "ObjId": "st_l_0001",
+                  "PosId": 93
+                },
+                {
+                  "_idx": 94,
+                  "ObjId": "st_l_0001",
+                  "PosId": 94
+                },
+                {
+                  "_idx": 95,
+                  "ObjId": "st_l_0001",
+                  "PosId": 95
+                },
+                {
+                  "_idx": 96,
+                  "ObjId": "st_l_0001",
+                  "PosId": 96
+                }
+              ],
+              "Name": "transfer_tips",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 9,
+              "Cnt": 1,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "RearVerification",
+                  "PosId": 1
+                }
+              ],
+              "Name": "RearVerification",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 10,
+              "Cnt": 8,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "Waste",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "Waste",
+                  "PosId": 3
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "Waste",
+                  "PosId": 5
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "Waste",
+                  "PosId": 7
+                },
+                {
+                  "_idx": 5,
+                  "ObjId": "Waste",
+                  "PosId": 10
+                },
+                {
+                  "_idx": 6,
+                  "ObjId": "Waste",
+                  "PosId": 12
+                },
+                {
+                  "_idx": 7,
+                  "ObjId": "Waste",
+                  "PosId": 14
+                },
+                {
+                  "_idx": 8,
+                  "ObjId": "Waste",
+                  "PosId": 16
+                }
+              ],
+              "Name": "Waste08",
+              "ReadOnly": 0
+            },
+            {
+              "_idx": 11,
+              "Cnt": 16,
+              "Item": [
+                {
+                  "_idx": 1,
+                  "ObjId": "Waste",
+                  "PosId": 1
+                },
+                {
+                  "_idx": 2,
+                  "ObjId": "Waste",
+                  "PosId": 2
+                },
+                {
+                  "_idx": 3,
+                  "ObjId": "Waste",
+                  "PosId": 3
+                },
+                {
+                  "_idx": 4,
+                  "ObjId": "Waste",
+                  "PosId": 4
+                },
+                {
+                  "_idx": 5,
+                  "ObjId": "Waste",
+                  "PosId": 5
+                },
+                {
+                  "_idx": 6,
+                  "ObjId": "Waste",
+                  "PosId": 6
+                },
+                {
+                  "_idx": 7,
+                  "ObjId": "Waste",
+                  "PosId": 7
+                },
+                {
+                  "_idx": 8,
+                  "ObjId": "Waste",
+                  "PosId": 8
+                },
+                {
+                  "_idx": 9,
+                  "ObjId": "Waste",
+                  "PosId": 9
+                },
+                {
+                  "_idx": 10,
+                  "ObjId": "Waste",
+                  "PosId": 10
+                },
+                {
+                  "_idx": 11,
+                  "ObjId": "Waste",
+                  "PosId": 11
+                },
+                {
+                  "_idx": 12,
+                  "ObjId": "Waste",
+                  "PosId": 12
+                },
+                {
+                  "_idx": 13,
+                  "ObjId": "Waste",
+                  "PosId": 13
+                },
+                {
+                  "_idx": 14,
+                  "ObjId": "Waste",
+                  "PosId": 14
+                },
+                {
+                  "_idx": 15,
+                  "ObjId": "Waste",
+                  "PosId": 15
+                },
+                {
+                  "_idx": 16,
+                  "ObjId": "Waste",
+                  "PosId": 16
+                }
+              ],
+              "Name": "DefChannelWaste_Waste",
+              "ReadOnly": 0
+            }
+          ],
+          "Seq.Cnt": 11,
+          "UseGlobalTpl": 0,
+          "ViewAngle": 0,
+          "dataVersion": 3
+        }
+      },
+      {
+        "name": "DEVICE",
+        "version": 2,
+        "instance": "ML_STAR",
+        "type": "dictionary",
+        "fields": {
+          "ORGX": 0,
+          "ORGY": 0,
+          "ORGZ": 0,
+          "REG": "ML_STAR",
+          "ROT": 0,
+          "TYPE": 1
+        }
+      },
+      {
+        "name": "Method",
+        "version": 1,
+        "instance": "Properties",
+        "type": "dictionary",
+        "fields": {
+          "ReadOnly": 0
+        }
+      },
+      {
+        "name": "RESOURCES",
+        "version": 1,
+        "instance": "default",
+        "type": "dictionary",
+        "fields": {
+          "CNT": 0
+        }
+      },
+      {
+        "name": "SYSTEM",
+        "version": 1,
+        "instance": "default",
+        "type": "dictionary",
+        "fields": {
+          "CNT": 0
+        }
+      },
+      {
+        "name": "SYSTEM",
+        "version": 1,
+        "instance": "default",
+        "type": "array",
+        "items": [
+          "ML_STAR"
+        ]
+      }
+    ]
+  },
+  "Carriers": {
+    "plate_carrier": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "TEMPLATE",
+          "version": 1,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "3DModel": ".\\Models\\PLT_CAR_L5_MTP.hxx",
+            "3DxOffset": 0,
+            "3DyOffset": 0,
+            "3DzOffset": 0,
+            "BackgrndClr": 12632256,
+            "Barcode.Unique": 0,
+            "Barcode.Value": "SR12****",
+            "Category": [
+              {
+                "Id": 144
+              }
+            ],
+            "CategoryCnt": 1,
+            "Clearance": 127.1,
+            "Description": "Plate Carrier 5 Landscape MTP with Precision Tabs PN: 93521 Hamilton",
+            "Dim.Dx": 135,
+            "Dim.Dy": 497,
+            "Dim.Dz": 117.1,
+            "Property": {
+              "MlStarCarBCOrientation": 1,
+              "MlStarCarBCReadWidth": 300,
+              "MlStarCarCountOfBCPos": 5,
+              "MlStarCarFirstBCPos": 615,
+              "MlStarCarIsAutoLoad": 1,
+              "MlStarCarIsLoadable": 1,
+              "MlStarCarIsRecognizable": 1,
+              "MlStarCarLabelName": "PLT_CAR_L5_MTP",
+              "MlStarCarPosAreRecognizable": 0,
+              "MlStarCarRasterWidth": 960,
+              "MlStarCarWidthAsT": 6
+            },
+            "PropertyCnt": 11,
+            "ReadOnly": 0,
+            "Site": [
+              {
+                "_idx": 1,
+                "Dx": 127,
+                "Dy": 86,
+                "Id": 1,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 1,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 4,
+                "Y": 393,
+                "Z": 107.3
+              },
+              {
+                "_idx": 2,
+                "Dx": 127,
+                "Dy": 86,
+                "Id": 2,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 2,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 4,
+                "Y": 297,
+                "Z": 107.3
+              },
+              {
+                "_idx": 3,
+                "Dx": 127,
+                "Dy": 86,
+                "Id": 3,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 3,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 4,
+                "Y": 201,
+                "Z": 107.3
+              },
+              {
+                "_idx": 4,
+                "Dx": 127,
+                "Dy": 86,
+                "Id": 4,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 4,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 4,
+                "Y": 105,
+                "Z": 107.3
+              },
+              {
+                "_idx": 5,
+                "Dx": 127,
+                "Dy": 86,
+                "Id": 5,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 5,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 4,
+                "Y": 9,
+                "Z": 107.3
+              }
+            ],
+            "Site.Cnt": 5,
+            "UseBndry": 0,
+            "ViewName": "PLT_CAR_L5_MTP",
+            "Visible": 1
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\PLT_CAR_L5_MTP.hxx"
+      ]
+    },
+    "reagent_carrier": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "TEMPLATE",
+          "version": 1,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "3DModel": ".\\Models\\RGT_CAR_12R_A00.x",
+            "3DxOffset": 0,
+            "3DyOffset": 0,
+            "3DzOffset": 0,
+            "BackgrndClr": 12632256,
+            "Barcode.Unique": 0,
+            "Barcode.Value": "R03*****",
+            "Category": [
+              {
+                "Id": 145
+              }
+            ],
+            "CategoryCnt": 1,
+            "Clearance": 130,
+            "Description": "Carrier for 12 Reagent Troughs 100 ml",
+            "Dim.Dx": 135,
+            "Dim.Dy": 497,
+            "Dim.Dz": 130,
+            "Property": {
+              "MlStarCarBCOrientation": 1,
+              "MlStarCarBCReadWidth": 300,
+              "MlStarCarCountOfBCPos": 3,
+              "MlStarCarFirstBCPos": 1150,
+              "MlStarCarIsAutoLoad": 1,
+              "MlStarCarIsLoadable": 1,
+              "MlStarCarIsRecognizable": 1,
+              "MlStarCarLabelName": "RGT_CAR_12R_A00",
+              "MlStarCarNoReadBarcode": 1,
+              "MlStarCarPosAreRecognizable": 0,
+              "MlStarCarRasterWidth": 1557,
+              "MlStarCarWidthAsT": 6,
+              "MlStarReadBarcodeOnPositions": "1=01;1=02;1=03;1=04;2=05;2=06;2=07;2=08;3=09;3=10;3=11;3=12"
+            },
+            "PropertyCnt": 13,
+            "ReadOnly": 0,
+            "Site": [
+              {
+                "_idx": 1,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 11,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 66.85,
+                "Y": 31.45,
+                "Z": 81
+              },
+              {
+                "_idx": 2,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 1,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 13.85,
+                "Y": 342.85,
+                "Z": 81
+              },
+              {
+                "_idx": 3,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 12,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 93.35,
+                "Y": 31.45,
+                "Z": 81
+              },
+              {
+                "_idx": 4,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 2,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 40.35,
+                "Y": 342.85,
+                "Z": 81
+              },
+              {
+                "_idx": 5,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 3,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 66.85,
+                "Y": 342.85,
+                "Z": 81
+              },
+              {
+                "_idx": 6,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 4,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 93.35,
+                "Y": 342.85,
+                "Z": 81
+              },
+              {
+                "_idx": 7,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 5,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 13.85,
+                "Y": 187.15,
+                "Z": 81
+              },
+              {
+                "_idx": 8,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 6,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 40.35,
+                "Y": 187.15,
+                "Z": 81
+              },
+              {
+                "_idx": 9,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 7,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 66.85,
+                "Y": 187.15,
+                "Z": 81
+              },
+              {
+                "_idx": 10,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 8,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 93.35,
+                "Y": 187.15,
+                "Z": 81
+              },
+              {
+                "_idx": 11,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 9,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 13.85,
+                "Y": 31.45,
+                "Z": 81
+              },
+              {
+                "_idx": 12,
+                "Dx": 26.5,
+                "Dy": 112.8,
+                "Id": 10,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "Posn": 0,
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 40.35,
+                "Y": 31.45,
+                "Z": 81
+              }
+            ],
+            "Site.Cnt": 12,
+            "UseBndry": 0,
+            "ViewName": "RGT_CAR_12R_A00",
+            "Visible": 0
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\RGT_CAR_12R_A00.x"
+      ]
+    },
+    "tip_carrier": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "TEMPLATE",
+          "version": 1,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "3DModel": ".\\Models\\TIP_CAR_480BC_A00.hxx",
+            "3DxOffset": 0.5,
+            "3DyOffset": 0,
+            "3DzOffset": 0,
+            "BackgrndClr": 15780518,
+            "Barcode.Unique": 0,
+            "Barcode.Value": "T02*****",
+            "Category": [
+              {
+                "Id": 151
+              }
+            ],
+            "CategoryCnt": 1,
+            "Description": "Tip carrier with 5 tip rack positions landscape",
+            "Dim.Dx": 135,
+            "Dim.Dy": 497,
+            "Dim.Dz": 130,
+            "Property": {
+              "MlStarCarBCOrientation": 1,
+              "MlStarCarBCReadWidth": 300,
+              "MlStarCarCountOfBCPos": 5,
+              "MlStarCarFirstBCPos": 616,
+              "MlStarCarIsAutoLoad": 1,
+              "MlStarCarIsLoadable": 1,
+              "MlStarCarIsRecognizable": 1,
+              "MlStarCarLabelName": "TIP_CAR_480_A00",
+              "MlStarCarNoReadBarcode": 0,
+              "MlStarCarPosAreRecognizable": 0,
+              "MlStarCarRasterWidth": 960,
+              "MlStarCarWidthAsT": 6
+            },
+            "PropertyCnt": 12,
+            "ReadOnly": 0,
+            "Site": [
+              {
+                "_idx": 1,
+                "Dx": 122.4,
+                "Dy": 82.6,
+                "Id": 3,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 6.2,
+                "Y": 202,
+                "Z": 114.95
+              },
+              {
+                "_idx": 2,
+                "Dx": 122.4,
+                "Dy": 82.6,
+                "Id": 4,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 6.2,
+                "Y": 106,
+                "Z": 114.95
+              },
+              {
+                "_idx": 3,
+                "Dx": 122.4,
+                "Dy": 82.6,
+                "Id": 5,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 6.2,
+                "Y": 10,
+                "Z": 114.95
+              },
+              {
+                "_idx": 4,
+                "Dx": 122.4,
+                "Dy": 82.6,
+                "Id": 1,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 6.2,
+                "Y": 394,
+                "Z": 114.95
+              },
+              {
+                "_idx": 5,
+                "Dx": 122.4,
+                "Dy": 82.6,
+                "Id": 2,
+                "IsCovered": 0,
+                "Label": 1,
+                "LabwareFile": "",
+                "LabwareFileRel": "",
+                "SnapBase": 1,
+                "Stack": 0,
+                "StackSize": 1,
+                "Visible": 1,
+                "X": 6.2,
+                "Y": 298,
+                "Z": 114.95
+              }
+            ],
+            "Site.Cnt": 5,
+            "UseBndry": 0,
+            "ViewName": "TIP_CAR_480BC_A00",
+            "Visible": 0
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\TIP_CAR_480BC_A00.hxx"
+      ]
+    }
+  },
+  "Racks": {
+    "dest_plate": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "RECTRACK",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "BackgrndClr": 16777215,
+            "Barcode.Value": "",
+            "Bitmap": ".\\Models\\96_l.bmp",
+            "BndryX": 14,
+            "BndryY": 11.5,
+            "CategoryCnt": 0,
+            "Cntr": [
+              {
+                "_idx": 1,
+                "base": 2.2,
+                "file": ".\\Nun_96_Fl.ctr",
+                "offsetx": 0,
+                "offsety": 0
+              }
+            ],
+            "Columns": 12,
+            "ConnectedCtr": 0,
+            "DataType": 1,
+            "Description": "Nunc plate with high border with 96 flat bottom wells",
+            "Dim.Dx": 127,
+            "Dim.Dy": 86,
+            "Dim.Dz": 14.5,
+            "Dx": 9,
+            "Dy": 9,
+            "Hole.Shape": 0,
+            "Hole.X": 7,
+            "Hole.Y": 7,
+            "Hole.Z": 7,
+            "IX.First": 1,
+            "IX.Inc": 0,
+            "IX.Index": 1,
+            "IX.Start": 0,
+            "Options": 0,
+            "ReadOnly": 0,
+            "Rows": 8,
+            "Seg_x": [
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 7,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 127.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 127.5
+              }
+            ],
+            "Seg_y": [
+              {
+                "LowerWidth": 81.6,
+                "SegmentHeight": 7,
+                "UpperWidth": 81.6
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 85.5
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 85.5
+              }
+            ],
+            "SegmentCount_x": 3,
+            "SegmentCount_y": 3,
+            "Shape": 1,
+            "SingleCntr": 1,
+            "StackHt": 12.8,
+            "Stagger": 0,
+            "UseBndry": 1,
+            "ViewName": "Nunc 96 FL Hb (high border)",
+            "Visible": 0
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\96_l.bmp"
+      ]
+    },
+    "dest_plate2": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "RECTRACK",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "BackgrndClr": 16777215,
+            "Barcode.Value": "",
+            "Bitmap": ".\\Models\\96_l.bmp",
+            "BndryX": 14,
+            "BndryY": 11.5,
+            "CategoryCnt": 0,
+            "Cntr": [
+              {
+                "_idx": 1,
+                "base": 2.2,
+                "file": ".\\Nun_96_Fl.ctr",
+                "offsetx": 0,
+                "offsety": 0
+              }
+            ],
+            "Columns": 12,
+            "ConnectedCtr": 0,
+            "DataType": 1,
+            "Description": "Nunc plate with high border with 96 flat bottom wells",
+            "Dim.Dx": 127,
+            "Dim.Dy": 86,
+            "Dim.Dz": 14.5,
+            "Dx": 9,
+            "Dy": 9,
+            "Hole.Shape": 0,
+            "Hole.X": 7,
+            "Hole.Y": 7,
+            "Hole.Z": 7,
+            "IX.First": 1,
+            "IX.Inc": 0,
+            "IX.Index": 1,
+            "IX.Start": 0,
+            "Options": 0,
+            "ReadOnly": 0,
+            "Rows": 8,
+            "Seg_x": [
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 7,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 127.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 127.5
+              }
+            ],
+            "Seg_y": [
+              {
+                "LowerWidth": 81.6,
+                "SegmentHeight": 7,
+                "UpperWidth": 81.6
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 85.5
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 85.5
+              }
+            ],
+            "SegmentCount_x": 3,
+            "SegmentCount_y": 3,
+            "Shape": 1,
+            "SingleCntr": 1,
+            "StackHt": 12.8,
+            "Stagger": 0,
+            "UseBndry": 1,
+            "ViewName": "Nunc 96 FL Hb (high border)",
+            "Visible": 0
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\96_l.bmp"
+      ]
+    },
+    "liquid_waste": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "RECTRACK",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "_items": [
+              {
+                "_idx": 1,
+                "ID": 1,
+                "X": 0,
+                "Y": 0
+              },
+              {
+                "_idx": 2,
+                "ID": 2,
+                "X": 0,
+                "Y": -9
+              },
+              {
+                "_idx": 3,
+                "ID": 3,
+                "X": 0,
+                "Y": -18
+              },
+              {
+                "_idx": 4,
+                "ID": 4,
+                "X": 0,
+                "Y": -27
+              },
+              {
+                "_idx": 5,
+                "ID": 5,
+                "X": 0,
+                "Y": -36
+              },
+              {
+                "_idx": 6,
+                "ID": 6,
+                "X": 0,
+                "Y": -45
+              },
+              {
+                "_idx": 7,
+                "ID": 7,
+                "X": 0,
+                "Y": -54
+              },
+              {
+                "_idx": 8,
+                "ID": 8,
+                "X": 0,
+                "Y": -63
+              }
+            ],
+            "BackgrndClr": 16777215,
+            "Barcode.Unique": 0,
+            "Barcode.Value": "",
+            "BndryX": 10,
+            "BndryY": 79.25,
+            "CategoryCnt": 0,
+            "Clearance": 65,
+            "Cntr": [
+              {
+                "_idx": 1,
+                "base": 0,
+                "file": ".\\liquidwaste.ctr",
+                "offsetx": 0,
+                "offsety": 0
+              }
+            ],
+            "Columns": 0,
+            "ConnectedCtr": 0,
+            "DataType": 3,
+            "Description": "",
+            "Dim.Dx": 20,
+            "Dim.Dy": 90,
+            "Dim.Dz": 65,
+            "Dx": 0,
+            "Dy": 0,
+            "GrpCnt": 0,
+            "Hole.Shape": 1,
+            "Hole.X": 17.5,
+            "Hole.Y": 9,
+            "Hole.Z": 17.5,
+            "HoleCnt": 8,
+            "IX.First": 1,
+            "IX.Inc": 0,
+            "IX.Index": 0,
+            "IX.Start": 0,
+            "Options": 0,
+            "Property": {
+              "MlStarIsLiquidWasteOnDefaultWasteRack": 1
+            },
+            "PropertyCnt": 1,
+            "Rows": 0,
+            "SegmentCount_x": 0,
+            "SegmentCount_y": 0,
+            "Shape": 1,
+            "SingleCntr": 1,
+            "StackHt": 0,
+            "Stagger": 0,
+            "UseBndry": 1,
+            "ViewName": "",
+            "Visible": 1
+          }
+        }
+      ]
+    },
+    "reagent_trough": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "RECTRACK",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "3DModel": ".\\Models\\RGT_20mL_Container_black.hxx",
+            "3DxOffset": 0.25,
+            "3DyOffset": 0.5,
+            "3DzOffset": 0,
+            "BackgrndClr": 12632256,
+            "Barcode.Unique": 0,
+            "Barcode.Value": "",
+            "BndryX": 10,
+            "BndryY": 13.269,
+            "CategoryCnt": 0,
+            "Clearance": 55,
+            "Cntr": [
+              {
+                "_idx": 1,
+                "base": 12.53,
+                "file": ".\\RGT_20mL_Container.ctr",
+                "offsetx": 0,
+                "offsety": 0
+              }
+            ],
+            "Columns": 1,
+            "ConnectedCtr": 1,
+            "DataType": 2,
+            "Description": "Reagent Container 20mL, black, no lid, PN: 10161050 Hamilton",
+            "Dim.Dx": 20,
+            "Dim.Dy": 89.9,
+            "Dim.Dz": 52.54,
+            "Dx": 9,
+            "Dy": 9.052,
+            "Hole.Shape": 1,
+            "Hole.X": 12.742,
+            "Hole.Y": 9.052,
+            "Hole.Z": 0,
+            "IX.First": 1,
+            "IX.Inc": 1,
+            "IX.Index": 0,
+            "IX.Start": 0,
+            "Options": 0,
+            "ReadOnly": 0,
+            "Rows": 8,
+            "SegmentCount_x": 0,
+            "SegmentCount_y": 0,
+            "Shape": 1,
+            "SingleCntr": 1,
+            "StackHt": 0,
+            "Stagger": 0,
+            "UseBndry": 1,
+            "ViewName": "RGT 20mL, black, no lid",
+            "Visible": 1
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\RGT_20mL_Container_black.hxx"
+      ]
+    },
+    "source_plate": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "RECTRACK",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "BackgrndClr": 16777215,
+            "Barcode.Value": "",
+            "Bitmap": ".\\Models\\96_l.bmp",
+            "BndryX": 14,
+            "BndryY": 11.5,
+            "CategoryCnt": 0,
+            "Cntr": [
+              {
+                "_idx": 1,
+                "base": 2.2,
+                "file": ".\\Nun_96_Fl.ctr",
+                "offsetx": 0,
+                "offsety": 0
+              }
+            ],
+            "Columns": 12,
+            "ConnectedCtr": 0,
+            "DataType": 1,
+            "Description": "Nunc plate with high border with 96 flat bottom wells",
+            "Dim.Dx": 127,
+            "Dim.Dy": 86,
+            "Dim.Dz": 14.5,
+            "Dx": 9,
+            "Dy": 9,
+            "Hole.Shape": 0,
+            "Hole.X": 7,
+            "Hole.Y": 7,
+            "Hole.Z": 7,
+            "IX.First": 1,
+            "IX.Inc": 0,
+            "IX.Index": 1,
+            "IX.Start": 0,
+            "Options": 0,
+            "ReadOnly": 0,
+            "Rows": 8,
+            "Seg_x": [
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 7,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 127.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 127.5
+              }
+            ],
+            "Seg_y": [
+              {
+                "LowerWidth": 81.6,
+                "SegmentHeight": 7,
+                "UpperWidth": 81.6
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 85.5
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 85.5
+              }
+            ],
+            "SegmentCount_x": 3,
+            "SegmentCount_y": 3,
+            "Shape": 1,
+            "SingleCntr": 1,
+            "StackHt": 12.8,
+            "Stagger": 0,
+            "UseBndry": 1,
+            "ViewName": "Nunc 96 FL Hb (high border)",
+            "Visible": 0
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\96_l.bmp"
+      ]
+    },
+    "source_plate2": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "RECTRACK",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "BackgrndClr": 16777215,
+            "Barcode.Value": "",
+            "Bitmap": ".\\Models\\96_l.bmp",
+            "BndryX": 14,
+            "BndryY": 11.5,
+            "CategoryCnt": 0,
+            "Cntr": [
+              {
+                "_idx": 1,
+                "base": 2.2,
+                "file": ".\\Nun_96_Fl.ctr",
+                "offsetx": 0,
+                "offsety": 0
+              }
+            ],
+            "Columns": 12,
+            "ConnectedCtr": 0,
+            "DataType": 1,
+            "Description": "Nunc plate with high border with 96 flat bottom wells",
+            "Dim.Dx": 127,
+            "Dim.Dy": 86,
+            "Dim.Dz": 14.5,
+            "Dx": 9,
+            "Dy": 9,
+            "Hole.Shape": 0,
+            "Hole.X": 7,
+            "Hole.Y": 7,
+            "Hole.Z": 7,
+            "IX.First": 1,
+            "IX.Inc": 0,
+            "IX.Index": 1,
+            "IX.Start": 0,
+            "Options": 0,
+            "ReadOnly": 0,
+            "Rows": 8,
+            "Seg_x": [
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 7,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 123.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 123.5
+              },
+              {
+                "LowerWidth": 127.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 127.5
+              }
+            ],
+            "Seg_y": [
+              {
+                "LowerWidth": 81.6,
+                "SegmentHeight": 7,
+                "UpperWidth": 81.6
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 5,
+                "UpperWidth": 85.5
+              },
+              {
+                "LowerWidth": 85.5,
+                "SegmentHeight": 2.4,
+                "UpperWidth": 85.5
+              }
+            ],
+            "SegmentCount_x": 3,
+            "SegmentCount_y": 3,
+            "Shape": 1,
+            "SingleCntr": 1,
+            "StackHt": 12.8,
+            "Stagger": 0,
+            "UseBndry": 1,
+            "ViewName": "Nunc 96 FL Hb (high border)",
+            "Visible": 0
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\96_l.bmp"
+      ]
+    },
+    "st_l": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "RECTRACK",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "BackgrndClr": 16777215,
+            "Barcode.Unique": 0,
+            "Barcode.Value": "235902************",
+            "Bitmap": ".\\Models\\st_l.bmp",
+            "BndryX": 11.7,
+            "BndryY": 9.8,
+            "CategoryCnt": 0,
+            "Cntr": [
+              {
+                "_idx": 1,
+                "base": -50.5,
+                "file": ".\\st.ctr",
+                "offsetx": 0,
+                "offsety": 0
+              }
+            ],
+            "Columns": 12,
+            "ConnectedCtr": 0,
+            "DataType": 2,
+            "Description": "Rack with 96 300ul Standard Volume Tip",
+            "Dim.Dx": 122.4,
+            "Dim.Dy": 82.6,
+            "Dim.Dz": 20,
+            "Dx": 9,
+            "Dy": 9,
+            "GrpCnt": 0,
+            "Hole.Shape": 0,
+            "Hole.X": 6.8,
+            "Hole.Y": 6.8,
+            "Hole.Z": 6.8,
+            "IX.First": 1,
+            "IX.Inc": 1,
+            "IX.Index": 0,
+            "IX.Start": 0,
+            "Options": 0,
+            "Property": {
+              "MlStarCore96TipRack": 0,
+              "MlStarIsCore96WasteRack": 1,
+              "MlStarIsWasteRack": 1,
+              "MlStarTipRack": 0,
+              "hasDefaultSequence": 0,
+              "managedSequenceName": "MlStar300ulStandardVolumeTip",
+              "MlStarIsMagWasteRack": 1
+            },
+            "PropertyCnt": 7,
+            "ReadOnly": 0,
+            "Rows": 8,
+            "SegmentCount_x": 0,
+            "SegmentCount_y": 0,
+            "Shape": 1,
+            "SingleCntr": 1,
+            "StackHt": 15.5,
+            "Stagger": 0,
+            "UseBndry": 1,
+            "ViewName": "300ul Standard Volume Tip",
+            "Visible": 0
+          }
+        }
+      ],
+      "dependencies": [
+        "C:\\Program Files (x86)\\HAMILTON\\LabWare\\Models\\st_l.bmp"
+      ]
+    }
+  },
+  "Lids": {
+    "dest_plate": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "COVER",
+          "version": 1,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "CoverThickness": 1.2,
+            "CoveredStackHt": 16,
+            "Description": "Cover for Nunc plate with 96 flat bottom wells",
+            "Dim.Dx": 127.2,
+            "Dim.Dy": 85.2,
+            "Dim.Dz": 8,
+            "RackBaseToCoverBase": 8,
+            "ReadOnly": 0,
+            "StackHt": 8,
+            "ViewName": "Cover for Nunc 96",
+            "XExtent": 127,
+            "YExtent": 86
+          }
+        }
+      ]
+    },
+    "dest_plate2": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "COVER",
+          "version": 1,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "CoverThickness": 1.2,
+            "CoveredStackHt": 16,
+            "Description": "Cover for Nunc plate with 96 flat bottom wells",
+            "Dim.Dx": 127.2,
+            "Dim.Dy": 85.2,
+            "Dim.Dz": 8,
+            "RackBaseToCoverBase": 8,
+            "ReadOnly": 0,
+            "StackHt": 8,
+            "ViewName": "Cover for Nunc 96",
+            "XExtent": 127,
+            "YExtent": 86
+          }
+        }
+      ]
+    },
+    "source_plate": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "COVER",
+          "version": 1,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "CoverThickness": 1.2,
+            "CoveredStackHt": 16,
+            "Description": "Cover for Nunc plate with 96 flat bottom wells",
+            "Dim.Dx": 127.2,
+            "Dim.Dy": 85.2,
+            "Dim.Dz": 8,
+            "RackBaseToCoverBase": 8,
+            "ReadOnly": 0,
+            "StackHt": 8,
+            "ViewName": "Cover for Nunc 96",
+            "XExtent": 127,
+            "YExtent": 86
+          }
+        }
+      ]
+    },
+    "source_plate2": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "COVER",
+          "version": 1,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "CoverThickness": 1.2,
+            "CoveredStackHt": 16,
+            "Description": "Cover for Nunc plate with 96 flat bottom wells",
+            "Dim.Dx": 127.2,
+            "Dim.Dy": 85.2,
+            "Dim.Dz": 8,
+            "RackBaseToCoverBase": 8,
+            "ReadOnly": 0,
+            "StackHt": 8,
+            "ViewName": "Cover for Nunc 96",
+            "XExtent": 127,
+            "YExtent": 86
+          }
+        }
+      ]
+    }
+  },
+  "Containers": {
+    "liquidwaste": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "CONTAINER",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "_items": [
+              {
+                "_idx": 1,
+                "DX": 17.5,
+                "DY": 9,
+                "DZ": 0,
+                "EqnOfVol": "h*157.5000",
+                "Max": 50,
+                "Min": 0,
+                "Shape": 1
+              }
+            ],
+            "Barcode.Value": "",
+            "BaseMM": 1,
+            "CategoryCnt": 0,
+            "Clearance": 65,
+            "Depth": 50,
+            "Description": "",
+            "Dim.Dx": 17.5,
+            "Dim.Dy": 9,
+            "Dim.Dz": 0,
+            "LS": 1,
+            "LSHt": 60,
+            "MaxDepth": 1,
+            "Segments": 1,
+            "Shape": 1,
+            "TchBack": 0,
+            "TchBase": 0,
+            "TchFront": 0,
+            "TchHt": 0,
+            "TchLeft": 0,
+            "TchOff": 0,
+            "TchRight": 0,
+            "UseBndry": 0,
+            "ViewName": ""
+          }
+        }
+      ]
+    },
+    "Nun_96_Fl": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "CONTAINER",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "_items": [
+              {
+                "_idx": 1,
+                "DX": 7,
+                "DY": 6.5,
+                "DZ": 0,
+                "EqnOfVol": "h*35.8011",
+                "Max": 11.3,
+                "Min": 0,
+                "Shape": 3
+              }
+            ],
+            "Barcode.Value": "",
+            "BaseMM": 1,
+            "CategoryCnt": 0,
+            "Clearance": 15,
+            "Depth": 11.3,
+            "Description": "",
+            "Dim.Dx": 7,
+            "Dim.Dy": 7,
+            "Dim.Dz": 0,
+            "LS": 1,
+            "LSHt": 13,
+            "MaxDepth": 0,
+            "ReadOnly": 0,
+            "Segments": 1,
+            "Shape": 0,
+            "TchBack": 3,
+            "TchBase": 0,
+            "TchFront": 3,
+            "TchHt": 9,
+            "TchLeft": 3,
+            "TchOff": 1,
+            "TchRight": 3,
+            "UseBndry": 0,
+            "ViewName": "",
+            "Visible": 0,
+            "cLLD": 3
+          }
+        }
+      ]
+    },
+    "RGT_20mL_Container": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "CONTAINER",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "_items": [
+              {
+                "_idx": 1,
+                "DX": 12.742,
+                "DY": 9.052,
+                "DZ": 0,
+                "EqnOfVol": "h*115.3406",
+                "Max": 40.01,
+                "Min": 29.924,
+                "Shape": 1
+              },
+              {
+                "_idx": 2,
+                "DX": 12.266,
+                "DY": 9.052,
+                "DZ": 0,
+                "EqnOfVol": "h*111.0318",
+                "Max": 29.924,
+                "Min": 19.838,
+                "Shape": 1
+              },
+              {
+                "_idx": 3,
+                "DX": 0,
+                "DY": 0,
+                "DZ": 12.266,
+                "EqnOfVol": "h*59.0834",
+                "Max": 19.838,
+                "Min": 0,
+                "Shape": 4
+              }
+            ],
+            "Barcode.Unique": 0,
+            "Barcode.Value": "",
+            "BaseMM": 0,
+            "CategoryCnt": 0,
+            "Clearance": 45,
+            "Depth": 40.01,
+            "Description": "",
+            "Dim.Dx": 12.742,
+            "Dim.Dy": 9.052,
+            "Dim.Dz": 0,
+            "LS": 1,
+            "LSHt": 42.01,
+            "MaxDepth": 0.25,
+            "ReadOnly": 0,
+            "Segments": 3,
+            "Shape": 0,
+            "TchBack": 0,
+            "TchBase": 0,
+            "TchFront": 0,
+            "TchHt": 0,
+            "TchLeft": 0,
+            "TchOff": 0,
+            "TchRight": 0,
+            "UseBndry": 0,
+            "ViewName": "",
+            "Visible": 0,
+            "cLLD": 2
+          }
+        }
+      ]
+    },
+    "st": {
+      "fileVersion": 2,
+      "dataDefs": [
+        {
+          "name": "CONTAINER",
+          "version": 3,
+          "instance": "default",
+          "type": "dictionary",
+          "fields": {
+            "_items": [
+              {
+                "_idx": 1,
+                "DX": 0,
+                "DY": 0,
+                "DZ": 6.8,
+                "EqnOfVol": "h*36.3168",
+                "Max": 60,
+                "Min": 52,
+                "Shape": 0
+              },
+              {
+                "_idx": 2,
+                "DX": 6.8,
+                "DY": 0.4,
+                "DZ": 0,
+                "EqnOfVol": "h*12.8596",
+                "Max": 52,
+                "Min": 0,
+                "Shape": 3
+              }
+            ],
+            "Barcode.Unique": 0,
+            "Barcode.Value": "",
+            "BaseMM": 0,
+            "CategoryCnt": 0,
+            "Clearance": 62,
+            "Depth": 60,
+            "Description": "",
+            "Dim.Dx": 6.8,
+            "Dim.Dy": 6.8,
+            "Dim.Dz": 0,
+            "LS": 1,
+            "LSHt": 60,
+            "MaxDepth": 52,
+            "ReadOnly": 0,
+            "Segments": 2,
+            "Shape": 0,
+            "TchBack": 0,
+            "TchBase": 0,
+            "TchFront": 0,
+            "TchHt": 0,
+            "TchLeft": 0,
+            "TchOff": 0,
+            "TchRight": 0,
+            "UseBndry": 0,
+            "ViewName": "",
+            "Visible": 0
+          }
+        }
+      ]
+    }
+  },
+  "LayoutTracking": {
+    "-3": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "-2": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "-1": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "0": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "1": {
+      "occupied": true,
+      "carrier": "tip_carrier",
+      "sensorTrack": 6,
+      "sensorAvailable": true
+    },
+    "2": {
+      "occupied": true,
+      "carrier": "tip_carrier",
+      "sensorTrack": 6,
+      "sensorAvailable": true
+    },
+    "3": {
+      "occupied": true,
+      "carrier": "tip_carrier",
+      "sensorTrack": 6,
+      "sensorAvailable": true
+    },
+    "4": {
+      "occupied": true,
+      "carrier": "tip_carrier",
+      "sensorTrack": 6,
+      "sensorAvailable": true
+    },
+    "5": {
+      "occupied": true,
+      "carrier": "tip_carrier",
+      "sensorTrack": 6,
+      "sensorAvailable": true
+    },
+    "6": {
+      "occupied": true,
+      "carrier": "tip_carrier",
+      "sensorTrack": 6,
+      "sensorAvailable": true
+    },
+    "7": {
+      "occupied": true,
+      "carrier": "plate_carrier",
+      "sensorTrack": 12,
+      "sensorAvailable": true
+    },
+    "8": {
+      "occupied": true,
+      "carrier": "plate_carrier",
+      "sensorTrack": 12,
+      "sensorAvailable": true
+    },
+    "9": {
+      "occupied": true,
+      "carrier": "plate_carrier",
+      "sensorTrack": 12,
+      "sensorAvailable": true
+    },
+    "10": {
+      "occupied": true,
+      "carrier": "plate_carrier",
+      "sensorTrack": 12,
+      "sensorAvailable": true
+    },
+    "11": {
+      "occupied": true,
+      "carrier": "plate_carrier",
+      "sensorTrack": 12,
+      "sensorAvailable": true
+    },
+    "12": {
+      "occupied": true,
+      "carrier": "plate_carrier",
+      "sensorTrack": 12,
+      "sensorAvailable": true
+    },
+    "13": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "14": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "15": {
+      "occupied": true,
+      "carrier": "reagent_carrier",
+      "sensorTrack": 20,
+      "sensorAvailable": true
+    },
+    "16": {
+      "occupied": true,
+      "carrier": "reagent_carrier",
+      "sensorTrack": 20,
+      "sensorAvailable": true
+    },
+    "17": {
+      "occupied": true,
+      "carrier": "reagent_carrier",
+      "sensorTrack": 20,
+      "sensorAvailable": true
+    },
+    "18": {
+      "occupied": true,
+      "carrier": "reagent_carrier",
+      "sensorTrack": 20,
+      "sensorAvailable": true
+    },
+    "19": {
+      "occupied": true,
+      "carrier": "reagent_carrier",
+      "sensorTrack": 20,
+      "sensorAvailable": true
+    },
+    "20": {
+      "occupied": true,
+      "carrier": "reagent_carrier",
+      "sensorTrack": 20,
+      "sensorAvailable": true
+    },
+    "21": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "22": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "23": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "24": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "25": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "26": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "27": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "28": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "29": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "30": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "31": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "32": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "33": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "34": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "35": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "36": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "37": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "38": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "39": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "40": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "41": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "42": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "43": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "44": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "45": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "46": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "47": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "48": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "49": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "50": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "51": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "52": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "53": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    },
+    "54": {
+      "occupied": false,
+      "carrier": "",
+      "sensorTrack": 0,
+      "sensorAvailable": false
+    }
+  },
+  "CarrierTracking": {
+    "tip_carrier": {
+      "description": "Tip carrier with 5 tip rack positions landscape",
+      "track": 1,
+      "type": "carrier",
+      "portrait": false,
+      "3": {
+        "labware": []
+      },
+      "4": {
+        "labware": []
+      },
+      "5": {
+        "labware": []
+      },
+      "1": {
+        "labware": [
+          {
+            "ID": "st_l_0001",
+            "type": "tip",
+            "stackHeight": 15.5,
+            "height": 20.0,
+            "stackable": false
+          }
+        ]
+      },
+      "2": {
+        "labware": []
+      }
+    },
+    "plate_carrier": {
+      "description": "Plate Carrier 5 Landscape MTP with Precision Tabs PN: 93521 Hamilton",
+      "track": 7,
+      "type": "carrier",
+      "portrait": false,
+      "1": {
+        "labware": [
+          {
+            "ID": "source_plate",
+            "type": "plate",
+            "stackHeight": 12.8,
+            "height": 14.5
+          }
+        ]
+      },
+      "2": {
+        "labware": [
+          {
+            "ID": "source_plate2",
+            "type": "plate",
+            "stackHeight": 12.8,
+            "height": 14.5
+          }
+        ]
+      },
+      "3": {
+        "labware": [
+          {
+            "ID": "dest_plate",
+            "type": "plate",
+            "stackHeight": 12.8,
+            "height": 14.5
+          }
+        ]
+      },
+      "4": {
+        "labware": [
+          {
+            "ID": "dest_plate2",
+            "type": "plate",
+            "stackHeight": 12.8,
+            "height": 14.5
+          }
+        ]
+      },
+      "5": {
+        "labware": []
+      }
+    },
+    "reagent_carrier": {
+      "description": "Carrier for 12 Reagent Troughs 100 ml",
+      "track": 15,
+      "type": "carrier",
+      "portrait": true,
+      "11": {
+        "labware": []
+      },
+      "1": {
+        "labware": [
+          {
+            "ID": "reagent_trough",
+            "type": "reservoir",
+            "stackHeight": 0.0,
+            "height": 52.54
+          }
+        ]
+      },
+      "12": {
+        "labware": []
+      },
+      "2": {
+        "labware": []
+      },
+      "3": {
+        "labware": []
+      },
+      "4": {
+        "labware": []
+      },
+      "5": {
+        "labware": []
+      },
+      "6": {
+        "labware": []
+      },
+      "7": {
+        "labware": []
+      },
+      "8": {
+        "labware": []
+      },
+      "9": {
+        "labware": []
+      },
+      "10": {
+        "labware": []
+      }
+    },
+    "liquid_waste": {
+      "description": "Channel liquid waste",
+      "type": "waste",
+      "portrait": true,
+      "x": 1332.0,
+      "y": 341.0,
+      "z": 187.0,
+      "angle": 0.0
+    }
+  },
+  "TipCounterTracking": {
+    "transfer_tips": {
+      "totalTips": 96,
+      "tipType": 0,
+      "rackType": 0,
+      "deviceId": [
+        1,
+        3,
+        5
+      ],
+      "tipRacks": [
+        "st_l_0001"
+      ],
+      "tipPositions": {
+        "st_l_0001": {
+          "count": 92,
+          "positions": [
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "67",
+            "68",
+            "69",
+            "70",
+            "71",
+            "72",
+            "73",
+            "74",
+            "75",
+            "76",
+            "77",
+            "78",
+            "79",
+            "80",
+            "81",
+            "82",
+            "83",
+            "84",
+            "85",
+            "86",
+            "87",
+            "88",
+            "89",
+            "90",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "96"
+          ]
+        }
+      }
+    }
+  },
+  "ToolTracking": {},
+  "TipSupportTracking": {}
+}

@@ -1,0 +1,24 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/1/2026 5:19:41 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace LabwareController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function labware_addLabwareDefinition(  ) variable {  return (0); }
+function labware_deleteLabwareDefinition(  ) variable {  return (0); }
+function labware_getLabwareDefinition(  ) variable {  return (0); }
+function labware_getLabwareDefinitions(  ) variable {  return (0); }
+function labware_getLabwareParamsFromID( device & Device ) variable {  return (0); }
+function labware_getLabwareTypes(  ) variable {  return (0); }
+function labware_importLabwareDefinition(  ) variable {  return (0); }
+function labware_updateLabwareDefinition(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-01 17:19$$checksum=4ae49d4e$$length=083$$

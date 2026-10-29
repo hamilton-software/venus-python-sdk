@@ -1,0 +1,50 @@
+#ifndef __TipManagmentErrorDecoder_hsl__
+  #define __TipManagmentErrorDecoder_hsl__ 1
+
+   namespace TML_ErrorDecoder {
+         function GetReturnCodeDescription(variable i_intReturnCode, variable& o_strErrorDescription)
+         {
+             o_strErrorDescription = "Unknown error code";
+             if (i_intReturnCode == 1){o_strErrorDescription= "NoError: The function returned successfully.";}
+             if (i_intReturnCode == 1000){o_strErrorDescription= "TransportRequired: A transport is required to execute the operation successfully.";}
+             if (i_intReturnCode == 1001){o_strErrorDescription= "TransportForCleanUpRequired: A transport is required before being able to cleanup the tip support position.";}
+             if (i_intReturnCode == 1002){o_strErrorDescription= "TransportNotPossible: Rack transport is not possible.";}
+             if (i_intReturnCode == 1003){o_strErrorDescription= "TransportForLowerLayerRequired: Rack transport is required when only racks in lower layer are available.";}
+             if (i_intReturnCode == 2000){o_strErrorDescription= "DuplicatePositionInSequence: One or multiple duplicate positions are detected in a (tip) sequence.";}
+             if (i_intReturnCode == 2001){o_strErrorDescription= "NoMoreTipsAvailable: A sequence is requested, but not enough or no tips are left in the tip counter sequence.";}
+             if (i_intReturnCode == 2002){o_strErrorDescription= "TipCounterNotFound: Tip counter name was not found or initialized.";}
+             if (i_intReturnCode == 2003){o_strErrorDescription= "InvalidChannelPattern: Channel pattern length does not match with the number of channels on deck.";}
+             if (i_intReturnCode == 2004){o_strErrorDescription= "TipPositionUnreachable: A position is unreachable by the channel with the current channel pattern.";}
+             if (i_intReturnCode == 2005){o_strErrorDescription= "InvalidTipSequence: The tip sequence items are invalid (e.g. empty).";}
+             if (i_intReturnCode == 2006){o_strErrorDescription= "FailedToSetupTipSequence: Tip sequence could not be initialized.";}
+             if (i_intReturnCode == 2007){o_strErrorDescription= "DifferentChannelTypesInSequence: Tip sequence contains tips which need to be picked up with different channel types (e.g. 1ml and 5ml channels).";}
+             if (i_intReturnCode == 3000){o_strErrorDescription= "NoFreeTransportPositionAvailable: Stack cannot be transported, because no park position is available.";}
+             if (i_intReturnCode == 3001){o_strErrorDescription= "ParkPositionNotInitialized: Stack cannot be transported, because no park position was initialized.";}
+             if (i_intReturnCode == 3002){o_strErrorDescription= "NtrDiscradPositionNotInitialized: NTR can not be discarded, because no waste position was initialized.";}
+             if (i_intReturnCode == 3003){o_strErrorDescription= "InvalidParkPositionSequence: Sequence can not be initialized because the park position sequence is empty.";}
+             if (i_intReturnCode == 3004){o_strErrorDescription= "InvalidNtrWasteSequence: Sequence can not be initialized because the sequence to discard the NTRs is empty.";}
+             if (i_intReturnCode == 3005){o_strErrorDescription= "MphTipPickupPositionNotInitialized: MPH tip pickup must be done on a separate tip pickup position, but no tip pickup position was initialized.";}
+             if (i_intReturnCode == 3006){o_strErrorDescription= "MphTipSupportNotInitialized: MPH tip pickup must be done on a TipSupport, but no tip support position was initialized.";}
+             if (i_intReturnCode == 3007){o_strErrorDescription= "InvalidSupportPositionSequence: Invalid sequence for the MPH tip support position is detected.";}
+             if (i_intReturnCode == 3008){o_strErrorDescription= "SupportPositionIsEmpty: Tip support position is empty.";}
+             if (i_intReturnCode == 3009){o_strErrorDescription= "SupportPositionPickUpNotPossible: Tip pickup on support position is not possible.";}
+             if (i_intReturnCode == 3010){o_strErrorDescription= "InputNotInAllowedRange: Input value is out of range, e.g. when for the MphPickUpRows/Columns an invalid number of rows/colums is entered.";}
+             if (i_intReturnCode == 3011){o_strErrorDescription= "CleanUpOfSupportPositionRequired: Cleanup of the tip support position is required.";}
+             if (i_intReturnCode == 3012){o_strErrorDescription= "InvalidMphSideSelected: A left/right side pickup is selected for the top/bottom MPH pickup and vice versa.";}
+             if (i_intReturnCode == 4000){o_strErrorDescription= "ComError: Communication to application is lost or erroneous.";}
+             if (i_intReturnCode == 5000){o_strErrorDescription= "FailedToReadTipCounter: The tip counter could not be loaded.";}
+             if (i_intReturnCode == 5001){o_strErrorDescription= "FailedToUpdateTipCounter: The tip counter could not be updated.";}
+             if (i_intReturnCode == 5002){o_strErrorDescription= "TipCounterFileDoesNotExist: No tip counter file could be found.";}
+             if (i_intReturnCode == 6000){o_strErrorDescription= "TipEditDialogCancelled: The edit dialog was cancelled, either manually by the user or due to a timeout.";}
+             if (i_intReturnCode == 7000){o_strErrorDescription= "DefragmentationRequired: A defragmentation is required to be able to pick up tips (with the MPH).";}
+             if (i_intReturnCode == 7001){o_strErrorDescription= "MultiLayerDefragmentationRequired: A muliti-layer defragmentation is required to be able to pick up tips (with the MPH).";}
+             if (i_intReturnCode == 8000){o_strErrorDescription= "TipEjectFailed: Tip eject failed (with the MPH).";}
+             if (i_intReturnCode == 8001){o_strErrorDescription= "SetLabwarePropertyFailed: Labware property could not be set on the tip support.";}
+             if (i_intReturnCode == 9000){o_strErrorDescription= "ModuleNotInitialized: Tip Management Module is not initialized.";}
+             if (i_intReturnCode == 9999){o_strErrorDescription= "UnknownError: Examine the Tip Management Log file for more information.";}
+         }
+   }
+
+#endif
+
+// $$author=Dev$$valid=0$$time=2024-08-01 16:01$$checksum=c83ad194$$length=080$$

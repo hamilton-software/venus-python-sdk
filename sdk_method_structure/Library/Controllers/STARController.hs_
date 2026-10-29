@@ -1,0 +1,34 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/19/2026 5:39:42 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace STARController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function configuration_disableCleanup( device & ML_STAR ) variable {  return (0); }
+function configuration_getSerialNumber( device & ML_STAR ) variable {  return (0); }
+function frontCover_isClosed( device & ML_STAR ) variable {  return (0); }
+function frontCover_isLocked( device & ML_STAR ) variable {  return (0); }
+function frontCover_lock( device & ML_STAR ) variable {  return (0); }
+function frontCover_unlock( device & ML_STAR ) variable {  return (0); }
+function maintenance_getDailyMaintenanceData( device & ML_STAR ) variable {  return (0); }
+function maintenance_getVerificationData( device & ML_STAR ) variable {  return (0); }
+function maintenance_getWeeklyMaintenanceData( device & ML_STAR ) variable {  return (0); }
+function pipArm_getXPosition( device & ML_STAR ) variable {  return (0); }
+function pipArm_moveTo( device & ML_STAR ) variable {  return (0); }
+function pipArm_parkLeft( device & ML_STAR ) variable {  return (0); }
+function pipArm_parkRight( device & ML_STAR ) variable {  return (0); }
+function statusLight_setColor( device & ML_STAR ) variable {  return (0); }
+function statusLight_setFrontLight( device & ML_STAR ) variable {  return (0); }
+function statusLight_setProgress( device & ML_STAR ) variable {  return (0); }
+function status_connect( device & ML_STAR ) variable {  return (0); }
+function status_init( device & ML_STAR ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-19 17:39$$checksum=1809389f$$length=083$$

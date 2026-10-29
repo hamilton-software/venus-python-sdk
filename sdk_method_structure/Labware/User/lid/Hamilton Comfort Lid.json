@@ -1,0 +1,37 @@
+{
+	"$schema": "urn:hamilton:schemas:microlab:labware:v1",
+	"id": "hamilton:ham_1_nb_lid_odtc_v1_0",
+	"schemaVersion": "1.0.0-alpha.1",
+	"displayName": "Ham_1_NB_Lid_ODTC_V1.0",
+	"description": "Hamilton comfort lid for the ODTC PN:814300",
+	"labwareClass": "lid",
+	"source": {
+		"system": "venus",
+		"originalId": "Ham_1_NB_Lid_ODTC_V1.0",
+		"originalFile": "Ham_1_NB_Lid_ODTC_V1.0.rck",
+		"convertedDate": "2026-08-04",
+		"convertedBy": "Claude (manual conversion — source is a RECTRACK/\"plate\" file, not a genuine .lid/COVER file)",
+		"notes": ""
+	},
+	"dimensions": {
+		"x": 127,
+		"y": 86,
+		"z": 8.5
+	},
+	"alignmentFeatures": [
+		{
+			"name": "sbs_lid",
+			"offset": {
+				"z": 0
+			}
+		}
+	],
+	"customAttributes": {
+		"hamilton:venus_lid": {
+			"coverThickness": 1.0,
+			"stackHeight": 6.7,
+      		"xExtent": 127.0,
+      		"yExtent": 86.0
+		}
+	}
+}

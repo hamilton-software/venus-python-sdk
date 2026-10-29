@@ -1,0 +1,135 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 1573,
+      "type": "VEC3",
+      "max": [
+        150.29435729980469,
+        74.343780517578125,
+        -6.5424337387084961
+      ],
+      "min": [
+        -4.9656457901000977,
+        31.445705413818359,
+        -102.02243041992188
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 1573,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 3762,
+      "type": "SCALAR",
+      "max": [
+        1572
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 52800,
+      "uri": "Rack - Byonoy Cover.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 18876,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 18876,
+      "byteLength": 18876,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 37752,
+      "byteLength": 15048,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "MTL0",
+      "pbrMetallicRoughness": {
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "_1",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "_1",
+      "mesh": 0
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

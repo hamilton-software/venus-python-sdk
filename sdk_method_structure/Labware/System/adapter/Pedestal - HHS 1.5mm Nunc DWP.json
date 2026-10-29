@@ -1,0 +1,75 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:pedestal_hhs_1_5mm_nunc_dwp",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Pedestal - HHS 1.5mm Nunc DWP",
+  "labwareClass": "adapter",
+  "source": {
+    "system": "venus",
+    "originalId": "Pedestal - HHS 1.5mm Nunc DWP",
+    "originalFile": "Pedestal - HHS 1.5mm Nunc DWP.tml",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 137.0,
+    "y": 96.0,
+    "z": 75.25
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 68.5,
+        "y": 47.75,
+        "z": 75.25
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "color": "#C0C0C0",
+    "opacity": 1
+  },
+  "customAttributes": {
+    "hamilton:tml_properties": {
+      "P/N": 199037
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

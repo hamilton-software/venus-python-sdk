@@ -1,0 +1,75 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/23/2026 3:44:11 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace TOOLS_HELPER {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function AddChannelLiquidWaste( device & ML_STAR ) variable {  return (0); }
+function AddNTRWaste( device & ML_STAR ) variable {  return (0); }
+function AddPlateWastePosition( device & ML_STAR ) variable {  return (0); }
+function AddVantageLiquidWaste( device & ML_STAR, variable i_intTrack ) variable {  return (0); }
+function BuildContainerFile( variable i_strPath, variable & o_strBuildFile ) variable {  return (0); }
+function BuildLabwareFile( variable i_blnCarrier, variable i_strPath, variable i_strLabwareName, variable & o_strBuildFile ) variable {  return (0); }
+function BuildLabwareFile2( variable i_blnCarrier, variable i_strJSON, variable i_strLabwareName ) variable {  return (0); }
+function BuildLidFile( variable i_strPath, variable i_strLabwareName, variable & o_strBuildFile ) variable {  return (0); }
+function CheckCarrierPresence( device & ML_STAR, variable i_int_RightTrack, variable & o_bln_CarrierPresent ) void { }
+function CheckForConnection(  ) void { }
+function ConvertChannelPattern( variable i_intTotalChannels, variable & i_arrActiveChannels[] ) variable {  return (0); }
+function GenerateLabwareName( device & Device, variable i_strFilePath ) variable {  return (0); }
+function GenerateSystemConfigFile( device & Instrument ) void { }
+function GetActiveTracks( variable & o_arrActiveTracks[] ) void { }
+function GetArmRanges( device & ML_STAR, variable & o_arrMinX[], variable & o_arrMaxX[] ) void { }
+function GetArmX( device & ML_STAR, variable i_intArm ) variable {  return (0); }
+function GetCarrierIndexFromLayout( variable i_strLayoutFilePath, object & o_objCarrierJSON, variable & o_arrCarriers[] ) variable {  return (0); }
+function GetCarrierPortraitStatus( variable i_strPath ) variable {  return (0); }
+function GetCarrierProperiesFromFile( variable i_strFilePath, object & o_objProperties ) variable {  return (0); }
+function GetChannelStatus( device & ML_STAR, variable i_intChannelType, variable & o_arrX[], variable & o_arrY[], variable & o_arrZ[], variable & o_arrTipPresence[] ) void { }
+function GetConfigValue_ChannelRange( variable i_intChannelType, variable & o_intTotalChannels, variable & o_fltRaster, variable & o_fltXMin, variable & o_fltXMax, variable & o_arrMin[], variable & o_arrMax[] ) void { }
+function GetConfigValue_MPHRange( variable & o_fltXMin, variable & o_fltXMax, variable & o_fltYMin, variable & o_fltYMax ) void { }
+function GetContainerFile( device & Device, variable i_strLabware, variable i_strWell, variable & o_strContainerFile ) void { }
+function GetCurrentXSpeed( device & ML_STAR, variable i_intArmID ) variable {  return (0); }
+function GetDateTime(  ) variable {  return (0); }
+function GetDeviceFromLayout( variable i_strLayoutFilePath, variable & o_strDevice ) void { }
+function GetDoorStatus( device & ML_STAR ) variable {  return (0); }
+function GetGripWidth( device & Device, variable i_strLabID, variable i_fltHeight, variable i_blnGripNarrow ) variable {  return (0); }
+function GetLLDFromChannels( device & ML_STAR, variable i_intChannelNumber, variable i_strStepReturn, variable i_strLiquidLevelHeight, variable & o_arrLiquidLevelHeight[], variable & o_arrVolume[] ) variable {  return (0); }
+function GetLLDFromMPH96( device & ML_STAR, variable i_strStepReturnAsp, variable & o_fltLiquidLevelHeight, variable & o_fltVolume ) variable {  return (0); }
+function GetLabwareFullPath( variable i_strDefinitionName, variable i_strLabwareFilter, variable & o_strFileFullPath ) variable {  return (0); }
+function GetLabwareOrigin( device & Instrument, variable i_strLabwareID, variable & o_fltXCoord, variable & o_fltYCoord, variable & o_fltZCoord ) void { }
+function GetLockStatus( device & ML_STAR ) variable {  return (0); }
+function GetMPHStatus( device & ML_STAR, variable & o_fltX, variable & o_fltY, variable & o_fltZ, variable & o_blnTipPresence ) void { }
+function GetRackIndexFromLayout( variable i_strLayoutFilePath, variable & i_arrCarriers[], object & o_objRacksJSON, variable & o_arrRacks[] ) variable {  return (0); }
+function GetRackParametersFromFile( variable i_strFilePath, object & o_objJSONReturn ) variable {  return (0); }
+function GetRackProperiesFromFile( variable i_strFilePath, object & o_objProperties ) variable {  return (0); }
+function GetSensorStatus( device & ML_STAR, variable & o_arrSensorStatus[] ) void { }
+function GetTipDescriptionFromType( variable i_intTipType, variable & o_strDescription ) variable {  return (0); }
+function GetTipLengthFromType( variable i_intTipType, variable & o_fltTipLength ) variable {  return (0); }
+function LabwareTransportOffset( device & Device, variable i_strLabware ) variable {  return (0); }
+function LabwareTransportOffsetNoContainer( device & Device, variable i_strLabware ) variable {  return (0); }
+function LidCheck( variable i_strJSONLabwareFile ) variable {  return (0); }
+function MPHTipStatus_Get( variable i_blnMPH96, variable & o_intPickupMode, variable & o_intTotal ) variable {  return (0); }
+function MPHTipStatus_Set( variable i_blnMPH96, variable i_intPickupMode, variable i_intTotal ) void { }
+function MPHTipStatus_SortSequence( device & Device, variable i_blnMPH96, sequence & io_seqPositionsToSort ) void { }
+function MoveArm( device & ML_STAR, variable i_intArmID, variable i_fltValue, variable i_intMode, variable i_fltSpeedModifier, variable i_blnMoveUpInZ ) void { }
+function MoveChannels( device & ML_STAR, variable i_intChannelType, variable & i_arrChannelPattern[], variable & i_arrZStart[], variable & i_arrX[], variable & i_arrY[], variable & i_arrZ[] ) void { }
+function MoveLabware( device & Device, variable i_strLabware, variable i_strCarrier, variable i_strSite ) void { }
+function MoveLabwareToDeckSite( device & Device, variable i_strLabware, variable i_strCarrier, variable i_strSite ) void { }
+function ParkArm( device & ML_STAR, variable i_intArm, variable i_blnParkLeft ) void { }
+function ParseEjectBackToSource( variable i_intTotalChannels, variable & o_strChPattern, sequence & o_seqPositions ) void { }
+function ParseEjectBackToSourceMagPip( variable i_intTotalChannels, variable & o_strChPattern, sequence & o_seqPositions ) void { }
+function ParseSequence( object & i_objJSON, sequence & o_seqPositions ) variable {  return (0); }
+function ParseStepReturnForMLSTARChannels( variable i_strReturnValue3, object & i_objJSONReturn ) void { }
+function ParseTADMData( variable i_strTADMReturn, object & o_objTadmCurves ) variable {  return (0); }
+function ParseTipTypePickedUpMPH( variable & o_intTipType, variable & o_strLabware ) variable {  return (0); }
+function ParseTipTypesPickedUpMagPip( variable i_intTotalChannels, variable & o_strChPattern, variable & o_arrTipTypes[] ) void { }
+function ParseTipTypesPickedup( variable i_intTotalChannels, variable & o_strChPattern, variable & o_arrTipTypes[] ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-23 15:44$$checksum=847f53d2$$length=083$$

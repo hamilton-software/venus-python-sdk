@@ -1,0 +1,26 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/21/2026 11:06:29 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace System {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function tipPool_getAvailableTips( device & Device ) variable {  return (0); }
+function tipPool_getEmptyTips( device & Device ) variable {  return (0); }
+function tipPool_getMissingRacks( device & Device ) variable {  return (0); }
+function tipPool_getTipCounter( device & Device ) variable {  return (0); }
+function tipPool_getTipCounters( device & Device ) variable {  return (0); }
+function tipPool_initializeTipCounter( device & Device ) variable {  return (0); }
+function tipPool_resetTipCounter( device & Device ) variable {  return (0); }
+function tipPool_setTipCounter( device & Device ) variable {  return (0); }
+function tipPool_showTipCounter( device & Device ) variable {  return (0); }
+function tipPool_showTipCounters( device & Device ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-21 23:06$$checksum=3645a68e$$length=083$$

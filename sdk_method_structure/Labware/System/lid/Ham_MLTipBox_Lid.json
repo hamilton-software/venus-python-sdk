@@ -1,0 +1,49 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_mltipbox_f50",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Ham_MLTipBox_F50",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Ham_MLTipBox_F50",
+    "originalFile": "Ham_MLTipBox_F50.lid",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 15.02
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 59.23
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Ham_MLTipBox_Lid.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "modelFormat": "gltf"
+  },
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 5.02,
+      "coveredStackHeight": 69.81,
+      "stackHeight": 15.97,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

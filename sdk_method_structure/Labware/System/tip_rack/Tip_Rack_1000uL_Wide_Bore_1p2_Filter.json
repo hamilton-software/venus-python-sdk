@@ -1,0 +1,139 @@
+{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_ftr_f1000wide1_2_filter",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "1000ul High Volume 1.2mm Wide Bore Tip with Filter",
+  "description": "Rack with 96 1000ul High Volume 1.2mm wide bore tip with filter",
+  "labwareClass": "tip_rack",
+  "source": {
+    "system": "venus",
+    "originalId": "Ham_FTR_F1000Wide1-2_Filter",
+    "originalFile": "Ham_FTR_F1000Wide1-2_Filter.rck / Tip_1.2mm1000uL.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 122.4,
+    "y": 82.6,
+    "z": 11.5
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 11.7,
+        "y": 9.8,
+        "z": -80.2
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 0.0
+        },
+        "totalDepth": 91.8,
+        "maxPipettingDepth": 81.8,
+        "bottomWallThickness": 0.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 81.8,
+              "diameterBottom": 0.7,
+              "diameterTop": 6.8
+            },
+            {
+              "type": "cylinder",
+              "height": 10.0,
+              "diameter": 6.8
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 91.8
+        },
+        "contentsRef": "hamilton:tip_1_2mm1000ul",
+        "alignmentReceptacles": [
+          {
+            "name": "core_tip_1267",
+            "offset": {
+              "z": 81.8
+            }
+          }
+        ],
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 92.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "core_tip_rack",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "modelRef": "1mL_FTR.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -83.5
+    },
+    "previewImageRef": "FTR_1000_L.png",
+    "color": "#A6CAF0",
+    "opacity": 0,
+    "modelFormat": "gltf"
+  },
+  "tipRack": {
+    "style": "framed"
+  },
+  "customAttributes": {
+    "hamilton:rck_properties": {
+      "hasDefaultSequence": 0,
+      "managedSequenceName": "MlStar1000ulWideBore1_2_Filtered",
+      "MlStarCore96TipRack": 66,
+      "MlStarIsCore96WasteRack": 1,
+      "MlStarIsWasteRack": 1,
+      "MlStarTipRack": 66,
+      "PartNumber": 235678,
+      "MlStarIsMagWasteRack": 1
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

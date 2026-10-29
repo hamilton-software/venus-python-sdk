@@ -1,0 +1,22 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 8/31/2026 5:17:00 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace TransportTracking {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function GetCoreGripTransport( variable & o_strLabwareName, variable & o_strCarrier, variable & o_strSite, variable & o_fltOffset, variable & o_strLid ) variable {  return (0); }
+function GetISWAPTransport( variable & o_strLabwareName, variable & o_strCarrier, variable & o_strSite, variable & o_fltOffset, variable & o_strLid ) variable {  return (0); }
+function RegisterCoreGripTransport( variable i_strLabwareName, variable i_strCarrier, variable i_strSite, variable i_fltOffset, variable i_strLid ) void { }
+function RegisterISWAPTransport( variable i_strLabwareName, variable i_strCarrier, variable i_strSite, variable i_fltOffset, variable i_strLid ) void { }
+function RemoveCoreGripTransport(  ) void { }
+function RemoveISWAPTransport(  ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-08-31 17:17$$checksum=c9464e9d$$length=083$$

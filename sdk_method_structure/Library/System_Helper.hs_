@@ -1,0 +1,29 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 8/31/2026 5:16:15 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace SYSTEM_HELPER {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function Get1mLChannelType_STAR( variable & o_intChannelType ) void { }
+function Get1mLChannelType_VANTAGE( variable & o_intChannelType ) void { }
+function GetArmForChannel_VANTAGE( variable i_intChannelType, variable & o_intArmNumber ) void { }
+function GetChannelNumberPerType( variable i_intChannelType, variable & o_intNumberOfChannels ) void { }
+function GetInstrumentConfigFile( variable i_intInstrumentType ) variable {  return (0); }
+function GetMaintenanceDeck(  ) variable {  return (0); }
+function GetSerialNumber( variable & o_strSN ) variable {  return (0); }
+function GetSimulationModes( device & ML_STAR, variable & o_blnSimulationModeSystem, variable & o_blnSimulationModeDevice ) void { }
+function GetTADMStatus( variable i_intChannelType, variable & o_blnTADMEnabled, variable & o_blnTADMMonitoring ) variable {  return (0); }
+function GetTemplateDeck(  ) variable {  return (0); }
+function GetTrackInfo( variable & o_intMaxTrack, variable & o_intMaxLoadTrack ) void { }
+function IsSTARLine(  ) variable {  return (0); }
+function IsVANTAGELine(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-08-31 17:16$$checksum=08113200$$length=083$$

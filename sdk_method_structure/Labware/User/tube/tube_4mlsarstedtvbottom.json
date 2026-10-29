@@ -1,0 +1,95 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:tube_4mlsarstedtvbottom",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "tube_4mlsarstedtvbottom",
+  "labwareClass": "tube",
+  "source": {
+    "system": "venus",
+    "originalId": "tube_4mlsarstedtvbottom",
+    "originalFile": "tube_4mlsarstedtvbottom.ctr",
+    "convertedDate": "2026-09-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 12.9,
+    "y": 12.9,
+    "z": 51.0
+  },
+  "material": "polypropylene",
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 1,
+      "columnPitch": 12.9,
+      "rowPitch": 12.9,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 6.45,
+        "y": 6.45,
+        "z": 41.6
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 12.9
+        },
+        "totalDepth": 51.0,
+        "maxPipettingDepth": 0.1,
+        "bottomWallThickness": 41.6,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 5.3,
+              "diameterBottom": 0.0,
+              "diameterTop": 12.9
+            },
+            {
+              "type": "cylinder",
+              "height": 45.7,
+              "diameter": 13.3
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 50.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 55.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "tube_13",
+      "offset": {
+        "z": 50.0
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Cup_15x95.hxx",
+    "modelFormat": "hxx",
+    "modelOrigin": "center_center_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "opacity": 0
+  }
+}

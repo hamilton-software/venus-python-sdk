@@ -1,0 +1,148 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:rea_car_l3at",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "REA_CAR_L3AT",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "REA_CAR_L3AT",
+    "originalFile": "REA_CAR_L3AT.tml",
+    "convertedDate": "2026-07-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 135.0,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 67.05,
+        "y": 399.25,
+        "z": 77.52
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 116.0,
+        "depth": 117.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 67.05,
+        "y": 243.55,
+        "z": 77.52
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 116.0,
+        "depth": 117.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 67.05,
+        "y": 87.85,
+        "z": 77.52
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 116.0,
+        "depth": 117.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "color": "#C0C0C0",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 300,
+      "countOfBcPositions": 3,
+      "firstBcPosition": 1150,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "noReadBarcode": true,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 1557,
+      "widthAsTracks": 6
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

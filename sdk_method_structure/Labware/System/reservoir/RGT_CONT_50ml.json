@@ -1,0 +1,179 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:rgt_cont_50ml_a00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "RGT_CONT_50ml_A00",
+  "labwareClass": "reservoir",
+  "source": {
+    "system": "venus",
+    "originalId": "RGT_CONT_50ml_A00",
+    "originalFile": "RGT_CONT_50ml_A00.rck / rgt_cont_50ml_a00.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 20.0,
+    "y": 90.0,
+    "z": 65.0
+  },
+  "containerGrids": {
+    "group_1": {
+      "columns": 1,
+      "rows": 4,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 10.0,
+        "y": 79.25,
+        "z": 0.0
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "rectangle",
+          "width": 17.5,
+          "depth": 9.0
+        },
+        "totalDepth": 50.0,
+        "maxPipettingDepth": 1.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "rectangular_prism",
+              "height": 50.0,
+              "width": 17.5,
+              "depth": 9.0
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 60.0
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 4
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 65.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    },
+    "group_2": {
+      "columns": 1,
+      "rows": 4,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 10.0,
+        "y": 37.75,
+        "z": 0.0
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "rectangle",
+          "width": 17.5,
+          "depth": 9.0
+        },
+        "totalDepth": 50.0,
+        "maxPipettingDepth": 1.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "rectangular_prism",
+              "height": 50.0,
+              "width": 17.5,
+              "depth": 9.0
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 60.0
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 4
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 65.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 5,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "connectedContainerGroups": {
+    "connected": {
+      "containers": [
+        "group_1",
+        "group_2"
+      ],
+      "connectionTopology": "base"
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

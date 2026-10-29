@@ -1,0 +1,397 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:mfx_car_2mtp_hptab_midi_hptab_2dwp_hptab",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "MFX_CAR_2MTP HPTab_MIDI HPTab_2DWP HPTab",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "MFX_CAR_2MTP HPTab_MIDI HPTab_2DWP HPTab",
+    "originalFile": "MFX_CAR_2MTP HPTab_MIDI HPTab_2DWP HPTab.tml",
+    "convertedDate": "2026-09-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 135.0,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "6": {
+      "origin": {
+        "x": 4.5,
+        "y": -61.5,
+        "z": 112.0
+      },
+      "label": "Position 6",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 1.0,
+        "depth": 1.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "6",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 0,
+          "isCovered": 0,
+          "posn": 7
+        }
+      }
+    },
+    "7": {
+      "origin": {
+        "x": 4.5,
+        "y": -61.5,
+        "z": 112.0
+      },
+      "label": "Position 7",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 1.0,
+        "depth": 1.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "7",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 0,
+          "isCovered": 0,
+          "posn": 8
+        }
+      }
+    },
+    "8": {
+      "origin": {
+        "x": 4.5,
+        "y": -61.5,
+        "z": 112.0
+      },
+      "label": "Position 8",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 1.0,
+        "depth": 1.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "8",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 0,
+          "isCovered": 0,
+          "posn": 9
+        }
+      }
+    },
+    "9": {
+      "origin": {
+        "x": 4.5,
+        "y": -61.5,
+        "z": 112.0
+      },
+      "label": "Position 9",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 1.0,
+        "depth": 1.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "9",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 0,
+          "isCovered": 0,
+          "posn": 10
+        }
+      }
+    },
+    "10": {
+      "origin": {
+        "x": 4.5,
+        "y": -61.5,
+        "z": 112.0
+      },
+      "label": "Position 10",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 1.0,
+        "depth": 1.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "10",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 0,
+          "isCovered": 0,
+          "posn": 6
+        }
+      }
+    },
+    "1_mtp_hptab": {
+      "origin": {
+        "x": 67.5,
+        "y": 435.5,
+        "z": 109.7
+      },
+      "label": "Position 1_MTP_HPTab",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1_MTP_HPTab",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    },
+    "2_mtp_hptab": {
+      "origin": {
+        "x": 67.5,
+        "y": 339.5,
+        "z": 109.7
+      },
+      "label": "Position 2_MTP_HPTab",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2_MTP_HPTab",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 2
+        }
+      }
+    },
+    "3_midi_hptab": {
+      "origin": {
+        "x": 67.5,
+        "y": 243.5,
+        "z": 94.8
+      },
+      "label": "Position 3_MIDI_HPTab",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3_MIDI_HPTab",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 3
+        }
+      }
+    },
+    "4_dwp_hptab": {
+      "origin": {
+        "x": 67.5,
+        "y": 147.5,
+        "z": 82.4
+      },
+      "label": "Position 4_DWP_HPTab",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "4_DWP_HPTab",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 4
+        }
+      }
+    },
+    "5_dwp_hptab": {
+      "origin": {
+        "x": 67.5,
+        "y": 51.5,
+        "z": 82.4
+      },
+      "label": "Position 5_DWP_HPTab",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "5_DWP_HPTab",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 5
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "barcodeLocations": {
+    "carrier_barcode": {
+      "surface": "labware",
+      "face": "front",
+      "symbology": "code128",
+      "pattern": "^APE.{5}$",
+      "orientation": "vertical"
+    }
+  },
+  "visualModel": {
+    "modelRef": "MFX_CAR_2MTP HPTab_MIDI HPTab_2DWP HPTab.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.5,
+      "y": 4.0,
+      "z": 0.0
+    },
+    "color": "#000000",
+    "opacity": 1,
+    "modelFormat": "gltf"
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 300,
+      "countOfBcPositions": 5,
+      "firstBcPosition": 615,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "carrierLabel": "MFX_Carrier",
+      "noReadBarcode": false,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 960,
+      "widthAsTracks": 6
+    }
+  }
+}

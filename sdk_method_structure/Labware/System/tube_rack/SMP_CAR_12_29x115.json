@@ -1,0 +1,153 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:smp_car_12_29x115_a00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "SMP_CAR_12_29x115_A00",
+  "description": "Sample carrier with 12 positions with preloaded 29x115 mm tubes",
+  "labwareClass": "tube_rack",
+  "source": {
+    "system": "venus",
+    "originalId": "SMP_CAR_12_29x115_A00",
+    "originalFile": "SMP_CAR_12_29x115_A00.rck / Cup_29x115.ctr",
+    "convertedDate": "2026-07-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 45.0,
+    "y": 497.0,
+    "z": 140.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 12,
+      "columnPitch": 0.0,
+      "rowPitch": 36.5,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 26.05,
+        "y": 41.75,
+        "z": 14.0
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 27.3
+        },
+        "totalDepth": 113.0,
+        "maxPipettingDepth": 1.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 16.0,
+              "diameterBottom": 4.0,
+              "diameterTop": 27.3
+            },
+            {
+              "type": "cylinder",
+              "height": 97.0,
+              "diameter": 27.3
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 120.0
+        },
+        "customAttributes": {
+          "hamilton:container_file": {
+            "fileName": "Cup_29x115"
+          },
+          "hamilton:container_visual": {
+            "modelRef": "Cup_29x115.gltf",
+            "modelFormat": "gltf",
+            "modelOrigin": "center_center_bottom",
+            "modelOffset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 125.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 2.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "modelRef": "SMP_CAR_12.gltf",
+    "modelFormat": "gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.6625,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "previewImageRef": "smp_car_12_29x115.png",
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:rck_properties": {
+      "MlStarCarBCOrientation": 0,
+      "MlStarCarBCReadWidth": 140,
+      "MlStarCarCountOfBCPos": 12,
+      "MlStarCarFirstBCPos": 537,
+      "MlStarCarIsAutoLoad": 1,
+      "MlStarCarIsLoadable": 1,
+      "MlStarCarIsRecognizable": 1,
+      "MlStarCarPosAreRecognizable": 1,
+      "MlStarCarRasterWidth": 365,
+      "MlStarCarWidthAsT": 2
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    },
+    "hamilton:body_segments": {
+      "measuredFrom": "top",
+      "segmentsX": [
+        {
+          "lowerWidthMm": 45.0,
+          "heightMm": 140.0,
+          "upperWidthMm": 45.0
+        }
+      ],
+      "segmentsY": null
+    }
+  }
+}

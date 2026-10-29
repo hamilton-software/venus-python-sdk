@@ -1,0 +1,38 @@
+{
+  "waste": [
+    "UniversalWaste",
+    "DropWaste",
+    "ActiveSideWaste"
+  ],
+  "UniversalWaste": {
+    "liquid_waste": {
+      "xOffset": 130.5,
+      "yCoord": 497.0,
+      "zCoord": 182.4
+    },
+    "solidWaste": {
+      "xOffset": 0.0,
+      "yCoord": 341.0,
+      "zCoord": 235.0
+    },
+    "NTR_waste": {
+      "xOffset": -52.3,
+      "yCoord": 335.8,
+      "zCoord": 238.3
+    }
+  },
+  "DropWaste": {
+    "liquid_waste": {
+      "xOffset": 0.0,
+      "yCoord": 497.0,
+      "zCoord": 182.4
+    }
+  },
+  "ActiveSideWaste": {
+    "liquid_waste": {
+      "xOffset": 0.0,
+      "yCoord": 497.0,
+      "zCoord": 182.4
+    }
+  }
+}

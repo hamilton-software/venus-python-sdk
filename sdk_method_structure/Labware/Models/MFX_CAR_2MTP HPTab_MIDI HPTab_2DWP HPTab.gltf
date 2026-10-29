@@ -1,0 +1,369 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 270,
+      "type": "VEC3",
+      "max": [
+        134.0,
+        61.000003814697266,
+        0.0
+      ],
+      "min": [
+        0.0,
+        0.0,
+        -500.29998779296875
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 270,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 630,
+      "type": "SCALAR",
+      "max": [
+        269
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 76164,
+      "type": "VEC3",
+      "max": [
+        134.26377868652344,
+        110.20101928710938,
+        -4.314971923828125
+      ],
+      "min": [
+        -0.2637786865234375,
+        18.00006103515625,
+        -482.68502807617188
+      ]
+    },
+    {
+      "bufferView": 4,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 76164,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 5,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 125520,
+      "type": "SCALAR",
+      "max": [
+        76163
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 6,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 2160,
+      "type": "VEC3",
+      "max": [
+        132.53936767578125,
+        120.56076049804688,
+        -6.96942138671875
+      ],
+      "min": [
+        1.272125244140625,
+        78.512992858886719,
+        -480.3082275390625
+      ]
+    },
+    {
+      "bufferView": 7,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 2160,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        0.999989926815033,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 8,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 5040,
+      "type": "SCALAR",
+      "max": [
+        2159
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 2411016,
+      "uri": "MFX_CAR_2MTP HPTab_MIDI HPTab_2DWP HPTab.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 3240,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 3240,
+      "byteLength": 3240,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 6480,
+      "byteLength": 2520,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 9000,
+      "byteLength": 913968,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 922968,
+      "byteLength": 913968,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1836936,
+      "byteLength": 502080,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2339016,
+      "byteLength": 25920,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2364936,
+      "byteLength": 25920,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2390856,
+      "byteLength": 20160,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.15999999642372131,
+          0.15999999642372131,
+          0.15999999642372131,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.88686293363571167
+      },
+      "emissiveFactor": [
+        0.019999999552965164,
+        0.019999999552965164,
+        0.019999999552965164
+      ],
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Material_001",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.13840000331401825,
+          0.13840000331401825,
+          0.13840000331401825,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Material_012",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.43057999014854431,
+          0.43057999014854431,
+          0.43057999014854431,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Poly_Geom_Data",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "_6601988_01_Module_MFX_DWP_Pre_Tab_STD_009",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 1,
+          "indices": 5,
+          "attributes": {
+            "POSITION": 3,
+            "NORMAL": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cube_030",
+      "primitives": [
+        {
+          "extensions": {
+            "FB_ngon_encoding": {}
+          },
+          "mode": 4,
+          "material": 2,
+          "indices": 8,
+          "attributes": {
+            "POSITION": 6,
+            "NORMAL": 7
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "$MergedNode_0",
+      "children": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "Poly_Geom_Data",
+      "mesh": 0
+    },
+    {
+      "name": "_6601988_01_Module_MFX_DWP_Pre_Tab_STD_009",
+      "mesh": 1
+    },
+    {
+      "name": "Cube_030",
+      "mesh": 2
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

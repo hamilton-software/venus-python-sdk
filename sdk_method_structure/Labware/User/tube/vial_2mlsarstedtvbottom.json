@@ -1,0 +1,95 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:vial_2mlsarstedtvbottom",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "vial_2mlsarstedtvbottom",
+  "labwareClass": "tube",
+  "source": {
+    "system": "venus",
+    "originalId": "vial_2mlsarstedtvbottom",
+    "originalFile": "vial_2mlsarstedtvbottom.ctr",
+    "convertedDate": "2026-09-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 9.0,
+    "y": 9.0,
+    "z": 45.8
+  },
+  "material": "polypropylene",
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 1,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 4.5,
+        "y": 4.5,
+        "z": 1.5
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 9.0
+        },
+        "totalDepth": 45.8,
+        "maxPipettingDepth": 0.1,
+        "bottomWallThickness": 1.5,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 4.0,
+              "diameterBottom": 2.0,
+              "diameterTop": 8.7
+            },
+            {
+              "type": "cylinder",
+              "height": 41.8,
+              "diameter": 5.4
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 45.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 52.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "tube_9",
+      "offset": {
+        "z": 44.8
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "eppendorf_2ml.hxx",
+    "modelFormat": "hxx",
+    "modelOrigin": "center_center_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "opacity": 0
+  }
+}

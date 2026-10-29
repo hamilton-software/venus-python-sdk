@@ -1,0 +1,40 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:greiner_petridish",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Greiner Petri Dish Lid",
+  "description": "Lid for Greiner petri dish",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Greiner_PetriDish",
+    "originalFile": "Greiner_PetriDish.lid",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 8.5
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 8.07
+      }
+    }
+  ],
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 0.98,
+      "coveredStackHeight": 16.4,
+      "stackHeight": 15.0,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

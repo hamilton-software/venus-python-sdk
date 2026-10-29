@@ -1,0 +1,28 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 9/8/2026 8:53:06 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace HHSController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function HHS_createStarDevice( device & ML_STAR ) variable {  return (0); }
+function HHS_createUsbDevice(  ) variable {  return (0); }
+function HHS_getDeviceIds(  ) variable {  return (0); }
+function HHS_getStatus(  ) variable {  return (0); }
+function HHS_setPlateLock(  ) variable {  return (0); }
+function HHS_startShaker(  ) variable {  return (0); }
+function HHS_startTempControl(  ) variable {  return (0); }
+function HHS_stopShaker(  ) variable {  return (0); }
+function HHS_stopTempControl(  ) variable {  return (0); }
+function HHS_terminate(  ) variable {  return (0); }
+function HHS_waitForShaker(  ) variable {  return (0); }
+function HHS_waitForTempControl(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-09-08 20:53$$checksum=f32226f5$$length=083$$

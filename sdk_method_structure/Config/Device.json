@@ -1,0 +1,142 @@
+{
+  "HHS.createStarDevice": {
+    "nameSpace": "HHSController",
+    "description": "Creates an HHS (Hamilton Heater Shaker) device instance attached to a STAR node.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "HHSController.smt"
+  },
+  "HHS.createUsbDevice": {
+    "nameSpace": "HHSController",
+    "description": "Creates an HHS (Hamilton Heater Shaker) device instance attached via USB.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.getDeviceIds": {
+    "nameSpace": "HHSController",
+    "description": "Returns the list of registered HHS device IDs and their connection info.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.getStatus": {
+    "nameSpace": "HHSController",
+    "description": "Returns the current shaking speed, temperature, and temperature control status for HHS devices.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.setPlateLock": {
+    "nameSpace": "HHSController",
+    "description": "Locks or unlocks the plate lock on an HHS device.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.startShaker": {
+    "nameSpace": "HHSController",
+    "description": "Starts shaking on an HHS device at a specified speed and duration.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.startTempControl": {
+    "nameSpace": "HHSController",
+    "description": "Starts temperature control on an HHS device at a target temperature.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.stopShaker": {
+    "nameSpace": "HHSController",
+    "description": "Stops shaking on an HHS device.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.stopTempControl": {
+    "nameSpace": "HHSController",
+    "description": "Stops temperature control on an HHS device.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.terminate": {
+    "nameSpace": "HHSController",
+    "description": "Disconnects and releases an HHS device.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.waitForShaker": {
+    "nameSpace": "HHSController",
+    "description": "Waits until shaking has completed on an HHS device.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "HHS.waitForTempControl": {
+    "nameSpace": "HHSController",
+    "description": "Waits until temperature control has stabilized on an HHS device.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "HHSController.smt"
+  },
+  "WXS.getWeight": {
+    "nameSpace": "WXS",
+    "description": "Returns a stable or dynamic weight value from the balance scale.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  },
+  "WXS.initializeBalance": {
+    "nameSpace": "WXS",
+    "description": "Establishes a connection to the balance scale.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  },
+  "WXS.internalCalibration": {
+    "nameSpace": "WXS",
+    "description": "Starts an internal adjustment (calibration) procedure on the balance scale.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  },
+  "WXS.resetScale": {
+    "nameSpace": "WXS",
+    "description": "Resets the balance scale.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  },
+  "WXS.setScaleParameters": {
+    "nameSpace": "WXS",
+    "description": "Sets general balance scale parameters (weighing mode, vibration, stability, weight unit, auto zero).",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  },
+  "WXS.setZero": {
+    "nameSpace": "WXS",
+    "description": "Sets a new zero point on the balance scale, clearing the tare memory.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  },
+  "WXS.tare": {
+    "nameSpace": "WXS",
+    "description": "Tares the balance scale and returns the tare weight change.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  },
+  "WXS.terminateBalance": {
+    "nameSpace": "WXS",
+    "description": "Terminates the connection to the balance scale.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "WXSController.smt"
+  }
+}

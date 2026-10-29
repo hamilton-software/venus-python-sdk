@@ -1,0 +1,86 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:vial_17x50",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Vial_17x50",
+  "labwareClass": "tube",
+  "source": {
+    "system": "venus",
+    "originalId": "Vial_17x50",
+    "originalFile": "Vial_17x50.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 15.0,
+    "y": 15.0,
+    "z": 47.0
+  },
+  "material": "polypropylene",
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 1,
+      "columnPitch": 15.0,
+      "rowPitch": 15.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 7.5,
+        "y": 7.5,
+        "z": 1.1
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 15.0
+        },
+        "totalDepth": 47.0,
+        "maxPipettingDepth": 0.2,
+        "bottomWallThickness": 1.1,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "cylinder",
+              "height": 47.0,
+              "diameter": 15.0
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 50.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 57.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "tube_15",
+      "offset": {
+        "z": 46.0
+      }
+    }
+  ],
+  "visualModel": {
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

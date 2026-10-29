@@ -1,0 +1,168 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:tip_car_288_c00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "TIP_CAR_288_C00",
+  "description": "Carrier for 3 Racks with 96 Tips portrait [revision C00]",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "TIP_CAR_288_C00",
+    "originalFile": "TIP_CAR_288_C00.tml",
+    "convertedDate": "2026-07-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 90.0,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 45.0,
+        "y": 389.5,
+        "z": 114.7
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 82.6,
+        "depth": 122.4
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "core_tip_rack",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 45.0,
+        "y": 243.5,
+        "z": 114.7
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 82.6,
+        "depth": 122.4
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "core_tip_rack",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 45.0,
+        "y": 97.5,
+        "z": 114.7
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 82.6,
+        "depth": 122.4
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "core_tip_rack",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "barcodeLocations": {
+    "carrier_barcode": {
+      "surface": "labware",
+      "face": "front",
+      "symbology": "code128",
+      "pattern": "^T05.{5}$",
+      "orientation": "vertical"
+    }
+  },
+  "visualModel": {
+    "modelRef": "TIP_CAR_288.gltf",
+    "modelFormat": "gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.5,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "previewImageRef": "tip_car_288.png",
+    "color": "#008080",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 0,
+      "barcodeReadWidth": 700,
+      "countOfBcPositions": 3,
+      "firstBcPosition": 1075,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "carrierLabel": "TIP_CAR_288_C00",
+      "noReadBarcode": true,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 1460,
+      "widthAsTracks": 4
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

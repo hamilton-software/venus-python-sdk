@@ -1,0 +1,40 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:nun_96_fl",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Cover for Nunc 96",
+  "description": "Cover for Nunc plate with 96 flat bottom wells",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Nun_96_Fl",
+    "originalFile": "Nun_96_Fl.lid",
+    "convertedDate": "2026-09-29",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.2,
+    "y": 85.2,
+    "z": 8.0
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 8.0
+      }
+    }
+  ],
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 1.2,
+      "coveredStackHeight": 16.0,
+      "stackHeight": 8.0,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

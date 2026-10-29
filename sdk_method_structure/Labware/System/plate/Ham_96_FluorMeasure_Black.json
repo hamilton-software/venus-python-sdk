@@ -1,0 +1,164 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_96_fluormeasure_black",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Hamilton 96 FluorEye black",
+  "description": "Micro Plate 96 x 392uL Well for fluorescence measurements, black, F-bottom, Barcode, PN10165328",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "Ham_96_FluorMeasure_Black",
+    "originalFile": "Ham_96_FluorMeasure_Black.rck / Ham_96_FluorMeasure_Black.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 14.4
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 14.0,
+        "y": 11.5,
+        "z": 2.6
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 0.0
+        },
+        "totalDepth": 10.9,
+        "maxPipettingDepth": 0.0,
+        "bottomWallThickness": 0.9,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 10.9,
+              "diameterBottom": 6.58,
+              "diameterTop": 6.96
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 10.9
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 2
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 12.9
+          },
+          "hamilton:touch_off": {
+            "enabled": true,
+            "frontMm": 2.7,
+            "backMm": 2.7,
+            "leftMm": 2.7,
+            "rightMm": 2.7,
+            "baseMm": 0.0,
+            "heightMm": 8.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 12.8
+  },
+  "collisionShapes": {
+    "body_0": {
+      "shape": {
+        "type": "rectangular_prism",
+        "height": 11.9,
+        "width": 124.0,
+        "depth": 82.0
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 2.5
+      }
+    },
+    "body_1": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 2.5,
+        "widthBottom": 127.76,
+        "depthBottom": 85.48,
+        "widthTop": 126.76,
+        "depthTop": 85.48
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 0.0
+      }
+    }
+  },
+  "visualModel": {
+    "previewImageRef": "Ham_96_FluorMeasure_Black.png",
+    "color": "#A9A9A9",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    },
+    "hamilton:body_segments": {
+      "measuredFrom": "top",
+      "segmentsX": [
+        {
+          "lowerWidthMm": 124.0,
+          "heightMm": 11.9,
+          "upperWidthMm": 124.0
+        },
+        {
+          "lowerWidthMm": 127.76,
+          "heightMm": 2.5,
+          "upperWidthMm": 126.76
+        }
+      ],
+      "segmentsY": [
+        {
+          "lowerWidthMm": 82.0,
+          "heightMm": 11.9,
+          "upperWidthMm": 82.0
+        },
+        {
+          "lowerWidthMm": 85.48,
+          "heightMm": 2.5,
+          "upperWidthMm": 85.48
+        }
+      ]
+    }
+  }
+}

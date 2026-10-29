@@ -1,0 +1,138 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:rgt_20ml_container_natural",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "RGT 20mL, natural color, no lid",
+  "description": "Reagent Container 20mL, natural color, no lid, PN: 10161052 Hamilton",
+  "labwareClass": "reservoir",
+  "source": {
+    "system": "venus",
+    "originalId": "RGT_20mL_Container_natural",
+    "originalFile": "RGT_20mL_Container_natural.rck / RGT_20mL_Container.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 20.0,
+    "y": 89.9,
+    "z": 52.54
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.052,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 10.0,
+        "y": 13.269,
+        "z": 12.53
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "rectangle",
+          "width": 12.742,
+          "depth": 9.052
+        },
+        "totalDepth": 40.01,
+        "maxPipettingDepth": 0.25,
+        "bottomWallThickness": 0.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "spherical_cap",
+              "height": 19.838,
+              "diameter": 12.266
+            },
+            {
+              "type": "rectangular_prism",
+              "height": 10.085999999999999,
+              "width": 12.266,
+              "depth": 9.052
+            },
+            {
+              "type": "rectangular_prism",
+              "height": 10.085999999999999,
+              "width": 12.742,
+              "depth": 9.052
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 42.01
+        },
+        "customAttributes": {
+          "hamilton:container_file": {
+            "fileName": "RGT_20mL_Container"
+          },
+          "hamilton:clld_mode": {
+            "mode": 2
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 45.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "connectedContainerGroups": {
+    "connected": {
+      "containers": [
+        "default"
+      ],
+      "connectionTopology": "base"
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "modelRef": "RGT_20mL_Container_natural.gltf",
+    "modelFormat": "gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.25,
+      "y": 0.5,
+      "z": 0.0
+    },
+    "previewImageRef": "RGT_20mL_Container_natural.png",
+    "color": "#C0C0C0",
+    "opacity": 1
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

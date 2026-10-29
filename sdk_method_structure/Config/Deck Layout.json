@@ -1,0 +1,345 @@
+{
+  "deck.GetRackIdsFromDeck": {
+    "nameSpace": "Deck",
+    "description": "Returns rack IDs and coordinates found in a saved deck layout file.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "DeckController.smt"
+  },
+  "deck.deleteSavedDeck": {
+    "nameSpace": "Deck",
+    "description": "Deletes a saved deck layout file.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "DeckController.smt"
+  },
+  "deck.getPreviousDeck": {
+    "nameSpace": "Deck",
+    "description": "Checks whether a previously used deck layout is available to reload.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "DeckController.smt"
+  },
+  "deck.getSavedDecks": {
+    "nameSpace": "Deck",
+    "description": "Returns the list of saved deck layout files.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "DeckController.smt"
+  },
+  "deck.importDeck": {
+    "nameSpace": "Deck",
+    "description": "Imports carriers and labware from a .lay layout file into the current deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "DeckController.smt"
+  },
+  "deck.importRackAsSite": {
+    "nameSpace": "Deck",
+    "description": "Imports a rack from a .lay layout file and registers it as a named site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "DeckController.smt"
+  },
+  "deck.loadDeck": {
+    "nameSpace": "Deck",
+    "description": "Loads a saved deck layout, or reloads the previously used layout.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "DeckController.smt"
+  },
+  "deck.saveDeck": {
+    "nameSpace": "Deck",
+    "description": "Saves the current deck layout to a file.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "DeckController.smt"
+  },
+  "labware.add1mLCoreGrip": {
+    "nameSpace": "Layout",
+    "description": "Adds a 1mL CO-RE gripper tool to the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.add5mLCoreGrip": {
+    "nameSpace": "Layout",
+    "description": "Adds a 5mL CO-RE gripper tool to the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addCarrier": {
+    "nameSpace": "Layout",
+    "description": "Adds a carrier to the deck at a specified track.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addCarrierToSite": {
+    "nameSpace": "Layout",
+    "description": "Adds a carrier onto a specific site, such as an existing module.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addChannelLiquidWaste": {
+    "nameSpace": "Layout",
+    "description": "Adds a channel liquid waste labware item to the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addLid": {
+    "nameSpace": "Layout",
+    "description": "Adds a lid labware item to a carrier site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addLiddedPlate": {
+    "nameSpace": "Layout",
+    "description": "Adds a plate with a lid to a carrier site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addLiquidWaste": {
+    "nameSpace": "Layout",
+    "description": "Adds a liquid waste labware item to the deck (Vantage only).",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addNTR": {
+    "nameSpace": "Layout",
+    "description": "Adds a stacked no-tip-rack (NTR) tip carrier to the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addPlate": {
+    "nameSpace": "Layout",
+    "description": "Adds a plate to a carrier site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addQCG": {
+    "nameSpace": "Layout",
+    "description": "Adds a QCG transport tool to the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addReservoir": {
+    "nameSpace": "Layout",
+    "description": "Adds a reservoir to a carrier site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addSampleTubeCarrier": {
+    "nameSpace": "Layout",
+    "description": "Adds a sample tube carrier to the deck at a specified track.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addTipBox": {
+    "nameSpace": "Layout",
+    "description": "Adds a tip box to a carrier site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addTipRack": {
+    "nameSpace": "Layout",
+    "description": "Adds a tip rack to a carrier site and registers its tip pool.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addTipSupport": {
+    "nameSpace": "Layout",
+    "description": "Adds a tip support to a carrier site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addTransportSite": {
+    "nameSpace": "Layout",
+    "description": "Registers a custom transport site with specific coordinates.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addTubesToCarrier": {
+    "nameSpace": "Layout",
+    "description": "Adds tubes to specific positions on a tube carrier.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.getLabwareParamsFromID": {
+    "nameSpace": "LabwareController",
+    "description": "Returns the full labware definition for a given labware item on the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LabwareController.smt"
+  },
+  "labware.moveCarrier": {
+    "nameSpace": "Layout",
+    "description": "Moves a carrier already on the deck to a different track or site.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.removeLabware": {
+    "nameSpace": "Layout",
+    "description": "Removes a labware item from the deck.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.removeTransportTool": {
+    "nameSpace": "Layout",
+    "description": "Removes a transport tool from the deck by tool ID.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.shiftLabware": {
+    "nameSpace": "Layout",
+    "description": "Shifts a labware item's position by a relative X/Y/Z/angle offset.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.addSplitWellSite": {
+    "nameSpace": "Layout",
+    "description": "Places a temporary rack of SDK-computed channel-pitch slots inside one large well so several channels can pipette into it at once.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "labware.tiltLabware": {
+    "nameSpace": "Layout",
+    "description": "Applies SDK-computed per-well tilt offsets (X/Y from nominal, Z as container base offset) to a plate.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutController.smt"
+  },
+  "status.getAddedCarriers": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the list of carriers currently added to the deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getAddedPlates": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the list of plates currently added to the deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getAddedReservoirs": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the list of reservoirs currently added to the deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getAddedTipRacks": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the list of tip racks currently added to the deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getAvailableCarrierSites": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the available (unoccupied) sites for a given carrier.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getAvailableTracks": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the list of unoccupied tracks on the deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getLabwareCoordinates": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the X/Y/Z/angle coordinates of a well, or the labware origin and every well's coordinates when no well is given.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getLabwareLocation": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the carrier/site or track location of a labware item.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getLabwareOnCarrier": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the labware items currently placed on a carrier.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getLabwarePositions": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the well positions defined for a labware item.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getOccupiedCarrierSites": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the sites currently occupied for a given carrier.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getOccupiedTracks": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the list of currently occupied tracks on the deck.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getTopLabware": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the topmost labware item at a carrier site, including lid info.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getTransportTool": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns information about a transport tool matching the given criteria.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.getTransportToolIds": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Returns the list of transport tools and their tool IDs.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "LayoutQueryController.smt"
+  },
+  "status.isTrackOccupied": {
+    "nameSpace": "LayoutQueryController",
+    "description": "Checks whether a specific deck track is occupied.",
+    "enabled": true,
+    "requireDevice": false,
+    "controller": "LayoutQueryController.smt"
+  }
+}

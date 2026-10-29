@@ -1,0 +1,252 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 20,
+      "type": "VEC3",
+      "max": [
+        49.961894989013672,
+        197.51445007324219,
+        38.540454864501953
+      ],
+      "min": [
+        -55.0380973815918,
+        185.51445007324219,
+        -47.459541320800781
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 20,
+      "type": "VEC3",
+      "max": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 36,
+      "type": "SCALAR",
+      "max": [
+        19
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 17780,
+      "type": "VEC3",
+      "max": [
+        61.211894989013672,
+        199.01446533203125,
+        40.290454864501953
+      ],
+      "min": [
+        -66.288093566894531,
+        185.51446533203125,
+        -49.209545135498047
+      ]
+    },
+    {
+      "bufferView": 4,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 17780,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 5,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 26724,
+      "type": "SCALAR",
+      "max": [
+        17779
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 534240,
+      "uri": "Rack - Downholder.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 240,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 240,
+      "byteLength": 240,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 480,
+      "byteLength": 144,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 624,
+      "byteLength": 213360,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 213984,
+      "byteLength": 213360,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 427344,
+      "byteLength": 106896,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "material0",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.71843099594116211,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.92281246185302734
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.24901999533176422,
+            0.24901999533176422,
+            0.24901999533176422
+          ]
+        }
+      }
+    },
+    {
+      "name": "material0_material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.14117600023746491,
+          0.14117600023746491,
+          0.14117600023746491,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.87601393461227417
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.40000000596046448,
+            0.40000000596046448,
+            0.40000000596046448
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 1,
+          "indices": 5,
+          "attributes": {
+            "POSITION": 3,
+            "NORMAL": 4
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "$dummy_node",
+      "children": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "node",
+      "mesh": 0
+    },
+    {
+      "name": "node_0",
+      "mesh": 1
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

@@ -1,0 +1,108 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:greiner_deep_well_plate_24",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Greiner Deep Well Plate - 24",
+  "description": "24 well deep well culture plate made by Greiner bio-one",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "Greiner_Deep_Well_Plate_24",
+    "originalFile": "Greiner_Deep_Well_Plate_24.rck / greiner_deep_well_plate_24.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 44.4
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 6,
+      "rows": 4,
+      "columnPitch": 18.2,
+      "rowPitch": 18.4,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 16.9,
+        "y": 16.3,
+        "z": 1.35
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "rectangle",
+          "width": 17.6,
+          "depth": 17.6
+        },
+        "totalDepth": 42.2,
+        "maxPipettingDepth": 0.1,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 4.0,
+              "diameterBottom": 0.0,
+              "diameterTop": 16.5
+            },
+            {
+              "type": "rectangular_prism",
+              "height": 38.2,
+              "width": 17.6,
+              "depth": 17.6
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 40.0
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 1
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 45.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.1,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 45.0
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  }
+}

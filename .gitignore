@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Bundled 32-bit interpreter needs its compiled extension modules
+!src/hamilton_venus/_com32_py32/**/*.pyd
+
+# hatch-vcs writes this at build time
+src/hamilton_venus/_version.py
+
+# IDE
+.vs/
+
+# AI
+.abacusai/
+
+# Local development
+local/
+.local/
+
+# WebView2 runtime user-data cache and Windows folder metadata
+*.exe.WebView2/
+desktop.ini
+
+# Smoke test run logs
+logs/
+*.log
+
+# VENUS executor temporary artifacts
+sdk_method_structure/Library/Executors/~Hx*
+.vscode/settings.json

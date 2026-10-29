@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_cell_culture_6w",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "HAM_Cell_Culture_6W",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "HAM_Cell_Culture_6W",
+    "originalFile": "HAM_Cell_Culture_6W.lid",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 9.0
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 12.8
+      }
+    }
+  ],
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 1.0,
+      "coveredStackHeight": 20.62,
+      "stackHeight": 7.66,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

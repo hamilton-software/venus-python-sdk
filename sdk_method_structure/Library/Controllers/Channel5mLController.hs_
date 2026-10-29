@@ -1,0 +1,33 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/23/2026 4:14:57 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace Channel5mLController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function channels_5mL_aspirate( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_detectLiquidLevel( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_dispense( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_dispenseOnTheFly( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_getStatus( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_moveAxis( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_tipCheck( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_tipEject( device & ML_STAR ) variable {  return (0); }
+function channels_5mL_tipPickup( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_clearHeldLabware( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_ejectGrips( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_holdLid( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_isHoldingLabware( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_moveLabware( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_moveToWaste( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_presentAndScan( device & ML_STAR ) variable {  return (0); }
+function transport_5mL_returnLabware( device & ML_STAR ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-23 16:14$$checksum=35db3c7b$$length=083$$

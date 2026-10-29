@@ -1,0 +1,40 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/21/2026 5:45:47 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace Layout {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function labware_add1mLCoreGrip( device & Device ) variable {  return (0); }
+function labware_add5mLCoreGrip( device & Device ) variable {  return (0); }
+function labware_addCarrier( device & Device ) variable {  return (0); }
+function labware_addCarrierToSite( device & Device ) variable {  return (0); }
+function labware_addChannelLiquidWaste( device & Device ) variable {  return (0); }
+function labware_addLid( device & Device ) variable {  return (0); }
+function labware_addLiddedPlate( device & Device ) variable {  return (0); }
+function labware_addLiquidWaste( device & Device ) variable {  return (0); }
+function labware_addNTR( device & Device ) variable {  return (0); }
+function labware_addPlate( device & Device ) variable {  return (0); }
+function labware_addQCG( device & Device ) variable {  return (0); }
+function labware_addReservoir( device & Device ) variable {  return (0); }
+function labware_addSampleTubeCarrier( device & Device ) variable {  return (0); }
+function labware_addSplitWellSite( device & Device ) variable {  return (0); }
+function labware_addTipBox( device & Device ) variable {  return (0); }
+function labware_addTipRack( device & Device ) variable {  return (0); }
+function labware_addTipSupport( device & Device ) variable {  return (0); }
+function labware_addTransportSite( device & Device ) variable {  return (0); }
+function labware_addTubesToCarrier( device & Device ) variable {  return (0); }
+function labware_moveCarrier( device & Device ) variable {  return (0); }
+function labware_removeLabware( device & Device ) variable {  return (0); }
+function labware_removeTransportTool( device & Device ) variable {  return (0); }
+function labware_shiftLabware( device & Device ) variable {  return (0); }
+function labware_tiltLabware( device & Device ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-21 17:45$$checksum=70397d6d$$length=083$$

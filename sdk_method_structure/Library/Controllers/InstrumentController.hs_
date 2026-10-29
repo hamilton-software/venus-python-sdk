@@ -1,0 +1,24 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/5/2026 4:51:13 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace Instrument {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function configuration_getConfiguration(  ) variable {  return (0); }
+function configuration_getDeckDimensions(  ) variable {  return (0); }
+function configuration_getDeckTracks(  ) variable {  return (0); }
+function configuration_getWasteLocations( device & Device ) variable {  return (0); }
+function status_getInstrumentType(  ) variable {  return (0); }
+function status_isConnected(  ) variable {  return (0); }
+function status_isIdle(  ) variable {  return (0); }
+function status_terminate(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-05 16:51$$checksum=992b3edc$$length=083$$

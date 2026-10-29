@@ -1,0 +1,274 @@
+{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_mltipbox_f50",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Tip Box 50 \\0xb5l conductive filtered sterile ",
+  "description": "Hamilton Tip Box with 96 50 \\0xb5l conductive filtered sterile tips",
+  "labwareClass": "tip_rack",
+  "source": {
+    "system": "venus",
+    "originalId": "Ham_MLTipBox_F50",
+    "originalFile": "Ham_MLTipBox_F50.rck / TIP_50ul.ctr",
+    "convertedDate": "2026-08-04",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 69.23
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 14.0,
+        "y": 11.5,
+        "z": 16.21
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 0.0
+        },
+        "totalDepth": 50.4,
+        "maxPipettingDepth": 42.4,
+        "bottomWallThickness": 0.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 42.4,
+              "diameterBottom": 0.4,
+              "diameterTop": 6.8
+            },
+            {
+              "type": "cylinder",
+              "height": 8.0,
+              "diameter": 6.8
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 50.4
+        },
+        "contentsRef": "hamilton:tip_50ul",
+        "alignmentReceptacles": [
+          {
+            "name": "core_tip_722",
+            "offset": {
+              "z": 42.4
+            }
+          }
+        ],
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 51.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "core_tip_rack",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 57.53
+  },
+  "collisionShapes": {
+    "body_0": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 11.700000000000003,
+        "widthBottom": 122.57,
+        "depthBottom": 82.77,
+        "widthTop": 122.77,
+        "depthTop": 82.97
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 57.53
+      }
+    },
+    "body_1": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 7.519999999999996,
+        "widthBottom": 119.83810006761325,
+        "depthBottom": 79.14,
+        "widthTop": 119.05,
+        "depthTop": 78.54
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 50.010000000000005
+      }
+    },
+    "body_2": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 18.260000000000005,
+        "widthBottom": 121.75175794455714,
+        "depthBottom": 82.26,
+        "widthTop": 119.83810006761325,
+        "depthTop": 80.34
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 31.75
+      }
+    },
+    "body_3": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 18.589999999999989,
+        "widthBottom": 123.7,
+        "depthBottom": 84.52,
+        "widthTop": 121.75175794455714,
+        "depthTop": 83.89
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 13.160000000000011
+      }
+    },
+    "body_4": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 13.159999999999997,
+        "widthBottom": 127.74511764705883,
+        "depthBottom": 85.48,
+        "widthTop": 127.3,
+        "depthTop": 85.2
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 0.0
+      }
+    },
+    "body_5": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 0.43999999999998352,
+        "widthBottom": 127.76,
+        "depthBottom": 85.489361702127667,
+        "widthTop": 127.74511764705883,
+        "depthTop": 85.48
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": -0.43999999999998352
+      }
+    }
+  },
+  "visualModel": {
+    "modelRef": "Ham_MLTipBox_F50.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "color": "#DC143C",
+    "opacity": 1,
+    "modelFormat": "gltf"
+  },
+  "tipRack": {
+    "style": "framed"
+  },
+  "customAttributes": {
+    "hamilton:rck_properties": {
+      "MlStarCore96TipRack": 23,
+      "MlStarIsCore96WasteRack": 1,
+      "MlStarIsWasteRack": 1,
+      "MlStarTipRack": 23,
+      "MlStarIsMagWasteRack": 1
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    },
+    "hamilton:body_segments": {
+      "measuredFrom": "top",
+      "segmentsX": [
+        {
+          "lowerWidthMm": 122.57,
+          "heightMm": 11.7,
+          "upperWidthMm": 122.77
+        },
+        {
+          "lowerWidthMm": 123.7,
+          "heightMm": 44.37,
+          "upperWidthMm": 119.05
+        },
+        {
+          "lowerWidthMm": 127.76,
+          "heightMm": 13.6,
+          "upperWidthMm": 127.3
+        }
+      ],
+      "segmentsY": [
+        {
+          "lowerWidthMm": 82.77,
+          "heightMm": 11.7,
+          "upperWidthMm": 82.97
+        },
+        {
+          "lowerWidthMm": 79.14,
+          "heightMm": 7.52,
+          "upperWidthMm": 78.54
+        },
+        {
+          "lowerWidthMm": 82.26,
+          "heightMm": 18.26,
+          "upperWidthMm": 80.34
+        },
+        {
+          "lowerWidthMm": 84.52,
+          "heightMm": 18.59,
+          "upperWidthMm": 83.89
+        },
+        {
+          "lowerWidthMm": 85.48,
+          "heightMm": 13.16,
+          "upperWidthMm": 85.2
+        }
+      ]
+    }
+  }
+}

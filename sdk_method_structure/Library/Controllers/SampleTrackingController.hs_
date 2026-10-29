@@ -1,0 +1,20 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/22/2026 4:06:17 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace SampleTrackingController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function tracking_getBarcodeLocations( device & Device ) variable {  return (0); }
+function tracking_getLabwareDetails( device & Device ) variable {  return (0); }
+function tracking_setBarcodes( device & Device ) variable {  return (0); }
+function tracking_setLabwareVolume( device & Device ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-22 16:06$$checksum=e048e5c6$$length=083$$

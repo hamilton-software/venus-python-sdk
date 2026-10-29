@@ -1,0 +1,29 @@
+{
+  "TraceLevel": 0,
+  "Port": 42400,
+  "Host": "localhost",
+  "EndPoint": "api/vector/v3/run-messages",
+  "InstrumentType": "STAR",
+  "ActiveLayout": "\\Active Layout",
+  "LabwareLocation": "\\Labware",
+  "ControllerLocation": "\\Library\\Controllers",
+  "ExecutorLocation": "\\Library\\Executors",
+  "LayoutLocation": "\\Layout",
+  "LiquidClassLocation": "\\Liquid Class",
+  "Executor": {
+    "STAR": "CommandGenerator_STAR",
+    "VANTAGE": "CommandGenerator_Vantage"
+  },
+  "DeviceControllers": [
+    {
+      "ControllerPath": "HHSController.hs_",
+      "NameSpace": "HHSController",
+      "DriverPath": "{{Hamilton\\Library}}\\HslHamHeaterShakerLib.hsl"
+    },
+    {
+      "ControllerPath": "WXSController.hs_",
+      "NameSpace": "WXS",
+      "DriverPath": "{{Hamilton\\Library}}\\Hamilton Mettler Toledo WXS\\Hamilton Mettler Toledo WXS.hsl"
+    }
+  ]
+}

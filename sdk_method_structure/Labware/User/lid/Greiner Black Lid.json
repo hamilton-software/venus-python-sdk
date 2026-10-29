@@ -1,0 +1,46 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:greiner_96_well_flat_bottom_black",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Greiner 96 Well Flat Bottom Black",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Greiner 96 Well Flat Bottom Black",
+    "originalFile": "Greiner 96 Well Flat Bottom Black.lid",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 10.0
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 5.4
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Greiner Clear Lid.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "modelFormat": "gltf"
+  },
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 1.0,
+      "coveredStackHeight": 14.4,
+      "stackHeight": 9.0,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    }
+  }
+}

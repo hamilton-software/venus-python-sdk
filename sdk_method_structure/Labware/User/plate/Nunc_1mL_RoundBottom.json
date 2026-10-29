@@ -1,0 +1,107 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:nunc_1ml_roundbottom",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Nunc 1mL Round Bottom Plate",
+  "description": "96 well 1mL deep well plate from Nunc",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "Nunc_1mL_RoundBottom",
+    "originalFile": "Nunc_1mL_RoundBottom.rck / Nunc_1mL_RoundBottom.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 31.2
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 13.9,
+        "y": 10.7,
+        "z": 0.6
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 8.4
+        },
+        "totalDepth": 28.8,
+        "maxPipettingDepth": 0.5,
+        "bottomWallThickness": 0.8,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "spherical_cap",
+              "height": 1.9,
+              "diameter": 6.1
+            },
+            {
+              "type": "conical_frustum",
+              "height": 26.900000000000002,
+              "diameterBottom": 6.1,
+              "diameterTop": 8.4
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 35.1
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 1
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 35.1
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "previewImageRef": "Nunc_1mL_RoundBottom.png",
+    "color": "#FFFFFF",
+    "opacity": 0
+  }
+}

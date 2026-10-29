@@ -1,0 +1,100 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:cup_25x90",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Cup_25x90",
+  "labwareClass": "tube",
+  "source": {
+    "system": "venus",
+    "originalId": "Cup_25x90",
+    "originalFile": "Cup_25x90.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 22.6,
+    "y": 22.6,
+    "z": 90.0
+  },
+  "material": "polypropylene",
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 1,
+      "columnPitch": 22.6,
+      "rowPitch": 22.6,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 11.3,
+        "y": 11.3,
+        "z": 2.0
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 22.6
+        },
+        "totalDepth": 90.0,
+        "maxPipettingDepth": 0.5,
+        "bottomWallThickness": 2.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 11.0,
+              "diameterBottom": 4.0,
+              "diameterTop": 22.6
+            },
+            {
+              "type": "cylinder",
+              "height": 79.0,
+              "diameter": 22.6
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 100.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 105.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 2.0,
+            "heightMm": 0.0
+          }
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "tube_23",
+      "offset": {
+        "z": 89.0
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Cup_25x90.gltf",
+    "modelFormat": "gltf",
+    "modelOrigin": "center_center_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

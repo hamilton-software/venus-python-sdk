@@ -1,0 +1,227 @@
+   //
+// ******* HSL_Regex *******
+// Autor:  Alvaro Cuevas 
+// Date: Feb 22, 2018 
+
+
+
+#ifndef __Regex_hsl__
+#define __Regex_hsl__ 1
+
+
+namespace HSL_Regex
+{
+
+
+
+   function MatchRegex( variable i_RegexPattern,
+                        variable i_String,
+                        variable& o_bol_IsMatch) 
+      {
+         
+
+         object objScriptControl;		
+         object objFileSystemObject;
+
+         variable strScriptResult;
+
+
+        //register exception handler 
+         onerror goto ExceptionHandler;
+         
+         //get directories
+         objFileSystemObject.CreateObject("Scripting.FileSystemObject");
+         objScriptControl.CreateObject("MSScriptControl.ScriptControl");
+
+         // - create script
+			objScriptControl.Language = "VBScript";
+			objScriptControl.AddObject("fso", objFileSystemObject);			
+			objScriptControl.AddCode
+			("																														\n\
+				Option Explicit																								\n\
+			   Function MatchRegexVB(regexPattern, str)                                                  \n\
+               Dim re \n\
+               Set re = New RegExp                                                            \n\
+                re.Pattern = regexPattern\n\
+                If re.Test(str) Then  \n\
+                   MatchRegexVB = 1 \n\
+                 Else \n\
+                   MatchRegexVB = 0 \n\
+                 End If                                                       \n\
+            End Function																									\n\
+																											                  \n\
+			");
+
+         // - execute script      
+		    strScriptResult= objScriptControl.Eval("MatchRegexVB(\"" + i_RegexPattern + "\",\"" + i_String + "\")");
+          o_bol_IsMatch = strScriptResult;
+ 
+         // - clean up
+         objScriptControl.ReleaseObject();
+         objFileSystemObject.ReleaseObject();
+
+
+
+         //return(0);
+         return;
+
+         //exception
+         ExceptionHandler:
+         {
+            objScriptControl.ReleaseObject();
+            objFileSystemObject.ReleaseObject();
+            Trace(" HSL Regex function error using expression: ", i_RegexPattern);
+            return;
+         }
+      } 
+
+
+
+function GetRegexMatches(variable  i_String,
+                              variable  i_RegexPattern,
+                              variable& o_arr_matches[])  //array
+      {
+         
+         
+         object objScriptControl;		
+         object objFileSystemObject;
+
+         variable strScriptResult[];
+
+        //register exception handler 
+         onerror goto ExceptionHandler;
+
+         
+         objFileSystemObject.CreateObject("Scripting.FileSystemObject");
+         objScriptControl.CreateObject("MSScriptControl.ScriptControl");
+
+         // - create script
+			objScriptControl.Language = "VBScript";
+			objScriptControl.AddObject("fso", objFileSystemObject);			
+			objScriptControl.AddCode
+			("																														\n\
+				Option Explicit																								\n\
+			   Function MatchRegexVB(regexPattern, str)                               \n\
+               Dim re, oMatches, oMatch, oSubMatch                    \n\
+               Dim arr3, arrMatches, i , j\n\
+               arrMatches = Array(\"\")\n\
+               i=0 \n\
+               Set re = New RegExp  \n\
+               re.Pattern = regexPattern \n\
+               re.Global = True \n\
+               Set oMatches = re.Execute(str)  \n\
+               For Each oMatch in oMatches\n\
+                     ReDim preserve arrMatches(i) \n\
+                     arrMatches(i)= oMatch.Value \n\
+                     i=i+1 \n\
+               Next \n\
+               MatchRegexVB = arrMatches                                                              \n\
+            End Function																									\n\
+			");
+              
+         // - execute script      
+		    strScriptResult = objScriptControl.Eval("MatchRegexVB(\"" + i_RegexPattern + "\",\"" + i_String + "\")");
+          o_arr_matches = strScriptResult;
+
+          //Empty return array if it only has an empty string
+          if(o_arr_matches.GetSize()==1 && o_arr_matches.GetAt(0)==""){
+            o_arr_matches.SetSize(0);
+          }
+ 
+         // - clean up
+         objScriptControl.ReleaseObject();
+         objFileSystemObject.ReleaseObject();
+
+
+
+         //return(0);
+         return;
+
+         //exception
+         ExceptionHandler:
+         {
+            objScriptControl.ReleaseObject();
+            objFileSystemObject.ReleaseObject();
+            Trace(" HSL Regex function error using expression: ");
+            return;
+         }
+      } 
+  
+   
+      function GetRegexGroups(variable  i_String,
+                              variable  i_RegexPattern,
+                              variable& o_arr_matches[])  //array
+      {
+         
+         
+         object objScriptControl;		
+         object objFileSystemObject;
+
+         variable strScriptResult[];
+
+        //register exception handler 
+         onerror goto ExceptionHandler;
+
+         
+         objFileSystemObject.CreateObject("Scripting.FileSystemObject");
+         objScriptControl.CreateObject("MSScriptControl.ScriptControl");
+
+         // - create script
+			objScriptControl.Language = "VBScript";
+			objScriptControl.AddObject("fso", objFileSystemObject);			
+			objScriptControl.AddCode
+			("																														\n\
+				Option Explicit																								\n\
+			   Function MatchRegexVB(regexPattern, str)                               \n\
+               Dim re, oMatches, oMatch, oSubMatch                    \n\
+               Dim arr3, arrMatches, i , j\n\
+               arrMatches = Array(\"\")\n\
+               i=0 \n\
+               Set re = New RegExp  \n\
+               re.Pattern = regexPattern \n\
+               re.Global = True \n\
+               Set oMatches = re.Execute(str)  \n\
+               For Each oMatch in oMatches\n\
+                For Each oSubMatch in oMatch.SubMatches\n\
+                     ReDim preserve arrMatches(i) \n\
+                     arrMatches(i)= oSubMatch \n\
+                     i=i+1 \n\
+                 Next \n\
+               Next \n\
+               MatchRegexVB = arrMatches                                                              \n\
+            End Function																									\n\
+			");
+              
+         // - execute script      
+		    strScriptResult = objScriptControl.Eval("MatchRegexVB(\"" + i_RegexPattern + "\",\"" + i_String + "\")");
+          o_arr_matches = strScriptResult;
+
+           //Empty return array if it only has an empty string
+          if(o_arr_matches.GetSize()==1 && o_arr_matches.GetAt(0)==""){
+            o_arr_matches.SetSize(0);
+          }
+ 
+         // - clean up
+         objScriptControl.ReleaseObject();
+         objFileSystemObject.ReleaseObject();
+
+
+
+         //return(0);
+         return;
+
+         //exception
+         ExceptionHandler:
+         {
+            objScriptControl.ReleaseObject();
+            objFileSystemObject.ReleaseObject();
+            Trace(" HSL Regex function error using expression: ");
+            return;
+         }
+      } 
+
+
+
+}
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-04-16 15:25$$checksum=96809e59$$length=085$$

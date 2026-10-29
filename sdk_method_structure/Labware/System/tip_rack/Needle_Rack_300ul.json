@@ -1,0 +1,124 @@
+{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:needle300ul_l",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Needle300ul_L",
+  "labwareClass": "tip_rack",
+  "source": {
+    "system": "venus",
+    "originalId": "Needle300ul_L",
+    "originalFile": "Needle300ul_L.rck / needle300ul.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 122.4,
+    "y": 82.6,
+    "z": 20.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 11.7,
+        "y": 9.8,
+        "z": -47.2
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 6.8
+        },
+        "totalDepth": 81.0,
+        "maxPipettingDepth": 51.95,
+        "bottomWallThickness": 0.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 12.0,
+              "diameterBottom": 0.4,
+              "diameterTop": 3.5
+            },
+            {
+              "type": "cylinder",
+              "height": 57.7,
+              "diameter": 3.5
+            },
+            {
+              "type": "cylinder",
+              "height": 11.299999999999997,
+              "diameter": 6.8
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 60.0
+        },
+        "contentsRef": "hamilton:needle300ul",
+        "alignmentReceptacles": [
+          {
+            "name": "core_tip_1001",
+            "offset": {
+              "z": 69.7
+            }
+          }
+        ],
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 62.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "core_tip_rack",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "tipRack": {
+    "style": "framed"
+  },
+  "customAttributes": {
+    "hamilton:rck_properties": {
+      "MlStarIsWasteRack": 1,
+      "MlStarTipRack": 12
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

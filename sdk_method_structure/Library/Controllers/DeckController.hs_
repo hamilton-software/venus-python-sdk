@@ -1,0 +1,24 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 9/2/2026 9:02:20 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace Deck {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function deck_deleteSavedDeck(  ) variable {  return (0); }
+function deck_getPreviousDeck(  ) variable {  return (0); }
+function deck_getRackIdsFromDeck( device & Device ) variable {  return (0); }
+function deck_getSavedDecks(  ) variable {  return (0); }
+function deck_importDeck( device & Device ) variable {  return (0); }
+function deck_importRackAsSite( device & Device ) variable {  return (0); }
+function deck_loadDeck(  ) variable {  return (0); }
+function deck_saveDeck(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-09-02 21:02$$checksum=bd105e74$$length=083$$

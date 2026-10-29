@@ -1,0 +1,75 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:pedestal_tip_isolator_brackets",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Pedestal - Tip Isolator (Brackets)",
+  "labwareClass": "adapter",
+  "source": {
+    "system": "venus",
+    "originalId": "Pedestal - Tip Isolator (Brackets)",
+    "originalFile": "Pedestal - Tip Isolator (Brackets).tml",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 132.4,
+    "y": 92.6,
+    "z": 115.85
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 66.2,
+        "y": 46.3,
+        "z": 115.85
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 122.4,
+        "depth": 82.6
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "color": "#C0C0C0",
+    "opacity": 1
+  },
+  "customAttributes": {
+    "hamilton:tml_properties": {
+      "P/N": "92882-01"
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

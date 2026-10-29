@@ -1,0 +1,21 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 5/21/2026 8:21:42 AM
+
+#pragma once
+#ifndef HSL_RUNTIME
+namespace ErrParse {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function GetChannelNumberFromNode( variable i_strChannelNode, variable & o_strNode, variable & o_intChannelNumber ) void { }
+function GetErrorDescription( variable i_strNode, variable i_strErrorCode, variable & o_strErrorCategory, variable & o_strErrorDescription ) void { }
+function ParseFWReturn( variable i_strFWReturn, variable & o_strArmNumber, variable & o_strNode, variable & o_strCommand, variable & o_strID, variable & o_strParams, variable & o_strMainError, variable & o_arrSlaveErrors[] ) void { }
+function SetInstrumentType( variable i_blnIsInstrumentVantageLine ) void { }
+function SetTraceLevel( variable i_intTraceLevel ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-05-21 08:21$$checksum=c0cc90ac$$length=083$$

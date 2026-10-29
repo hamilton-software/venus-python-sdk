@@ -1,0 +1,108 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_dw_12_ml_l",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Hamilton 1.2 ml deep well plate",
+  "description": "Hamilton 1.2 ml deep well plate  with 96 wells (P/N: 235655)",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "HAM_DW_12_ml_L",
+    "originalFile": "HAM_DW_12_ml_L.rck / ham_12_ml.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 41.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 14.0,
+        "y": 11.5,
+        "z": 3.6
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 6.9
+        },
+        "totalDepth": 36.8,
+        "maxPipettingDepth": 0.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "spherical_cap",
+              "height": 0.8,
+              "diameter": 6.4
+            },
+            {
+              "type": "conical_frustum",
+              "height": 36.0,
+              "diameterBottom": 6.4,
+              "diameterTop": 6.9
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 40.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 42.0
+          },
+          "hamilton:touch_off": {
+            "enabled": true,
+            "frontMm": 3.0,
+            "backMm": 3.0,
+            "leftMm": 3.0,
+            "rightMm": 3.0,
+            "baseMm": 0.0,
+            "heightMm": 30.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 39.0
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

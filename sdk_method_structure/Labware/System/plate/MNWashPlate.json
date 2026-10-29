@@ -1,0 +1,103 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:mnwashplate",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "MNWashPlate",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "MNWashPlate",
+    "originalFile": "MNWashPlate.rck / mnwashplate.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 14.5
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 14.0,
+        "y": 11.5,
+        "z": 4.0
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 7.0
+        },
+        "totalDepth": 9.5,
+        "maxPipettingDepth": 1.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 9.5,
+              "diameterBottom": 6.5,
+              "diameterTop": 7.0
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 10.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 12.0
+          },
+          "hamilton:touch_off": {
+            "enabled": true,
+            "frontMm": 3.0,
+            "backMm": 3.0,
+            "leftMm": 3.0,
+            "rightMm": 3.0,
+            "baseMm": 0.0,
+            "heightMm": 9.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 10.5
+  },
+  "visualModel": {
+    "previewImageRef": "MNWashPlate.png",
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

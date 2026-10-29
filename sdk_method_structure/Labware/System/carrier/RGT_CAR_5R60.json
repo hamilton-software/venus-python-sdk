@@ -1,0 +1,232 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:rgt_car_5r60_a00_empty",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "RGT_CAR_5R60_A00",
+  "description": "Empty Carrier for 5 Reagent Containers 60ml  [revision 00]",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "RGT_CAR_5R60_A00_empty",
+    "originalFile": "RGT_CAR_5R60_A00_empty.tml",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 22.5,
+    "y": 497.0,
+    "z": 93.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 11.25,
+        "y": 435.45,
+        "z": 63.2
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 20.0,
+        "depth": 89.9
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "rgt_vessel",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 11.25,
+        "y": 339.45,
+        "z": 63.2
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 20.0,
+        "depth": 89.9
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "rgt_vessel",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 11.25,
+        "y": 243.45,
+        "z": 63.2
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 20.0,
+        "depth": 89.9
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "rgt_vessel",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "4": {
+      "origin": {
+        "x": 11.25,
+        "y": 147.45,
+        "z": 63.2
+      },
+      "label": "Position 4",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 20.0,
+        "depth": 89.9
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "rgt_vessel",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "4",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "5": {
+      "origin": {
+        "x": 11.25,
+        "y": 51.45,
+        "z": 63.2
+      },
+      "label": "Position 5",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 20.0,
+        "depth": 89.9
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "rgt_vessel",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "5",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "barcodeLocations": {
+    "carrier_barcode": {
+      "surface": "labware",
+      "face": "front",
+      "symbology": "code128",
+      "pattern": "^R13.{5}$",
+      "orientation": "vertical"
+    }
+  },
+  "visualModel": {
+    "modelRef": "RGT_CAR_5R60.gltf",
+    "modelFormat": "gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.5,
+      "y": -22.2,
+      "z": 0.0
+    },
+    "previewImageRef": "RGT_CAR_5R60_A00_empty.png",
+    "color": "#000080",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 70,
+      "countOfBcPositions": 5,
+      "firstBcPosition": 603,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "carrierLabel": "RGT_CAR_5R60_A00",
+      "noReadBarcode": false,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 960,
+      "widthAsTracks": 1
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

@@ -1,0 +1,199 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:tip_car_384bc_a00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "TIP_CAR_384BC_A00",
+  "description": "Tip carrier with 4 empty tip rack positions landscape, with Barcode Identification  [revision A00]",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "TIP_CAR_384BC_A00",
+    "originalFile": "TIP_CAR_384BC_A00.tml",
+    "convertedDate": "2026-07-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 135.0,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 67.5,
+        "y": 374.40000000000003,
+        "z": 114.8
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 122.4,
+        "depth": 82.6
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "core_tip_rack",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 67.5,
+        "y": 289.4,
+        "z": 114.8
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 122.4,
+        "depth": 82.6
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "core_tip_rack",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 67.5,
+        "y": 204.39999999999998,
+        "z": 114.8
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 122.4,
+        "depth": 82.6
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "core_tip_rack",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "4": {
+      "origin": {
+        "x": 67.5,
+        "y": 119.5,
+        "z": 114.8
+      },
+      "label": "Position 4",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 122.4,
+        "depth": 82.6
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "core_tip_rack",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "4",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "barcodeLocations": {
+    "carrier_barcode": {
+      "surface": "labware",
+      "face": "front",
+      "symbology": "code128",
+      "pattern": "^T04.{5}$",
+      "orientation": "vertical"
+    }
+  },
+  "visualModel": {
+    "modelRef": "TIP_CAR_384BC.gltf",
+    "modelFormat": "gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.5,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "previewImageRef": "tip_car_384bc.png",
+    "color": "#A6CAF0",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 300,
+      "countOfBcPositions": 4,
+      "firstBcPosition": 1225,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "noReadBarcode": false,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 850,
+      "widthAsTracks": 6
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

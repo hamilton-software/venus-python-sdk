@@ -1,0 +1,24 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 8/31/2026 1:07:17 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace WXS {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function WXS_getWeight(  ) variable {  return (0); }
+function WXS_initializeBalance(  ) variable {  return (0); }
+function WXS_internalCalibration(  ) variable {  return (0); }
+function WXS_resetScale(  ) variable {  return (0); }
+function WXS_setScaleParameters(  ) variable {  return (0); }
+function WXS_setZero(  ) variable {  return (0); }
+function WXS_tare(  ) variable {  return (0); }
+function WXS_terminateBalance(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-08-31 13:07$$checksum=6ee25e66$$length=083$$

@@ -1,0 +1,121 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:rgt_vessel_400ml_a00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "RGT_VESSEL_400ml_A00",
+  "labwareClass": "reservoir",
+  "source": {
+    "system": "venus",
+    "originalId": "RGT_VESSEL_400ml_A00",
+    "originalFile": "RGT_VESSEL_400ml_A00.rck / rgt_vessel_400ml_a00.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 21.0,
+    "y": 460.0,
+    "z": 110.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 16,
+      "columnPitch": 10.0,
+      "rowPitch": 10.0,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 10.5,
+        "y": 293.0,
+        "z": 31.25
+      },
+      "namingConvention": {
+        "rowStyle": "numeric",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 16.5
+        },
+        "totalDepth": 76.75,
+        "maxPipettingDepth": 0.0,
+        "bottomWallThickness": 0.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 6.75,
+              "diameterBottom": 1.0,
+              "diameterTop": 15.5
+            },
+            {
+              "type": "cylinder",
+              "height": 70.0,
+              "diameter": 16.5
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 80.0
+        },
+        "customAttributes": {
+          "hamilton:container_file": {
+            "fileName": "rgt_vessel_400ml_a00"
+          },
+          "hamilton:clld_mode": {
+            "mode": 4
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 90.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "connectedContainerGroups": {
+    "connected": {
+      "containers": [
+        "default"
+      ],
+      "connectionTopology": "base"
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

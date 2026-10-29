@@ -1,0 +1,175 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_dwp_96x08ml",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Hamilton 96 x 0.8mL DWP round bottom PP",
+  "description": "Deep well plate 96 x 0.8mL, natural color, round bottom, PN: 10161066 Hamilton",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "HAM_DWP_96x08mL",
+    "originalFile": "HAM_DWP_96x08mL.rck / HAM_DWP_96x08mL.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 31.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 12,
+      "rows": 8,
+      "columnPitch": 9.0,
+      "rowPitch": 9.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 14.0,
+        "y": 11.5,
+        "z": 3.1
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 0.0
+        },
+        "totalDepth": 27.0,
+        "maxPipettingDepth": 0.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "spherical_cap",
+              "height": 0.1,
+              "diameter": 1.4
+            },
+            {
+              "type": "conical_frustum",
+              "height": 4.413,
+              "diameterBottom": 1.4,
+              "diameterTop": 6.06
+            },
+            {
+              "type": "conical_frustum",
+              "height": 22.487000000000002,
+              "diameterBottom": 6.06,
+              "diameterTop": 7.07
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 27.0
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 2
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 29.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 27.9
+  },
+  "collisionShapes": {
+    "body_0": {
+      "shape": {
+        "type": "rectangular_frustum",
+        "height": 25.0,
+        "widthBottom": 124.1,
+        "depthBottom": 81.8,
+        "widthTop": 123.6,
+        "depthTop": 81.3
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 6.0
+      }
+    },
+    "body_1": {
+      "shape": {
+        "type": "rectangular_prism",
+        "height": 6.0,
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "origin": {
+        "x": 63.5,
+        "y": 43.0,
+        "z": 0.0
+      }
+    }
+  },
+  "visualModel": {
+    "previewImageRef": "HAM_DWP_96x08mL.png",
+    "color": "#FFFFFF",
+    "opacity": 1
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    },
+    "hamilton:body_segments": {
+      "measuredFrom": "top",
+      "segmentsX": [
+        {
+          "lowerWidthMm": 124.1,
+          "heightMm": 25.0,
+          "upperWidthMm": 123.6
+        },
+        {
+          "lowerWidthMm": 127.0,
+          "heightMm": 6.0,
+          "upperWidthMm": 127.0
+        }
+      ],
+      "segmentsY": [
+        {
+          "lowerWidthMm": 81.8,
+          "heightMm": 25.0,
+          "upperWidthMm": 81.3
+        },
+        {
+          "lowerWidthMm": 86.0,
+          "heightMm": 6.0,
+          "upperWidthMm": 86.0
+        }
+      ]
+    }
+  }
+}

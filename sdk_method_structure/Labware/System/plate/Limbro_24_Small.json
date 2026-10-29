@@ -1,0 +1,101 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:limbro_24_small",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Limbro_24_Small",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "Limbro_24_Small",
+    "originalFile": "Limbro_24_Small.rck / limbro_24_small.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 109.0,
+    "y": 152.0,
+    "z": 25.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 4,
+      "rows": 6,
+      "columnPitch": 22.4,
+      "rowPitch": 22.4,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 20.0,
+        "y": 20.0,
+        "z": 10.5
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 5.0
+        },
+        "totalDepth": 1.5,
+        "maxPipettingDepth": 0.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "spherical_cap",
+              "height": 1.5,
+              "diameter": 5.0
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 14.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 20.0
+          },
+          "hamilton:touch_off": {
+            "enabled": true,
+            "frontMm": 2.5,
+            "backMm": 2.5,
+            "leftMm": 2.5,
+            "rightMm": 2.5,
+            "baseMm": 0.0,
+            "heightMm": 6.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 0.0
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

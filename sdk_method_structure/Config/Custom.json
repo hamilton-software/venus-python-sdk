@@ -1,0 +1,9 @@
+{
+  "template.example": {
+    "nameSpace": "Custom",
+    "description": "This is an example custom function entry. Copy this to add a new entry.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "CustomController.smt"
+  }
+}

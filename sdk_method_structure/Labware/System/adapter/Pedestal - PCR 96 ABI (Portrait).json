@@ -1,0 +1,75 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:pedestal_pcr_96_abi_portrait",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Pedestal - PCR 96 ABI (Portrait)",
+  "labwareClass": "adapter",
+  "source": {
+    "system": "venus",
+    "originalId": "Pedestal - PCR 96 ABI (Portrait)",
+    "originalFile": "Pedestal - PCR 96 ABI (Portrait).tml",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 96.0,
+    "y": 137.0,
+    "z": 84.5
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 48.0,
+        "y": 68.5,
+        "z": 84.5
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 86.0,
+        "depth": 127.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "color": "#C0C0C0",
+    "opacity": 1
+  },
+  "customAttributes": {
+    "hamilton:tml_properties": {
+      "P/N": 188314
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

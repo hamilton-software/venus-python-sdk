@@ -1,0 +1,31 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/22/2026 10:45:27 AM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace Teaching_Helper {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function CreateMaxYForChannel( device & Device, variable i_intChannel ) void { }
+function GetChannelX( device & Device, variable i_intChannel, variable & o_fltXCoord ) void { }
+function GetChannelY( device & Device, variable i_intChannel, variable & o_fltYCoord ) void { }
+function GetChannelZ( device & Device, variable i_intChannel, variable i_blnFromStopDisk, variable & o_fltZCoord ) void { }
+function GetDefaultParams( device & Device ) void { }
+function GetLabwareDimensions( device & ML_STAR, variable i_strLabID, variable i_strWell, variable & o_fltRackHeight, variable & o_fltRackBase, variable & o_fltCenterX, variable & o_fltCenterY, variable & o_fltContainerDepth ) void { }
+function GetTeachingChannel(  ) variable {  return (0); }
+function GetTeachingNeedleSequence( device & ML_STAR, variable i_blnUseRepeatingSequence, sequence & o_seqTeachingNeedle ) void { }
+function GetTipLength( device & Device, variable i_intChannel, variable & o_fltNeedleLength ) void { }
+function MeasureXYSingle( device & Device, variable i_intChannel, variable i_fltNeedleLength, variable i_fltSafeHeight, variable i_fltMinSearchZ, variable i_fltWellWidth, variable i_intDirectionToMeasure, variable i_fltStepDistance, variable & o_fltMeasuredWall, variable & o_fltZEntranceMeasured ) variable {  return (0); }
+function MeasureZHeight( device & Device, variable i_intChannel, variable i_blnUseSlowSpeed, variable i_fltStartZHeight, variable i_fltMinZHeight, variable i_fltZEndHeight, variable i_fltNeedleLength, variable & o_fltZHeightFound ) variable {  return (0); }
+function MoveChannelToPosition( device & Device, variable i_intChannel, variable i_fltTraverseHeight, variable i_fltXCoord, variable i_fltYCoord, variable i_fltZCoord ) void { }
+function MoveChannelToZPosition( device & Device, variable i_intChannel, variable i_fltTipLength, variable i_fltZCoordToMove ) void { }
+function ResetChannelFW( device & Device ) void { }
+function SetTeachingChannel( variable i_intTeachingChannel ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-22 10:45$$checksum=1ed25acb$$length=083$$

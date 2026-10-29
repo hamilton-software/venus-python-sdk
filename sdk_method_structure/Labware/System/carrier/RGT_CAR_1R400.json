@@ -1,0 +1,96 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:rgt_car_1r400_a00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "RGT_CAR_1R400_A00",
+  "description": "Carrier for 1 Reagent Container 400ml",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "RGT_CAR_1R400_A00",
+    "originalFile": "RGT_CAR_1R400_A00.tml",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 22.5,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 11.25,
+        "y": 245.0,
+        "z": 17.5
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 21.0,
+        "depth": 460.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "rgt_vessel",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "barcodeLocations": {
+    "carrier_barcode": {
+      "surface": "labware",
+      "face": "front",
+      "symbology": "code128",
+      "pattern": "^R07.{5}$",
+      "orientation": "vertical"
+    }
+  },
+  "visualModel": {
+    "color": "#00FFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 340,
+      "countOfBcPositions": 1,
+      "firstBcPosition": 820,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 1000,
+      "widthAsTracks": 1
+    },
+    "hamilton:tml_properties": {
+      "MLStarCarNoReadBarcode": 1
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

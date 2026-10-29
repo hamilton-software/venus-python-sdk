@@ -1,0 +1,32 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/19/2026 9:40:17 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace LayoutQueryController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function status_getAddedCarriers(  ) variable {  return (0); }
+function status_getAddedPlates(  ) variable {  return (0); }
+function status_getAddedReservoirs(  ) variable {  return (0); }
+function status_getAddedTipRacks(  ) variable {  return (0); }
+function status_getAvailableCarrierSites(  ) variable {  return (0); }
+function status_getAvailableTracks(  ) variable {  return (0); }
+function status_getLabwareCoordinates( device & Device ) variable {  return (0); }
+function status_getLabwareLocation( device & Device ) variable {  return (0); }
+function status_getLabwareOnCarrier(  ) variable {  return (0); }
+function status_getLabwarePositions( device & Device ) variable {  return (0); }
+function status_getOccupiedCarrierSites(  ) variable {  return (0); }
+function status_getOccupiedTracks(  ) variable {  return (0); }
+function status_getTopLabware(  ) variable {  return (0); }
+function status_getTransportTool( device & Device ) variable {  return (0); }
+function status_getTransportToolIds( device & Device ) variable {  return (0); }
+function status_isTrackOccupied(  ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-19 21:40$$checksum=8cc4f051$$length=083$$

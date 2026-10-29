@@ -1,0 +1,184 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:plt_car_l4hd",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "PLT_CAR_L4HD",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "PLT_CAR_L4HD",
+    "originalFile": "PLT_CAR_L4HD.tml",
+    "convertedDate": "2026-07-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 135.0,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 67.6,
+        "y": 409.1,
+        "z": 118.25
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 67.6,
+        "y": 299.1,
+        "z": 118.25
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 67.6,
+        "y": 189.1,
+        "z": 118.25
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    },
+    "4": {
+      "origin": {
+        "x": 67.6,
+        "y": 79.1,
+        "z": 118.25
+      },
+      "label": "Position 4",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "4",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "color": "#800080",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 400,
+      "countOfBcPositions": 4,
+      "firstBcPosition": 883,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 1100,
+      "widthAsTracks": 6
+    },
+    "hamilton:tml_properties": {
+      "MlStarCarCalibrateX": 676,
+      "MlStarCarCalibrateY": 195,
+      "MlStarCarCalibrateZ": 1133
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

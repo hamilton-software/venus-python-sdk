@@ -1,0 +1,24 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/22/2026 8:53:11 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace iSWAPController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function transport_iswap_clearHeldLabware( device & ML_STAR ) variable {  return (0); }
+function transport_iswap_getLabware( device & ML_STAR ) variable {  return (0); }
+function transport_iswap_isHoldingLabware( device & ML_STAR ) variable {  return (0); }
+function transport_iswap_moveLabware( device & ML_STAR ) variable {  return (0); }
+function transport_iswap_moveToWaste( device & ML_STAR ) variable {  return (0); }
+function transport_iswap_park( device & ML_STAR ) variable {  return (0); }
+function transport_iswap_presentAndScan( device & ML_STAR ) variable {  return (0); }
+function transport_iswap_putLabware( device & ML_STAR ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-22 20:53$$checksum=fcf713e3$$length=083$$

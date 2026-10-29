@@ -1,0 +1,105 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:mjr_384_tc_l",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "MJR_384_TC_L",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "MJR_384_TC_L",
+    "originalFile": "MJR_384_TC_L.rck / MJR_384_TC.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": ""
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 11.0
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 24,
+      "rows": 16,
+      "columnPitch": 4.5,
+      "rowPitch": 4.5,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 11.75,
+        "y": 9.25,
+        "z": 0.0
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 3.2
+        },
+        "totalDepth": 8.6,
+        "maxPipettingDepth": 0.0,
+        "bottomWallThickness": 1.0,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 8.6,
+              "diameterBottom": 1.5,
+              "diameterTop": 3.2
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 12.0
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 1
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 11.0
+          },
+          "hamilton:touch_off": {
+            "enabled": true,
+            "frontMm": 1.0,
+            "backMm": 1.0,
+            "leftMm": 1.0,
+            "rightMm": 1.0,
+            "baseMm": 0.0,
+            "heightMm": 7.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 7.5
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  },
+  "customAttributes": {
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

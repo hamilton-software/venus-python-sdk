@@ -1,0 +1,193 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:ham_mltipbox_car_base_1ml_a00",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Tip Box Carrier Base",
+  "description": "This carrier fits 1mL tip boxes",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "Ham_MLTipBox_Car_Base_1mL_A00",
+    "originalFile": "Ham_MLTipBox_Car_Base_1mL_A00.tml",
+    "convertedDate": "2026-08-04",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 135.0,
+    "y": 497.0,
+    "z": 130.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1": {
+      "origin": {
+        "x": 67.1,
+        "y": 435.8,
+        "z": 22.7
+      },
+      "label": "Position 1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 0,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    },
+    "2": {
+      "origin": {
+        "x": 67.1,
+        "y": 307.8,
+        "z": 22.7
+      },
+      "label": "Position 2",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 0,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 2
+        }
+      }
+    },
+    "3": {
+      "origin": {
+        "x": 67.1,
+        "y": 179.8,
+        "z": 22.7
+      },
+      "label": "Position 3",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 0,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 3
+        }
+      }
+    },
+    "4": {
+      "origin": {
+        "x": 67.1,
+        "y": 51.8,
+        "z": 22.7
+      },
+      "label": "Position 4",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "4",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 4
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Ham_MLTipBox_Car_Base_1mL.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": -3.0,
+      "z": 0.0
+    },
+    "color": "#000000",
+    "opacity": 1,
+    "modelFormat": "gltf"
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "barcodeOrientation": 1,
+      "barcodeReadWidth": 300,
+      "countOfBcPositions": 4,
+      "firstBcPosition": 620,
+      "isAutoLoad": true,
+      "isLoadable": true,
+      "isRecognizable": true,
+      "noReadBarcode": false,
+      "positionsAreRecognizable": false,
+      "rasterWidth": 1300,
+      "widthAsTracks": 6
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

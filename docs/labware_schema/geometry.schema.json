@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hamilton:schemas:microlab:geometry:v1",
+  "schemaVersion": "1.0.0-alpha.1",
+  "title": "Hamilton MicrolabAPI Common Geometry Types",
+  "description": "Shared geometric primitives used across the Hamilton MicrolabAPI labware, system, and site schemas. Coordinate convention: left-front-bottom origin, X+ right, Y+ back, Z+ up. All dimensions in millimeters.",
+  "$comment": "Shared sub-schema library, referenced by the labware, system, and site schemas through the major-versioned URN ('v1'); it has no documents of its own, so it declares its current version in the top-level 'schemaVersion' rather than per document. Additive minor increments keep the ':v1' URN so existing references stay valid; consumers validate against the current minor. Current target 1.0.0-alpha.1 (pre-release; structure may still shift).",
+
+  "$defs": {
+
+    "Point2D": {
+      "type": "object",
+      "required": ["x", "y"],
+      "additionalProperties": false,
+      "description": "A 2D point in the parent frame's XY plane (mm).",
+      "properties": {
+        "x": { "type": "number", "description": "X coordinate (mm)." },
+        "y": { "type": "number", "description": "Y coordinate (mm)." }
+      }
+    },
+
+    "Point3D": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "additionalProperties": false,
+      "description": "A 3D point in the parent frame (mm). X+ right, Y+ back, Z+ up.",
+      "properties": {
+        "x": { "type": "number", "description": "X coordinate (mm)." },
+        "y": { "type": "number", "description": "Y coordinate (mm)." },
+        "z": { "type": "number", "description": "Z coordinate (mm)." }
+      }
+    },
+
+    "Dimensions3D": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "additionalProperties": false,
+      "description": "A 3D bounding-box size (mm).",
+      "properties": {
+        "x": { "type": "number", "description": "Width left-to-right (mm)." },
+        "y": { "type": "number", "description": "Depth front-to-back (mm)." },
+        "z": { "type": "number", "description": "Height bottom-to-top (mm)." }
+      }
+    },
+
+    "ZRange": {
+      "type": "object",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "description": "A Z extent (mm) within the parent frame.",
+      "properties": {
+        "min": { "type": "number", "description": "Minimum Z from parent base (mm)." },
+        "max": { "type": "number", "description": "Maximum Z from parent base (mm)." }
+      }
+    },
+
+    "Matrix4x4": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "4x4 transformation matrix in row-major order (mij = row i, column j), used in row-vector convention: a point transforms as v x M, and a translation is carried in m41-m43. Identity represents no transformation.",
+      "properties": {
+        "m11": { "type": "number", "default": 1 }, "m12": { "type": "number", "default": 0 },
+        "m13": { "type": "number", "default": 0 }, "m14": { "type": "number", "default": 0 },
+        "m21": { "type": "number", "default": 0 }, "m22": { "type": "number", "default": 1 },
+        "m23": { "type": "number", "default": 0 }, "m24": { "type": "number", "default": 0 },
+        "m31": { "type": "number", "default": 0 }, "m32": { "type": "number", "default": 0 },
+        "m33": { "type": "number", "default": 1 }, "m34": { "type": "number", "default": 0 },
+        "m41": { "type": "number", "default": 0 }, "m42": { "type": "number", "default": 0 },
+        "m43": { "type": "number", "default": 0 }, "m44": { "type": "number", "default": 1 }
+      }
+    },
+
+    "Shape2D": {
+      "$comment": "Dimensional fields use diameter (not radius) to match manufacturer spec sheets.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape"],
+      "description": "A 2D footprint shape. Discriminated by the 'shape' field.",
+      "properties": {
+        "shape": {
+          "type": "string",
+          "enum": ["rectangle", "circle", "polygon"],
+          "description": "Footprint shape. Drives which dimensional fields are required."
+        },
+        "width":    { "type": "number", "description": "rectangle: X dimension (mm)" },
+        "depth":    { "type": "number", "description": "rectangle: Y dimension (mm)" },
+        "diameter": { "type": "number", "description": "circle: diameter (mm)" },
+        "vertices": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Point2D" },
+          "description": "polygon: ordered vertex list in XY coordinates (mm)."
+        }
+      },
+      "allOf": [
+        { "if": { "properties": { "shape": { "const": "circle" } },    "required": ["shape"] }, "then": { "required": ["diameter"] } },
+        { "if": { "properties": { "shape": { "const": "rectangle" } }, "required": ["shape"] }, "then": { "required": ["width", "depth"] } },
+        { "if": { "properties": { "shape": { "const": "polygon" } },   "required": ["shape"] }, "then": { "required": ["vertices"] } }
+      ]
+    },
+
+    "Solid3D": {
+      "$comment": "Flat 3D solid primitive shared by labware container segments, collision shapes, and interior obstructions. Diameter (not radius) to match spec sheets. The allOf couples `type` to its required dimensional fields. Normative volume formulas (mm³; r = diameter/2, rB = diameterBottom/2, rT = diameterTop/2): cylinder = π·r²·h; rectangular_prism = width·depth·height; conical_frustum = π·h·(rB² + rB·rT + rT²)/3; rectangular_frustum = h·(Ab + At + √(Ab·At))/3, Ab = widthBottom·depthBottom, At = widthTop·depthTop; spherical_cap = π·h·(3r² + h²)/6 (r = base/rim radius); paraboloid = π·rT²·h/2.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "height"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "cylinder",
+            "rectangular_prism",
+            "conical_frustum",
+            "rectangular_frustum",
+            "spherical_cap",
+            "paraboloid"
+          ],
+          "description": "Solid shape. Drives which dimensional fields are required."
+        },
+        "height":         { "type": "number", "description": "Height of the solid (mm). Required for all shape types." },
+        "diameter":       { "type": "number", "description": "cylinder: diameter (mm); spherical_cap: base/rim diameter (mm)" },
+        "diameterBottom": { "type": "number", "description": "frustum: bottom diameter (mm). Set to 0 for a full cone." },
+        "diameterTop":    { "type": "number", "description": "frustum, paraboloid: top diameter (mm)" },
+        "width":          { "type": "number", "description": "rectangular_prism: X dimension (mm)" },
+        "depth":          { "type": "number", "description": "rectangular_prism: Y dimension (mm)" },
+        "widthBottom":    { "type": "number", "description": "rectangular_frustum: bottom X dimension (mm)" },
+        "depthBottom":    { "type": "number", "description": "rectangular_frustum: bottom Y dimension (mm)" },
+        "widthTop":       { "type": "number", "description": "rectangular_frustum: top X dimension (mm)" },
+        "depthTop":       { "type": "number", "description": "rectangular_frustum: top Y dimension (mm)" }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "cylinder" } } },            "then": { "required": ["diameter"] } },
+        { "if": { "properties": { "type": { "const": "rectangular_prism" } } },   "then": { "required": ["width", "depth"] } },
+        { "if": { "properties": { "type": { "const": "conical_frustum" } } },     "then": { "required": ["diameterBottom", "diameterTop"] } },
+        { "if": { "properties": { "type": { "const": "rectangular_frustum" } } }, "then": { "required": ["widthBottom", "depthBottom", "widthTop", "depthTop"] } },
+        { "if": { "properties": { "type": { "const": "spherical_cap" } } },       "then": { "required": ["diameter"] } },
+        { "if": { "properties": { "type": { "const": "paraboloid" } } },          "then": { "required": ["diameterTop"] } }
+      ]
+    }
+  }
+}

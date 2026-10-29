@@ -1,0 +1,101 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:greiner_culture_plate_12",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Greiner Culture Plate - 12",
+  "description": "12 well culture plate made by Greiner bio-one",
+  "labwareClass": "plate",
+  "source": {
+    "system": "venus",
+    "originalId": "Greiner_Culture_Plate_12",
+    "originalFile": "Greiner_Culture_Plate_12.rck / greiner_culture_plate_12.ctr",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter",
+    "notes": "firstContainerCenter derived from rack BndryX/BndryY and Cntr.1.base (falling back to container BaseMM) — best-effort; not independently verified."
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 18.9
+  },
+  "containerGrids": {
+    "default": {
+      "columns": 4,
+      "rows": 3,
+      "columnPitch": 26.0,
+      "rowPitch": 26.0,
+      "iterationOrder": "row_major",
+      "firstContainerCenter": {
+        "x": 24.65,
+        "y": 16.55,
+        "z": 2.5
+      },
+      "namingConvention": {
+        "rowStyle": "alpha",
+        "columnStyle": "numeric",
+        "format": "[row][col]"
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 0.0
+        },
+        "totalDepth": 16.4,
+        "maxPipettingDepth": 0.1,
+        "bottomWallThickness": 0.1,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 16.4,
+              "diameterBottom": 22.2,
+              "diameterTop": 22.7
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 16.4
+        },
+        "customAttributes": {
+          "hamilton:clld_mode": {
+            "mode": 1
+          },
+          "hamilton:clearance": {
+            "clearanceMm": 18.4
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.1,
+            "heightMm": 0.0
+          }
+        }
+      },
+      "customAttributes": {
+        "hamilton:ix_params": {
+          "first": 1,
+          "startingCorner": "back_left"
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_rim",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "selfStack": {
+    "height": 17.8
+  },
+  "visualModel": {
+    "color": "#FFFFFF",
+    "opacity": 0
+  }
+}

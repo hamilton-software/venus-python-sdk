@@ -1,0 +1,46 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:greiner_384_screen",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Greiner_384_Screen",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Greiner_384_Screen",
+    "originalFile": "Greiner_384_Screen.lid",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.3,
+    "y": 84.7,
+    "z": 6.15
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 9.8
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Greiner Clear Lid.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "modelFormat": "gltf"
+  },
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 1.0,
+      "coveredStackHeight": 15.85,
+      "stackHeight": 6.15,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    }
+  }
+}

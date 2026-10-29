@@ -1,0 +1,179 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:plt_car_2hhss_2plates",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "PLT_CAR_2HHSs_2PLATES",
+  "description": "Carrier with 2 Hamilton heater shakers and 2 Plate positions - Version 1.3",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "PLT_CAR_2HHSs_2PLATES",
+    "originalFile": "PLT_CAR_2HHSs_2PLATES.tml",
+    "convertedDate": "2026-09-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 157.5,
+    "y": 497.0,
+    "z": 90.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "hhs4": {
+      "origin": {
+        "x": 78.1,
+        "y": 415.7,
+        "z": 86.0
+      },
+      "label": "Position HHS4",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "HHS4",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    },
+    "hhs5": {
+      "origin": {
+        "x": 78.1,
+        "y": 295.7,
+        "z": 86.0
+      },
+      "label": "Position HHS5",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "HHS5",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 2
+        }
+      }
+    },
+    "magnet": {
+      "origin": {
+        "x": 78.7,
+        "y": 58.2,
+        "z": 111.0
+      },
+      "label": "Position MAGNET",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "MAGNET",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 4
+        }
+      }
+    },
+    "plate1": {
+      "origin": {
+        "x": 78.1,
+        "y": 177.0,
+        "z": 113.4
+      },
+      "label": "Position PLATE1",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "sbs_rim",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "PLATE1",
+          "snapBase": 0,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 0,
+          "visible": 0,
+          "isCovered": 0,
+          "posn": 3
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "color": "#000000",
+    "opacity": 1
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "countOfBcPositions": 0,
+      "isAutoLoad": false,
+      "isLoadable": false,
+      "isRecognizable": false,
+      "carrierLabel": "PLT_CAR_L4HHS_30_FLB_MD_A00",
+      "noReadBarcode": true,
+      "positionsAreRecognizable": false,
+      "widthAsTracks": 7
+    }
+  }
+}

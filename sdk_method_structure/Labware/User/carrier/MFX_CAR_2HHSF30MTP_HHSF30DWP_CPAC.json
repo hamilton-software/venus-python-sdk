@@ -1,0 +1,185 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:mfx_car_2hhsf30mtp_hhsf30dwp_cpac",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "MFX_CAR_2HHSF30MTP_HHSF30DWP_CPAC",
+  "labwareClass": "carrier",
+  "source": {
+    "system": "venus",
+    "originalId": "MFX_CAR_2HHSF30MTP_HHSF30DWP_CPAC",
+    "originalFile": "MFX_CAR_2HHSF30MTP_HHSF30DWP_CPAC.tml",
+    "convertedDate": "2026-09-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 157.5,
+    "y": 497.0,
+    "z": 90.0
+  },
+  "material": "polycarbonate",
+  "sites": {
+    "1_hhsf30mtp": {
+      "origin": {
+        "x": 78.75,
+        "y": 416.5,
+        "z": 112.7
+      },
+      "label": "Position 1_HHSF30MTP",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "1_HHSF30MTP",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 1
+        }
+      }
+    },
+    "2_hhsf30mtp": {
+      "origin": {
+        "x": 78.75,
+        "y": 296.5,
+        "z": 112.7
+      },
+      "label": "Position 2_HHSF30MTP",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "2_HHSF30MTP",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 2
+        }
+      }
+    },
+    "3_hhsf30dwp": {
+      "origin": {
+        "x": 78.75,
+        "y": 176.5,
+        "z": 83.0
+      },
+      "label": "Position 3_HHSF30DWP",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "3_HHSF30DWP",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 3
+        }
+      }
+    },
+    "4_cpac": {
+      "origin": {
+        "x": 78.75,
+        "y": 58.05,
+        "z": 102.6
+      },
+      "label": "Position 4_CPAC",
+      "footprint": {
+        "shape": "rectangle",
+        "width": 127.0,
+        "depth": 86.0
+      },
+      "alignmentReceptacles": [
+        {
+          "name": "labware_site",
+          "offset": {
+            "z": 0.0
+          }
+        }
+      ],
+      "customAttributes": {
+        "hamilton:site_params": {
+          "id": "4_CPAC",
+          "snapBase": 1,
+          "stack": 0,
+          "stackSize": 1,
+          "label": 1,
+          "visible": 1,
+          "isCovered": 0,
+          "posn": 4
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "deck_track",
+      "offset": {
+        "z": 0.0
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "MFX_CAR_2HHSF30MTP_HHSF30DWP_CPAC.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 1.5,
+      "y": 4.0,
+      "z": 0.0
+    },
+    "color": "#C0C0C0",
+    "opacity": 1,
+    "modelFormat": "gltf"
+  },
+  "customAttributes": {
+    "hamilton:star": {
+      "countOfBcPositions": 0,
+      "isAutoLoad": false,
+      "isLoadable": false,
+      "isRecognizable": false,
+      "noReadBarcode": true,
+      "positionsAreRecognizable": false,
+      "widthAsTracks": 7
+    }
+  }
+}

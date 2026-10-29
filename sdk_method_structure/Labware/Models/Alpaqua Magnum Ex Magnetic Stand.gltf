@@ -1,0 +1,456 @@
+﻿{
+  "asset": {
+    "version": "2.0",
+    "generator": "Open Asset Import Library (assimp v6.0.392a658f)"
+  },
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_volume",
+    "FB_ngon_encoding"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 24,
+      "type": "VEC3",
+      "max": [
+        62.777637481689453,
+        13.319999694824219,
+        44.079395294189453
+      ],
+      "min": [
+        -64.982368469238281,
+        0.0,
+        -41.520595550537109
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 24,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 36,
+      "type": "SCALAR",
+      "max": [
+        23
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 368,
+      "type": "VEC3",
+      "max": [
+        64.341712951660156,
+        35.881538391113281,
+        45.958328247070312
+      ],
+      "min": [
+        -66.535964965820312,
+        14.99217414855957,
+        -43.1614990234375
+      ]
+    },
+    {
+      "bufferView": 4,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 368,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 5,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 588,
+      "type": "SCALAR",
+      "max": [
+        367
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 6,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 36680,
+      "type": "VEC3",
+      "max": [
+        52.89764404296875,
+        28.780517578125,
+        37.279399871826172
+      ],
+      "min": [
+        -55.102363586425781,
+        18.780517578125,
+        -34.720600128173828
+      ]
+    },
+    {
+      "bufferView": 7,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 36680,
+      "type": "VEC3",
+      "max": [
+        0.99518519639968872,
+        1.0,
+        0.99518519639968872
+      ],
+      "min": [
+        -0.99518519639968872,
+        -1.0,
+        -0.99518519639968872
+      ]
+    },
+    {
+      "bufferView": 8,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 72576,
+      "type": "SCALAR",
+      "max": [
+        36679
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 9,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 768,
+      "type": "VEC3",
+      "max": [
+        59.588600158691406,
+        22.056571960449219,
+        40.442466735839844
+      ],
+      "min": [
+        -61.551334381103516,
+        6.9708271026611328,
+        -38.967147827148438
+      ]
+    },
+    {
+      "bufferView": 10,
+      "byteOffset": 0,
+      "componentType": 5125,
+      "count": 5328,
+      "type": "SCALAR",
+      "max": [
+        767
+      ],
+      "min": [
+        0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1213056,
+      "uri": "Alpaqua Magnum Ex Magnetic Stand.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 288,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 288,
+      "byteLength": 288,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 576,
+      "byteLength": 144,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 720,
+      "byteLength": 4416,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 5136,
+      "byteLength": 4416,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 9552,
+      "byteLength": 2352,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 11904,
+      "byteLength": 440160,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 452064,
+      "byteLength": 440160,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 892224,
+      "byteLength": 290304,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1182528,
+      "byteLength": 9216,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1191744,
+      "byteLength": 21312,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material_001",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.017667999491095543,
+          0.20457300543785095,
+          0.800000011920929,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.98848593235015869
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.0051589999347925186,
+            0.0,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Material_002",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Material_003",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.31854000687599182,
+          0.31854000687599182,
+          0.31854000687599182,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.99780422449111938
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.0055439998395740986,
+            0.0055439998395740986,
+            0.0055439998395740986
+          ]
+        }
+      }
+    },
+    {
+      "name": "Material_004",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.13868500292301178,
+          0.13868500292301178,
+          0.13868500292301178,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.84501743316650391
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 1.0,
+          "specularColorFactor": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Cube",
+      "primitives": [
+        {
+          "extensions": {
+            "FB_ngon_encoding": {}
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 2,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cube_004",
+      "primitives": [
+        {
+          "extensions": {
+            "FB_ngon_encoding": {}
+          },
+          "mode": 4,
+          "material": 1,
+          "indices": 5,
+          "attributes": {
+            "POSITION": 3,
+            "NORMAL": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cylinder",
+      "primitives": [
+        {
+          "extensions": {
+            "FB_ngon_encoding": {}
+          },
+          "mode": 4,
+          "material": 2,
+          "indices": 8,
+          "attributes": {
+            "POSITION": 6,
+            "NORMAL": 7
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cylinder_001",
+      "primitives": [
+        {
+          "extensions": {
+            "FB_ngon_encoding": {}
+          },
+          "mode": 4,
+          "material": 3,
+          "indices": 10,
+          "attributes": {
+            "POSITION": 9
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "$MergedNode_0",
+      "children": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "Cube",
+      "mesh": 0
+    },
+    {
+      "name": "Cube_004",
+      "mesh": 1
+    },
+    {
+      "name": "Cylinder",
+      "mesh": 2
+    },
+    {
+      "name": "Cylinder_001",
+      "mesh": 3
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

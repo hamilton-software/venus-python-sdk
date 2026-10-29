@@ -1,0 +1,28 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 3/24/2026 10:04:10 AM
+
+#pragma once
+#ifndef HSL_RUNTIME
+namespace Cfg_Helper {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function CREATE_AddNewValue( variable i_strConfigFilePath, variable i_strDataDefinition, variable i_strInstance, variable i_strKeyValue, variable i_intValueType, variable i_Value ) void { }
+function DATA_GetAllDataDefinitions( variable & i_str_ConfigFilePath, variable & o_arr_DataDefs[] ) variable {  return (0); }
+function DELETE_RemoveDataDefinition( variable i_strConfigFilePath, variable i_strDataDefinition, variable i_strInstance ) void { }
+function DELETE_RemoveValue( variable i_strConfigFilePath, variable i_strDataDefinition, variable i_strInstance, variable i_Value ) void { }
+function INSTANCE_GetAllDataDefinitionInstances( variable & i_str_ConfigFilePath, variable i_strDataDefinition, variable & o_arr_Instances[] ) variable {  return (0); }
+function VALUE_GetAllKeys( variable i_str_ConfigFilePath, variable i_str_Instance, variable i_int_ReturnValue, variable & o_arrKeys[] ) variable {  return (0); }
+function VALUE_GetValue( variable i_strConfigFilePath, variable i_strDataDefinition, variable i_strInstance, variable i_strKeyValue, variable i_intValueType, variable & o_Value ) variable {  return (0); }
+function VALUE_GetValue1Key( variable i_str_ConfigFilePath, variable i_str_Instance, variable i_str_Key1, variable i_int_ReturnValue, variable & o_Value ) variable {  return (0); }
+function VALUE_GetValue2Keys( variable i_str_ConfigFilePath, variable i_str_Instance, variable i_str_Key1, variable i_str_Key2, variable i_int_ReturnValue, variable & o_Value ) variable {  return (0); }
+function VALUE_GetValue3Keys( variable i_str_ConfigFilePath, variable i_str_Instance, variable i_str_Key1, variable i_str_Key2, variable i_str_Key3, variable i_int_ReturnValue, variable & o_Value ) variable {  return (0); }
+function VALUE_GetValues( variable i_strConfigFilePath, variable i_strDataDefinition, variable i_strInstance, variable i_intValueType, variable & o_arrValues[] ) variable {  return (0); }
+function VALUE_SetValues( variable i_strConfigFilePath, variable i_strDataDefinition, variable i_strInstance, variable i_intValueType, variable & i_arrValue[] ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-03-24 10:04$$checksum=a58fffff$$length=083$$

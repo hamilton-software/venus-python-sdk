@@ -1,0 +1,19 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/22/2026 9:37:10 AM
+
+#pragma once
+#ifndef HSL_RUNTIME
+namespace TransportHelper {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function MoveToDefaultParkPosition( device & ML_STAR ) variable {  return (0); }
+function NTRTransport_CG( device & ML_STAR, sequence i_seqSource, sequence i_seqTarget, variable i_blnTransportToWaste, variable i_blnEjectGripper, variable i_blnLandscape ) variable {  return (0); }
+function ParkiSWAP( device & ML_STAR, variable i_blnLeftSide ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-22 09:37$$checksum=f9013a33$$length=083$$

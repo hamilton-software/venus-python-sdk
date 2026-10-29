@@ -1,0 +1,30 @@
+{
+  "tracking.getBarcodeLocations": {
+    "nameSpace": "SampleTrackingController",
+    "description": "Returns the labware and well each barcode is currently tracked at.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SampleTrackingController.smt"
+  },
+  "tracking.getLabwareDetails": {
+    "nameSpace": "SampleTrackingController",
+    "description": "Returns the tracked barcode, volume, state and position of labware and its wells.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SampleTrackingController.smt"
+  },
+  "tracking.setBarcodes": {
+    "nameSpace": "SampleTrackingController",
+    "description": "Assigns barcodes to labware and to individual wells.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SampleTrackingController.smt"
+  },
+  "tracking.setLabwareVolume": {
+    "nameSpace": "SampleTrackingController",
+    "description": "Sets the tracked liquid volume of labware and of individual wells.",
+    "enabled": true,
+    "requireDevice": true,
+    "controller": "SampleTrackingController.smt"
+  }
+}

@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:gre_384_sq",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Gre_384_Sq",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Gre_384_Sq",
+    "originalFile": "Gre_384_Sq.lid",
+    "convertedDate": "2026-09-29",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.3,
+    "y": 84.7,
+    "z": 6.15
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 9.8
+      }
+    }
+  ],
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 1.0,
+      "coveredStackHeight": 15.85,
+      "stackHeight": 6.15,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    },
+    "hamilton:is_user_defined": {
+      "value": false
+    }
+  }
+}

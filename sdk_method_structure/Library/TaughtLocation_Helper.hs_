@@ -1,0 +1,20 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 9/29/2026 10:58:32 AM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace TaughtLocation_Helper {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function CheckForTaughtLocation( variable i_strLabware, variable i_strTemplate, variable i_strSite ) variable {  return (0); }
+function GetOffsetsForCarrierSite( variable i_strTemplate, variable i_strSite, variable & o_fltX, variable & o_fltY, variable & o_fltZ, variable & o_fltA ) void { }
+function GetOffsetsForLabwarePositions( variable i_strLabware, variable i_strTemplate, variable i_strSite, variable & o_fltX, variable & o_fltY, variable & o_fltZ, variable & o_fltA ) void { }
+function ShiftLabwareForTaughtLocation( device & Device, variable i_strLabware, variable i_strTemplate, variable i_strSite ) void { }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-09-29 10:58$$checksum=f11dca21$$length=083$$

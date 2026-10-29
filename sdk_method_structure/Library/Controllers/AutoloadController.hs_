@@ -1,0 +1,25 @@
+
+// this ALWAYS GENERATED file contains the sub-method library header
+// Generated at 10/20/2026 2:23:33 PM
+
+#pragma global
+#ifndef HSL_RUNTIME
+namespace AutoloadController {
+function _InitLibrary() { }
+function _ExitLibrary() { }
+function autoload_getCarrierSensorStatus( device & ML_STAR ) variable {  return (0); }
+function autoload_isTrackOccupied( device & ML_STAR ) variable {  return (0); }
+function autoload_loadCarrierById( device & ML_STAR ) variable {  return (0); }
+function autoload_loadCarrierByTrack( device & ML_STAR ) variable {  return (0); }
+function autoload_moveTo( device & ML_STAR ) variable {  return (0); }
+function autoload_parkLeft( device & ML_STAR ) variable {  return (0); }
+function autoload_parkRight( device & ML_STAR ) variable {  return (0); }
+function autoload_unloadCarrierById( device & ML_STAR ) variable {  return (0); }
+function autoload_unloadCarrierByTrack( device & ML_STAR ) variable {  return (0); }
+} // namespace
+#endif
+
+#ifdef HSL_RUNTIME
+#include __filename__ ".hsi"
+#endif
+// $$author=Bare_B$$valid=0$$time=2026-10-20 14:23$$checksum=d98f2c8b$$length=083$$

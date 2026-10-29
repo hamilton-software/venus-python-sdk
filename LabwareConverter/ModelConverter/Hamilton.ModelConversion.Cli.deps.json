@@ -1,0 +1,95 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0/win-x64",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {},
+    ".NETCoreApp,Version=v8.0/win-x64": {
+      "Hamilton.ModelConversion.Cli/1.0.0": {
+        "dependencies": {
+          "Hamilton.ModelConversion": "1.0.0"
+        },
+        "runtime": {
+          "Hamilton.ModelConversion.Cli.dll": {}
+        }
+      },
+      "SharpAssimp/6.0.12": {
+        "runtime": {
+          "lib/net8.0/SharpAssimp.dll": {
+            "assemblyVersion": "6.0.12.0",
+            "fileVersion": "6.0.12.0"
+          }
+        },
+        "native": {
+          "runtimes/win-x64/native/assimp.dll": {
+            "fileVersion": "6.0.5.0"
+          }
+        }
+      },
+      "System.IO.Packaging/8.0.1": {
+        "runtime": {
+          "lib/net8.0/System.IO.Packaging.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1024.46610"
+          }
+        }
+      },
+      "Hamilton.HamArchive/1.0.0": {
+        "dependencies": {
+          "System.IO.Packaging": "8.0.1"
+        },
+        "runtime": {
+          "Hamilton.HamArchive.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Hamilton.ModelConversion/1.0.0": {
+        "dependencies": {
+          "Hamilton.HamArchive": "1.0.0",
+          "SharpAssimp": "6.0.12"
+        },
+        "runtime": {
+          "Hamilton.ModelConversion.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Hamilton.ModelConversion.Cli/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SharpAssimp/6.0.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HdfQ20RqLW32Nf05L0rrJYQlgcFWmQOdIZNDY4SNC0o8485DUzTeXAUMAp3KvUg8rDFIHbzFhvxDVl33WAV7Bg==",
+      "path": "sharpassimp/6.0.12",
+      "hashPath": "sharpassimp.6.0.12.nupkg.sha512"
+    },
+    "System.IO.Packaging/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KYkIOAvPexQOLDxPO2g0BVoWInnQhPpkFzRqvNrNrMhVT6kqhVr0zEb6KCHlptLFukxnZrjuMVAnxK7pOGUYrw==",
+      "path": "system.io.packaging/8.0.1",
+      "hashPath": "system.io.packaging.8.0.1.nupkg.sha512"
+    },
+    "Hamilton.HamArchive/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Hamilton.ModelConversion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

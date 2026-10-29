@@ -1,0 +1,46 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:greiner_culture_plate_96",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "Greiner_Culture_Plate_96",
+  "labwareClass": "lid",
+  "source": {
+    "system": "venus",
+    "originalId": "Greiner_Culture_Plate_96",
+    "originalFile": "Greiner_Culture_Plate_96.lid",
+    "convertedDate": "2026-07-26",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 127.0,
+    "y": 86.0,
+    "z": 8.0
+  },
+  "alignmentFeatures": [
+    {
+      "name": "sbs_lid",
+      "offset": {
+        "z": 4.0
+      }
+    }
+  ],
+  "visualModel": {
+    "modelRef": "Greiner Clear Lid.gltf",
+    "modelOrigin": "left_front_bottom",
+    "modelOffset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "modelFormat": "gltf"
+  },
+  "customAttributes": {
+    "hamilton:venus_lid": {
+      "coverThickness": 2.5,
+      "coveredStackHeight": 16.2,
+      "stackHeight": 9.0,
+      "xExtent": 127.0,
+      "yExtent": 86.0
+    }
+  }
+}

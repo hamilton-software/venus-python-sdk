@@ -1,0 +1,88 @@
+﻿{
+  "$schema": "urn:hamilton:schemas:microlab:labware:v1",
+  "id": "hamilton:sarstedt_0_5_vial_halfheight",
+  "schemaVersion": "1.0.0-alpha.1",
+  "displayName": "sarstedt_0.5_vial_halfheight",
+  "labwareClass": "tube",
+  "source": {
+    "system": "venus",
+    "originalId": "sarstedt_0.5_vial_halfheight",
+    "originalFile": "sarstedt_0.5_vial_halfheight.ctr",
+    "convertedDate": "2026-09-28",
+    "convertedBy": "HamiltonLabware.LegacyToMlApiConverter"
+  },
+  "dimensions": {
+    "x": 8.3,
+    "y": 8.3,
+    "z": 24.5
+  },
+  "material": "polypropylene",
+  "containerGrids": {
+    "default": {
+      "columns": 1,
+      "rows": 1,
+      "columnPitch": 8.3,
+      "rowPitch": 8.3,
+      "iterationOrder": "column_major",
+      "firstContainerCenter": {
+        "x": 4.15,
+        "y": 4.15,
+        "z": 19.5
+      },
+      "containerDefinition": {
+        "openingDimensions": {
+          "shape": "circle",
+          "diameter": 8.3
+        },
+        "totalDepth": 24.5,
+        "maxPipettingDepth": 0.1,
+        "bottomWallThickness": 19.5,
+        "volumeModel": {
+          "segments": [
+            {
+              "type": "conical_frustum",
+              "height": 11.0,
+              "diameterBottom": 0.0,
+              "diameterTop": 6.5
+            },
+            {
+              "type": "conical_frustum",
+              "height": 13.5,
+              "diameterBottom": 6.5,
+              "diameterTop": 8.3
+            }
+          ]
+        },
+        "liquidDetection": {
+          "supportsLLD": true,
+          "liquidSeekingStartHeight": 25.0
+        },
+        "customAttributes": {
+          "hamilton:clearance": {
+            "clearanceMm": 30.0
+          },
+          "hamilton:touch_off": {
+            "enabled": false,
+            "frontMm": 0.0,
+            "backMm": 0.0,
+            "leftMm": 0.0,
+            "rightMm": 0.0,
+            "baseMm": 0.0,
+            "heightMm": 0.0
+          }
+        }
+      }
+    }
+  },
+  "alignmentFeatures": [
+    {
+      "name": "tube_8",
+      "offset": {
+        "z": 23.5
+      }
+    }
+  ],
+  "visualModel": {
+    "opacity": 0
+  }
+}
