@@ -25,7 +25,7 @@ Failures raise :class:`~hamilton_venus.TiltModuleError` (the HSL returns codes i
 code into its text.
 
 This module only moves the hardware: it does **not** change where VENUS thinks the wells
-are. See ``docs/examples/tilt-module.md``.
+are. See ``docs/examples/tilt_module.md``.
 """
 
 from __future__ import annotations

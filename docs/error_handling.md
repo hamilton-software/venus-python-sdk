@@ -11,7 +11,9 @@ from hamilton_venus import StarClient
 
 with StarClient() as star:
     star.instrument_init()
-    result = star.tip_pickup(labware_id="some_id", tip_position=0)
+    # Assumes the deck has a tip rack assigned to the "TransferTips" tip pool
+    # (see examples/deck_and_layout.md).
+    result = star.tip_pickup(tip_pool="TransferTips")
 ```
 
 If an error occurs, the SDK automatically looks up the configured recovery actions, attempts them in order with retries, and escalates if needed. That's it.
@@ -35,7 +37,7 @@ profile = ErrorProfile(
     operations={
         "tip_pickup": {
             TipPickupError.NO_TIP: ErrorEntry(
-                actions=(RecoveryAction.REPEAT),
+                actions=(RecoveryAction.REPEAT,),
                 max_retries=3,
                 allow_operator=True,
             ),
@@ -58,7 +60,8 @@ profile = ErrorProfile(
 - `max_retries`: Maximum times to retry REPEAT actions (default: 1)
 - `allow_operator`: Whether to escalate to operator on action exhaustion (default: True). When True, the SDK invokes the registered `on_operator_error_escalation` callback if one is provided; otherwise it defers to the legacy VENUS operator dialog by submitting `selected_action_id=-1`. When False, the SDK submits ABORT.
 
-**RecoveryAction**: Available recovery strategies 
+**RecoveryAction**: Available recovery strategies (full list in the [Recovery Actions](#recovery-actions) reference table)
+- `CANCEL` - Exit default error handling (always valid)
 - `ABORT` - Stop execution
 - `REPEAT` - Retry the failed operation
 - `NEXT` - Skip to next item
@@ -118,11 +121,12 @@ with StarClient(error_profile=custom_profile) as star:
 ### Create Variants of Built-in Profiles
 
 ```python
+from hamilton_venus import StarClient
 from hamilton_venus.error_handling import STANDARD_PROFILE
 from hamilton_venus.error_handling.profile import ErrorEntry
 from hamilton_venus.models.error_types import RecoveryAction, TipPickupError
 
-strict = STANDARD_PROFILE.with_overrides(
+strict =  STANDARD_PROFILE.with_overrides(
     name="Strict_Tip_Handling",
     operations={
         "tip_pickup": {
@@ -141,6 +145,7 @@ with StarClient(error_profile=strict) as star:
 ### Load Profiles from JSON
 
 ```python
+from hamilton_venus import StarClient
 from hamilton_venus.error_handling.profile_loaders import profile_from_json_file
 
 profile = profile_from_json_file("path/to/my_profile.json")
@@ -151,6 +156,7 @@ with StarClient(error_profile=profile) as star:
 To save a profile for later use:
 
 ```python
+from hamilton_venus.error_handling import STANDARD_PROFILE
 from hamilton_venus.error_handling.profile_loaders import profile_to_json_file
 
 variant = STANDARD_PROFILE.with_overrides(name="My_Custom")
@@ -203,7 +209,7 @@ Your callback can return:
 ```python
 def operator_dialog(context: OperatorEscalationContext):
     available = {a.name.lower() for a in context.top_level_actions}
-    user_choice = show_dialog(list(available))
+    user_choice = show_dialog(list(available))  # your UI; returns e.g. "repeat"
     try:
         return RecoveryAction(user_choice)
     except ValueError:
@@ -312,6 +318,7 @@ def advanced_escalation_callback(context: OperatorEscalationContext):
 While a callback is deciding, the front cover stays locked and the Vantage loading tray stays raised. VENUS lists the access actions that currently apply on the error itself (`context.error.actions`): unlock or lock the door, and on a Vantage lower or raise the load tray. They do not answer the error — the instrument carries the action out and publishes the same error again, and the callback is invoked again with it (now listing the opposite action).
 
 ```python
+from hamilton_venus import RecoveryAction
 from hamilton_venus.error_handling import access_action_recovery, access_actions
 
 def handle_operator_error(context):
@@ -424,7 +431,7 @@ def handle_error(context: OperatorEscalationContext):
 with StarClient(error_profile=my_profile, on_operator_error_escalation=handle_error) as star:
     star.instrument_init()
     try:
-        result = star.tip_pickup(tip_pool="TransferTips")
+        result = star.tip_pickup(tip_pool="TransferTips")  # tip pool defined in your deck layout
     except Exception as e:
         print(f"Failed: {e}")
 ```
@@ -447,7 +454,8 @@ with StarClient(error_profile=my_profile, on_operator_error_escalation=handle_er
 ### Errors being automatically aborted
 
 - Verify the profile has recovery actions defined for this error
-- Verify there is an operator callback defined
+- Verify `allow_operator=True` (with `False`, the SDK submits ABORT once actions are exhausted)
+- If you registered an operator callback, check that it does not return `None` (treated as ABORT)
 - Review error logs to see what actions were attempted
 
 ## Reference: Operations, Error Types, and Recovery Actions
@@ -527,6 +535,7 @@ The string keys used in `operations` and `operation_defaults` dicts are the `.va
 
 | Action | Kind | Meaning |
 |---|---|---|
+| `CANCEL` | Recovery | Exit default error handling; always valid for every error type |
 | `REPEAT` | Recovery | Retry the failed operation |
 | `EXCLUDE` | Recovery | Remove the channel/well from the current run |
 | `ABORT` | Recovery | Stop the run immediately |
@@ -584,7 +593,7 @@ my_profile = STANDARD_PROFILE.with_overrides(
     name="Extended",
     operations={
         "gripper": {
-            GripperError.LABWARE_NOT_FOUND: ErrorEntry(
+            GripperError.LABWARE_LOST: ErrorEntry(
                 actions=(RecoveryAction.REPEAT,),
                 max_retries=2,
                 allow_operator=True,
@@ -605,7 +614,7 @@ my_profile = STANDARD_PROFILE.with_overrides(
     name="Extended",
     operations={
         "gripper": {
-            GripperError.LABWARE_NOT_FOUND: ErrorEntry(
+            GripperError.LABWARE_LOST: ErrorEntry(
                 actions=(RecoveryAction.REPEAT,),
                 max_retries=2,
                 allow_operator=True,
@@ -652,7 +661,7 @@ When selecting a rule, the resolver applies precedence in this order:
 
 When you construct an `ErrorProfile`:
 
-- Every error type in `operations` must exist in `ALLOWED_ACTIONS`. An unrecognised enum member raises `ValueError`.
+- Every error type in `operations` must exist in `ALLOWED_ACTIONS`. An unrecognized enum member raises `ValueError`.
 - Every action in each `ErrorEntry.actions` tuple must be in `ALLOWED_ACTIONS[error_type]`. An unsupported action raises `ValueError` immediately.
 - `RecoveryAction.CANCEL` is always valid for any error type and is never rejected by validation. It exits default error handling unconditionally.
 

@@ -151,8 +151,8 @@ l_strFilter = HSLExtensions::String::JoinWithDelimiter(l_arrLiquidClasses, Trans
 if (SDK::IsSTAR == 1)
 {
 // }} ""
-// {{{ 331 1 0 "421c698f_f706_4608_8dfffa6f70f69b87" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
-l_strTargetFolder = StrConcat4(SDK::LiquidClassPath, Translate("\\"), LiquidsConverter::Instruments::STAR, Translate(""));
+// {{ 331 1 0 "e3ff47f1_c31d_437e_8f2d52d50cc5b2c4" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+l_strInstrumentClassName = LiquidsConverter::Instruments::STAR;
 // }} ""
 // {{ 332 1 0 "c15a4323_7829_4e91_9ef2c3e61524338f" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
 }
@@ -161,8 +161,8 @@ l_strTargetFolder = StrConcat4(SDK::LiquidClassPath, Translate("\\"), LiquidsCon
 if (SDK::IsVantage == 1)
 {
 // }} ""
-// {{{ 334 1 0 "097c2a92_f4d6_402e_bfba2d7c35d349ea" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
-l_strTargetFolder = StrConcat4(SDK::LiquidClassPath, Translate("\\"), LiquidsConverter::Instruments::STAR, Translate(""));
+// {{ 334 1 0 "50bf8eec_8776_4177_b45bf0981cf87da2" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+l_strInstrumentClassName = LiquidsConverter::Instruments::VANTAGE;
 // }} ""
 // {{ 335 1 0 "d7eb5e6e_5e0a_4b18_843571b9853e3a22" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
 }
@@ -171,8 +171,8 @@ l_strTargetFolder = StrConcat4(SDK::LiquidClassPath, Translate("\\"), LiquidsCon
 if (SDK::IsNimbus8 == 1|| SDK::IsNimbus96 == 1)
 {
 // }} ""
-// {{ 337 1 0 "25784b84_24e1_4a0e_aed744431f592b27" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
-l_strInstrumentClassName = Translate("Nimbus");
+// {{ 337 1 0 "1c37501e_ff1e_4137_85c37e336409fbb4" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+l_strInstrumentClassName = LiquidsConverter::Instruments::NIMBUS;
 // }} ""
 // {{ 338 1 0 "f005d456_d585_4243_afb9b140471c989f" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
 }
@@ -2131,4 +2131,4 @@ return (ASWGLOBAL::BOOL::TRUE);
 // {{{ 2 "LibraryNamespace" "End"
 } // library namespace
 // }} ""
-// $$author=Bare_B$$valid=0$$time=2026-10-23 15:49$$checksum=1048c6f6$$length=085$$
+// $$author=Bare_B$$valid=0$$time=2026-10-23 18:11$$checksum=f06188c6$$length=085$$

@@ -1,6 +1,6 @@
 # Hamilton VENUS SDK Documentation
 
-Quick-reference index for the SDK documentation. If you are new to the SDK, start with [Getting Started](examples/getting-started.md).
+Quick-reference index for the SDK documentation. If you are new to the SDK, start with [Getting Started](examples/getting_started.md).
 
 ---
 
@@ -8,10 +8,19 @@ Quick-reference index for the SDK documentation. If you are new to the SDK, star
 
 | Guide | What it covers |
 |-------|----------------|
-| [Getting Started](examples/getting-started.md) | Connecting, initializing, and the basic workflow lifecycle |
+| [Getting Started](examples/getting_started.md) | Connecting, initializing, and the basic workflow lifecycle |
 | [Authentication](authentication.md) | Unauthenticated and OAuth-authenticated VENUS environments |
 | [Configuration](configuration.md) | `SdkConfig`, `MethodConfig`, environment variables, and TOML |
-| [GUI Installer](gui-installer.md) | Using `VenusPythonSdkInstaller.exe`, what installs by default, and what each checkbox adds |
+
+---
+
+## Reference Guides
+
+| Guide | What it covers |
+|-------|----------------|
+| [Liquid Handling Rules](guides/liquid-handling-rules.md) | Operational rules for writing and reviewing pipetting scripts so command sequences do not fail at runtime |
+| [Liquid Handling Optimization](guides/hamilton-liquid-handling-optimization-guide.md) | Choosing and tuning liquid classes and pipetting settings |
+| [Labware Compatibility](guides/Hamilton_Labware_Compatibility_Guide_V2.md) | Which carrier a labware fits on and the deck clearance limit |
 
 ---
 
@@ -19,15 +28,31 @@ Quick-reference index for the SDK documentation. If you are new to the SDK, star
 
 | Guide | What it covers |
 |-------|----------------|
-| [Common Patterns](examples/common-patterns.md) | Recommended patterns for transfers, error handling, TADM, and status lights |
-| [Liquid Handling](examples/liquid-handling.md) | `aspirate()`, `dispense()`, `detect_liquid_level()`, settings, non-standard labware, 5mL (XL) channels |
-| [Position and Well Selection](examples/position-and-well-selection.md) | Selector DSL, `normalize_positions`, `SpecResolver`, labware specs |
-| [Deck and Layout](examples/deck-and-layout.md) | `add_carrier()`, `add_plate()`, `add_tip_rack()`, lidded plates |
+| [Common Patterns](examples/common_patterns.md) | Recommended patterns for transfers, error handling, TADM, and status lights |
+| [Liquid Handling](examples/liquid_handling.md) | `aspirate()`, `dispense()`, `detect_liquid_level()`, settings, non-standard labware, 5mL (XL) channels |
+| [Position and Well Selection](examples/position_and_well_selection.md) | Selector DSL, `normalize_positions`, `SpecResolver`, labware specs |
+| [Deck and Layout](examples/deck_and_layout.md) | `add_carrier()`, `add_plate()`, `add_tip_rack()`, lidded plates |
 | [Autoload](examples/autoload.md) | Loading/unloading carriers, occupancy sensing, deck audit |
 | [Transport](examples/transport.md) | CO-RE and iSWAP plate transport, barcode scanning |
 | [96-Channel Head (MPH96)](examples/mph96.md) | Full-plate and partial pickups, MPH96 settings |
 | [Error Handling](error_handling.md) | Error profiles, operator escalation, recovery actions |
+| [Error Simulation](examples/error_simulation.md) | Injecting simulated firmware errors to test recovery code without hardware |
 | [Run Log](examples/advanced/run_log.md) | Structured JSON run log, configuration, crash recovery |
+
+---
+
+## Devices
+
+| Guide | What it covers |
+|-------|----------------|
+| [Heater Shaker (HHS)](examples/heater_shaker.md) | Plate locking, shaking, and temperature control |
+| [Heater Cooler (HHC)](examples/heater_cooler.md) | Setting and holding a temperature, reading status |
+| [Inheco TEC (STC/MTC)](examples/inheco_tec.md) | Temperature control and shaking with Inheco TEC controllers |
+| [Inheco ODTC](examples/odtc.md) | Running PCR protocols on the On-Deck Thermal Cycler |
+| [Media Fill Module](examples/media_fill.md) | Pump direction, filling troughs, pumping out, liquid level sensors |
+| [Media Fill Hardware Notes](media_fill_hardware_notes.md) | Real-module behavior, serial protocol, troubleshooting |
+| [Tilt Module (MFX)](examples/tilt_module.md) | Tilting a plate to an angle and reading status |
+| [Tilt Module Hardware Notes](tilt_module_hardware_notes.md) | Real-module behavior, orientation, troubleshooting |
 
 ---
 
@@ -35,9 +60,9 @@ Quick-reference index for the SDK documentation. If you are new to the SDK, star
 
 | Guide | What it covers |
 |-------|----------------|
-| [StarClient API Reference](star-commands.md) | Complete method listing with signatures and return types (STAR) |
-| [VantageClient API Reference](vantage-commands.md) | Complete method listing with signatures and return types (Vantage) |
-| [Static Catalogs](static-catalogs.md) | `LABWARE` and `LIQUID_CLASSES` catalog constants |
+| [StarClient API Reference](star_commands.md) | Complete method listing with signatures and return types (STAR) |
+| [VantageClient API Reference](vantage_commands.md) | Complete method listing with signatures and return types (Vantage) |
+| [Static Catalogs](static_catalogs.md) | `LABWARE` and `LIQUID_CLASSES` catalog constants |
 | [Automated Teaching](teaching.md) | Teaching plate positions with the teaching needle and Z-stall searches (`teach_well`) |
 
 ---
@@ -46,13 +71,13 @@ Quick-reference index for the SDK documentation. If you are new to the SDK, star
 
 | Reference | What it covers |
 |-------|----------------|
-| [Labware Schema Tour](labware_schema/schema-tour.md) | Narrative walkthrough of the Hamilton MicrolabAPI labware JSON schema |
+| [Labware Schema Tour](labware_schema/schema_tour.md) | Narrative walkthrough of the Hamilton labware JSON schema |
 | [Labware Schema Conventions](labware_schema/conventions.md) | Naming, units, and structural conventions used throughout the labware schema |
-| [Labware Schema Validation Rules](labware_schema/validation-rules.md) | Required fields, cross-field constraints, and validation behavior |
-| [Labware Schema Diagram](labware_schema/schema-diagram.md) | Visual overview of the schema's structure |
+| [Labware Schema Validation Rules](labware_schema/validation_rules.md) | Required fields, cross-field constraints, and validation behavior |
+| [Labware Schema Diagram](labware_schema/schema_diagram.md) | Visual overview of the schema's structure |
 | Labware JSON Schemas | Machine-readable schemas: [`labware.schema.json`](labware_schema/labware.schema.json), [`geometry.schema.json`](labware_schema/geometry.schema.json), [`alignment.schema.json`](labware_schema/alignment.schema.json), [`site.schema.json`](labware_schema/site.schema.json) |
-| [Liquid Class Model](liquid_class_schema/JSON_Liquid-Class-Model_sdk.md) | JSON structure of a liquid class definition |
-| [Liquid Class Reference Values](liquid_class_schema/JSON_Liquid-Class-Reference-Values.md) | Valid enum values and per-device numeric bounds referenced by the liquid class model |
+| [Liquid Class Model](liquid_class_schema/liquid_class_model_sdk.md) | JSON structure of a liquid class definition |
+| [Liquid Class Reference Values](liquid_class_schema/liquid_class_reference_values.md) | Valid enum values and per-device numeric bounds referenced by the liquid class model |
 
 ---
 
@@ -74,15 +99,14 @@ Quick-reference index for the SDK documentation. If you are new to the SDK, star
 
 ---
 
-## Command Catalogs and Tools
+## Command Catalogs
 
 | Reference | What it covers |
 |-------|----------------|
-| [JSON Schemas — STAR](json_schemas_STAR.md) | Full request/response JSON examples for every STAR command |
-| [JSON Schemas — Vantage](json_schemas_Vantage.md) | Full request/response JSON examples for every Vantage command |
-| [JSON Schemas — System](json_schemas_System.md) | Full request/response JSON examples for System-category commands |
-| [JSON Schemas — Device](json_schemas_Device.md) | Full request/response JSON examples for device-management commands |
-| [Vector API Tool](api_tool.html) | Standalone HTML tool for sending raw Vector WebAPI commands and inspecting responses |
+| [JSON Schemas — STAR](json_schemas_star.md) | Full request/response JSON examples for every STAR command |
+| [JSON Schemas — Vantage](json_schemas_vantage.md) | Full request/response JSON examples for every Vantage command |
+| [JSON Schemas — System](json_schemas_system.md) | Full request/response JSON examples for System-category commands |
+| [JSON Schemas — Device](json_schemas_device.md) | Full request/response JSON examples for device-management commands |
 
 ---
 
@@ -90,10 +114,10 @@ Quick-reference index for the SDK documentation. If you are new to the SDK, star
 
 | Guide | What it covers |
 |-------|----------------|
-| [Compound Commands Overview](examples/compound-commands/README.md) | Index of all six compound commands with minimal usage snippets |
-| [Add Reagent](examples/compound-commands/add-reagent.md) | Reagent dispensing from one or more sources into destination wells |
-| [Copy Plate](examples/compound-commands/copy-plate.md) | Full-plate transfers with `copy_plate()`, TADM access, partial copies |
-| [Hit Picking](examples/compound-commands/hit-picking.md) | CSV-driven many-to-many transfers ("cherry pick") |
-| [Pool Samples](examples/compound-commands/pool-samples.md) | Combine `pool_size` source wells into one destination well |
-| [Replicate Samples](examples/compound-commands/replicate-samples.md) | Aliquot each source well into multiple destination wells |
-| [Serial Dilution](examples/compound-commands/serial-dilution.md) | Column-wise serial dilution, by volume or by dilution factor |
+| [Compound Commands Overview](examples/compound_commands/README.md) | Index of all six compound commands with minimal usage snippets |
+| [Add Reagent](examples/compound_commands/add_reagent.md) | Reagent dispensing from one or more sources into destination wells |
+| [Copy Plate](examples/compound_commands/copy_plate.md) | Full-plate transfers with `copy_plate()`, TADM access, partial copies |
+| [Hit Picking](examples/compound_commands/hit_picking.md) | CSV-driven many-to-many transfers ("cherry pick") |
+| [Pool Samples](examples/compound_commands/pool_samples.md) | Combine `pool_size` source wells into one destination well |
+| [Replicate Samples](examples/compound_commands/replicate_samples.md) | Aliquot each source well into multiple destination wells |
+| [Serial Dilution](examples/compound_commands/serial_dilution.md) | Column-wise serial dilution, by volume or by dilution factor |

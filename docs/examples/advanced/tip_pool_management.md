@@ -10,6 +10,10 @@ This guide covers:
 - resetting and initializing counters
 - updating counters with the grouped rack structure expected by the backend
 
+The examples use a tip pool named `"TransferTips"`. A tip pool is created when you add tip racks to
+the deck with `add_tip_rack(..., tip_pool="TransferTips")` (or `add_ntr(...)`); replace the name with
+your own pool.
+
 ---
 
 ## Query a Tip Pool
@@ -122,6 +126,7 @@ deck (`remove_labware`) or build smaller stacks to match.
   from the rack below.
 
 ```python
+# Inside a `with StarClient() as star:` block, after the NTR stack has been added to the deck.
 ALL = [str(i) for i in range(1, 97)]
 
 # Two racks stacked on one site: tip_nested_300ul_0001 (bottom), tip_nested_300ul_0002 (top).
@@ -178,5 +183,4 @@ def warn_if_low(star: StarClient, tip_pool: str, threshold: int = 50) -> bool:
 
 with StarClient() as star:
     warn_if_low(star, "TransferTips", threshold=100)
-
-
+```

@@ -1059,3 +1059,77 @@ class TestStatusChannelPeekAndDelete:
         request.assert_awaited_once_with(
             "DELETE", "/api/vector/v3/run-messages/ready", error_prefix="DeleteChannel(ready)"
         )
+
+
+class TestMethodWatchdog:
+    """VENUS can end its method without an ABORTED event; a waiting command must not sit until its timeout."""
+
+    @staticmethod
+    def _request(run_state_values):
+        states = iter(run_state_values)
+        last = {"value": run_state_values[-1]}
+
+        def side_effect(method, path, **kwargs):
+            if method == "POST" and path == _PUSH_RUN_MESSAGE_PATH:
+                return _mock_response(json_data={"messageId": "queue-message-1", "channel": "action"})
+            if method == "POST" and path == _POP_RESPONSE_PATH:  # the final pop when a wait times out
+                return _mock_response(json_data={"hasMessage": False})
+            if method == "GET" and path == "/api/vector/v3/execution/run-state":
+                last["value"] = next(states, last["value"])
+                return _mock_response(json_data=last["value"])
+            raise AssertionError(f"Unexpected request: {method} {path}")
+
+        return AsyncMock(side_effect=side_effect)
+
+    @pytest.mark.asyncio
+    async def test_a_command_fails_fast_when_the_method_is_gone(self, monkeypatch):
+        import hamilton_venus._internal._run_message_command_dispatcher as module
+
+        monkeypatch.setattr(module, "_METHOD_WATCH_INTERVAL", 0.01)
+        dispatcher = _RunMessageCommandDispatcher(self._request([0]))  # NOT_INITIALIZED: no method loaded
+
+        with pytest.raises(VenusCommandAbortedError, match="VENUS ended the method without answering"):
+            await asyncio.wait_for(
+                dispatcher.send_command("Deck Layout", "labware.addReservoir", default_timeout=300.0), timeout=5.0
+            )
+
+    @pytest.mark.asyncio
+    async def test_a_running_method_is_left_alone(self, monkeypatch):
+        import hamilton_venus._internal._run_message_command_dispatcher as module
+
+        monkeypatch.setattr(module, "_METHOD_WATCH_INTERVAL", 0.01)
+        dispatcher = _RunMessageCommandDispatcher(self._request([2]))  # RUNNING
+
+        with pytest.raises(VenusTimeoutError):
+            await dispatcher.send_command("Deck Layout", "labware.addReservoir", default_timeout=0.3)
+        assert dispatcher._abort_event.is_set() is False
+
+    @pytest.mark.asyncio
+    async def test_one_odd_reading_does_not_count(self, monkeypatch):
+        import hamilton_venus._internal._run_message_command_dispatcher as module
+
+        monkeypatch.setattr(module, "_METHOD_WATCH_INTERVAL", 0.01)
+        # gone, running, gone, running ... never three in a row
+        dispatcher = _RunMessageCommandDispatcher(self._request([0, 2] * 40))
+
+        with pytest.raises(VenusTimeoutError):
+            await dispatcher.send_command("Deck Layout", "labware.addReservoir", default_timeout=0.3)
+        assert dispatcher._abort_event.is_set() is False
+
+    @pytest.mark.asyncio
+    async def test_a_failing_run_state_lookup_never_aborts(self, monkeypatch):
+        import hamilton_venus._internal._run_message_command_dispatcher as module
+
+        monkeypatch.setattr(module, "_METHOD_WATCH_INTERVAL", 0.01)
+
+        def side_effect(method, path, **kwargs):
+            if method == "POST" and path == _PUSH_RUN_MESSAGE_PATH:
+                return _mock_response(json_data={"messageId": "queue-message-1", "channel": "action"})
+            if path == _POP_RESPONSE_PATH:
+                return _mock_response(json_data={"hasMessage": False})
+            raise RuntimeError("VENUS not answering")
+
+        dispatcher = _RunMessageCommandDispatcher(AsyncMock(side_effect=side_effect))
+        with pytest.raises(VenusTimeoutError):
+            await dispatcher.send_command("Deck Layout", "labware.addReservoir", default_timeout=0.3)
+        assert dispatcher._abort_event.is_set() is False

@@ -1,12 +1,24 @@
 # Transport and Gripper Tools
 
-Examples for transporting plates using both CO-RE grippers and iSWAP tools.
+Examples for transporting plates using both CO-RE grippers (gripper tools picked up by the pipetting channels) and the iSWAP (a dedicated plate-handling arm).
+
+Labware and carrier names in these examples (e.g. `"MyPlate"`, `"PlateCarrier1"`) are the IDs given when the items were added to the deck layout; see [Deck and Layout](./deck_and_layout.md). Replace them with the IDs from your own layout.
 
 > **Note:** The `grip_width` and `grip_open` parameters are optional. If not specified, they will be automatically calculated by the server based on the labware being transported. This makes examples cleaner and easier to read while maintaining full control when needed.
 
-> **Tilted plates:** every transport command that takes a `labware_name` (CO-RE / QCG, 5 mL CO-RE, iSWAP / IPG) raises `LabwareTiltedError` for a plate that [`tilt_labware()`](deck-and-layout.md#tilt-labware) has left tilted, without sending anything to VENUS. Call `tilt_labware(labware_name, 0)` (and level the tilt module) first.
+> **Tilted plates:** every transport command that takes a `labware_name` (CO-RE / QCG, 5 mL CO-RE, iSWAP / IPG) raises `LabwareTiltedError` for a plate that [`tilt_labware()`](deck_and_layout.md#tilt-labware) has left tilted, without sending anything to VENUS. Call `tilt_labware(labware_name, 0)` (and level the tilt module) first.
 
-> **Split wells:** wells split with [`split_wells()`](deck-and-layout.md#split-wells) follow the plate. A transport removes the plate's slot racks and rebuilds them at the destination once it succeeds. A plate held by `*_present_and_scan` or `iswap_get_labware` gets them back on `*_return_plate` or `iswap_put_labware`. The to-waste transports remove them.
+> **Split wells:** wells split with [`split_wells()`](deck_and_layout.md#split-wells) follow the plate. A transport removes the plate's slot racks and rebuilds them at the destination once it succeeds. A plate held by `*_present_and_scan` or `iswap_get_labware` gets them back on `*_return_plate` or `iswap_put_labware`. The to-waste transports remove them.
+
+## Which tool to use
+
+- **CO-RE grips for on-deck moves**, whenever the instrument has them: CO-RE Grips on Legacy STAR channels (`add_1ml_core_grip()`), the QCG on Fluid Motion channels and the Vantage (`add_qcg()`). They come straight down from above, so they need no room beside the labware. They reach into stackers and into low labware between tall carriers.
+  - They are a separate tool, not part of the instrument configuration: `instrument_get_configuration()` only reports the iSWAP / IPG (`gripper.type`). That's why they are added with their own command.
+  - Systems may or may not come with them, so check with whoever runs the system.
+- **iSWAP / IPG** for off-deck or extended-reach moves (incubators, readers, hotels), rotations, instruments without CO-RE grips, or when asked for. It grips from the sides: a narrow grip (`grip_width` under 100 mm) needs room left and right, a wide grip room in front and behind, and adjacent labware taller than the target can collide with it.
+- **CO-RE grips:** eject tips before using them. Keep them on for a series of moves (`core_transport(..., eject_grip=False)`) and eject them after the last (`eject_grip=True` or `core_eject_grips()`).
+- **iSWAP:** park it (`iswap_park()`) when a series of moves is done.
+- **Holding a lid:** a lid held by the CO-RE grips (`core_hold_lid`) or the iSWAP allows MPH pipetting only. The channels can't pipette meanwhile, except with an iSWAP on a second arm (Vantage only).
 
 ---
 
@@ -24,10 +36,10 @@ from hamilton_venus.models.enums import CoreGripType, QCGType
 
 with StarClient() as star:
     star.instrument_init()
-    # Add grippers to layout
-    star.add_1ml_core_grip(grip_type=CoreGripType.STANDARD)
+    # Add grippers to layout. Add only the gripper that matches the channel type:
+    star.add_1ml_core_grip(grip_type=CoreGripType.STANDARD)  # Legacy channels
+    # star.add_qcg(qcg_type=QCGType.QCG)                    # Fluid Motion channels
     star.add_5ml_core_grip()
-    star.add_qcg(qcg_type=QCGType.QCG)
 
     # Get available transport tools
     tool_ids = star.get_transport_tool_ids()
@@ -56,7 +68,9 @@ with StarClient() as star:
     holding_result = star.core_transport_is_holding_labware()
     print(f"Gripper holding labware: {holding_result.return_parameters.is_holding_labware}")
 
-    star.core_transport_return_plate(mode="return")
+    # Only needed if the gripper still holds the plate
+    if holding_result.return_parameters.is_holding_labware:
+        star.core_transport_return_plate(mode="return")
 
     star.core_transport_to_waste(
         labware_name="MyPlate",
@@ -114,7 +128,7 @@ def core_present_and_scan(
 | `eject_grip` | `bool \| None` | — | Whether to eject grip after operation (optional) |
 | `check_presence` | `dict[str, bool] \| None` | — | Presence checks: `{"get": bool, "put": bool}` (optional) |
 
-**Returns:** `TransportPresentAndScanResponse` with fields:
+**Returns:** `TransportPresentAndScanResponse` with `return_parameters` fields:
 - `message: str` — Operation status message
 - `barcode: str` — The scanned barcode value
 
@@ -172,6 +186,12 @@ with StarClient() as star:
         plate_id="SourcePlate",
     )
 
+    star.add_carrier(
+        labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
+        left_track=7,
+        labware_id="DestinationCarrier",
+    )
+
     # Add gripper for transport
     star.add_1ml_core_grip(grip_type=CoreGripType.STANDARD)
 
@@ -223,8 +243,9 @@ with StarClient() as star:
     holding_result = star.core_5ml_transport_is_holding_labware()
     print(f"Gripper holding labware: {holding_result.return_parameters.is_holding_labware}")
 
-    # Return the plate to its original position
-    star.core_5ml_transport_return_plate(mode="return")
+    # Return the plate to its original position if the gripper still holds it
+    if holding_result.return_parameters.is_holding_labware:
+        star.core_5ml_transport_return_plate(mode="return")
 
     # Or discard it to waste
     star.core_5ml_transport_to_waste(
@@ -369,6 +390,8 @@ movement needed. For labware at rotation 0:
 Left out, `grip_width` is calculated from the labware definition.
 
 ```python
+from hamilton_venus.models.enums import GripInverse
+
 # Wide grip from the rear: the iSWAP faces the front of the instrument
 star.iswap_get_labware(
     labware_name="AssayPlate",
@@ -503,7 +526,7 @@ with StarClient() as star:
 
 #### Transport to Waste
 
-Move the currently-held plate to waste collection:
+Pick up a plate from its site and move it to waste:
 
 ```python
 from hamilton_venus import StarClient
@@ -561,7 +584,7 @@ with StarClient() as star:
 
 #### Clear iSWAP Tracking
 
-Eject gripper and reset transport tracking:
+Reset the iSWAP transport tracking state:
 
 ```python
 from hamilton_venus import StarClient
@@ -578,5 +601,5 @@ with StarClient() as star:
 
 - [Advanced Transport and Gripper Workflows](./advanced/transport_workflows.md) — Advanced patterns for both CO-RE and iSWAP
 - [Gripper Setup and Layout Management](./advanced/gripper_operations.md) — Gripper configuration and deck layout
-- [API Reference](../star-commands.md) — Full API reference
+- [API Reference](../star_commands.md) — Full API reference
 

@@ -4,7 +4,7 @@ The Hamilton VENUS Python SDK supports both unauthenticated and authenticated co
 
 ## How Auth-Mode Detection Works
 
-When `StarClient` connects, the SDK queries the VENUS endpoint:
+When `StarClient` (or `VantageClient`) connects, the SDK queries the VENUS endpoint:
 
 ```
 GET /api/vector/v3/system/authentication-mode
@@ -26,7 +26,9 @@ with StarClient() as star:
     print(star.instrument_is_connected())
 ```
 
-For secure VENUS environments, provide credentials through environment variables, TOML configuration, or programmatic configuration.
+## Authenticated (OAuth)
+
+For secure VENUS environments, provide credentials through environment variables, TOML configuration, or programmatic configuration. If VENUS requires authentication and no credentials are set, connecting raises `VenusAuthenticationError`.
 
 ### Environment Variables
 

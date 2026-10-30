@@ -3,7 +3,7 @@ function __EvalExpr__()
 {
 device DeviceID("","",hslTrue);
 DeviceID = GetDeviceRef(SDK::DeviceName);
-Layout::labware_tiltLabware(DeviceID);
+STARController::statusLight_setFrontLight(DeviceID);
 }
 
-// $$author=Bare_B$$valid=2$$time=2026-10-14 17:08$$checksum=5172f4cf$$length=083$$
+// $$author=Bare_B$$valid=2$$time=2026-10-27 18:19$$checksum=5aaa6d51$$length=083$$

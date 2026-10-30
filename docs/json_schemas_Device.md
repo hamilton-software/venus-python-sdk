@@ -1,5 +1,9 @@
 # Device
 
+> **Who needs this page?** This is the raw VENUS WebAPI wire format for `Device`-category commands (Hamilton Heater Shaker and WXS precision balance). Most users should call the typed SDK device methods instead (see [STAR Commands](star_commands.md) and [Vantage Commands](vantage_commands.md)). Use this page when calling `client.send_command(category="Device", action_name=..., parameters=...)` directly, or when debugging the JSON the SDK sends. `send_command` builds the `channel`/`data` envelope for you.
+>
+> API base: `http://localhost:42400/api/vector/v3/run-messages` (default `base_url`; see [Configuration](configuration.md)). Parameter names such as `zeroImmidiately` are spelled exactly as VENUS expects.
+
 ### HHS (Hamilton Heater Shaker)
 
 #### HHS.createStarDevice

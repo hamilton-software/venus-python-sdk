@@ -9,7 +9,7 @@ are used by the two generated catalogs, deliberately:
   regardless of which scope/category folder they're filed under on disk, so a
   flat, name-only lookup is unambiguous.
 - ``LIQUID_CLASSES`` uses :class:`_FolderNamespace` — pure dot-access
-  navigation that mirrors the ML_API folder structure a liquid class is
+  navigation that mirrors the liquid class folder structure a liquid class is
   defined under, e.g.::
 
         LIQUID_CLASSES.STAR.SYSTEM.CHANNELS_1000UL.TIP_300UL_FILTER.WATER.SURFACE_EMPTY.MY_CLASS

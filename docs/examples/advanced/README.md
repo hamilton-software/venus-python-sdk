@@ -2,7 +2,7 @@
 
 This directory contains comprehensive, production-ready examples for advanced Hamilton STAR SDK workflows. Each guide covers specific functionality in depth with multiple scenarios and real-world use cases.
 
-Most workflow examples in this directory use `StarClient()` because many instrument, channel, deck, layout, transport, system, and liquid-class commands require prior `instrument_init()`. When a guide demonstrates manual startup control, it calls `instrument_init()` explicitly instead.
+Most workflow examples in this directory use `with StarClient() as star:`, which starts the client and connects to the instrument automatically. Many instrument, channel, deck, layout, transport, system, and liquid-class commands also require `instrument_init()` first; examples call it explicitly where needed (see [Getting Started](../getting_started.md#startup-flow-7-step-lifecycle) for the startup order).
 
 ## Quick Navigation
 

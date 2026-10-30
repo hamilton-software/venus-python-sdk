@@ -20,10 +20,18 @@ from hamilton_venus.config import RunLogConfig, SdkConfig, load_config
 from hamilton_venus.error_handling import STANDARD_PROFILE
 from hamilton_venus.error_handling.profile import ErrorProfile
 from hamilton_venus.exceptions import (
+    LiquidClassMismatchError,
     MethodError,
     VenusAuthenticationError,
     VenusCommandAbortedError,
     VenusTimeoutError,
+)
+from hamilton_venus.liquid_class_library import (
+    DEVICE_LABELS,
+    LiquidClassLibrary,
+    TipTypeInfo,
+    device_for_action,
+    parse_tip_types,
 )
 from hamilton_venus.models import (
     CommandResponse,
@@ -36,6 +44,7 @@ from hamilton_venus.models import (
     RunState,
     RuntimeStatusEvent,
 )
+from hamilton_venus.tip_reach import assess_tip_reach, container_depth, lowest_tip_heights, rack_tip_type
 from hamilton_venus.venus_client import VenusClient
 
 _logger = logging.getLogger(__name__)
@@ -120,6 +129,20 @@ class _AsyncInstrumentClient:
             instrument_type.value.upper(),
             self._push_liquid_classes,
         )
+        # What each liquid class applies to (device, tip, liquid, mode), for the device check
+        # before pipetting commands and for find_liquid_classes.
+        self._liquid_class_library = LiquidClassLibrary(get_sdk_liquid_class_path(), instrument_type.value.upper())
+        self._other_instrument_library = LiquidClassLibrary(
+            get_sdk_liquid_class_path(), "STAR" if instrument_type.value.upper() == "VANTAGE" else "VANTAGE"
+        )
+        # Tip reach check: which tip type each channel holds ((device, channel) -> tip type id;
+        # channel 0 stands for the whole 96 head), and per-session caches of what it needs.
+        self._channel_tips: dict[tuple[str, int], int] = {}
+        self._pool_tip_types: dict[str, int] = {}
+        self._labware_definitions: dict[str, dict[str, Any]] = {}
+        self._registered_tips: dict[int, TipTypeInfo] | None = None
+        # Warnings from the checks before commands, until pop_command_warnings() reads them.
+        self._command_warnings: list[str] = []
 
         # Wire run log to sub-components
         self._run_log = run_log
@@ -250,6 +273,11 @@ class _AsyncInstrumentClient:
         """This session's record of the custom liquid classes pushed to VENUS."""
         return self._liquid_class_sync
 
+    @property
+    def liquid_class_library(self) -> LiquidClassLibrary:
+        """This instrument's local liquid class library (what each class applies to)."""
+        return self._liquid_class_library
+
     async def _push_liquid_classes(self, names: list[str]) -> CommandResponse:
         return await self._venus.send_command(
             category="System",
@@ -260,7 +288,145 @@ class _AsyncInstrumentClient:
     async def _before_command(self, category: str, action_name: str, parameters: dict[str, Any]) -> None:
         names = liquid_class_names_in(parameters)
         if names:
+            self._check_liquid_class_devices(action_name, names)
             await self._liquid_class_sync.ensure(names)
+        try:
+            await self._track_tips_and_check_reach(action_name, parameters)
+        except Exception:  # a failed check must never stop the command itself
+            _logger.debug("Tip reach check skipped for %s", action_name, exc_info=True)
+
+    # -- tip reach ---------------------------------------------------------------
+
+    def pop_command_warnings(self) -> list[str]:
+        """Warnings from the checks run before commands since the last call (e.g. a tip too
+        short for the labware it pipettes in), oldest first."""
+        warnings, self._command_warnings = self._command_warnings, []
+        return warnings
+
+    def _warn(self, message: str, details: dict[str, Any]) -> None:
+        _logger.warning(message)
+        self._command_warnings.append(message)
+        if self._run_log is not None:
+            try:
+                self._run_log.record("SDK", "Out", "warning", {"message": message, **details})
+            except Exception:
+                _logger.debug("Could not record the warning in the run log", exc_info=True)
+
+    async def _registered_tip_types(self) -> dict[int, TipTypeInfo]:
+        if self._registered_tips is None:
+            response = await self._venus.send_command(category="System", action_name="liquidClass.getTipTypes")
+            params = response.return_parameters if isinstance(response.return_parameters, dict) else {}
+            self._registered_tips = parse_tip_types(params.get("tipTypes") or {})
+        return self._registered_tips
+
+    async def _labware_definition(self, labware: str) -> dict[str, Any]:
+        key = labware.lower()
+        if key not in self._labware_definitions:
+            response = await self._venus.send_command(
+                category="Deck Layout",
+                action_name="labware.getLabwareParamsFromID",
+                parameters={"labwareName": labware},
+            )
+            params = response.return_parameters if isinstance(response.return_parameters, dict) else {}
+            self._labware_definitions[key] = params.get("definition") or {}
+        return self._labware_definitions[key]
+
+    async def _pool_tip_type(self, pool: str) -> int | None:
+        if pool not in self._pool_tip_types:
+            response = await self._venus.send_command(
+                category="System", action_name="tipPool.getTipCounter", parameters={"tipPool": pool}
+            )
+            params = response.return_parameters if isinstance(response.return_parameters, dict) else {}
+            tip_type = params.get("tipType")
+            if not isinstance(tip_type, int):
+                return None
+            self._pool_tip_types[pool] = tip_type
+        return self._pool_tip_types[pool]
+
+    async def _track_tips_and_check_reach(self, action_name: str, parameters: dict[str, Any]) -> None:
+        if action_name.startswith(("deck.", "labware.remove", "labware.add")):
+            # The deck changed: a labware name may now stand for other labware.
+            self._labware_definitions.clear()
+            return
+        device = device_for_action(action_name)
+        if device is None:
+            return
+        verb = action_name.rsplit(".", 1)[-1]
+        channels = [0] if device in ("head_96", "head_384") else list(parameters.get("channels") or [])
+        if verb.startswith("tipPickup"):
+            tip_type: int | None = None
+            if parameters.get("tipPool"):
+                tip_type = await self._pool_tip_type(str(parameters["tipPool"]))
+            else:
+                positions = parameters.get("positions") or []
+                labware = positions[0].get("labwareId") if positions and isinstance(positions[0], dict) else None
+                if labware:
+                    tip_type = rack_tip_type(await self._labware_definition(str(labware)), device)
+            for channel in channels:
+                if tip_type is None:
+                    self._channel_tips.pop((device, channel), None)
+                else:
+                    self._channel_tips[(device, channel)] = tip_type
+            return
+        if verb == "tipEject":
+            for channel in channels:
+                self._channel_tips.pop((device, channel), None)
+            return
+        if verb not in ("aspirate", "dispense", "detectLiquidLevel", "dispenseOnTheFly"):
+            return
+        positions = [p for p in parameters.get("positions") or [] if isinstance(p, dict)]
+        if not positions:
+            return
+        if device in ("head_96", "head_384"):
+            pairs = [(0, positions[0])]
+            heights = lowest_tip_heights(parameters, 1)
+        else:
+            pairs = list(zip(channels, positions, strict=False))
+            heights = lowest_tip_heights(parameters, len(pairs))
+        seen: set[tuple[int, str, float]] = set()
+        for (channel, position), (height, fixed) in zip(pairs, heights, strict=False):
+            tip_type = self._channel_tips.get((device, channel))
+            labware = position.get("labwareId")
+            if tip_type is None or not labware or (tip_type, str(labware).lower(), height) in seen:
+                continue
+            seen.add((tip_type, str(labware).lower(), height))
+            registered = await self._registered_tip_types()
+            tip = registered.get(tip_type)
+            depth = container_depth(await self._labware_definition(str(labware)))
+            if tip is None or depth is None or tip.length_below_channel is None:
+                continue
+            reach = assess_tip_reach(
+                tip, labware=str(labware), depth=depth, lowest_tip_height=height, device=device,
+                registered=registered, fixed_height=fixed,
+            )
+            if not reach.ok:
+                self._warn(reach.message, {"action": action_name, "labware": reach.labware,
+                                           "tipType": tip_type, "channelInsideMm": reach.channel_inside_mm})
+
+    def _check_liquid_class_devices(self, action_name: str, names: list[str]) -> None:
+        """Refuse a pipetting command whose liquid class is for another pipetting device (a
+        MagPip class on the 1 mL channels, a 1 mL class on the 96 head, ...) or only exists in
+        the other instrument's library. Classes not in the local library are left to VENUS."""
+        device = device_for_action(action_name)
+        if device is None or not self._liquid_class_library.available:
+            return
+        for name in dict.fromkeys(names):
+            info = self._liquid_class_library.get(name)
+            if info is None:
+                if self._other_instrument_library.get(name) is not None:
+                    raise LiquidClassMismatchError(
+                        f"Liquid class {name!r} is a {self._other_instrument_library.instrument_folder} class; "
+                        f"this is a {self._liquid_class_library.instrument_folder}. "
+                        "Use find_liquid_classes to pick one for this instrument. The command was not sent."
+                    )
+                continue
+            if info.pipetting_device and info.pipetting_device != device:
+                class_device = DEVICE_LABELS.get(info.pipetting_device, info.pipetting_device)
+                raise LiquidClassMismatchError(
+                    f"Liquid class {name!r} is for the {class_device}, "
+                    f"but {action_name} runs on the {DEVICE_LABELS[device]}. Use find_liquid_classes to pick "
+                    "a class for this device. The command was not sent."
+                )
 
     def override_command_timeout(self, timeout: float | None) -> AbstractContextManager[None]:
         """Temporarily override the default command timeout for a block of commands."""

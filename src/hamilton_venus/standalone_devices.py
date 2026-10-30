@@ -3,11 +3,9 @@
 These devices don't need a `StarClient`/`VantageClient` -- each has its own
 standalone client (:class:`~hamilton_venus.HeaterCoolerClient`,
 :class:`~hamilton_venus.ODTCClient`) that can be used entirely on its own. This
-module is the single place such a device gets registered; everything that needs
-to route a command to the right object by name (e.g.
-``hamilton_workflow_framework.WorkflowSession.resolve_command_target``, the MCP
-server's command catalog) reads :data:`STANDALONE_DEVICES` instead of
-hard-coding per-device knowledge.
+module is the single place such a device gets registered; anything that needs
+to route a command to the right object by name reads
+:data:`STANDALONE_DEVICES` instead of hard-coding per-device knowledge.
 
 Adding a third pure-Python device later means appending one
 :class:`StandaloneDeviceSpec` here -- no other file needs to change.

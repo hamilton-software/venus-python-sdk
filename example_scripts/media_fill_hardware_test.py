@@ -41,8 +41,8 @@ Sensors are proven both ways by stages 6 and 7 (dry -> wet, wet -> dry); stage 5
 that needs adjusting. Every driver call and firmware query is recorded; --full (the field test)
 fails if one was missed.
 
-Run with no options for a guided run (operator, unit serial, fitted pumps; works from the Hamilton
-Script Manager, whose pop-ups answer the questions), or with options from the SDK folder:
+Run with no options for a guided run (operator, unit serial, fitted pumps), or with options from
+the SDK folder:
 
   python example_scripts\\media_fill_hardware_test.py                                     guided
   python example_scripts\\media_fill_hardware_test.py --simulate --full                   dry run
@@ -54,10 +54,10 @@ Script Manager, whose pop-ups answer the questions), or with options from the SD
 over 60 s to prime; 30 % is nearly inaudible); --speed / --timeout override.
 
 Each run writes a .log, a .json and a readable report (mfm_report_*.txt) to Documents\\MFM Hardware
-Test\\logs (--log-dir to change; a fixed folder, because the Script Manager runs a read-only copy of
-this script). Exit code 0 = PASS, 1 = FAIL, 2 = INCOMPLETE (a requested check was skipped).
+Test\\logs (--log-dir to change). Exit code 0 = PASS, 1 = FAIL, 2 = INCOMPLETE (a requested check
+was skipped).
 
-Part of the Media Fill Module driver; see docs\\media-fill-hardware-notes.md.
+Part of the Media Fill Module driver; see docs\\media_fill_hardware_notes.md.
 """
 
 from __future__ import annotations
@@ -732,7 +732,7 @@ def fmt_sensors(states: dict[int, int]) -> str:
 
 
 def ask_settings() -> list[str]:
-    """No command-line options: a guided run (in the Script Manager these appear as pop-ups)."""
+    """No command-line options: a guided run that asks for each setting."""
 
     ask = Run.ask  # BOM-stripped; a closed stdin reads as "" (= the default / no)
 

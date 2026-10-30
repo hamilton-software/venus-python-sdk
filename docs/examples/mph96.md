@@ -4,6 +4,8 @@ Examples for full-plate and partial operations using the 96-channel multi-probe 
 
 MPH96 commands are rejected with `VenusCommandUnsupportedError` when the instrument configuration does not report an MPH96 head. See [Connect-Time Validation](advanced/instrument_configuration.md#connect-time-validation-from-the-instrument-configuration).
 
+The examples below assume a deck (saved or built in code — see [Deck and Layout](deck_and_layout.md)) with a 96-tip rack in tip pool `"Tips96"` and plates with labware IDs `"SourcePlate"` and `"DestPlate"`. MPH96 aspiration needs a 96-head liquid class (`...96COREHEAD...`), not a 1mL-channel one.
+
 ## Full-Plate Transfer
 
 Full-plate aspirate and dispense with the 96-channel head:
@@ -23,6 +25,26 @@ with StarClient() as star:
     star.dispense_mph96(labware_id="DestPlate", volume=50.0)
     star.tip_eject_mph96()
 ```
+
+## Where the MPH96 Picks Up Tips
+
+The MPH96 picks up a full set of 96 tips from any of these:
+
+| Tip source | Add it with |
+|---|---|
+| Fixed tip rack (96 tips) | `add_tip_rack(..., tip_pool=...)` |
+| Nested tip rack (NTR), single or stacked | `add_ntr(..., stack=N, tip_pool=...)` on `TIP_CAR_NTR` |
+| Tip box | `add_tip_box(..., tip_pool=...)` |
+
+`tip_pick_up_mph96(tip_pool=...)` then takes the next full rack of the pool. The tip counters are set up as for any tip pool (reset in simulation, show them on the instrument).
+
+**Partial pickups** (a subset of columns or rows, see below) from any of these also need a **tip support** on the carrier site, added to the layout first:
+
+```python
+star.add_tip_support(carrier_id="TipCarrier", site="1")
+```
+
+`add_tip_support` has to be in the layout before `tip_pick_up_mph96_partial` can be called. Afterwards `mph96_clear_tip_support(tip_pool=...)` clears a tip support and returns the remaining tips.
 
 ## Partial 96-Channel Pickup
 
@@ -82,8 +104,6 @@ with StarClient() as star:
     )
     star.tip_eject_mph96()
 ```
-
----
 
 ---
 

@@ -20,16 +20,18 @@ This guide covers:
 
 ## Fundamental Concepts
 
-The autoload shuttle slides carriers on and off the deck. Each carrier is identified either by its `carrier_id` (the name given when it was added with `add_carrier()`) or by its deck `track_id` (1-based track number).
+A *carrier* is the rack that sits on the deck and holds plates, tip racks, or tubes in numbered *sites*. The deck is divided into numbered *tracks* (1-based, counted from the left), and a carrier occupies a fixed number of tracks starting at its `left_track`. The autoload shuttle slides carriers on and off the deck. Each carrier is identified either by its `carrier_id` (the `labware_id` you gave it when you added it with `add_carrier()`; see [Deck and Layout](./deck_and_layout.md)) or by its deck `track_id`.
 
-When loading, you can optionally pass `scan_positions` to control how tip rack positions are scanned:
+Carriers must be in the deck layout before you load them. Examples that do not call `add_carrier()` assume the carrier (e.g. `"PlateCarrier1"`) was already added, as in [Load a Carrier by ID](#load-a-carrier-by-id).
 
-| `scan_positions` value | Behaviour |
+When loading, you can optionally pass `scan_positions` to control which barcode positions on the carrier are scanned:
+
+| `scan_positions` value | Behavior |
 |------------------------|-----------|
 | `ScanPositions.DETECTED` (`"?"`) | Scan only positions where tips were detected |
 | `ScanPositions.ALL` (`"*"`) | Scan all positions unconditionally |
 | `ScanPositions.SKIP` (`""`) | Skip scanning entirely |
-| `list[int]` | Scan the explicitly listed position indices |
+| `list[int]` | Scan the explicitly listed 1-based positions |
 
 ---
 
@@ -42,12 +44,12 @@ from hamilton_venus import StarClient
 from hamilton_venus.catalog import LABWARE
 
 with StarClient() as star:
+	star.instrument_init()
 	star.add_carrier(
 		labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
 		left_track=1,
 		labware_id="PlateCarrier1",
 	)
-	star.instrument_init()
 
 	star.autoload_load_carrier_by_id("PlateCarrier1")
 	print("PlateCarrier1 loaded")
@@ -61,12 +63,12 @@ from hamilton_venus.catalog import LABWARE
 from hamilton_venus.models.enums import ScanPositions
 
 with StarClient() as star:
+	star.instrument_init()
 	star.add_carrier(
 		labware_definition=LABWARE.CARRIER.TIP_CAR_480BC,
 		left_track=10,
 		labware_id="TipCarrier1",
 	)
-	star.instrument_init()
 
 	# Load and scan only detected positions
 	star.autoload_load_carrier_by_track(
@@ -126,6 +128,7 @@ from hamilton_venus import StarClient
 with StarClient() as star:
 	star.instrument_init()
 
+	# Assumes a tube carrier added to the layout as "TubeRack1" (e.g. with add_tube_carrier()).
 	result = star.autoload_load_carrier_by_id(
 		"TubeRack1",
 		scan_positions=[1, 2, 3],
@@ -263,12 +266,12 @@ def safe_load_carrier(star: StarClient, carrier_id: str, track_id: int) -> bool:
 
 
 with StarClient() as star:
+	star.instrument_init()
 	star.add_carrier(
 		labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
 		left_track=1,
 		labware_id="PlateCarrier1",
 	)
-	star.instrument_init()
 
 	if safe_load_carrier(star, "PlateCarrier1", track_id=1):
 		print("Ready to proceed with workflow")
@@ -329,7 +332,7 @@ def audit_deck(star: StarClient, expected_occupied: list[int]) -> bool:
 with StarClient() as star:
 	star.instrument_init()
 
-	# Expect carriers on tracks 1, 10, and 20
+	# Expect carriers at sensor tracks 1, 10, and 20 (item.sensor_track, which may differ from left_track)
 	if not audit_deck(star, expected_occupied=[1, 10, 20]):
 		raise RuntimeError("Deck audit failed — correct carrier positions before starting")
 
@@ -357,7 +360,7 @@ with StarClient() as star:
 | Field | Type | Description |
 |-------|------|-------------|
 | `carrier` | `str` | Carrier name at this track |
-| `sensor_track` | `int` | Track number |
+| `sensor_track` | `int` | Track where the sensor reports the carrier (not necessarily its `left_track`) |
 | `sensor_available` | `bool` | Whether occupancy sensor is present for this track |
 | `status` | `bool` | `True` if carrier is detected as present |
 
@@ -365,6 +368,6 @@ with StarClient() as star:
 
 ## See Also
 
-- [`deck-and-layout.md`](./deck-and-layout.md) — Adding carriers to the layout
+- [`deck_and_layout.md`](./deck_and_layout.md) — Adding carriers to the layout
 - [`deck_persistence.md`](./advanced/deck_persistence.md) — Saving and reloading deck layouts
-- [`../star-commands.md`](../star-commands.md) — Full API reference
+- [`../star_commands.md`](../star_commands.md) — Full API reference

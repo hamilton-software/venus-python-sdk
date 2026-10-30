@@ -92,6 +92,50 @@ class _ChannelCommandsBase:
             return value
         return [value] * channel_count
 
+    def _slot_align(
+        self,
+        parameters: dict[str, Any],
+        channels: list[int],
+        *,
+        keys: tuple[str, ...] | None = None,
+    ) -> dict[str, Any]:
+        """Re-index per-channel lists in a wire payload by channel number.
+
+        VENUS reads per-channel arrays by channel slot (``array[channel - 1]``) and
+        zero-pads any array shorter than the installed channel count. The SDK takes
+        lists with one entry per *selected* channel, so each list is scattered into
+        an array with entry ``i`` at slot ``channels[i] - 1``, up to the highest
+        selected channel (VENUS pads the rest); unselected slots get a zero of the
+        entry's type. Scalars are untouched (VENUS broadcasts them), as are
+        ``channels`` and ``positions`` (compact sequences).
+
+        Args:
+            parameters: The dumped wire payload (``model_dump(by_alias=True, ...)``).
+            channels: The selected channel numbers, in the order the lists were given.
+            keys: Only re-index these payload keys. ``None`` re-indexes every list
+                except ``channels`` and ``positions``.
+        """
+        slot_count = max(channels)
+        aligned = dict(parameters)
+        for key, value in parameters.items():
+            if key in ("channels", "positions") or (keys is not None and key not in keys):
+                continue
+            if not isinstance(value, list):
+                continue
+            if any(isinstance(item, float) for item in value):
+                fill: Any = 0.0
+            elif all(isinstance(item, bool) for item in value):
+                fill = False
+            elif all(isinstance(item, str) for item in value):
+                fill = ""
+            else:
+                fill = 0
+            slots = [fill] * slot_count
+            for channel, item in zip(channels, value, strict=True):
+                slots[channel - 1] = item
+            aligned[key] = slots
+        return aligned
+
     def _validate_channel_count(self, channels: list[int]) -> None:
         """Validate that the channel count and channel numbers fit the installed channels.
 
@@ -367,7 +411,7 @@ class _ChannelCommandsBase:
             self._connected_instrument.venus.send_command(
                 category="Instrument",
                 action_name=f"{self._ACTION_PREFIX}.aspirate",
-                parameters=parameters.model_dump(by_alias=True, exclude_none=True),
+                parameters=self._slot_align(parameters.model_dump(by_alias=True, exclude_none=True), channels),
             )
         )
         return ChannelAspirationResponse.model_validate(response.model_dump())
@@ -488,7 +532,7 @@ class _ChannelCommandsBase:
             self._connected_instrument.venus.send_command(
                 category="Instrument",
                 action_name=f"{self._ACTION_PREFIX}.dispense",
-                parameters=parameters.model_dump(by_alias=True, exclude_none=True),
+                parameters=self._slot_align(parameters.model_dump(by_alias=True, exclude_none=True), channels),
             )
         )
         return ChannelDispenseResponse.model_validate(response.model_dump())
@@ -524,6 +568,9 @@ class _ChannelCommandsBase:
                    or cause injury. Using this token waives vendor liability for any
                    resulting damage.
         """
+        channel_list = [channels] if isinstance(channels, int) else list(channels)
+        self._validate_per_channel(y, len(channel_list), "y")
+        self._validate_per_channel(z, len(channel_list), "z")
         parameters = ChannelMoveAxisParameters(
             channels=channels,
             x=x,
@@ -535,7 +582,9 @@ class _ChannelCommandsBase:
             self._connected_instrument.venus.send_command(
                 category="Instrument",
                 action_name=f"{self._ACTION_PREFIX}.moveAxis",
-                parameters=parameters.model_dump(by_alias=True, exclude_none=True),
+                parameters=self._slot_align(
+                    parameters.model_dump(by_alias=True, exclude_none=True), channel_list, keys=("y", "z")
+                ),
             )
         )
         return ChannelMoveAxisResponse.model_validate(response.model_dump(by_alias=True))

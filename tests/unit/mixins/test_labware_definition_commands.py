@@ -138,27 +138,73 @@ class TestLabwareDefinitionCommands:
             return_value=CommandResponse(
                 return_status="Success",
                 return_code=0,
-                return_parameters={},
+                return_parameters={"message": '"MyImportedPlate" added', "definition": {"labwareClass": "plate"}},
             )
         )
 
         with StarClient(config) as client:
             result = client.labware_definition_import_definition(
                 labware_path=r"C:\Labware\MyRack.rck",
-                labware_type=LabwareType.PLATE,
                 labware_name="MyImportedPlate",
             )
 
         assert result.success is True
+        assert result.return_parameters.definition == {"labwareClass": "plate"}
+        assert result.return_parameters.labware_name == "MyImportedPlate"
+        assert result.return_parameters.models is None  # no .x / .hxx models to convert
+        # VENUS works out the labware type from the file: no labwareType is sent any more.
         star.venus.send_command.assert_awaited_once_with(
             category="System",
             action_name="labware.importLabwareDefinition",
             parameters={
                 "labwareDefinition": "MyImportedPlate",
                 "labwarePath": r"C:\Labware\MyRack.rck",
-                "labwareType": "plate",
             },
         )
+
+    def test_labware_import_definition_reads_back_a_definition_venus_did_not_send(self, config, mock_async_star_class):
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(side_effect=[
+            CommandResponse(return_status="Success", return_code=0, return_parameters={"message": "added"}),
+            CommandResponse(return_status="Success", return_code=0,
+                            return_parameters={"definition": {"labwareClass": "reservoir"}}),
+        ])
+
+        with StarClient(config) as client:
+            result = client.labware_definition_import_definition(r"C:\Labware\Trough.rck")
+
+        assert result.return_parameters.definition == {"labwareClass": "reservoir"}
+        read_back = star.venus.send_command.await_args_list[1].kwargs
+        assert read_back["action_name"] == "labware.getLabwareDefinition"
+        assert read_back["parameters"] == {"labwareDefinition": "Trough"}
+
+    def test_labware_import_definition_refuses_the_old_labware_type(self, config, mock_async_star_class):
+        with StarClient(config) as client, pytest.raises(TypeError, match="no longer takes a labware type"):
+            client.labware_definition_import_definition(r"C:\Labware\MyRack.rck", LabwareType.PLATE)
+
+    def test_labware_import_definition_converts_models(self, config, mock_async_star_class, tmp_path, monkeypatch):
+        from hamilton_venus.mixins import labware_definition_commands as module
+        from hamilton_venus.models import ModelConversionReport
+
+        star = mock_async_star_class.return_value
+        imported = {"customAttributes": {"hamilton:container_visual": {"modelRef": "rack.hxx"}}}
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(return_status="Success", return_code=0,
+                                         return_parameters={"message": "added", "definition": imported})
+        )
+        converted = {"customAttributes": {"hamilton:container_visual": {"modelRef": "rack.gltf"}}}
+        monkeypatch.setattr(module, "convert_definition_models",
+                            lambda definition, source_file: (converted, ModelConversionReport(converted=["rack.hxx"])))
+
+        with StarClient(config) as client:
+            result = client.labware_definition_import_definition(r"C:\Labware\MyRack.rck")
+
+        assert result.return_parameters.definition == converted
+        assert result.return_parameters.models.converted == ["rack.hxx"]
+        assert result.return_parameters.models.definition_updated is True
+        update = star.venus.send_command.await_args_list[-1].kwargs
+        assert update["action_name"] == "labware.updateLabwareDefinition"
+        assert update["parameters"]["labwareDefinition"] == "MyRack"  # the file name when none is given
 
     def test_labware_update_definition(self, config, mock_async_star_class):
         star = mock_async_star_class.return_value

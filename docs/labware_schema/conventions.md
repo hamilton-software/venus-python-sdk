@@ -1,10 +1,10 @@
-# Conventions for the Hamilton MicrolabAPI Labware Schema
+# Conventions for the Hamilton Labware Schema
 
 ## 1. Purpose and scope
 
-This document records the recommended values for the open-vocabulary fields in the Hamilton MicrolabAPI labware schema (`urn:hamilton:schemas:microlab:labware:v1`). The schema enforces shape (snake_case, optional publisher prefix, length bounds); it does not enforce vocabulary. Authors who follow these recommendations get consistent metadata across the catalog and predictable behavior from consumers that key off these values. Authors who need values that are not listed here use the same snake_case pattern under their own publisher namespace.
+This document records the recommended values for the open-vocabulary fields in the Hamilton labware schema (`urn:hamilton:schemas:microlab:labware:v1`). The schema enforces shape (snake_case, optional publisher prefix, length bounds); it does not enforce vocabulary. Authors who follow these recommendations get consistent metadata across the catalog and predictable behavior from consumers that key off these values. Authors who need values that are not listed here use the same snake_case pattern under their own publisher namespace.
 
-This document is non-normative. Conformance is by author discipline, supported by linting in authoring tools. This document, the schema, and the examples are self-contained for authoring against the schema.
+This document is non-normative. Conformance is by author discipline, supported by linting in authoring tools. This document and the schema are self-contained for authoring against the schema. In this SDK, labware definitions are produced by `hamilton_venus.labware_builder` and sent to VENUS with `StarClient.labware_add_definition`.
 
 The document is living. New entries are added by pull request and require no schema-version change.
 
@@ -13,7 +13,7 @@ The document is living. New entries are added by pull request and require no sch
 The schema uses two distinct conventions, by surface:
 
 - **JSON property names (keys)** follow **camelCase**: `displayName`, `schemaVersion`, `containerGrids`, `tipRack`, `customAttributes`. This matches .NET HTTP/JSON serialization defaults (`System.Text.Json` produces camelCase keys), so the schema interoperates cleanly with the .NET-based API surface and its generated clients.
-- **String values in open-vocabulary fields** follow **snake_case**: `labwareClass: "tip_rack"`, `mountKind: "robot_wrist"`, `material: "stainless_steel"`, `kind: "barcode_reader"`, tag values like `deep_well`, alignment names like `sbs_rim`. This matches existing Hamilton vocabulary (VENUS / InstinctV / MLPrep use these forms), the lab-automation peer ecosystem (pyLabRobot, Opentrons), and reads better at a glance for multi-word identifiers (`cyclo_olefin` over `cycloOlefin`).
+- **String values in open-vocabulary fields** follow **snake_case**: `labwareClass: "tip_rack"`, `mountKind: "robot_wrist"`, `material: "stainless_steel"`, `kind: "barcode_reader"`, tag values like `deep_well`, alignment names like `sbs_rim`. This matches existing Hamilton vocabulary (Hamilton's VENUS / InstinctV / MLPrep software use these forms), the lab-automation peer ecosystem (pyLabRobot, Opentrons), and reads better at a glance for multi-word identifiers (`cyclo_olefin` over `cycloOlefin`).
 
 The split is intentional: keys are *structure* (the serializer cares) and values are *data* (the serializer doesn't). The two conventions never collide because they apply to different surfaces.
 
@@ -23,7 +23,6 @@ The split is intentional: keys are *structure* (the serializer cares) and values
 |---|---|
 | `probe` | `probe` |
 | `tool` | `tool` |
-| `lid` | `lid` |
 | `assembly` | `assembly` |
 | `tip_rack` | `tipRack` |
 
@@ -32,9 +31,9 @@ Single-word class values match exactly. Multi-word values lose underscores and c
 **Keys inside open keyed maps** (the user-named entries in `containerGrids`, `connectedContainerGroups`, `sites`, `barcodeLocations`, `presenceDetectionZones`, `collisionShapes`, `assembly.components`) follow snake_case. Two styles cover newly-authored labware:
 
 - **Semantic names** for special-purpose entries: `magnet_site`, `lid_park`, `waste_site`, `dispense`, `collection`, `pyramids`, `pool`, `base_center`, `corner_tab`. Pick a name that conveys the entry's role.
-- **Letter-prefix ordinals** for numbered series: `pos_1`, `pos_2`, ..., `pos_10` for carrier positions; `A1`, `B1`, ... for grid containers using SBS-style naming.
+- **Letter-prefix ordinals** for numbered series: `pos_1`, `pos_2`, ..., `pos_10` for carrier positions; `A1`, `B1`, ... for grid containers using SBS-style (ANSI/SLAS microplate standard) naming.
 
-The schema pattern (`^[a-z0-9][a-z0-9_-]*$`) also accepts **bare ordinal numbers** (`1`, `2`, ..., `24`, `96`) — use them only on conversion from VENUS, InstinctV, or MLPrep, to preserve the source labware's original numbering without injecting a `pos_` prefix. See `hamilton_mfx_base_carrier_10pos` and `hamilton_rgt_car_5r60` in the examples for converted bare-number sites. Avoid bare numbers in fresh authoring — letter-first keys are easier to distinguish from numeric values in tooling, and don't trigger JS's numeric-key iteration reordering (numbers-as-keys enumerate first in numerical order, before string keys, regardless of insertion order).
+The schema pattern (`^[a-z0-9][a-z0-9_-]*$`) also accepts **bare ordinal numbers** (`1`, `2`, ..., `24`, `96`) — use them only on conversion from VENUS, InstinctV, or MLPrep, to preserve the source labware's original numbering without injecting a `pos_` prefix. Avoid bare numbers in fresh authoring — letter-first keys are easier to distinguish from numeric values in tooling, and don't trigger JS's numeric-key iteration reordering (numbers-as-keys enumerate first in numerical order, before string keys, regardless of insertion order).
 
 ### 1.2 Naming choices worth knowing
 
@@ -78,7 +77,7 @@ The split is intentional. A vendor's `customAttributes["hamilton:star"]` is Hami
 | `ContainerGrid.iterationOrder` (`column_major \| row_major`) | Determines which physical tip slot maps to linear index N; a wrong value silently mis-orders multi-channel picks. |
 | `ConnectedContainerGroup.connectionTopology` (`base \| side \| full \| merged_above`) | Drives volume-pooling math; an unknown topology has no safe default. |
 | `IntraLabwarePassthrough.mode` / `ContainerPassthrough.mode` (`one_to_one \| one_to_many \| many_to_one \| mapped`) | Drives volume distribution logic; unknown mode cannot be skipped. |
-| Opening/container shape enums (`OpeningDimensions.shape`, `InferredShape.shape`, `Solid3D.type`) | Drive volume-integral geometry; an unknown shape type cannot be approximated. |
+| Opening/container shape enums (`openingDimensions.shape`, `inferredFromShape.shape`, `Solid3D.type`) | Drive volume-integral geometry; an unknown shape type cannot be approximated. |
 
 **Open-vocabulary fields** — the schema enforces the snake_case pattern only; recommended values are listed here so the catalog stays consistent, but consumers must not reject unrecognized values:
 
@@ -121,7 +120,7 @@ A single- or multi-chamber liquid container — troughs, waste reservoirs, divid
 
 ### 2.6 probe
 
-A channel-mounted tip or needle (disposable or reusable). Pick this value when authoring a tip or needle definition that will be referenced from a `tip_rack` container's `contentsRef`. Requires the `probe` block, which carries public physical fields (collar height, length, LLD support, mount interface); the tip's proprietary internal geometry is not modeled.
+A channel-mounted tip or needle (disposable or reusable). Pick this value when authoring a tip or needle definition that will be referenced from a `tip_rack` container's `contentsRef`. Requires the `probe` block, which carries public physical fields (collar height, length, liquid-level detection (LLD) support, mount interface); the tip's proprietary internal geometry is not modeled.
 
 ### 2.7 tool
 
@@ -259,7 +258,7 @@ Because the name *is* the gate, it identifies a specific mating **interface**, n
 
 The subsections below describe the common mating **mechanisms** that an interface name names an instance of. The mechanism guides the offset and the contact geometry; the name records *which* interface it is. A part that can seat more than one way declares one feature per mechanism, and the **greatest-resting-Z** rule picks whichever contacts first.
 
-**Converted definitions: what counts as an alignment.** Legacy VENUS / InstinctV / MLPrep definitions carry several kinds of "alignment" data, and the converted examples reflect a single test: *does the entry name a physical mating surface present on this item?* A surface that mates — a rim seat, a module pin — becomes an alignment feature or receptacle with its measured offset. An entry that names software behavior rather than a surface — a site-alignment profile selector (`Framed`, `SingleNTR`, `HHS1Adapter`), a per-adapter rule configuration (`HHC_67391_02`), an alignment-rule parameter (`zOffsetBetweenAlignmentSurfaces`) — is preserved under the owning publisher's `customAttributes` namespace instead: the typed-rule layer those entries configure is deliberately not part of the alignment contract. Deck-layout-editor facts (snap and boundary flags) are dropped entirely — no runtime consumes them. The `mlprep_mfx_hhc_module` example shows the split in one file.
+**Converted definitions: what counts as an alignment.** Legacy VENUS / InstinctV / MLPrep definitions carry several kinds of "alignment" data, and conversion applies a single test: *does the entry name a physical mating surface present on this item?* A surface that mates — a rim seat, a module pin — becomes an alignment feature or receptacle with its measured offset. An entry that names software behavior rather than a surface — a site-alignment profile selector (`Framed`, `SingleNTR`, `HHS1Adapter`), a per-adapter rule configuration (`HHC_67391_02`), an alignment-rule parameter (`zOffsetBetweenAlignmentSurfaces`) — is preserved under the owning publisher's `customAttributes` namespace instead: the typed-rule layer those entries configure is deliberately not part of the alignment contract. Deck-layout-editor facts (snap and boundary flags) are dropped entirely — no runtime consumes them.
 
 ### 5.1 Flat surface
 
@@ -273,7 +272,7 @@ The part's outer rim or skirt drops onto a recessed ledge that locates it by its
 
 The part rests on a raised central feature on the support rather than on its own rim — the feature contacts the container bases or underside and lifts the part off the carrier surface, which improves capacitive liquid-level detection and bottom-of-well pipetting. The `offset.z` is the height of the surface that rests on the raised feature.
 
-Nest seating — a single raised center — is not the PCR-plate case: the catalog's skirted PCR plates (`biorad_hardshell_96_pcr`, `corning_384_pcr_plate`) seat by `sbs_rim` on a carrier and, on a thermal block, drop into it by their wells. That distributed per-well contact is a different geometry a single nest cannot capture — the well-cradle mechanism (§5.7), which those plates also declare.
+Nest seating — a single raised center — is not the PCR-plate case: skirted PCR plates seat by `sbs_rim` on a carrier and, on a thermal block, drop into it by their wells. That distributed per-well contact is a different geometry a single nest cannot capture — the well-cradle mechanism (§5.7), which such plates also declare.
 
 A part that can seat either on its rim or on a raised center declares both an `sbs_rim` feature and a nest feature (e.g. `sbs_nest`). Which one actually rests depends on the specific support — whether the part's container-base-to-rim distance exceeds the support's raised-center height decides which surface contacts first. The runtime resolves this per placement by greatest resting Z, so one definition seats on its rim on one carrier and on its container bases on another, with no per-carrier variant.
 
@@ -291,7 +290,7 @@ Flexible projections — clips or tabs — on one side snap into matching recess
 
 ### 5.7 Well cradle
 
-A plate seats by its array of wells dropping into a matching array of pockets the support presents — a thermocycler-style cooling or heating block milled to cradle every well (`pcr96_well_cradle`). Unlike a nest (a single raised center) or a rim seat (the perimeter skirt), the locating contact is distributed across the whole well array, so the plate is held by its underside cone geometry rather than by its rim. The placed plate's `offset.z` is where its wells bottom out, and the detailed pocket array stays in the support's `visualModel`, not in the alignment. The `hamilton_mfx_pcr96_cooling_module` is the receiving side; `hamilton_pcr_plate_96_200ul` and `biorad_hardshell_96_pcr` carry the matching `pcr96_well_cradle` feature. A plate that can also seat by its skirt declares both `sbs_rim` and the well-cradle name, leaving the runtime to resolve which contacts first (§5.3). The name is density-specific so a 96-well plate never false-matches a 384 block: `corning_384_pcr_plate` carries `pcr384_well_cradle`. A receiving block example exists today only at the 96 density — the `pcr384_well_cradle` feature names the interface ahead of the block that will mate it.
+A plate seats by its array of wells dropping into a matching array of pockets the support presents — a thermocycler-style cooling or heating block milled to cradle every well (`pcr96_well_cradle`). Unlike a nest (a single raised center) or a rim seat (the perimeter skirt), the locating contact is distributed across the whole well array, so the plate is held by its underside cone geometry rather than by its rim. The placed plate's `offset.z` is where its wells bottom out, and the detailed pocket array stays in the support's `visualModel`, not in the alignment. The cooling block is the receiving side; a 96-well PCR plate carries the matching `pcr96_well_cradle` feature. A plate that can also seat by its skirt declares both `sbs_rim` and the well-cradle name, leaving the runtime to resolve which contacts first (§5.3). The name is density-specific so a 96-well plate never false-matches a 384 block: a 384-well PCR plate carries `pcr384_well_cradle`.
 
 ### 5.8 Self-stacking: the `selfStack` shorthand
 
@@ -299,7 +298,7 @@ Same-definition stacking — a plate resting on an identical plate in a stacker 
 
 ### 5.9 Occupant seating in a container position
 
-A tip or tube that rests on a container's floor needs no alignment: `contentsRef` plus the grid geometry (`firstContainerCenter.z`) locates it. When the occupant instead hangs — a tip on its collar shoulder — or is biased to one side by a leaf-spring, declare an `alignmentReceptacles` array on the `ContainerDefinition` and a matching `alignmentFeature` on the occupant. The offsets are relative to the cavity floor, and where several occupants seat differently in the same position the greatest-resting-Z rule picks the contact.
+A tip or tube that rests on a container's floor needs no alignment: `contentsRef` plus the grid geometry (`firstContainerCenter.z`) locates it. When the occupant instead hangs — a tip on its collar shoulder — or is biased to one side by a leaf-spring, declare an `alignmentReceptacles` array on the `ContainerDefinition` and a matching `alignmentFeatures` entry on the occupant. The offsets are relative to the cavity floor, and where several occupants seat differently in the same position the greatest-resting-Z rule picks the contact.
 
 Every alignment — whatever its name — carries the same shape: a `name` plus an `offset`, with no per-type geometric fields. Matching is by name; a custom name's physical meaning is documented under your publisher namespace.
 
@@ -324,7 +323,7 @@ The publisher portion of a two-segment key — a labware `id`, a per-instrument 
 | Publisher | Status |
 |---|---|
 | `hamilton` | Publisher-locked: only Hamilton-signed definitions may use it. |
-| `mlapi` | Reserved for MicrolabAPI (built-in kinds, validators, runtime extensions, and metadata such as `mlapi:discovery`). Authors do not register labware or `customAttributes` under it. |
+| `mlapi` | Reserved for Hamilton built-in kinds, validators, runtime extensions, and metadata such as `mlapi:discovery`. Authors do not register labware or `customAttributes` under it. |
 
 ### 7.1 `mlapi:discovery`
 
@@ -341,7 +340,7 @@ The publisher portion of a two-segment key — a labware `id`, a per-instrument 
 }
 ```
 
-The namespace owner (the MicrolabAPI project) maintains this value shape. It is recorded here so the convention has one authoritative home.
+The namespace owner (Hamilton) maintains this value shape. It is recorded here so the convention has one authoritative home.
 
 ### 7.2 Instrument concepts (`gripPoints` keys)
 
@@ -371,7 +370,7 @@ Positions are expressed in the labware coordinate frame, whose origin is the **l
 | | `presenceDetectionZones[].center` |
 | | `gripPoints[].center` |
 
-Sites are center-anchored, not corner-anchored, for consistency: a site is the labware-level analog of a container position — both are "a child seats here, carrying its own alignment receptacles" — and a container position is already anchored at its center (`firstContainerCenter`). Center anchoring also keeps `rotationZ` coherent (a rotated site or receptacle pivots about its center, so the origin *is* the pivot) and gives authors one model. Engineering drawings and prior systems vary — some dimension a site to its center, others to a corner or edge. VENUS, for example, locates a carrier's sites by the site's front-left corner (a five-position plate carrier dimensions its site corners at 96 mm pitch), so converting a VENUS site to a MicrolabAPI `origin` adds half the footprint once to reach the center — even though the labware *frame* itself is the same left-front-bottom corner in both systems. The same half-footprint step applies to any corner- or edge-dimensioned drawing.
+Sites are center-anchored, not corner-anchored, for consistency: a site is the labware-level analog of a container position — both are "a child seats here, carrying its own alignment receptacles" — and a container position is already anchored at its center (`firstContainerCenter`). Center anchoring also keeps `rotationZ` coherent (a rotated site or receptacle pivots about its center, so the origin *is* the pivot) and gives authors one model. Engineering drawings and prior systems vary — some dimension a site to its center, others to a corner or edge. VENUS, for example, locates a carrier's sites by the site's front-left corner (a five-position plate carrier dimensions its site corners at 96 mm pitch), so converting a VENUS site to a labware-schema site `origin` adds half the footprint once to reach the center — even though the labware *frame* itself is the same left-front-bottom corner in both systems. The same half-footprint step applies to any corner- or edge-dimensioned drawing.
 
 A barcode is the one location that is neither: `barcodeLocations[].zone` places a label rectangle by its `origin` + `width`/`height` in the face's own u/v plane.
 

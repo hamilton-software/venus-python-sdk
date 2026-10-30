@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 10/20/2026 10:15:15 PM
+// Generated at 10/27/2026 6:18:15 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -46,6 +46,7 @@ function IsCarrierPortrait( variable i_strCarrier ) variable {  return (0); }
 function IsSiteUsed( variable i_strCarrier, variable i_strSite ) variable {  return (0); }
 function IsTop( variable i_strLabware, variable i_strCarrier, variable i_strSite ) variable {  return (0); }
 function IsTrackRangeAvailable( variable i_intTrack, variable i_intWidth ) variable {  return (0); }
+function IsTrackRangeAvailable_Move( variable i_strCarrier, variable i_intTrack, variable i_intWidth ) variable {  return (0); }
 function IsWasteLocation( variable i_strLabware ) variable {  return (0); }
 function MakeLabwareInvisible( device & Device, variable i_strLabwareID ) void { }
 function MakeLabwareVisible( device & Device, variable i_strLabwareID ) void { }
@@ -61,4 +62,4 @@ function UpdateCarrierTrack( variable i_strCarrier, variable i_intNewTrack ) voi
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-10-20 22:15$$checksum=09b0f29f$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-27 18:18$$checksum=0bb0a278$$length=083$$

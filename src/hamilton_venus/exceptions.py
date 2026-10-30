@@ -44,6 +44,12 @@ class LiquidClassPushError(VenusError):
     this session). Fix the liquid class JSON; the command was not sent."""
 
 
+class LiquidClassMismatchError(VenusError):
+    """Raised before sending a pipetting command whose liquid class is made for another
+    pipetting device (e.g. a MagPip class on the 1 mL channels) or for the other instrument.
+    ``find_liquid_classes`` lists the classes that fit; the command was not sent."""
+
+
 class LabwareTiltedError(VenusError):
     """Raised before sending a transport command for labware that ``tilt_labware``
     has tilted. Tilt it back with ``tilt_labware(labware_name, 0)`` first."""

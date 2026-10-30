@@ -514,24 +514,33 @@ class TestDeckLabwareCommands:
 
     def test_add_tubes_to_carrier(self, config, mock_async_star_class):
         star = mock_async_star_class.return_value
-        star.venus.send_command = AsyncMock(
-            return_value=CommandResponse(
-                return_status="Success",
-                return_code=0,
-                return_parameters={
-                    "positions": [
-                        {"position": "1", "x": 100.0, "y": 200.0, "z": 245.0},
-                        {"position": "2", "x": 110.0, "y": 200.0, "z": 245.0},
-                    ]
+        carrier_definition = CommandResponse(
+            return_status="Success",
+            return_code=0,
+            return_parameters={
+                "labwareName": "tubecarrier1",
+                "definition": {
+                    "containerGrids": {"default": {"firstContainerCenter": {"x": 13.5, "y": 17.0, "z": 10.0}}},
                 },
-            )
+            },
         )
+        added = CommandResponse(
+            return_status="Success",
+            return_code=0,
+            return_parameters={
+                "positions": [
+                    {"position": "1", "x": 100.0, "y": 200.0, "z": 245.0},
+                    {"position": "2", "x": 110.0, "y": 200.0, "z": 245.0},
+                ]
+            },
+        )
+        star.venus.send_command = AsyncMock(side_effect=[carrier_definition, added])
 
         with StarClient(config) as client:
             result = client.add_tubes_to_carrier(
                 labware_name="TubeCarrier1",
                 positions=[
-                    {"position": "1", "tube": "Tube_1", "zOffset": 10.0},
+                    {"position": "1", "tube": "Tube_1", "zOffset": 15.0},
                     {"position": "2", "tube": "Tube_2"},
                 ],
             )
@@ -542,29 +551,20 @@ class TestDeckLabwareCommands:
         assert result.return_parameters.positions[0].position == "1"
         assert result.return_parameters.positions[0].x == 100.0
         assert result.return_parameters.positions[1].position == "2"
-        star.venus.send_command.assert_awaited_once_with(
+        # Tube 2 has no zOffset: it sits where the carrier's own tubes do (10 mm), not on the
+        # carrier base (0); tube 1 keeps its explicit 15 mm.
+        star.venus.send_command.assert_awaited_with(
             category="Deck Layout",
             action_name="labware.addTubesToCarrier",
             parameters={
                 "labwareName": "TubeCarrier1",
                 "positions": [
-                    {
-                        "position": "1",
-                        "tube": "Tube_1",
-                        "xOffset": 0.0,
-                        "yOffset": 0.0,
-                        "zOffset": 10.0,
-                    },
-                    {
-                        "position": "2",
-                        "tube": "Tube_2",
-                        "xOffset": 0.0,
-                        "yOffset": 0.0,
-                        "zOffset": 0.0,
-                    },
+                    {"position": "1", "tube": "Tube_1", "xOffset": 0.0, "yOffset": 0.0, "zOffset": 15.0},
+                    {"position": "2", "tube": "Tube_2", "xOffset": 0.0, "yOffset": 0.0, "zOffset": 10.0},
                 ],
             },
         )
+        assert star.venus.send_command.await_args_list[0].kwargs["action_name"] == "labware.getLabwareParamsFromID"
 
 
 class _DeckLabwareClient(DeckLabwareCommandsMixin):

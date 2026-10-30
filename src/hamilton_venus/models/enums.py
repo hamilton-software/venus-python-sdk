@@ -253,12 +253,11 @@ class EjectMode(Enum):
 
 
 class LabwareType(StrEnum):
-    """Labware category required when importing a labware definition from a file.
-
-    Passed as the ``labwareType`` wire parameter for
-    ``labware.importLabwareDefinition``. Values mirror the enum returned by
-    ``labware.getLabwareTypes`` (see
+    """Labware categories, as ``labware.getLabwareTypes`` reports them (see
     ``docs/json_schemas_System.md``).
+
+    No longer passed to ``labware.importLabwareDefinition``: VENUS works out the type from
+    the imported file itself.
     """
 
     ADAPTER = "adapter"

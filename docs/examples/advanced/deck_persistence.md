@@ -43,6 +43,7 @@ from hamilton_venus import StarClient
 from hamilton_venus.catalog import LABWARE
 
 with StarClient() as star:
+    star.instrument_init()
     # Set up complex layout
     star.add_carrier(
         labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
@@ -88,14 +89,14 @@ with StarClient() as star:
 
 ### Load the Last-Used Deck
 
-Load the instrument's previous configuration:
+Load the instrument's previous configuration (omit `deck_name` when `previous=True`):
 
 ```python
 from hamilton_venus import StarClient
 
 with StarClient() as star:
     # Load the previously used deck
-    star.deck_load(deck_name="LastDeck", previous=True)
+    star.deck_load(previous=True)
     print("Last-used deck layout loaded")
 ```
 
@@ -105,8 +106,10 @@ Replace an existing saved layout:
 
 ```python
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LABWARE
 
-with StarClient() as star:
+with StarClient(deck_name="MyDeckLayout") as star:
+    star.instrument_init()
     # Modified layout
     star.add_carrier(
         labware_definition=LABWARE.CARRIER.TIP_CAR_480BC,
@@ -128,6 +131,7 @@ with StarClient() as star:
 ```python
 import logging
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LABWARE
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -197,7 +201,7 @@ def setup_liquid_transfer_deck(star):
         labware_id="TipCarrier1",
     )
     star.add_tip_rack(
-        labware_definition="Tips_1000uL",
+        labware_definition=LABWARE.TIP_RACK.TIP_RACK_1000UL,
         carrier_id="TipCarrier1",
         site="1",
         tip_pool="TransferTips",
@@ -224,13 +228,13 @@ def setup_liquid_transfer_deck(star):
 def setup_mph96_deck(star):
     """Deck for 96-channel head operations."""
     star.add_carrier(
-        labware_definition="TIP_CAR_960BC_A00",
+        labware_definition=LABWARE.CARRIER.TIP_CAR_480BC,
         left_track=1,
         labware_id="TipCarrier96",
     )
     star.add_tip_rack(
         tip_pool="Tips96",
-        labware_definition="Tips96_1000uL",
+        labware_definition=LABWARE.TIP_RACK.TIP_RACK_1000UL,
         carrier_id="TipCarrier96",
         site="1",
     )
@@ -247,13 +251,18 @@ def setup_mph96_deck(star):
     )
 
 
-# Usage
+# Usage -- create each template in its own session so it starts from an empty deck
 with StarClient() as star:
+    star.instrument_init()
+    DeckTemplate(star).create_template("LiquidTransfer", setup_liquid_transfer_deck)
+
+with StarClient() as star:
+    star.instrument_init()
+    DeckTemplate(star).create_template("MPH96Ops", setup_mph96_deck)
+
+with StarClient() as star:
+    star.instrument_init()
     manager = DeckTemplate(star)
-    
-    # Create templates
-    manager.create_template("LiquidTransfer", setup_liquid_transfer_deck)
-    manager.create_template("MPH96Ops", setup_mph96_deck)
     
     # List available
     templates = manager.list_available_templates()
@@ -274,6 +283,7 @@ with StarClient() as star:
 import logging
 from datetime import datetime
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LABWARE
 
 logger = logging.getLogger(__name__)
 
@@ -339,8 +349,9 @@ class VersionedDeckLayout:
             return False
 
 
-# Usage
-with StarClient() as star:
+# Usage -- starts from the layout saved in "Save a Deck Layout" (PlateCarrier1, site 1 used)
+with StarClient(deck_name="MyDeckLayout") as star:
+    star.instrument_init()
     manager = VersionedDeckLayout(star)
     
     # Make changes and save versioned
@@ -349,9 +360,9 @@ with StarClient() as star:
     
     # Make more changes
     star.add_reservoir(
-        labware_definition="RES_CAR_8x100ml",
+        labware_definition=LABWARE.RESERVOIR.HAM_DW_RGT_96,
         carrier_id="PlateCarrier1",
-        site="1",
+        site="2",
         labware_id="Reservoir1",
     )
     v2 = manager.save_versioned("ProductionLayout")
@@ -406,12 +417,20 @@ class DeckLayoutValidator:
         }
         
         try:
-            # Check carriers
-            carriers = self.star.get_added_carriers()
-            plates = self.star.get_added_plates()
-            tip_racks = self.star.get_added_tip_racks()
+            carriers = self.star.get_added_carriers().return_parameters.carriers_added
+            plates = self.star.get_added_plates().return_parameters.plates_added
+            tip_racks = self.star.get_added_tip_racks().return_parameters.tip_racks_added
+            results["carriers"] = len(carriers)
+            results["plates"] = plates
             results["tips"] = tip_racks
-            
+
+            if len(carriers) < requirements.get("min_carriers", 0):
+                results["errors"].append(f"Expected at least {requirements['min_carriers']} carriers")
+            missing_plates = [p for p in requirements.get("required_plates", []) if p not in plates]
+            if missing_plates:
+                results["errors"].append(f"Missing plates: {missing_plates}")
+            results["valid"] = not results["errors"]
+
             return results
             
         except Exception as e:
@@ -469,11 +488,12 @@ with StarClient() as star:
 
 ```python
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LABWARE
 
 def switch_to_previous_deck(star):
     """Switch to the previously used deck layout."""
     try:
-        star.deck_load(deck_name="PreviousDeck", previous=True)
+        star.deck_load(previous=True)
         print("Switched to previous deck layout")
         return True
     except Exception as e:
@@ -502,6 +522,7 @@ def create_new_deck(star):
 
 # Usage
 with StarClient() as star:
+    star.instrument_init()
     # Create and save new layout
     create_new_deck(star)
     
@@ -519,6 +540,7 @@ with StarClient() as star:
 from hamilton_venus import StarClient
 
 with StarClient() as star:
+    star.instrument_init()
     # Complex setup
     star.add_carrier(...)
     star.add_tip_rack(...)
@@ -568,8 +590,8 @@ with StarClient() as star:
     star.deck_load(deck_name="MyLayout")
     
     # Verify it has what we expect
-    carriers = star.get_added_carriers()
-    plates = star.get_added_plates()
+    carriers = star.get_added_carriers().return_parameters.carriers_added
+    plates = star.get_added_plates().return_parameters.plates_added
     
     assert len(carriers) > 0, "No carriers in layout"
     assert len(plates) > 0, "No plates in layout"
@@ -648,6 +670,6 @@ with StarClient() as star:
 
 - [`gripper_operations.md`](./gripper_operations.md) — Setting up grippers in layouts
 - [`transport_workflows.md`](./transport_workflows.md) — Using saved layouts for transport
-- [`star-commands.md`](../../star-commands.md) — Full API reference
+- [`star_commands.md`](../../star_commands.md) — Full API reference
 - [Basic examples](../) — Basic examples
 

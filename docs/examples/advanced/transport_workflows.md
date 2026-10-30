@@ -4,7 +4,7 @@ Comprehensive guide for advanced transport workflows using both CO-RE grippers a
 
 ## Overview
 
-The transport system allows you to move plates between locations using various gripper types. This guide covers:
+The transport system allows you to move plates between locations using various gripper types: the CO-RE gripper (a pair of grip tools picked up by two pipetting channels; the QCG is its Fluid Motion counterpart) and the iSWAP (a dedicated plate-handling arm). This guide covers:
 
 **CO-RE Gripper Workflows:**
 - Basic transport operations
@@ -19,6 +19,8 @@ The transport system allows you to move plates between locations using various g
 - Batch transport operations
 
 For basic examples, see [`../transport.md`](../transport.md).
+
+**Prerequisites:** the examples assume the plates and carriers they name are already on the deck and, for CO-RE examples, that a gripper tool was added to the layout (for example `star.add_1ml_core_grip()`). See [`../transport.md`](../transport.md) and [Gripper Operations](./gripper_operations.md) for setup.
 
 > **Note:** The `grip_width` and `grip_open` parameters are optional. If not specified, they will be automatically calculated by the server based on the labware being transported. This makes examples cleaner and easier to read while maintaining full control when needed.
 
@@ -105,15 +107,15 @@ with StarClient() as star:
 
 ### New Mode: Place Plate in New Location (Don't Track Original)
 
-Move a plate permanently to a new location without tracking the original:
+Place a held plate at a new carrier site instead of its original location. `carrier` and `site` are required with `mode="new"`:
 
 ```python
 from hamilton_venus import StarClient
 
 with StarClient() as star:
     star.instrument_init()
-    # Move plate to new carrier, abandon tracking of original position
-    star.core_transport_return_plate(mode="new")
+    # Place the held plate on a new carrier site, abandon tracking of original position
+    star.core_transport_return_plate(mode="new", carrier="DestCarrier", site="1")
     print("Plate placed in new location, tracking cleared")
 ```
 
@@ -695,6 +697,6 @@ with StarClient() as star:
 - [`../transport.md`](../transport.md) — Basic CO-RE and iSWAP transport examples
 - [`liquid_class_management.md`](./liquid_class_management.md) — Managing liquid handling parameters
 - [`gripper_operations.md`](./gripper_operations.md) — Gripper setup and layout management
-- [`star-commands.md`](../../star-commands.md) — Full API reference
+- [`star_commands.md`](../../star_commands.md) — Full API reference
 - [Basic examples](../) — Basic examples
 

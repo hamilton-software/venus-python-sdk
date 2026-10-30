@@ -74,8 +74,8 @@ class TestSurface:
         assert FromDevices is MediaFillClient
         assert MediaFillCommandsMixin is MediaFillDeviceCommands
 
-    def test_workflow_style_construction(self):
-        # hamilton_workflow_framework / codegen build clients as cls(simulate=...)
+    def test_simulate_keyword_construction(self):
+        # Clients can be built generically as cls(simulate=...)
         client = MediaFillClient(simulate=True)
         assert client._simulate is True
 
@@ -158,7 +158,7 @@ class TestClientFlows:
             assert mfm.media_fill_get_pump_direction(2).return_parameters.direction == 1
             mfm.media_fill_set_pump_direction(2, 0)
             assert mfm.media_fill_get_pump_direction(2).return_parameters.direction == 0
-            mfm.media_fill_set_pump_direction(2, "1")  # e.g. a JSON string from the MCP server
+            mfm.media_fill_set_pump_direction(2, "1")  # e.g. a value parsed from JSON
             assert mfm.media_fill_get_pump_direction(2).return_parameters.direction == 1
             with pytest.raises(MediaFillError, match=re.escape(mf.VENDOR_BAD_DIRECTION)):
                 mfm.media_fill_set_pump_direction(2, 2)  # passed through; the vendor object rejects it

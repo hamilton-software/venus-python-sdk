@@ -22,7 +22,10 @@ All coordinates are **needle-tip coordinates in mm**.
 ```python
 from hamilton_venus import StarClient, TeachingError
 
-with StarClient() as star:
+# "MyTeachingDeck" is a saved deck containing the needle rack, carrier
+# "PltCar_1" and plate "Plate_1" on site 1; use your own names.
+with StarClient(deck_name="MyTeachingDeck") as star:
+    star.instrument_init()
     star.teaching_pickup_needle()
     try:
         result = star.teach_well("Plate_1", "D6", register=True, carrier="PltCar_1", site=1)
@@ -79,7 +82,8 @@ with StarClient() as star:
    `carrier`/`site` in `TaughtLocations.json`, using `register_taught_position`.
    VENUS reads a taught position as the coordinates of the labware's first position,
    not its origin. It applies it as a labware shift the next time the plate is added
-   to that carrier site (see *Taught Location Commands* in the command reference);
+   to that carrier site (see *Taught Location Commands* in the command reference:
+   [STAR](star_commands.md#taught-location-commands), [Vantage](vantage_commands.md#taught-location-commands));
    a plate already on the deck does not move until it is added again. The file is
    cleared when a new session connects, so to keep the taught position, `deck_save`
    the deck and start later sessions with `deck_name=...`.
@@ -119,7 +123,7 @@ the bottom search. `TeachingError.status` holds the search result.
 
 Build your own teaching flow (reservoirs, tube racks, a calibration routine) from the
 single commands. They are listed in the command reference under *Teaching Commands*
-([STAR](star-commands.md), [Vantage](vantage-commands.md)). Their request and response
-JSON is in [JSON Schemas — System](json_schemas_System.md#teaching). The arithmetic
+([STAR](star_commands.md), [Vantage](vantage_commands.md)). Their request and response
+JSON is in [JSON Schemas — System](json_schemas_system.md#teaching). The arithmetic
 helpers `wall_center`, `wall_search_heights`, `bottom_search_window` and
 `well_widths_from_definition` are in `hamilton_venus.teaching`.

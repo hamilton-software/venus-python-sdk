@@ -113,7 +113,12 @@ class DeckStatusCommandsMixin:
         return self._parse_response(OccupiedTracksResponse, response)
 
     def get_available_carrier_sites(self, carrier: str) -> CarrierSitesResponse:
-        """Return the available (empty) sites on the specified carrier."""
+        """Return the available (empty) sites on the specified carrier.
+
+        For carriers with sites (plate, reservoir, tip carriers). A sample tube carrier has no
+        sites -- its tubes are part of the rack -- so this returns nothing for one; use
+        ``get_labware_coordinates(carrier)`` (every tube position) or ``get_labware_spec(carrier)``.
+        """
         parameters = LayoutCarrierParameters(carrier=carrier)
         response = self._run(
             self._connected_instrument.venus.send_command(
@@ -125,7 +130,12 @@ class DeckStatusCommandsMixin:
         return self._parse_response(CarrierSitesResponse, response)
 
     def get_occupied_carrier_sites(self, carrier: str) -> CarrierSitesResponse:
-        """Return the occupied sites on the specified carrier."""
+        """Return the occupied sites on the specified carrier.
+
+        For carriers with sites (plate, reservoir, tip carriers). A sample tube carrier has no
+        sites -- its tubes are part of the rack -- so this returns nothing for one; use
+        ``get_labware_coordinates(carrier)`` (every tube position) or ``get_labware_spec(carrier)``.
+        """
         parameters = LayoutCarrierParameters(carrier=carrier)
         response = self._run(
             self._connected_instrument.venus.send_command(
@@ -137,7 +147,12 @@ class DeckStatusCommandsMixin:
         return self._parse_response(CarrierSitesResponse, response)
 
     def get_labware_on_carrier(self, carrier: str) -> LabwareOnCarrierResponse:
-        """Return the labware items loaded on the specified carrier."""
+        """Return the labware items loaded on the specified carrier.
+
+        For carriers with sites (plate, reservoir, tip carriers). A sample tube carrier has no
+        sites -- its tubes are part of the rack -- so this returns nothing for one; use
+        ``get_labware_coordinates(carrier)`` (every tube position) or ``get_labware_spec(carrier)``.
+        """
         parameters = LayoutCarrierParameters(carrier=carrier)
         response = self._run(
             self._connected_instrument.venus.send_command(
@@ -173,7 +188,12 @@ class DeckStatusCommandsMixin:
         return self._parse_response(LabwareLocationResponse, response)
 
     def get_top_labware(self, carrier_id: str, site: str) -> TopLabwareResponse:
-        """Return the top labware at the specified carrier site."""
+        """Return the top labware at the specified carrier site.
+
+        For carriers with sites (plate, reservoir, tip carriers). A sample tube carrier has no
+        sites -- its tubes are part of the rack -- so this returns nothing for one; use
+        ``get_labware_coordinates(carrier)`` (every tube position) or ``get_labware_spec(carrier)``.
+        """
         parameters = LayoutTopLabwareParameters(carrier_id=carrier_id, site=site)
         response = self._run(
             self._connected_instrument.venus.send_command(

@@ -1,9 +1,9 @@
 blank_issues_enabled: false
 
 contact_links:
-  - name: Ask a question or start a discussion
-    url: https://github.com/HamiltonCompany/hamilton-venus-sdk/discussions
-    about: Use GitHub Discussions for questions and general feedback.
+  - name: Ask a question or report a bug
+    url: https://discourse.hamiltoncompany.com/c/our-software/python-sdk
+    about: Use the Hamilton Robotics Discussion Platform for questions, bug reports and feedback.
   - name: Email the SDK team
     url: mailto:sdk@hamiltoncompany.com
     about: For private enquiries or security concerns.

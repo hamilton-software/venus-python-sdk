@@ -29,6 +29,7 @@ from hamilton_venus.models import (
     CommandResponse,
     ExecutorEvent,
     RunMessageQueuedEvent,
+    RunState,
 )
 
 _RUN_MESSAGES_PREFIX = "/api/vector/v3/run-messages"
@@ -45,6 +46,16 @@ _KNOWN_RUN_MESSAGE_CHANNELS = {
     _CONNECTED_CHANNEL,
     _COMMUNICATION_CHANNEL,
 }
+
+_EXECUTION_PREFIX = "/api/vector/v3/execution"
+
+# VENUS can end its method without telling us (an error inside the method's own libraries, e.g. while it
+# builds a reply, aborts it with no ABORTED/TERMINATED event). The command then waits for a reply that
+# never comes until its timeout. While a command is in flight the method must be loaded and running, so a
+# run state that says otherwise, seen several times in a row, means it is gone.
+_METHOD_GONE_STATES = frozenset({RunState.NOT_INITIALIZED, RunState.ABORTED, RunState.PROCESSED, RunState.TERMINATED})
+_METHOD_WATCH_INTERVAL = 2.0
+_METHOD_WATCH_CONFIRMATIONS = 3
 
 _MAX_CHANNEL_QUEUE_EVENTS = 512
 # Status channels hold only the latest event; their queues never need more than one
@@ -144,9 +155,7 @@ class _RunMessageCommandDispatcher:
             self._command_deadline = math.inf
             if self._suspension_timer_handle is not None:
                 self._suspension_timer_handle.cancel()
-            self._suspension_timer_handle = loop.call_later(
-                self._SUSPENSION_FALLBACK_TIMEOUT, self._auto_resume
-            )
+            self._suspension_timer_handle = loop.call_later(self._SUSPENSION_FALLBACK_TIMEOUT, self._auto_resume)
             _logger.debug("suspend: deadline suspended (counter=1), fallback timer set")
             # Wake the in-flight response wait: it is sleeping on a timeout computed
             # from the old deadline and would otherwise still expire on schedule.
@@ -196,8 +205,8 @@ class _RunMessageCommandDispatcher:
     def pause_suspension_fallback(self) -> None:
         """Drop the suspension fallback timer while an operator decides.
 
-        Called while an operator escalation callback (e.g. the Script Manager's
-        recovery dialog) is waiting for an answer: the deadline is already
+        Called while an operator escalation callback (e.g. a recovery dialog) is
+        waiting for an answer: the deadline is already
         suspended, and an operator may take longer than the 600 s fallback. The
         normal ``resume()`` once the answer is submitted restores the command's
         remaining time as usual.
@@ -320,9 +329,7 @@ class _RunMessageCommandDispatcher:
                 return
 
             if abort_task in done:
-                raise VenusCommandAbortedError(
-                    "Command wait interrupted because method abort event was received"
-                )
+                raise VenusCommandAbortedError("Command wait interrupted because method abort event was received")
 
             if wake_task is not None and wake_task in done:
                 wake_event.clear()  # type: ignore[union-attr]
@@ -343,6 +350,35 @@ class _RunMessageCommandDispatcher:
             if wake_task is not None:
                 with suppress(asyncio.CancelledError):
                     await wake_task
+
+    async def _watch_method(self) -> None:
+        """While a command waits for its reply, notice that VENUS has ended the method and abort the wait.
+
+        Runs beside the wait and sets the same abort event a real ABORTED/TERMINATED event would, so the
+        command fails with a VenusCommandAbortedError that says what happened. A failed or ambiguous
+        reading never counts as "gone"; it takes several consecutive readings, so a brief transition does
+        not cut a healthy command short.
+        """
+        gone = 0
+        while True:
+            await asyncio.sleep(_METHOD_WATCH_INTERVAL)
+            try:
+                response = await self._request("GET", f"{_EXECUTION_PREFIX}/run-state", error_prefix="GetRunState")
+                state = RunState.from_api_value(response.json())
+            except Exception:
+                gone = 0
+                continue
+            gone = gone + 1 if state in _METHOD_GONE_STATES else 0
+            if gone >= _METHOD_WATCH_CONFIRMATIONS:
+                _logger.warning(
+                    "_watch_method: VENUS run state is %s while a command waits; the method has ended", state.name
+                )
+                self._abort_runtime_status = (
+                    f"VENUS ended the method without answering (run state {state.name}); "
+                    "see the VENUS trace for the error that stopped it"
+                )
+                self._abort_event.set()
+                return
 
     def _notify_runtime_status(self, event: ExecutorEvent, message: str = "") -> None:
         """Track runtime-status events that should abort in-flight command waits."""
@@ -642,11 +678,15 @@ class _RunMessageCommandDispatcher:
                     )
                 command_timeout = timeout if timeout is not None else default_timeout
                 self._command_deadline = (
-                    asyncio.get_running_loop().time() + command_timeout
-                    if command_timeout is not None
-                    else math.inf
+                    asyncio.get_running_loop().time() + command_timeout if command_timeout is not None else math.inf
                 )
-                cmd_response = await self._wait_for_response(action_name, message_id)
+                watchdog = asyncio.create_task(self._watch_method())
+                try:
+                    cmd_response = await self._wait_for_response(action_name, message_id)
+                finally:
+                    watchdog.cancel()
+                    with suppress(asyncio.CancelledError):
+                        await watchdog
             except MethodError as exc:
                 raise VenusApiContractError(
                     f"Command {action_name!r} failed while communicating with the run-message API: {exc}"

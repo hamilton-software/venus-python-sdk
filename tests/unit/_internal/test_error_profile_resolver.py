@@ -638,7 +638,7 @@ class TestOnInstrumentError:
         assert [(d.uuid, d.selected_action_id) for d in payload.detailed_error_recoveries] == [("ch-1", 2), ("ch-2", 2)]
 
     async def test_operator_callback_wait_drops_suspension_fallback(self):
-        """While the operator callback (e.g. the Script Manager dialog) decides, the
+        """While the operator callback (e.g. a recovery dialog) decides, the
         suspension fallback is dropped; the deadline is resumed once it answers."""
         operator_cb = Mock(return_value=RecoveryAction.NEXT)
         profile = ErrorProfile(

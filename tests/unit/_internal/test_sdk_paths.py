@@ -143,6 +143,17 @@ def test_detect_instrument_type_classifies_cfg_name(monkeypatch, cfg_name, expec
     assert module.detect_instrument_type() == expected
 
 
+@pytest.mark.parametrize(
+    ("cfg_name", "expected"),
+    [("VStar.cfg", "vantage"), ("ML_STAR.cfg", "star"), (None, None)],
+)
+def test_installed_instrument_type_is_unknown_when_the_registry_is_silent(monkeypatch, cfg_name, expected) -> None:
+    """A guard must not refuse on a guess: no registry value is None, not "star"."""
+    module = _reload_sdk_paths()
+    monkeypatch.setattr(module, "read_instrument_cfg_name", lambda: cfg_name)
+    assert module.installed_instrument_type() == expected
+
+
 @pytest.fixture(autouse=True)
 def _cleanup_module() -> None:
     yield

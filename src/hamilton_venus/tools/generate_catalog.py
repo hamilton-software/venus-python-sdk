@@ -80,7 +80,7 @@ def _collect_labware(labware_root: Path) -> dict[str, list[str]]:
 def _collect_liquid_classes(liquid_root: Path) -> dict[str, Any]:
     """Collect liquid classes into a nested folder tree.
 
-    The new ML_API folder layout organises classes as::
+    The liquid class folder layout organizes classes as::
 
         <instrument>/<pipettingDevice>/<tipType>/<liquid>/<dispenseMode>/<ClassName>.json
 
@@ -312,7 +312,7 @@ def _render_module(module_doc: str, root_object_name: str, groups: dict[str, lis
 def _render_liquid_class_module(module_doc: str, root_object_name: str, tree: dict[str, Any]) -> str:
     """Render a liquid class catalog module from a nested folder tree.
 
-    Supports the ML_API folder hierarchy::
+    Supports the liquid class folder hierarchy::
 
         <instrument>/<pipettingDevice>/<tipType>/<liquid>/<dispenseMode>/<name>
 
@@ -483,12 +483,11 @@ def regenerate_catalog(
 
     When *client* is an already-connected :class:`~hamilton_venus.StarClient` or
     :class:`~hamilton_venus.VantageClient`, it's reused to pull liquid classes instead of
-    opening a second, redundant VENUS connection -- e.g. an MCP session's or a demo app's
-    already-running client. When *client* is ``None`` (the CLI's default), a throwaway
-    simulated ``StarClient`` is created and torn down just for the pull.
+    opening a second, redundant VENUS connection. When *client* is ``None`` (the CLI's
+    default), a throwaway simulated ``StarClient`` is created and torn down just for the pull.
 
-    Liquid classes are collected into a nested folder tree (the ML_API layout,
-    ``<instrument>/<pipettingDevice>/<tipType>/<liquid>/<dispenseMode>/<name>``) and
+    Liquid classes are collected into a nested folder tree
+    (``<instrument>/<pipettingDevice>/<tipType>/<liquid>/<dispenseMode>/<name>``) and
     rendered as nested ``_FolderNamespace`` sub-classes -- see ``_render_liquid_class_module``.
     This machine's scan only ever covers ONE top-level instrument key (a STAR install has
     no ``VANTAGE`` folder on disk and vice versa), so it's merged on top of whatever the

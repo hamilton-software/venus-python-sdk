@@ -1,3 +1,7 @@
+> **Who needs this page?** This is the raw VENUS WebAPI wire format for the Deck Layout, System, Sample Tracking, and Teaching command categories (shared by STAR and Vantage). Most users should call the typed `StarClient`/`VantageClient` methods instead (see [STAR Commands](star_commands.md) and [Vantage Commands](vantage_commands.md)). Use this page when calling `client.send_command(category=..., action_name=..., parameters=...)` for commands without an SDK method, or when debugging the JSON the SDK sends. `send_command` builds the `channel`/`data` envelope for you.
+>
+> API base: `http://localhost:42400/api/vector/v3/run-messages` (default `base_url`; see [Configuration](configuration.md))
+
 # Deck Layout
 
 ### Deck File
@@ -2131,7 +2135,7 @@ The same well on a plate tilted 10 degrees at its deepest point, split with `fit
 > The labware category is taken from the `labwareClass` inside `definition`.
 
 #### labware.importLabwareDefinition
-> Loads a labware definition from a `.rck` file instead of an inline `definition` object. Note this uses a separate `actionName` from `labware.addLabwareDefinition` above.
+> Converts a VENUS labware file (`.rck`, ...) into a labware definition, instead of an inline `definition` object. Note this uses a separate `actionName` from `labware.addLabwareDefinition` above. VENUS works out the labware type from the file and stores the converted definition under `Labware\User\<type>\`.
 
 ```json
 {
@@ -2141,15 +2145,22 @@ The same well on a plate tilted 10 degrees at its deepest point, split with `fit
     "actionName": "labware.importLabwareDefinition",
     "parameters": {
       "labwareDefinition": "Test Labware",
-      "labwarePath": "C:\\My\\New\\Labware.rck",
-      "labwareType": "plate"
+      "labwarePath": "C:\\My\\New\\Labware.rck"
     }
   }
 }
 ```
-> `labwareDefinition` *(optional)*: name for the labware definition; if omitted, the name is taken from the definition file  
-> `labwarePath`: path to the `.rck` labware file  
-> `labwareType` enum: `adapter` · `carrier` · `lid` · `plate` · `reservoir` · `tip_rack` · `tube` · `tube_rack`
+> `labwareDefinition` *(optional)*: name for the labware definition; if omitted, the name is taken from the file name  
+> `labwarePath`: path to the labware file
+
+**Returns:**
+```json
+{
+  "message": "\"Test Labware\" added",
+  "definition": { ... }
+}
+```
+> `definition`: the converted definition. Its 3D models are referenced as VENUS has them (`"modelRef": "Labware.hxx"` or `.x`); the SDK's `labware_definition_import_definition` converts those to glTF in `Labware\Models` and updates the stored definition (see [Custom Labware](examples/advanced/custom_labware.md#import-a-venus-labware-file)).
 
 #### labware.deleteLabwareDefinition
 ```json

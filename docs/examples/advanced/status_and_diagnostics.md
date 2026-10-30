@@ -80,9 +80,9 @@ with StarClient() as star:
     star.status_light_set_front_light(color=LightColor.BLUE)
     print("Status light: BLUE (running)")
 
-    # Off (set to white at zero intensity)
+    # White for idle/default
     star.status_light_set_front_light(color=LightColor.WHITE)
-    print("Status light: WHITE (off/default)")
+    print("Status light: WHITE (idle/default)")
 ```
 
 ### Status Light with Blinking
@@ -176,11 +176,11 @@ from hamilton_venus import StarClient
 with StarClient() as star:
     # Left arm
     x_pos = star.pip_arm_get_x_position(arm_id=1)
-    print(f"Left arm X position: {x_pos.x}")
+    print(f"Left arm X position: {x_pos.return_parameters['x']}")
 
     # Right arm
     x_pos = star.pip_arm_get_x_position(arm_id=2)
-    print(f"Right arm X position: {x_pos.x}")
+    print(f"Right arm X position: {x_pos.return_parameters['x']}")
 ```
 
 ### Park Pipetting Arm
@@ -209,7 +209,7 @@ from hamilton_venus.models.enums import CoordinateMode, PipArmSpeed
 with StarClient() as star:
     star.instrument_init()
 
-    # Absolute move to X position
+    # Absolute move to X position (mm)
     star.pip_arm_move(
         value=500.0,
         coordinate_mode=CoordinateMode.ABSOLUTE,
@@ -218,14 +218,14 @@ with StarClient() as star:
     )
     print("Arm moved to absolute position 500.0")
 
-    # Relative move (10 units from current)
+    # Relative move (10 mm from current position)
     star.pip_arm_move(
         value=10.0,
         coordinate_mode=CoordinateMode.RELATIVE,
         arm_id=1,
-        speed=PipArmSpeed.FAST,
+        speed=PipArmSpeed.SLOW,
     )
-    print("Arm moved +10.0 units relative")
+    print("Arm moved +10.0 mm relative")
 ```
 
 ---
@@ -265,7 +265,7 @@ def complete_diagnostic_workflow():
             # Check 2: Pipetting Arm (level 1 - 20%)
             print("2. Checking pipetting arm...")
             arm_pos = star.pip_arm_get_x_position(arm_id=1)
-            print(f"  ✓ Left arm X position: {arm_pos.return_parameters.get('xPosition', 'N/A')}")
+            print(f"  ✓ Left arm X position: {arm_pos.return_parameters.get('x', 'N/A')}")
             star.status_light_set_front_light(color=LightColor.BLUE, progress=1)
 
             # Check 3: Configuration
@@ -372,7 +372,7 @@ def troubleshoot_connection_issue():
 
         # Check 4: Arm position
         arm_pos = star.pip_arm_get_x_position(arm_id=1)
-        x_position = arm_pos.return_parameters.get("xPosition")
+        x_position = arm_pos.return_parameters.get("x")
         print(f"Left arm X position: {x_position}")
         if x_position is not None and x_position < 100:
             print("  Note: Arm is parked far left")

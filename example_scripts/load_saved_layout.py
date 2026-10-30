@@ -4,35 +4,18 @@ Connects without auto-loading any deck, lists the saved layout names via
 ``deck_get_saved``, shows a tkinter dialog for the user to pick one, then
 loads the selected layout via ``deck_load``. See ``create_and_save_layout.py``
 for how a layout gets saved under a name.
-
-Run through Script Manager, the picker renders as one of its formatted
-modals (via the non-standard ``simpledialog.askchoice`` that its runner
-injects). Run directly (``python load_saved_layout.py``), it falls back to a
-plain Tk ``Listbox`` window -- ``askchoice`` isn't part of real tkinter.
 """
 
 from __future__ import annotations
 
 import tkinter as tk
-from tkinter import messagebox, simpledialog
+from tkinter import messagebox
 
 from hamilton_venus import StarClient
 
 
 def select_deck_layout(root: tk.Tk, options: list[str]) -> str | None:
     """Show a modal single-select dialog and return the chosen name, or None if cancelled."""
-    # Script Manager's runner injects simpledialog.askchoice (a formatted
-    # list-picker modal); plain tkinter has no such function, so feature-detect
-    # and fall back to a hand-rolled Listbox window when running standalone.
-    askchoice = getattr(simpledialog, "askchoice", None)
-    if askchoice is not None:
-        return askchoice(
-            "Load Deck Layout",
-            "Select a saved deck layout to load:",
-            options,
-            initialvalue=options[0] if options else None,
-        )
-
     dialog = tk.Toplevel(root)
     dialog.title("Load Deck Layout")
 

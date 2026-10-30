@@ -1,24 +1,26 @@
-Valid values for the enumerated fields below (`tipType`, `dispenseMode`, `pipettingDevice`) and the numeric min/max bounds for `pipettingProperties` fields, keyed by device, are in `JSON_Liquid-Class-Reference-Values.md`.
+This is the JSON shape of one liquid class definition (the set of pipetting parameters VENUS uses for a given liquid, tip, and device). It is what `get_liquid_class(name)` returns and what `update_liquid_class(definition)` sends; in Python it is modeled by `hamilton_venus.models.LiquidClassDefinition`.
+
+Valid values for the enumerated fields below (`tipType`, `dispenseMode`, `pipettingDevice`) and the numeric min/max bounds for `pipettingProperties` fields, keyed by device, are in [`liquid_class_reference_values.md`](liquid_class_reference_values.md).
 
 ```jsonc
 {
   "id": "HighVolume_Water_DispenseSurface_Empty",   // unique identifier == the 'LiquidClassName' value in the VENUS database, and matches the JSON file name (no "hamilton:" prefix, no separate label field)
   "isUserDefined": true,               // false = Predefined (IsOriginal, read-only) | true = Custom (read/write)
   "version": "x.y",
-  "tadmEnabled": false,                // true = tip-based Advanced Dispense Monitoring capture is on for this class; tadmBands is only populated when this is true
+  "tadmEnabled": false,                // true = TADM (Total Aspiration and Dispense Monitoring) capture is on for this class; tadmBands is only populated when this is true
   "validated": true,
   "notes": "",
 
   "appliesTo": {
-    "instrument": "STAR",                        // instrument name, e.g. "ML_STAR"
+    "instrument": "STAR",                        // instrument family the class belongs to, e.g. "STAR"
     "liquid": "Water",                           // liquid name
     "volumeRange": { "min": 0, "max": 1000 },    // uL the tip can hold; minimum is always 0, max is the nominal uL of the tip type
-    "tipType": "1000ul-high-volume-tip",         // see JSON_Liquid-Class-Reference-Values.md#tip-types-appliestotiptype for valid values
-    "dispenseMode": "surface_empty",             // see JSON_Liquid-Class-Reference-Values.md#dispense-modes-appliestodispensemode for valid values
-    "pipettingDevice": "channels_1000ul"         // see JSON_Liquid-Class-Reference-Values.md#pipetting-devices-appliestopipettingdevice for valid values
+    "tipType": "tip_1000ul",                     // see liquid_class_reference_values.md#tip-types-appliestotiptype for valid values
+    "dispenseMode": "surface_empty",             // see liquid_class_reference_values.md#dispense-modes-appliestodispensemode for valid values
+    "pipettingDevice": "channels_1000ul"         // see liquid_class_reference_values.md#pipetting-devices-appliestopipettingdevice for valid values
   },
 
-  "pipettingProperties": {             // numeric min/max for every field below are per-device — see Reference-Values.md#parameter-ranges-by-device
+  "pipettingProperties": {             // numeric min/max for every field below are per-device — see liquid_class_reference_values.md#parameter-ranges-by-device
     "aspirate": {
       "flowRate": 250.0,
       "mixFlowRate": 120.0,
@@ -39,7 +41,7 @@ Valid values for the enumerated fields below (`tipType`, `dispenseMode`, `pipett
       "stopFlowRate": 5.0,
       "stopBackVolume": 0.0
     },
-    "detection": { "lld": { "pressureSensitivity": 4, "lldMaxHeightDifference": 0 } },
+    "detection": { "lld": { "pressureSensitivity": 4, "lldMaxHeightDifference": 0 } },  // lld = liquid level detection
     "correction": [ { "targetedVolume": 0, "correctedVolume": 0 }, { "targetedVolume": 1000, "correctedVolume": 1028.5 } ],  // correctionCurve, any number of points
     "tadmBands": [                 // populated only when tadmEnabled is true; one entry per captured TADM curve
       {
@@ -60,8 +62,8 @@ Valid values for the enumerated fields below (`tipType`, `dispenseMode`, `pipett
 
   "_internal": {                    // VENUS-managed bookkeeping; not hand-authored
     "designHistory": "AQAAAAA=",    // opaque base64 blob tracking edit history in the VENUS editor
-    "tipTypeId": 0,                 // internal numeric id for appliesTo.tipType
-    "dispenseMode": 3,              // internal numeric id for appliesTo.dispenseMode (e.g. 3 = jet_empty, 5 = surface_empty)
+    "tipTypeId": 4,                 // internal numeric id for appliesTo.tipType (4 = tip_1000ul)
+    "dispenseMode": 5,              // internal numeric id for appliesTo.dispenseMode (e.g. 3 = jet_empty, 5 = surface_empty)
     "liquidDeviceIds": [ 1 ]        // internal numeric device id(s) for appliesTo.pipettingDevice
   }
 }

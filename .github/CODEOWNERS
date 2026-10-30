@@ -1,6 +1,1 @@
-# Ownership is defined here for GitHub UI purposes.
-# This repository is a read-only mirror — all changes originate from
-# a private repository maintained by Hamilton Company.
-#
-# The team slug below must be a GitHub organisation team, not an Azure DevOps group.
-*   @HamiltonCompany/hamilton-venus-sdk
+*   @hamilton-software/venus-python-sdk

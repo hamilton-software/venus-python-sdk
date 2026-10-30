@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 10/23/2026 3:44:11 PM
+// Generated at 10/29/2026 4:40:28 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -72,4 +72,4 @@ function ParseTipTypesPickedup( variable i_intTotalChannels, variable & o_strChP
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-10-23 15:44$$checksum=847f53d2$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-29 16:40$$checksum=ac725edf$$length=083$$

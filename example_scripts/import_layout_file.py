@@ -17,9 +17,7 @@ connected when you call it. That is the key difference from
 ``load_saved_layout.py``, which uses ``deck_load`` to load a layout saved
 *by name* inside VENUS and can run *before* connecting.
 
-Run through Script Manager, the file dialog renders as its built-in file
-browser. Run directly (``python import_layout_file.py``), it's the native
-OS open dialog. Either way, cancelling returns an empty string.
+Cancelling the file dialog returns an empty string.
 """
 
 from __future__ import annotations
@@ -33,9 +31,7 @@ from hamilton_venus import StarClient
 root = tk.Tk()
 root.withdraw()
 
-# askopenfilename returns "" (not None) when the dialog is cancelled -- see
-# tkinter_dialog_example.py. The Script Manager relay narrows a multi-entry
-# filetypes list to its first pattern, so keep ".lay" first.
+# askopenfilename returns "" (not None) when the dialog is cancelled.
 lay_path = filedialog.askopenfilename(
     title="Select a VENUS deck layout to import",
     filetypes=[("VENUS layout files", "*.lay"), ("All files", "*.*")],

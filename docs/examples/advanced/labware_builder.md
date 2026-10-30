@@ -6,7 +6,7 @@ Guide for building a labware definition from scratch in Python — plates, reser
 
 ## Overview
 
-`hamilton_venus.labware_builder` produces the JSON object that `labware_add_definition()` sends to VENUS. It covers:
+`hamilton_venus.labware_builder` produces the JSON object that `labware_add_definition()` sends to VENUS (`labware_definition_add_definition()`, used in [`custom_labware.md`](./custom_labware.md), sends the same command). It covers:
 
 - **Plates and reservoirs** — one rectangular grid of identical wells
 - **Tubes** — a single sample tube, placed on a tube carrier
@@ -20,7 +20,7 @@ Building a definition is always two steps:
 
 The result is a plain `dict`. Anything the helpers do not set can be changed on it directly before it is sent.
 
-All lengths are in **millimetres**.
+All lengths are in **millimeters**.
 
 ---
 
@@ -28,6 +28,7 @@ All lengths are in **millimetres**.
 
 ```python
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LABWARE
 from hamilton_venus.labware_builder import build_labware_definition, round_well
 
 definition = build_labware_definition(
@@ -40,9 +41,11 @@ definition = build_labware_definition(
 )
 
 with StarClient() as star:
+	star.instrument_init()
 	star.labware_add_definition("My_96_DW", definition)
 
 	# The new definition is used by name, exactly like a catalog one.
+	star.add_carrier(labware_definition=LABWARE.CARRIER.PLT_CAR_L5_MTP, left_track=8, labware_id="PlateCarrier")
 	star.add_plate(labware_definition="My_96_DW", carrier_id="PlateCarrier", site="1", plate_id="Plate1")
 ```
 
@@ -111,7 +114,7 @@ from hamilton_venus.labware_builder import round_well, touch_off
 well = round_well(diameter=6.5, depth=40.0, touch_off=touch_off(2.9, 32.0))
 ```
 
-`touch_off(distance, height, base=0.0)` enables touch off. `distance` is the distance from the well centre toward the wall, used for all four sides; `height` is measured from the well floor.
+`touch_off(distance, height, *, base=0.0)` enables touch off. `distance` is the distance from the well center toward the wall, used for all four sides; `height` is measured from the well floor.
 
 ---
 
@@ -193,14 +196,14 @@ reservoir = build_labware_definition(
 | `height` | required | Outer height, from base to top |
 | `rows` | required | Number of well rows (along Y) |
 | `columns` | required | Number of well columns (along X) |
-| `first_well_center` | required | `(x, y)` centre of the first well (A1) inside the footprint. X from the left edge, Y from the back edge |
+| `first_well_center` | required | `(x, y)` center of the first well (A1) inside the footprint. X from the left edge, Y from the back edge |
 | `well` | required | The well shared by every position, from `round_well()` or `rectangular_well()` |
 | `width` | `127.0` | Footprint along X. Keep the default for a standard carrier site |
 | `depth` | `86.0` | Footprint along Y. Keep the default for a standard carrier site |
 | `body_segments` | none | Measured outer shape, as a list of `body_segment()` from the top down |
 | `labware_class` | `"plate"` | `"plate"` or `"reservoir"` |
-| `row_pitch` | `9.0` | Centre-to-centre spacing between rows |
-| `column_pitch` | `9.0` | Centre-to-centre spacing between columns |
+| `row_pitch` | `9.0` | center-to-center spacing between rows |
+| `column_pitch` | `9.0` | center-to-center spacing between columns |
 | `well_floor_height` | `height` − well depth | Height of the inside well floor above the labware base. The default puts the well opening flush with the top of the labware |
 | `iteration_order` | `"row_major"` for plates, `"column_major"` otherwise | How wells are numbered 1..N. The defaults follow the shipped definitions |
 | `stack_height` | `0.0` | Height added per plate when stacked on itself |
@@ -244,9 +247,11 @@ For a tube, the `round_well()` values mean:
 | `description` | none | Free-text description |
 | `publisher` | `"user"` | Prefix of the definition `id` |
 
-A generated tube is placed on a tube carrier by name:
+A generated tube is placed on a tube carrier by name (inside a `with StarClient() as star:` block):
 
 ```python
+from hamilton_venus.catalog import LABWARE
+
 star.labware_add_definition("My_Tube_17x75", tube)
 star.add_tube_carrier(labware_definition=LABWARE.TUBE_RACK.SMP_CAR_24_17X75, left_track=14, labware_id="TubeCarrier")
 star.add_tubes_to_carrier("TubeCarrier", [{"position": "1", "tube": "My_Tube_17x75"}])
@@ -256,7 +261,7 @@ star.add_tubes_to_carrier("TubeCarrier", [{"position": "1", "tube": "My_Tube_17x
 
 ## Complete Example
 
-Builds a plate and a tube, places both on the deck, removes the definitions again, and pipettes into the plate. The full script is `example_scripts/dynamic_labware_example.py`.
+Builds a plate and a tube, places both on the deck, and removes the definitions again. The full script, `example_scripts/dynamic_labware_example.py`, also pipettes into the plate.
 
 ```python
 from hamilton_venus import StarClient
@@ -281,6 +286,7 @@ tube_definition = build_tube_definition(
 )
 
 with StarClient(simulate=True) as star:
+	star.instrument_init()
 	star.labware_add_definition("Example_96_Flat", plate_definition)
 	star.labware_add_definition("Example_Tube_17x75", tube_definition)
 
@@ -348,5 +354,5 @@ VENUS validates every definition against the labware schema when it is added or 
 ## See Also
 
 - [`custom_labware.md`](./custom_labware.md) — Adding, listing, updating and deleting labware definitions
-- [`deck-and-layout.md`](../deck-and-layout.md) — `add_plate()`, `add_tube_carrier()`, `add_tubes_to_carrier()`
-- [`../../labware_schema/schema-tour.md`](../../labware_schema/schema-tour.md) — Tour of the labware JSON schema
+- [`deck_and_layout.md`](../deck_and_layout.md) — `add_plate()`, `add_tube_carrier()`, `add_tubes_to_carrier()`
+- [`../../labware_schema/schema_tour.md`](../../labware_schema/schema_tour.md) — Tour of the labware JSON schema

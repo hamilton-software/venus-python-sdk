@@ -7,13 +7,14 @@ PCR protocol, and reading status.
 
 ## Overview
 
-The ODTC is an on-deck PCR block. The SDK talks to it **directly over its SiLA SOAP
-interface** (`http://<device_ip>/odtc.wsdl`, service on port 8080) — it does **not** use
+The ODTC is an on-deck PCR block. The SDK talks to it **directly over its SiLA (lab-device
+standard) SOAP interface** (`http://<device_ip>/odtc.wsdl`, service on port 8080) — it does **not** use
 the vendor's `Inheco.ODTCInterface` COM object, the 32-bit COM bridge, or the VENUS
-runtime. Like the [Heater Cooler](./heater-cooler.md) it has its own standalone client,
+runtime. Like the [Heater Cooler](./heater_cooler.md) it has its own standalone client,
 `ODTCClient`; there is no `StarClient`/`VantageClient` involved, and it works regardless
 of `auto_connect` / `instrument_init()`. Every snippet below also runs unchanged with
-`ODTCClient(simulate=True)`, which uses a built-in simulation transport.
+`ODTCClient(simulate=True)`, which uses a built-in simulation transport (the snippets
+that read Hamilton's `PLR001_ODTCProtocols.xml` need the Inheco ODTC library installed).
 
 This guide covers:
 
@@ -38,7 +39,8 @@ Requirements for a real connection:
 - the unit reachable at its IP (the SDK fetches `http://<ip>/odtc.wsdl`);
 - one free TCP port in **18001–18008** on this PC. The unit *calls back* to this PC to
   report command completion, and Hamilton's installer pre-reserves exactly that range
-  (firewall rule + URL ACL for everyone), so no admin rights are needed. The SDK picks
+  (firewall rule + URL ACL for everyone), so no admin rights are needed. If that range is
+  not reserved on your PC, Windows Firewall must allow those ports inbound. The SDK picks
   the local address automatically by asking the OS which interface routes to the unit.
 
 ### `odtc_connect` always Resets the unit
@@ -76,7 +78,7 @@ the `odtc_*` methods.
 
 `state` is one of `startup` (fresh boot), `standby` (after `Reset`), `idle` (ready),
 `busy`, `paused`, `errorHandling`, `inError`. Commands are only valid in certain states:
-a stepped method needs a `PreMethod` to have finished first; `SetParameters`
+a stepped method needs a `PreMethod` (a block + lid temperature hold) to have finished first; `SetParameters`
 (protocol upload, CSV separator) needs `idle`; configuration changes need `standby`
 (the SDK does the Reset → configure → Initialize round trip for you).
 
@@ -209,7 +211,7 @@ builder.add_pcr(
     cycles=3,                        # the editor's "Cycles" (see add_cycle): four passes in all
     final_extension=(72, 15), cooling=(25, 10),
 )
-odtc.odtc_run_protocol(builder.build(), device_id=1)
+odtc.odtc_run_protocol(builder.build(), device_id=1)   # odtc: a connected ODTCClient, as above
 ```
 
 What changes with the volume (all read from the editor's own output for the same steps at the three
@@ -263,7 +265,7 @@ block target, block actual and lid — matched by method name so you get the run
 temperature while they run, downloads both traces and plots the result (needs matplotlib).
 
 ```python
-trace = odtc.odtc_download_run_trace(1, "traces", method_name="MyPCR").return_parameters
+trace = odtc.odtc_download_run_trace(1, "traces", method_name="MyPCR").return_parameters   # after the run, on a connected client
 for s in trace.rows[:3]:
     print(s.elapsed_ms, s.target_temperature, s.current_temperature, s.lid_temperature)
 ```
@@ -350,7 +352,7 @@ with ODTCClient(simulate=True) as odtc:
     odtc.odtc_connect("192.168.1.50")
     odtc.odtc_connect("192.168.1.51")
     # ...
-    odtc.odtc_wait_for_protocol(device_id=1)  # or odtc_stop_method -- see "Don't disconnect while a method is running"
+    odtc.odtc_stop_method(device_id=1)        # or odtc_wait_for_protocol(device_id=1) to let a run finish -- see "Don't disconnect while a method is running"
     odtc.odtc_terminate_device(device_id=1)   # disconnect one unit (does not stop a run)
     odtc.odtc_terminate()                     # disconnect every unit
 # close() (also called on `with` exit) does the same as odtc_terminate()
@@ -375,7 +377,7 @@ with ODTCClient(simulate=True) as odtc:
 | `odtc_list_methods(device_id)` | `ODTCMethodListResponse` | Names, kinds and targets of every method stored on the unit |
 | `odtc_wait_for_protocol(device_id, *, request_id=None, timeout=3600)` | `MessageResponse` | Block until the run completes |
 | `odtc_stop_method(device_id)` / `odtc_pause(device_id)` / `odtc_resume(device_id)` / `odtc_abort(device_id)` | `MessageResponse` | Run control |
-| `odtc_reset(device_id, *, timeout=60, simulate_on_device_base=False)` | `MessageResponse` | Firmware-level reset |
+| `odtc_reset(device_id, *, timeout=60, simulate_on_device_base=False, initialize=True)` | `MessageResponse` | Firmware-level reset |
 | `odtc_get_run_data(device_id)` | `ODTCRunDataResponse` | The unit's `GetLastData` trace as rows (elapsed / target / current / lid, degrees C). **Not reliable as "the last run"** — it returned an older run's trace after two normal runs; use `odtc_download_run_trace` |
 | `odtc_download_run_trace(device_id, dest_dir="odtc_traces", *, method_name=None)` | `ODTCRunTraceResponse` | Download + parse the newest per-run trace (or the newest for `method_name`) from the unit's FTP server |
 | `odtc_get_parameters(device_id)` | `ODTCConfigurationResponse` | Raw device parameters XML (contains every stored method) |
@@ -396,6 +398,6 @@ See [`hamilton_venus.odtc_protocol`](../../src/hamilton_venus/odtc_protocol.py) 
 
 ## See Also
 
-- [`../star-commands.md`](../star-commands.md) — Full API reference
-- [`heater-cooler.md`](./heater-cooler.md) — Hamilton Heater Cooler (HHC), the same pure-Python, no-VENUS approach
-- [`common-patterns.md#pattern-10-combining-starclientvantageclient-with-a-standalone-device-client`](./common-patterns.md#pattern-10-combining-starclientvantageclient-with-a-standalone-device-client) — using `ODTCClient` alongside `StarClient`/`VantageClient` in one script
+- [`../star_commands.md`](../star_commands.md) — Full API reference
+- [`heater_cooler.md`](./heater_cooler.md) — Hamilton Heater Cooler (HHC), the same pure-Python, no-VENUS approach
+- [`common_patterns.md#pattern-10-combining-starclientvantageclient-with-a-standalone-device-client`](./common_patterns.md#pattern-10-combining-starclientvantageclient-with-a-standalone-device-client) — using `ODTCClient` alongside `StarClient`/`VantageClient` in one script

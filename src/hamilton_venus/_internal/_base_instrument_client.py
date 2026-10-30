@@ -585,9 +585,16 @@ class _InstrumentSyncClientBase(_BaseSyncClient):
 
         This is the ``simulate`` value the client was constructed with, so a script
         can branch on it rather than on its own flag -- including when a runner
-        (e.g. the Script Manager) sets ``simulate`` on the client for it.
+        sets ``simulate`` on the client for it.
         """
         return self._simulate
+
+    def pop_command_warnings(self) -> list[str]:
+        """Warnings the SDK's checks raised before commands since the last call -- for example a
+        tip too short for the labware it pipetted in, so the channel itself went inside the
+        container (contamination risk). They are also logged and written to the run log.
+        Returns them oldest first and clears the list."""
+        return self._connected_instrument.pop_command_warnings()
 
     # -- context managers for command configuration ----------------------------
 

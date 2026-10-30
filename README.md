@@ -2,17 +2,22 @@
 
 Provides a Python interface for programming Hamilton automated-liquid-handling instruments through the VENUS software platform.
 
+## Requirements
+
+- Windows machine with Hamilton VENUS installed. The SDK talks to the VENUS WebAPI.
+- Python 3.11+
+
 ## Installation
 
-> **Not available from PyPI yet.** The command below is a placeholder for when `hamilton-venus-sdk` is published. Until then, clone this repository and install locally using the development instructions below.
-
-```bash
-pip install hamilton-venus-sdk
-```
+**PyPI:** Coming soon. For now, install from this repository as shown in [Development Installation](#development-installation).
 
 ### Development Installation
 
-```bash
+Clone this repository (see [Project Links](#project-links)), then install it in editable mode from the repository root. Using a virtual environment is recommended:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
 pip install -e ".[dev]"
 ```
 
@@ -35,8 +40,11 @@ Common commands:
 # and generates liquid class catalog from VENUS
 setup-venus-sdk
 
-# Show interactive prompts for all options instead of using defaults
+# Print the setup plan and ask for confirmation before making changes
 setup-venus-sdk --prompt
+
+# Show the prerequisite installer windows instead of installing silently
+setup-venus-sdk --interactive
 
 # Prerequisites only
 setup-venus-sdk --skip-structure
@@ -60,6 +68,20 @@ setup-venus-sdk --dry-run
 # Force overwrite existing files
 setup-venus-sdk --force
 ```
+
+### First Test Run (VENUS Simulation Mode)
+
+After setup completes, a simulated run is a good way to check that the installation worked. VENUS simulation mode drives a simulated instrument, so no hardware or deck setup is needed:
+
+```python
+from hamilton_venus import StarClient
+
+with StarClient(simulate=True) as star:
+    star.instrument_init()
+    print("Connected to VENUS in simulation mode")
+```
+
+Run the same script with `simulate=False` (or omit the flag) to drive a real instrument. On real hardware, `instrument_init()` moves the instrument, so make sure the deck is clear and safe first.
 
 ### Uninstalling
 
@@ -108,7 +130,7 @@ Pass `--headless` to skip these windows and prompts entirely and uninstall prere
 
 ### Liquid Class Catalog Generation
 
-The setup process automatically pulls liquid class definitions from the instrument database and generates the static catalog. To regenerate the catalog later (e.g., after adding new liquid classes to VENUS), use:
+The setup process automatically pulls liquid class definitions from the instrument database and generates the static labware and liquid class catalogs. To regenerate the catalogs later (e.g., after adding new liquid classes or labware to VENUS), use:
 
 ```bash
 # Pull liquid classes from VENUS and regenerate catalog
@@ -121,17 +143,19 @@ venus-sdk generate-catalog --debug
 venus-sdk generate-catalog --skip-labware
 ```
 
-This command connects to VENUS in simulation mode, retrieves all available liquid class definitions, and generates the static catalog at `src/hamilton_venus/catalog/liquid_classes.py`.
+This command connects to VENUS in simulation mode, retrieves all available liquid class definitions, and regenerates the catalog modules (`labware.py`, `liquid_classes.py`) in the installed package's `hamilton_venus/catalog/` folder (`src/hamilton_venus/catalog/` for a development install).
 
 ## Quick Start
 
+This example loads a saved deck named `example_deck` that contains a tip pool named `transfer_tips` and plates named `source_plate` and `dest_plate`. Build and save that deck first (see [docs/examples/deck_and_layout.md](docs/examples/deck_and_layout.md) and `deck_save(...)`), or adjust the names to match your own saved deck.
+
 ```python
 from hamilton_venus import StarClient
-from hamilton_venus.catalog.liquid_classes import LIQUID_CLASSES
+from hamilton_venus.catalog import LIQUID_CLASSES
 
-liquid_class = LIQUID_CLASSES["STANDARDVOLUME_WATER_DISPENSEJET_EMPTY"]
+liquid_class = LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY
 
-with StarClient(deck_name="example_deck") as star:
+with StarClient(deck_name="example_deck", simulate=True) as star:
 
     star.instrument_init()
 
@@ -141,18 +165,20 @@ with StarClient(deck_name="example_deck") as star:
     star.tip_eject()
 ```
 
-For reusable liquid-handling defaults, see [docs/examples/liquid-handling.md](docs/examples/liquid-handling.md) for complete examples.
+For reusable liquid-handling defaults, see [docs/examples/liquid_handling.md](docs/examples/liquid_handling.md) for complete examples. New to the SDK? Start with [docs/examples/getting_started.md](docs/examples/getting_started.md), which covers the connection lifecycle and simulation mode.
 
 ## Documentation
 
 | Guide | Description |
 |-------|-------------|
 | [Documentation Index](docs/README.md) | Full navigable index of all guides |
+| [Getting Started](docs/examples/getting_started.md) | Connecting, initializing, and the basic workflow lifecycle |
 | [Authentication](docs/authentication.md) | Auth modes, credentials, TLS, and token lifecycle |
 | [Configuration](docs/configuration.md) | TOML file, environment variables, and programmatic config |
 | [Error Handling](docs/error_handling.md) | Error profiles, recovery actions, and operator escalation |
-| [Static Catalogs](docs/static-catalogs.md) | Generated LABWARE/LIQUID_CLASSES constants and catalog regeneration |
-| [Star Commands](docs/star-commands.md) | Full reference of all supported instrument commands |
+| [Static Catalogs](docs/static_catalogs.md) | Generated LABWARE/LIQUID_CLASSES constants and catalog regeneration |
+| [Star Commands](docs/star_commands.md) | Full reference of all supported instrument commands |
+| [Vantage Commands](docs/vantage_commands.md) | Full reference of all supported Vantage commands |
 | [Examples](docs/examples/) | Practical usage examples for common workflows |
 
 ### Configuration
@@ -166,7 +192,7 @@ directory:
 base_url = "http://localhost:42400"
 
 [venus.timeouts]
-command = 300.0 
+command = 300.0
 ```
 
 See [docs/configuration.md](docs/configuration.md) for the full TOML reference,
@@ -196,30 +222,29 @@ mypy src/
 
 ## Smoke Tests
 
-Manual integration tests that run against a real Hamilton VENUS environment (not executed by CI).
+Manual integration tests that run against a real Hamilton VENUS environment (not executed by CI). Start with the connect test for each client, then run broader examples as needed:
 
 ```bash
-python smoke_tests/star/test_star_sample_transfer.py
+python smoke_tests/star/test_star_connect.py
+python smoke_tests/vantage/test_vantage_connect.py
 ```
 
-See [smoke_tests/README.md](smoke_tests/README.md) for more details.
-
-## Requirements
-
-- Python 3.11+
-- VENUS WebAPI running on instrument PC (default: `http://localhost:42400`)
+See [smoke_tests/README.md](smoke_tests/README.md) for prerequisites (e.g. a saved deck named `example_deck`) and the full list.
 
 ## Project Links
 
 | Resource | Location |
 |----------|----------|
-| Source (GitHub) | [hamilton-venus-sdk](https://github.com/HamiltonCompany/hamilton-venus-sdk) |
-| Package (PyPI) | [hamilton-venus-sdk](https://pypi.org/project/hamilton-venus-sdk/) |
+| Source (GitHub) | [venus-python-sdk](https://github.com/hamilton-software/venus-python-sdk) |
+| Package (PyPI) | Coming soon |
 
-## Contributing & Support
-This SDK is open-source but it is not open-development. We do not currently accept pull requests or track bug reports in this repository.
+##  Support & Discussions
 
-For any issues or support requests, contact Hamilton.
+We do not accept public contributions, issues, or bug reports on this GitHub repository.
+
+To report bugs, ask questions, or engage with the community, please join our official corporate discussion platform:
+
+**[Join the Hamilton Robotics Discussion Platform](https://discourse.hamiltoncompany.com/c/our-software/python-sdk)**
 
 ## License
 

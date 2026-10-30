@@ -164,8 +164,8 @@ class TipPoolCommandsMixin:
         command it runs with the command timeout disabled.
 
         The dialog is drawn by VENUS on the instrument PC's own console -- it is
-        **not** visible over a network connection (an MCP spoke/hub, a remote
-        WorkflowSession, etc.). A caller with no console session on that machine
+        **not** visible over a network connection. A caller with no console
+        session on that machine
         only ever sees this call block until *someone at the instrument* closes
         the dialog, then receives whatever the return value is; it has no way to
         read or drive the dialog's contents itself. For remote/automated tip
@@ -192,7 +192,7 @@ class TipPoolCommandsMixin:
 
         Same caveat as ``tip_pool_show_tip_counter``: the dialog is local to the
         instrument PC's own console and is invisible to a remote/network caller
-        (an MCP spoke/hub included) -- only the eventual return value is seen.
+        -- only the eventual return value is seen.
         Use ``tip_pool_initialize_tip_counter``/``tip_pool_reset_tip_counter``/
         ``tip_pool_set_tip_counter``/``tip_pool_get_tip_counter(s)`` for
         automated, dialog-free tip counter updates.

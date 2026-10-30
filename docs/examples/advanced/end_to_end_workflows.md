@@ -41,7 +41,7 @@ Track workflow state to enable:
 
 ```python
 from hamilton_venus import StarClient
-from hamilton_venus.catalog import LABWARE
+from hamilton_venus.catalog import LABWARE, LIQUID_CLASSES
 
 def simple_transfer_workflow(star):
     """
@@ -51,7 +51,9 @@ def simple_transfer_workflow(star):
     """
     try:
         print("Starting simple transfer workflow")
-        
+
+        star.instrument_init()
+
         # Stage 1: Setup
         print("Stage 1: Setting up deck layout...")
         star.add_carrier(
@@ -68,7 +70,7 @@ def simple_transfer_workflow(star):
         
         star.add_carrier(
             labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
-            left_track=10,
+            left_track=13,
             labware_id="DestCarrier",
         )
         star.add_plate(
@@ -81,18 +83,16 @@ def simple_transfer_workflow(star):
         # Add tips
         star.add_carrier(
             labware_definition=LABWARE.CARRIER.TIP_CAR_480BC,
-            left_track=5,
+            left_track=7,
             labware_id="TipCarrier",
         )
         star.add_tip_rack(
             tip_pool="TransferTips",
-            labware_definition="Tips_1000uL",
+            labware_definition=LABWARE.TIP_RACK.TIP_RACK_300UL,
             carrier_id="TipCarrier",
             site="1",
         )
         print("✓ Deck setup complete")
-
-        star.instrument_init()
 
         # Stage 2: Transfer
         print("Stage 2: Executing transfers...")
@@ -106,7 +106,7 @@ def simple_transfer_workflow(star):
                 channels=channels,
                 positions=f"SourcePlate@col:{col}",
                 volumes=50.0,
-                liquid_class="Water",
+                liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
             )
             star.dispense(
                 channels=channels,
@@ -153,6 +153,7 @@ from enum import Enum
 from datetime import datetime
 
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LABWARE, LIQUID_CLASSES
 
 class WorkflowStage(Enum):
     """Workflow execution stages."""
@@ -193,6 +194,8 @@ class ProductionWorkflow:
         self._log_stage(WorkflowStage.SETUP, "Initializing deck layout")
         
         try:
+            self.star.instrument_init()
+
             # Setup source carriers
             self.star.add_carrier(
                 labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
@@ -209,7 +212,7 @@ class ProductionWorkflow:
             # Setup processing carriers
             self.star.add_carrier(
                 labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
-                left_track=10,
+                left_track=7,
                 labware_id="ProcessCarrier",
             )
             self.star.add_plate(
@@ -222,7 +225,7 @@ class ProductionWorkflow:
             # Setup destination carriers
             self.star.add_carrier(
                 labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
-                left_track=6,
+                left_track=13,
                 labware_id="DestCarrier",
             )
             self.star.add_plate(
@@ -235,19 +238,19 @@ class ProductionWorkflow:
             # Setup tips
             self.star.add_carrier(
                 labware_definition=LABWARE.CARRIER.TIP_CAR_480BC,
-                left_track=15,
+                left_track=19,
                 labware_id="TipCarrier",
             )
-            self.star.add_tip_rack(
-                tip_pool="TransferTips",
-                labware_definition="Tips_1000uL",
-                carrier_id="TipCarrier",
-                site="1",
-            )
+            # Load, process and output each use 96 tips, so fill three sites
+            for site in ("1", "2", "3"):
+                self.star.add_tip_rack(
+                    tip_pool="TransferTips",
+                    labware_definition=LABWARE.TIP_RACK.TIP_RACK_300UL,
+                    carrier_id="TipCarrier",
+                    site=site,
+                )
             
             print("✓ Deck setup complete")
-
-            self.star.instrument_init()
             return True
             
         except Exception as e:
@@ -269,7 +272,7 @@ class ProductionWorkflow:
                     channels=channels,
                     positions=f"SampleSource@col:{col}",
                     volumes=20.0,
-                    liquid_class="Water",
+                    liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
                 )
                 self.star.dispense(
                     channels=channels,
@@ -350,7 +353,7 @@ class ProductionWorkflow:
                     channels=channels,
                     positions=f"ProcessPlate@col:{col}",
                     volumes=25.0,
-                    liquid_class="Water",
+                    liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
                 )
                 self.star.dispense(
                     channels=channels,
@@ -438,13 +441,18 @@ Handle common errors with recovery attempts:
 
 ```python
 from hamilton_venus import StarClient, VenusCommandFailedError, VenusError, VenusTimeoutError
+from hamilton_venus.catalog import LIQUID_CLASSES
 
 def workflow_with_error_recovery():
     """
     Workflow with error handling and recovery attempts.
     Demonstrates proper cleanup even when errors occur.
+
+    Assumes a saved deck ("MyDeckLayout") that defines the "TransferTips"
+    tip pool, "SourcePlate" and "DestPlate".
     """
-    star = StarClient()
+    # auto_connect=False so the connect below can be retried explicitly
+    star = StarClient(auto_connect=False, deck_name="MyDeckLayout")
     
     try:
         star.start()
@@ -477,7 +485,7 @@ def workflow_with_error_recovery():
                 channels=channels,
                 positions="SourcePlate@col:1",
                 volumes=50.0,
-                liquid_class="Water",
+                liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
             )
             star.dispense(
                 channels=channels,
@@ -537,7 +545,7 @@ workflow_with_error_recovery()
 
 | Practice | Why It Matters | Implementation |
 |----------|----------------|-----------------|
-| **State validation** | Catch errors early before expensive operations | Check `status_is_idle()`, `front_cover_is_closed()` before workflows |
+| **State validation** | Catch errors early before expensive operations | Check `instrument_is_idle()`, `front_cover_is_closed()` before workflows |
 | **Error recovery** | Graceful handling of transient failures | Use try/except with retry logic for timeouts |
 | **Always cleanup** | Ensure resources are released even on failure | Use try/finally or context managers |
 | **Progress tracking** | Provide feedback during long workflows | Use `status_light_set_front_light(progress=...)` |

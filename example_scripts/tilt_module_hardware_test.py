@@ -3,7 +3,7 @@
 Run this when setting up a module. It walks up from "can we talk to it" to "does it
 move and report sanely", stopping at the first failure, and writes a full serial
 trace to ``tilt_module_hardware_test.log`` (include it when contacting support; see
-``docs/tilt-module-hardware-notes.md``).
+``docs/tilt_module_hardware_notes.md``).
 
     python "example_scripts/tilt_module_hardware_test.py" COM3 [MODULE ...] [--baud N] [--parity E|N|O]
 

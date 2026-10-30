@@ -38,6 +38,10 @@ ChannelAspirationResponse
 
 The same structure applies to `dispense()` via `ChannelDispenseResponse`.
 
+TADM is enabled per liquid class. To list classes that have it enabled, filter with `get_liquid_classes(has_tadm_enabled=...)` (see [Liquid Class Management](./liquid_class_management.md#filter-liquid-classes)). The examples below use a catalog liquid class; substitute one with TADM enabled, otherwise `tadm` is `None`.
+
+**Prerequisites:** except for the `copy_plate()` example, which builds its own deck, the examples assume a deck that already has a tip pool `"TransferTips"` and plates `"SourcePlate"` and `"DestPlate"`, set up as in [TADM with `copy_plate()`](#tadm-with-copy_plate).
+
 ---
 
 ## Basic: Check for Flagged Curves
@@ -46,6 +50,7 @@ Inspect the TADM result after each aspirate to detect out-of-spec channels:
 
 ```python
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LIQUID_CLASSES
 
 with StarClient() as star:
 	star.instrument_init()
@@ -55,7 +60,7 @@ with StarClient() as star:
 		channels=[1, 2, 3, 4],
 		positions="SourcePlate@col:1",
 		volumes=100.0,
-		liquid_class="Water",
+		liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
 	)
 
 	tadm = result.return_parameters.tadm
@@ -78,6 +83,7 @@ with StarClient() as star:
 
 ```python
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LIQUID_CLASSES
 
 def check_tadm(tadm, label=""):
 	"""Log any flagged or errored TADM curves. Returns True if all OK."""
@@ -104,7 +110,7 @@ with StarClient() as star:
 		channels=[1, 2, 3, 4],
 		positions="SourcePlate@col:1",
 		volumes=100.0,
-		liquid_class="Water",
+		liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
 	)
 	disp = star.dispense(
 		channels=[1, 2, 3, 4],
@@ -131,6 +137,7 @@ Access the raw pressure-vs-time points for offline analysis or custom visualizat
 ```python
 import csv
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LIQUID_CLASSES
 
 with StarClient() as star:
 	star.instrument_init()
@@ -140,7 +147,7 @@ with StarClient() as star:
 		channels=[1],
 		positions="SourcePlate@A1",
 		volumes=50.0,
-		liquid_class="Water",
+		liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
 	)
 	star.tip_eject(channels=[1])
 
@@ -171,6 +178,7 @@ from hamilton_venus import StarClient
 from hamilton_venus.catalog import LABWARE, LIQUID_CLASSES
 
 with StarClient() as star:
+	star.instrument_init()
 	star.add_carrier(
 		labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
 		left_track=1,
@@ -199,7 +207,6 @@ with StarClient() as star:
 		carrier_id="TipCarrier1",
 		site="1",
 	)
-	star.instrument_init()
 
 	result = star.copy_plate(
 		source_plate_id="SourcePlate",
@@ -225,6 +232,7 @@ with StarClient() as star:
 import logging
 from dataclasses import dataclass, field
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LIQUID_CLASSES
 from hamilton_venus.models.command_types import ChannelTADM
 
 logging.basicConfig(level=logging.INFO)
@@ -306,7 +314,7 @@ with StarClient() as star:
 		channels=channels,
 		positions="SourcePlate@col:1",
 		volumes=100.0,
-		liquid_class="Water",
+		liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
 	)
 	monitor.record(asp.return_parameters.tadm, label="Aspirate col:1")
 
@@ -342,6 +350,6 @@ with StarClient() as star:
 
 ## See Also
 
-- [`liquid-handling.md`](../liquid-handling.md) — Aspirate and dispense parameters
-- [`compound-commands/copy-plate.md`](../compound-commands/copy-plate.md) — `copy_plate()` and `CopyPlateResult.tadm_curves`
-- [`common-patterns.md`](../common-patterns.md) — Pattern 9: per-well TADM inspection
+- [`liquid_handling.md`](../liquid_handling.md) — Aspirate and dispense parameters
+- [`compound_commands/copy_plate.md`](../compound_commands/copy_plate.md) — `copy_plate()` and `CopyPlateResult.tadm_curves`
+- [`common_patterns.md`](../common_patterns.md) — Pattern 9: per-well TADM inspection

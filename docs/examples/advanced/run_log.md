@@ -8,10 +8,17 @@ The SDK can produce a structured JSON run log that captures every HTTP request/r
 
 ```python
 from hamilton_venus import StarClient
+from hamilton_venus.catalog import LIQUID_CLASSES
 
 with StarClient() as star:
     star.instrument_init()
-    star.aspirate(channels=[1, 2], positions="Plate@col:1", volumes=50.0, liquid_class="Water")
+    # Assumes a deck with tips picked up and a plate named "Plate".
+    star.aspirate(
+        channels=[1, 2],
+        positions="Plate@col:1",
+        volumes=50.0,
+        liquid_class=LIQUID_CLASSES.STAR.STANDARDVOLUME_WATER_DISPENSEJET_EMPTY,
+    )
 ```
 
 After the `with` block exits, a finalized `.json` file appears in VENUS's LogFiles directory, next to
@@ -20,7 +27,8 @@ VENUS's own trace for the run. The SDK takes that directory from the registry
 `C:\Program Files (x86)\Hamilton\Logfiles`. If it cannot write there, the log goes to the current
 working directory instead. Set `output_dir` to write somewhere else.
 
-To turn the run log off, pass `run_log=False`, set `enabled = false` in the TOML, or set
+To turn the run log off, pass `run_log=False`, set `enabled = false` in the `[venus.run_log]` section
+of the TOML config file (see [Configuration](../../configuration.md#toml-file)), or set
 `HAMILTON_VENUS_RUN_LOG_ENABLED=0`.
 
 ## Full Configuration
@@ -74,11 +82,13 @@ Or via environment variables:
 |----------|-------------|
 | `HAMILTON_VENUS_RUN_LOG_ENABLED` | Run log. On by default. Disable: `0`, `false`, `no`, or `off`. Enable: `1`, `true`, `yes`, or `on`. Also applies to a `RunLogConfig` built in code. |
 | `HAMILTON_VENUS_RUN_LOG_DIR` | Override the output directory (default: VENUS's LogFiles directory). |
-| `HAMILTON_VENUS_RUN_LOG_CONSOLE_CAPTURE` | Capture console output: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_INCLUDE_HTTP` | Include HTTP requests/responses: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_INCLUDE_SIGNALR` | Include SignalR events: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_INCLUDE_CMD_COMMS` | Include command communication entries: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_REDACT_AUTH` | Redact credentials: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
+| `HAMILTON_VENUS_RUN_LOG_CONSOLE_CAPTURE` | Capture console output: on by default. Disable: `0`, `false`, `no`, or `off`. |
+| `HAMILTON_VENUS_RUN_LOG_INCLUDE_HTTP` | Include HTTP requests/responses: on by default. Disable: `0`, `false`, `no`, or `off`. |
+| `HAMILTON_VENUS_RUN_LOG_INCLUDE_SIGNALR` | Include SignalR events: on by default. Disable: `0`, `false`, `no`, or `off`. |
+| `HAMILTON_VENUS_RUN_LOG_INCLUDE_CMD_COMMS` | Include command communication entries: on by default. Disable: `0`, `false`, `no`, or `off`. |
+| `HAMILTON_VENUS_RUN_LOG_REDACT_AUTH` | Redact credentials: on by default. Disable: `0`, `false`, `no`, or `off`. |
+| `HAMILTON_VENUS_RUN_LOG_SIGNALR_EVENT_FILTER` | Comma-separated list of SignalR event types to log (for example `runtime_status,progress`). |
+| `HAMILTON_VENUS_RUN_LOG_MAX_PAYLOAD_BYTES` | Max serialized payload size per log entry in bytes. |
 | `HAMILTON_VENUS_RUN_LOG_INCLUDE_COM_TRACE` | Embed the VENUS firmware `.trc` trace. On by default. Disable: `0`, `false`, `no`, or `off`. Enable: `1`, `true`, `yes`, or `on`. Also applies to a `RunLogConfig` built in code. |
 | `HAMILTON_VENUS_RUN_LOG_COM_TRACE_DIR` | Override the VENUS `Logfiles` directory the `.trc` is read from. |
 | `HAMILTON_VENUS_RUN_LOG_COM_TRACE_MAX_BYTES` | Cap on the embedded trace size in bytes (`0` = unlimited; newest lines kept). |
@@ -105,8 +115,6 @@ The `runGuid` is normalized to its hyphen-less form to match VENUS's filenames. 
 ```
 
 ## Reading the Log
-
-To read a log rather than parse it, open it in the Log Viewer (installed by the [GUI installer](../../gui-installer.md)): errors broken down for root cause, the trace, a run summary and sample tracking. The same analysis is available from Python in `hamilton_workflow_framework` (`run_summary.summarize_run`, and `run_log.build_trace` / `analyze_errors` / `build_sample_tracking`, each taking the parsed log).
 
 The finalized `.json` file is a single object:
 
@@ -147,7 +155,7 @@ for entry in data["log"]:
 
 ## Crash Recovery
 
-If the process crashes before `finalize()` runs, both the `.jsonl` and `.meta.json` survive on disk. Each line of the `.jsonl` is a valid JSON object:
+If the process crashes before the client exits and finalizes the log, both the `.jsonl` and `.meta.json` survive on disk. Each line of the `.jsonl` is a valid JSON object:
 
 ```python
 import json

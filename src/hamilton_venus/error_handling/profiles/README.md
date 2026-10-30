@@ -3,7 +3,7 @@
 This directory contains pre-configured JSON profiles for error handling strategies.
 Users can discover and customize profiles by editing the JSON files directly.
 
-**For comprehensive user documentation, see [Error Handling](../../docs/error_handling.md)**
+**For comprehensive user documentation, see [Error Handling](../../../../docs/error_handling.md)**
 
 ## Available Profiles
 
@@ -16,7 +16,7 @@ The default profile for typical lab runs. Provides:
 
 **Use case**: General-purpose lab automation with human oversight.
 
-**See also**: [Quick Start](../../docs/error_handling.md#quick-start) in the main documentation
+**See also**: [Quick Start](../../../../docs/error_handling.md#quick-start) in the main documentation
 
 ## Profile Structure
 
@@ -71,7 +71,7 @@ Each profile JSON file contains:
 
 ## Customizing Profiles
 
-**See [Using Custom Profiles](../../docs/error_handling.md#using-custom-profiles) in the main documentation for detailed examples.**
+**See [Using Custom Profiles](../../../../docs/error_handling.md#using-custom-profiles) in the main documentation for detailed examples.**
 
 ### Quick Reference: Edit JSON Directly
 
@@ -118,8 +118,8 @@ profile_to_json_file(variant, "strict_profile.json")
 ```
 
 For more complete examples, see:
-- [Creating Custom Profiles](../../docs/error_handling.md#creating-custom-profiles)
-- [Profile Persistence](../../docs/error_handling.md#profile-persistence)
+- [Creating Custom Profiles](../../../../docs/error_handling.md#creating-custom-profiles)
+- [Profile Persistence](../../../../docs/error_handling.md#profile-persistence)
 
 ## Recovery Actions
 
@@ -135,7 +135,7 @@ Available recovery actions:
 - `AVAILABLE`: Use available content
 
 For details on which actions are valid for each error type, see the main documentation:
-→ [Error Types by Operation](../../docs/error_handling.md#error-types-by-operation)
+→ [Error Types by Operation](../../../../docs/error_handling.md#error-types-by-operation)
 
 ## Error Types
 
@@ -173,12 +173,12 @@ For details on which actions are valid for each error type, see the main documen
 - OTHER
 
 For details on each error type, see:
-→ [Error Types by Operation](../../docs/error_handling.md#error-types-by-operation)
+→ [Error Types by Operation](../../../../docs/error_handling.md#error-types-by-operation)
 
 ## Next Steps
 
-1. **Quick Start**: Read [Quick Start](../../docs/error_handling.md#quick-start) in the main documentation
-2. **Understanding Profiles**: See [Overview](../../docs/error_handling.md#overview)
-3. **Using Custom Profiles**: See [Using Custom Profiles](../../docs/error_handling.md#using-custom-profiles)
-4. **Operator Escalation**: See [Operator Escalation](../../docs/error_handling.md#operator-escalation)
-5. **Full Reference**: See [docs/error_handling.md](../../docs/error_handling.md)
+1. **Quick Start**: Read [Quick Start](../../../../docs/error_handling.md#quick-start) in the main documentation
+2. **Understanding Profiles**: See [Overview](../../../../docs/error_handling.md#overview)
+3. **Using Custom Profiles**: See [Using Custom Profiles](../../../../docs/error_handling.md#using-custom-profiles)
+4. **Operator Escalation**: See [Operator Escalation](../../../../docs/error_handling.md#operator-escalation)
+5. **Full Reference**: See [docs/error_handling.md](../../../../docs/error_handling.md)

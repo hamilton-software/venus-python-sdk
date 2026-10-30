@@ -10,8 +10,8 @@ no compound commands (``replicate_samples`` etc.).
 Demonstrates simulated firmware error injection (VENUS simulation mode only,
 via ``hamilton_venus.error_simulator``) with NO automatic recovery -- the
 point is to show an operator what an injected error looks like and let them
-resolve it themselves (e.g. through Script Manager's own error-recovery
-modal), not to auto-clear it out from under them. Registering multiple
+resolve it themselves (e.g. through VENUS's error-recovery dialog), not to
+auto-clear it out from under them. Registering multiple
 simulated errors at once (before any of them has actually fired) confuses
 VENUS's own simulator; the SDK now guards against this (each ``simulate_error``
 clears any previously injected one), and this script also registers each on

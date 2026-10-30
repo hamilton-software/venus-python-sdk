@@ -5,8 +5,7 @@ top of the normal structured run log, snapshot VENUS's per-day firmware
 communication trace (``.trc``) when the client opens and, when it closes,
 embed the lines appended in between as ``com_trace`` entries in the
 finalized ``*_SdkRunLog.json``. That is the raw ``< sent`` / ``> received``
-firmware exchange -- the same data the Script Manager "COM Trace" terminal
-filter shows live.
+firmware exchange.
 
 Both are on by default for StarClient and VantageClient; this script sets
 them explicitly to show the settings. To turn them off without touching code:

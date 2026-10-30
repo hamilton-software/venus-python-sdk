@@ -1,4 +1,4 @@
-Lookup tables for the enumerated fields and numeric bounds referenced in `JSON_Liquid-Class-Model.md`. Source: `LiquidEnums` and `ParamRangesByDevice` in `Class1.cs`. If those change, regenerate this file rather than hand-editing it out of sync.
+Lookup tables for the enumerated fields and numeric bounds referenced in [`liquid_class_model_sdk.md`](liquid_class_model_sdk.md). The values come from VENUS's liquid class definitions.
 
 ## Dispense Modes (`appliesTo.dispenseMode`)
 
@@ -71,7 +71,7 @@ The nominal volume column is what `appliesTo.volumeRange.max` should be set to f
 
 ## Parameter Ranges by Device
 
-Valid min–max bounds for `pipettingProperties.aspirate` / `.dispense` fields, keyed by `appliesTo.pipettingDevice`. Same units as the schema doc (µL, µL/s, mm/s, s; `clotRetractHeight` in mm).
+Valid min–max bounds for `pipettingProperties.aspirate` / `.dispense` fields, keyed by `appliesTo.pipettingDevice`. Same units as the model doc (µL, µL/s, mm/s, s; `clotRetractHeight` in mm).
 
 | Parameter | channels_1000ul | channels_5ml | channels_magpip | head_96 | head_384 |
 |---|---|---|---|---|---|

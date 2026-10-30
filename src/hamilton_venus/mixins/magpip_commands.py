@@ -222,9 +222,7 @@ class ChannelsMagPipCommandsMixin(_ChannelCommandsBase):
             ),
             volumes=self._validate_per_channel(volumes, channel_count, "volumes"),
             liquid_class=self._validate_per_channel(liquid_class, channel_count, "liquid_class"),
-            aspirate_mode=self._validate_per_channel(
-                resolved_settings.aspirate_mode, channel_count, "aspirate_mode"
-            ),
+            aspirate_mode=self._validate_per_channel(resolved_settings.aspirate_mode, channel_count, "aspirate_mode"),
             capacitive_lld=self._validate_per_channel(
                 resolved_settings.capacitive_lld, channel_count, "capacitive_lld"
             ),
@@ -258,7 +256,7 @@ class ChannelsMagPipCommandsMixin(_ChannelCommandsBase):
             self._connected_instrument.venus.send_command(
                 category="Instrument",
                 action_name="channels.MagPip.aspirate",
-                parameters=parameters.model_dump(by_alias=True, exclude_none=True),
+                parameters=self._slot_align(parameters.model_dump(by_alias=True, exclude_none=True), channels),
             )
         )
         return ChannelAspirationResponse.model_validate(response.model_dump())
@@ -334,7 +332,7 @@ class ChannelsMagPipCommandsMixin(_ChannelCommandsBase):
             self._connected_instrument.venus.send_command(
                 category="Instrument",
                 action_name="channels.MagPip.dispense",
-                parameters=parameters.model_dump(by_alias=True, exclude_none=True),
+                parameters=self._slot_align(parameters.model_dump(by_alias=True, exclude_none=True), channels),
             )
         )
         return ChannelDispenseResponse.model_validate(response.model_dump())
@@ -402,6 +400,9 @@ class ChannelsMagPipCommandsMixin(_ChannelCommandsBase):
         """Move MagPip channels directly to absolute X/Y/Z coordinates. See
         :meth:`ChannelCommandsMixin.move_axis
         <hamilton_venus.mixins.channel_commands._ChannelCommandsBase.move_axis>`."""
+        channel_list = [channels] if isinstance(channels, int) else list(channels)
+        self._validate_per_channel(y, len(channel_list), "y")
+        self._validate_per_channel(z, len(channel_list), "z")
         parameters = ChannelMoveAxisParameters(
             channels=channels,
             x=x,
@@ -413,7 +414,11 @@ class ChannelsMagPipCommandsMixin(_ChannelCommandsBase):
             self._connected_instrument.venus.send_command(
                 category="Instrument",
                 action_name="channels.MagPip.moveAxis",
-                parameters=parameters.model_dump(by_alias=True, exclude_none=True),
+                parameters=self._slot_align(
+                    parameters.model_dump(by_alias=True, exclude_none=True),
+                    channel_list,
+                    keys=("y", "z"),
+                ),
             )
         )
         return ChannelMoveAxisResponse.model_validate(response.model_dump(by_alias=True))

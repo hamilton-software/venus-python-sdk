@@ -24,6 +24,7 @@ from hamilton_venus import StarClient
 from hamilton_venus.models.enums import CoreGripType
 
 with StarClient() as star:
+    star.instrument_init()
     # Add with standard grip (default)
     star.add_1ml_core_grip(grip_type=CoreGripType.STANDARD)
     
@@ -36,6 +37,7 @@ with StarClient() as star:
 from hamilton_venus import StarClient
 
 with StarClient() as star:
+    star.instrument_init()
     # 5mL CO-RE has no type variations
     star.add_5ml_core_grip()
     
@@ -51,6 +53,7 @@ from hamilton_venus import StarClient
 from hamilton_venus.models.enums import QCGType
 
 with StarClient() as star:
+    star.instrument_init()
     # Add with standard QCG type (default)
     star.add_qcg(qcg_type=QCGType.QCG)
     
@@ -71,6 +74,7 @@ from hamilton_venus.models.enums import CoreGripType, QCGType
 from hamilton_venus.catalog import LABWARE
 
 with StarClient() as star:
+    star.instrument_init()
     # Set up plate carriers
     star.add_carrier(
         labware_definition=LABWARE.CARRIER.PLT_CAR_L5MD,
@@ -99,10 +103,10 @@ with StarClient() as star:
         plate_id="DestPlate",
     )
     
-    # Add gripper tools for transport
+    # Add gripper tools for transport (Legacy 1 mL channels; on Fluid Motion
+    # channels use star.add_qcg(qcg_type=QCGType.QCG) instead of add_1ml_core_grip())
     star.add_1ml_core_grip(grip_type=CoreGripType.STANDARD)
     star.add_5ml_core_grip()
-    star.add_qcg(qcg_type=QCGType.QCG)
     
     print("Deck layout with grippers configured")
 ```
@@ -230,13 +234,13 @@ class GripperManager:
 
 # Usage
 with StarClient() as star:
+    star.instrument_init()
     manager = GripperManager(star)
     
-    # Initialize grippers
+    # Initialize grippers (use "qcg" instead of "1ml_core" on Fluid Motion channels)
     config = {
         "1ml_core": 2,
         "5ml_core": 1,
-        "qcg": 1,
     }
     
     if manager.initialize_grippers(config):
@@ -261,6 +265,9 @@ from hamilton_venus.models.enums import CoreGripType
 def sequential_gripper_workflow(star):
     """
     Execute workflow using different grippers.
+
+    Assumes "MicroPlate" and "ReservoirPlate" are already on the deck, and
+    "Carrier1" / "Carrier2" are the destination carriers.
     """
     star.add_1ml_core_grip(grip_type=CoreGripType.STANDARD)
     star.add_5ml_core_grip()
@@ -278,6 +285,7 @@ def sequential_gripper_workflow(star):
         grip_height_above_bottom=5.0,
         grip_width=50.0,
         grip_open=30.0,
+        tool_id=tool_1ml,
     )
     
     # Use 5mL gripper for bulk transfer
@@ -289,6 +297,7 @@ def sequential_gripper_workflow(star):
         grip_height_above_bottom=10.0,
         grip_width=100.0,
         grip_open=50.0,
+        tool_id=tool_5ml,
     )
 
 
@@ -359,7 +368,7 @@ class LoadBalancedGripperWorkflow:
         """Execute transport using available gripper."""
         gripper_id = self.get_next_available_gripper()
         
-        if not gripper_id:
+        if gripper_id is None:
             logger.error("Cannot execute transport - no available grippers")
             return False
         
@@ -374,6 +383,7 @@ class LoadBalancedGripperWorkflow:
                 grip_height_above_bottom=8.0,
                 grip_width=100.0,
                 grip_open=50.0,
+                tool_id=gripper_id,
             )
             
             self.star.core_transport(
@@ -383,6 +393,7 @@ class LoadBalancedGripperWorkflow:
                 grip_height_above_bottom=8.0,
                 grip_width=100.0,
                 grip_open=50.0,
+                tool_id=gripper_id,
             )
             
             return True
@@ -405,7 +416,8 @@ with StarClient() as star:
     
     workflow = LoadBalancedGripperWorkflow(star, gripper_config)
     
-    # Execute multiple transports
+    # Execute multiple transports (assumes Plate1-Plate3 and both carriers
+    # are already on the deck)
     transfers = [
         ("Plate1", "SourceCarrier", "DestCarrier"),
         ("Plate2", "SourceCarrier", "DestCarrier"),
@@ -429,6 +441,7 @@ with StarClient() as star:
 from hamilton_venus import StarClient
 
 with StarClient() as star:
+    star.instrument_init()
     # Verify gripper was added
     star.add_1ml_core_grip()
     
@@ -467,6 +480,7 @@ def replace_gripper(star, tool_id):
 
 
 with StarClient() as star:
+    star.instrument_init()
     # Setup initial gripper
     star.add_1ml_core_grip()
     tools_result = star.get_transport_tool_ids()
@@ -482,6 +496,7 @@ with StarClient() as star:
 from hamilton_venus import StarClient
 
 with StarClient() as star:
+    star.instrument_init()
     star.add_1ml_core_grip()
     star.add_5ml_core_grip()
 
@@ -510,10 +525,11 @@ from hamilton_venus import StarClient
 from hamilton_venus.models.enums import CoreGripType, QCGType
 
 with StarClient() as star:
-    # Add all grippers up front
+    star.instrument_init()
+    # Add all grippers up front (on Fluid Motion channels, use
+    # add_qcg(qcg_type=QCGType.QCG) instead of add_1ml_core_grip())
     star.add_1ml_core_grip(grip_type=CoreGripType.STANDARD)
     star.add_5ml_core_grip()
-    star.add_qcg(qcg_type=QCGType.QCG)
     
     # Then set up carriers and plates
     # This ensures tools are available for transport operations
@@ -543,11 +559,15 @@ Comment which gripper is used for which task:
 from hamilton_venus import StarClient
 
 with StarClient() as star:
+    star.instrument_init()
+    # Plate transport on Legacy 1 mL channels
     star.add_1ml_core_grip()
     
+    # 5 mL CO-RE gripper
     star.add_5ml_core_grip()
     
-    star.add_qcg()
+    # On Fluid Motion channels, use the QCG instead of the 1 mL CO-RE gripper:
+    # star.add_qcg()
 ```
 
 ---
@@ -556,6 +576,6 @@ with StarClient() as star:
 
 - [`transport_workflows.md`](./transport_workflows.md) — Using grippers to transport plates
 - [`liquid_class_management.md`](./liquid_class_management.md) — Liquid handling parameters
-- [`star-commands.md`](../../star-commands.md) — Full API reference
+- [`star_commands.md`](../../star_commands.md) — Full API reference
 - [Basic examples](../) — Basic examples
 

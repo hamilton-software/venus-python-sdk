@@ -6,7 +6,7 @@ The SDK resolves configuration from three sources, in priority order:
 2. **TOML config file**
 3. **Built-in defaults** (lowest priority)
 
-Programmatic `SdkConfig` objects bypass the TOML/env resolution entirely.
+Programmatic `SdkConfig` objects bypass the TOML/env resolution entirely (except the `HAMILTON_VENUS_RUN_LOG_ENABLED` and `HAMILTON_VENUS_RUN_LOG_INCLUDE_COM_TRACE` defaults of `RunLogConfig`). When you create `StarClient()` or `VantageClient()` without a config, the SDK calls `load_config()` to resolve the sources above.
 
 ## TOML File
 
@@ -69,7 +69,15 @@ shutdown_timeout = 30.0
 logging_level = ""         # empty = disabled; also accepts DEBUG/INFO/WARNING/ERROR/CRITICAL or integer
 venus_trace_logging = false
 error_profile_name = "standard"   # built-in profile name; ignored when error_profile_path is set
-error_profile_path = ""           # absolute or relative path to a custom profile JSON file
+error_profile_path = ""           # absolute path, or relative to this TOML file's folder, to a custom profile JSON file
+
+[venus.vantage_client]       # same keys as [venus.star_client], used by VantageClient
+auto_connect = true
+shutdown_timeout = 30.0
+logging_level = ""
+venus_trace_logging = false
+error_profile_name = "standard"
+error_profile_path = ""
 ```
 
 ## Environment Variables
@@ -118,20 +126,24 @@ The following settings can be overridden with environment variables. Environment
 | `HAMILTON_VENUS_ERROR_PROFILE` | *(none)* | Override `[venus.star_client].error_profile_name`. Built-in values: `standard`. Ignored when `HAMILTON_VENUS_ERROR_PROFILE_PATH` is set. |
 | `HAMILTON_VENUS_ERROR_PROFILE_PATH` | *(none)* | Path to a custom error profile JSON file. When set, takes precedence over `error_profile_name`. |
 
+### VantageClient Defaults
+
+Same as the StarClient variables above, but with a `VANTAGE_` prefix, and they override `[venus.vantage_client]`: `HAMILTON_VENUS_VANTAGE_AUTO_CONNECT`, `HAMILTON_VENUS_VANTAGE_SHUTDOWN_TIMEOUT`, `HAMILTON_VENUS_VANTAGE_LOGGING_LEVEL`, `HAMILTON_VENUS_VANTAGE_TRACE_LOGGING`, `HAMILTON_VENUS_VANTAGE_ERROR_PROFILE`, `HAMILTON_VENUS_VANTAGE_ERROR_PROFILE_PATH`.
+
 ### Run Log
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `HAMILTON_VENUS_RUN_LOG_ENABLED` | *(none)* | On by default. Disable: `0`, `false`, `no`, or `off`. Enable: `1`, `true`, `yes`, or `on`. Also applies to a `RunLogConfig` built in code. |
 | `HAMILTON_VENUS_RUN_LOG_DIR` | *(none)* | Override output directory for run log files (default: VENUS's LogFiles directory). |
-| `HAMILTON_VENUS_RUN_LOG_CONSOLE_CAPTURE` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_INCLUDE_HTTP` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_INCLUDE_SIGNALR` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_INCLUDE_CMD_COMMS` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
-| `HAMILTON_VENUS_RUN_LOG_REDACT_AUTH` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
+| `HAMILTON_VENUS_RUN_LOG_CONSOLE_CAPTURE` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or an empty value. |
+| `HAMILTON_VENUS_RUN_LOG_INCLUDE_HTTP` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or an empty value. |
+| `HAMILTON_VENUS_RUN_LOG_INCLUDE_SIGNALR` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or an empty value. |
+| `HAMILTON_VENUS_RUN_LOG_INCLUDE_CMD_COMMS` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or an empty value. |
+| `HAMILTON_VENUS_RUN_LOG_REDACT_AUTH` | *(none)* | Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or an empty value. |
 | `HAMILTON_VENUS_RUN_LOG_SIGNALR_EVENT_FILTER` | *(none)* | Comma-separated list of SignalR event types to include (for example: `runtime_status,progress`). |
 | `HAMILTON_VENUS_RUN_LOG_MAX_PAYLOAD_BYTES` | *(none)* | Override max serialized payload size per log entry in bytes. Must be `>= 0`. |
-| `HAMILTON_VENUS_RUN_LOG_INCLUDE_COM_TRACE` | *(none)* | Embed VENUS's firmware COM trace (`.trc`). Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or unset. |
+| `HAMILTON_VENUS_RUN_LOG_INCLUDE_COM_TRACE` | *(none)* | Embed VENUS's firmware COM trace (`.trc`). Enable: `1`, `true`, `yes`, or `on`. Disable: `0`, `false`, `no`, `off`, or an empty value. Also applies to a `RunLogConfig` built in code. |
 | `HAMILTON_VENUS_RUN_LOG_COM_TRACE_DIR` | *(none)* | Override the VENUS `Logfiles` directory the `.trc` is read from. Unset, the SDK asks VENUS via `GET /api/vector/v3/system/paths`. |
 | `HAMILTON_VENUS_RUN_LOG_COM_TRACE_MAX_BYTES` | *(none)* | Cap on the embedded trace size in bytes. `0` = unlimited (keeps the newest lines). Must be `>= 0`. |
 
@@ -147,18 +159,20 @@ config = SdkConfig(
 )
 
 with StarClient(config, auto_connect=False) as star:
+    star.instrument_connect(initialize=False)
     star.instrument_init()
     print(star.instrument_is_connected())
 ```
 
-Connection behavior such as automatic instrument initialization is controlled on `StarClient`, not in `SdkConfig`:
+Connection behavior is controlled on `StarClient` (or `[venus.star_client]`), not by the top-level `SdkConfig` fields. With the default `auto_connect=True`, the client connects to the instrument on entry but does not initialize it:
 
 ```python
 with StarClient(config) as star:
+    star.instrument_init()
     print(star.instrument_is_connected())
 ```
 
-Use `auto_connect=False` to manage initialization manually. `StarClient` defaults `auto_connect` to `True`.
+Use `auto_connect=False` to manage the connection manually.
 
 `StarClient` logging resolution is explicit:
 
@@ -181,6 +195,7 @@ Top-level configuration container.
 | `tls` | `TlsConfig` | *(default instance)* |
 | `run_log` | `RunLogConfig` | *(default instance)* |
 | `star_client` | `StarClientConfig` | *(default instance)* |
+| `vantage_client` | `VantageClientConfig` | *(default instance; same fields as `StarClientConfig`)* |
 
 #### `MethodConfig`
 
@@ -223,12 +238,12 @@ See [Authentication](authentication.md) for full details.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `auto_connect` | `bool` | `True` | Whether `StarClient` connects automatically when used as a context manager. |
+| `auto_connect` | `bool` | `True` | Whether `StarClient` connects to the instrument (without initializing it) when it starts, e.g. on entering a `with` block. |
 | `shutdown_timeout` | `float` | `30.0` | Timeout in seconds for graceful shutdown. Must be `> 0`. |
 | `logging_level` | `int \| None` | `None` | SDK logger handler level. `None` disables attachment. |
 | `venus_trace_logging` | `bool` | `False` | Enable low-level VENUS transport trace logging. |
 | `error_profile_name` | `str` | `"standard"` | Built-in error profile name. Ignored when `error_profile_path` is set. |
-| `error_profile_path` | `str` | `""` | Path to a custom error profile JSON file. When set, this path is loaded and takes precedence over `error_profile_name`. |
+| `error_profile_path` | `str` | `""` | Path to a custom error profile JSON file (relative paths in TOML resolve against the TOML file's folder). When set, this path is loaded and takes precedence over `error_profile_name`. |
 
 ## Validation
 

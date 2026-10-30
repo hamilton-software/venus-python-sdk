@@ -236,7 +236,6 @@ Use expiration and status data to decide whether a run should proceed. The `stat
 
 ```python
 import logging
-from datetime import date
 from hamilton_venus import StarClient
 
 logging.basicConfig(level=logging.INFO)
@@ -386,7 +385,7 @@ class InstrumentHealthCheck:
             self.checks["config_accessible"] = True
             
             logger.info("✓ Configuration accessible")
-            logger.info(f"  Serial: {config}")
+            logger.info(f"  Configuration: {config.return_parameters}")
             
             return True
         except Exception as e:
@@ -426,7 +425,7 @@ class InstrumentHealthCheck:
             
             logger.info("✓ Deck information accessible")
             logger.info(f"  Dimensions: {dimensions}")
-            logger.info(f"  Tracks: {len(tracks) if tracks else 0}")
+            logger.info(f"  Tracks: {tracks.return_parameters.total_tracks}")
             
             return True
         except Exception as e:
@@ -574,7 +573,7 @@ class StartupDiagnostics:
     def run_startup(self):
         """Run complete startup diagnostics."""
         try:
-            # Force initialization
+            # Initialize (skipped if already initialized; pass force_init=True to re-initialize)
             logger.info("Initializing instrument...")
             self.star.instrument_init(force_init=False)
             logger.info("✓ Initialization complete")
@@ -816,7 +815,8 @@ logger.info(f"Deck: {dimensions}")
 ### 4. Monitor Maintenance
 
 ```python
-# Check maintenance periodically
+# Check maintenance periodically (maintenance_due() is your own helper;
+# see Maintenance Gating above for an example)
 daily = star.instrument_get_daily_maintenance_data()
 weekly = star.instrument_get_weekly_maintenance_data()
 
@@ -834,8 +834,11 @@ if maintenance_due(weekly):
 
 **Solution:**
 ```python
-from hamilton_venus import StarClient
+import logging
 import time
+from hamilton_venus import StarClient
+
+logger = logging.getLogger(__name__)
 
 with StarClient() as star:
     max_retries = 3
@@ -843,7 +846,7 @@ with StarClient() as star:
         try:
             if star.instrument_is_connected():
                 break
-        except:
+        except Exception:
             if attempt < max_retries - 1:
                 logger.warning(f"Reconnecting (attempt {attempt+1}/{max_retries})")
                 time.sleep(5)
@@ -857,8 +860,11 @@ with StarClient() as star:
 
 **Solution:**
 ```python
-from hamilton_venus import StarClient
+import logging
 import time
+from hamilton_venus import StarClient
+
+logger = logging.getLogger(__name__)
 
 with StarClient() as star:
     # Wait for idle state
@@ -881,7 +887,10 @@ with StarClient() as star:
 
 **Solution:**
 ```python
+import logging
 from hamilton_venus import StarClient
+
+logger = logging.getLogger(__name__)
 
 with StarClient() as star:
     config = star.instrument_get_configuration()
@@ -890,7 +899,8 @@ with StarClient() as star:
     logger.info(f"Actual config: {config}")
     logger.info("Expected: [your expected values]")
     
-    # Decide whether to proceed or fail
+    # Decide whether to proceed or fail (validate_critical_params() is your own helper;
+    # see validate_configuration() above)
     if not validate_critical_params(config):
         raise RuntimeError("Critical config mismatch")
 ```
@@ -900,6 +910,6 @@ with StarClient() as star:
 ## See Also
 
 - [`tip_pool_management.md`](./tip_pool_management.md) — Tip pool counter management
-- [`star-commands.md`](../../star-commands.md) — Full API reference
+- [`star_commands.md`](../../star_commands.md) — Full API reference
 - [Basic examples](../) — Basic examples
 

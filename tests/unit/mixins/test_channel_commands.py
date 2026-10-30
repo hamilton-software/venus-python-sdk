@@ -281,6 +281,81 @@ class TestChannelCommands:
             {"labwareId": "Plate_A", "wellId": "C1"},
         ]
 
+    def _sent_parameters(self, star):
+        return star.venus.send_command.await_args.kwargs["parameters"]
+
+    def test_dispense_lists_are_indexed_by_channel_slot(self, config, mock_async_star_class):
+        """A one-entry list for channel 7 must land in slot 7, not slot 1 (VENUS reads array[channel - 1])."""
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(return_status="Success", return_code=0, return_parameters={})
+        )
+        with StarClient(config) as client:
+            client.dispense(
+                channels=[7],
+                positions=[Position(labware="cellplate", well="A1")],
+                volumes=[1000.0],
+                settings=DispenseSettings(fixed_height=[20.0], liquid_following=[False]),
+            )
+        params = self._sent_parameters(star)
+        assert params["channels"] == [7]
+        assert params["volumes"] == [0.0] * 6 + [1000.0]
+        assert params["fixedHeight"] == [0.0] * 6 + [20.0]
+        assert params["liquidFollowing"] == [False] * 7
+
+    def test_aspirate_lists_follow_channel_order_for_offset_channels(self, config, mock_async_star_class):
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(return_status="Success", return_code=0, return_parameters={})
+        )
+        with StarClient(config) as client:
+            client.aspirate(
+                channels=[2, 4],
+                positions=[Position(labware="P", well="A1"), Position(labware="P", well="B1")],
+                volumes=[10.0, 20.0],
+                liquid_class=["LcA", "LcB"],
+            )
+        params = self._sent_parameters(star)
+        assert params["volumes"] == [0.0, 10.0, 0.0, 20.0]
+        assert params["liquidClass"] == ["", "LcA", "", "LcB"]
+        assert params["positions"] == [{"labwareId": "P", "wellId": "A1"}, {"labwareId": "P", "wellId": "B1"}]
+
+    def test_scalar_per_channel_values_are_left_for_venus_to_broadcast(self, config, mock_async_star_class):
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(return_status="Success", return_code=0, return_parameters={})
+        )
+        with StarClient(config) as client:
+            client.dispense(
+                channels=[7],
+                positions=[Position(labware="cellplate", well="A1")],
+                volumes=100.0,
+                settings=DispenseSettings(fixed_height=20.0),
+            )
+        params = self._sent_parameters(star)
+        assert params["volumes"] == 100.0
+        assert params["fixedHeight"] == 20.0
+
+    def test_list_length_must_match_channel_count(self, config, mock_async_star_class):
+        with StarClient(config) as client, pytest.raises(ValueError, match="fixed_height expected 1 entries"):
+            client.dispense(
+                channels=[7],
+                positions=[Position(labware="cellplate", well="A1")],
+                volumes=[100.0],
+                settings=DispenseSettings(fixed_height=[20.0, 20.0]),
+            )
+
+    def test_move_axis_lists_are_indexed_by_channel_slot(self, config, mock_async_star_class):
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(return_status="Success", return_code=0, return_parameters={})
+        )
+        with StarClient(config) as client:
+            client.move_axis(channels=[2], y=[120.0], z=[200.0])
+        params = self._sent_parameters(star)
+        assert params["y"] == [0.0, 120.0]
+        assert params["z"] == [0.0, 200.0]
+
     def test_aspirate_uses_settings(self, config, mock_async_star_class):
         positions = [Position(labware="DeepWell1", well="B2")]
         star = mock_async_star_class.return_value
@@ -671,7 +746,7 @@ class TestChannelCommands:
         move_call = star.venus.send_command.await_args_list[1]
         assert move_call.kwargs["parameters"] == {
             "channels": [3],
-            "z": [65.0],
+            "z": [0.0, 0.0, 65.0],
             "safetyBypassToken": "OVERRIDE_SAFETY_CHECKS",
         }
 

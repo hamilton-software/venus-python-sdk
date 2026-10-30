@@ -15,7 +15,7 @@ applies to the ``Labware@expression`` positions selector DSL.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from hamilton_venus.mixins.split_well_commands import forget_split_wells, split_wells_suspended
 from hamilton_venus.models import (
@@ -25,6 +25,7 @@ from hamilton_venus.models import (
     CommandResponse,
     LayoutAddCarrierParameters,
     LayoutAddCarrierToSiteParameters,
+    LayoutAddLabwareResponse,
     LayoutAddLiddedPlateParameters,
     LayoutAddLiquidWasteParameters,
     LayoutAddNTRParameters,
@@ -36,11 +37,14 @@ from hamilton_venus.models import (
     LayoutAddTipSupportParameters,
     LayoutAddTransportSiteParameters,
     LayoutAddTransportSiteResponse,
+    LayoutAddTransportToolResponse,
     LayoutAddTubesToCarrierParameters,
     LayoutAddTubesToCarrierResponse,
     LayoutMoveCarrierParameters,
     LayoutMoveCarrierResponse,
     LayoutRemoveLabwareParameters,
+    LayoutRemoveLabwareResponse,
+    LayoutRemoveTransportToolResponse,
     LayoutShiftLabwareParameters,
     LayoutShiftLabwareResponse,
     LayoutTiltLabwareParameters,
@@ -73,6 +77,26 @@ if TYPE_CHECKING:
 _ResponseT = TypeVar("_ResponseT", bound=CommandResponse)
 
 
+def tube_carrier_z_offset(definition: dict[str, Any]) -> float:
+    """Where a sample tube carrier's own tubes sit: the height of their bottom above the
+    carrier base (the definition's firstContainerCenter.z, typically 10 mm). 0 when the
+    definition has none."""
+    for grid in (definition.get("containerGrids") or {}).values():
+        z = ((grid or {}).get("firstContainerCenter") or {}).get("z")
+        if isinstance(z, (int, float)):
+            return float(z)
+    return 0.0
+
+
+
+_R = TypeVar("_R", bound=CommandResponse)
+
+
+def _typed(model: type[_R], response: CommandResponse) -> _R:
+    """The same response with its returnParameters as the typed model (the wire payload is unchanged)."""
+    return model.model_validate(response.model_dump(by_alias=True))
+
+
 class DeckLabwareCommandsMixin:
     """Mixin providing deck labware placement and management commands."""
 
@@ -88,20 +112,20 @@ class DeckLabwareCommandsMixin:
         labware_definition: str,
         left_track: int,
         labware_id: str | None = None,
-    ) -> CommandResponse:
+    ) -> LayoutAddLabwareResponse:
         """Add a carrier definition to the active deck layout."""
         parameters = LayoutAddCarrierParameters(
             labware_name=labware_id,
             labware_definition=labware_definition,
             left_track=left_track,
         )
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addCarrier",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
     def add_carrier_to_site(
         self,
@@ -109,7 +133,7 @@ class DeckLabwareCommandsMixin:
         carrier_id: str,
         site: str,
         labware_id: str | None = None,
-    ) -> CommandResponse:
+    ) -> LayoutAddLabwareResponse:
         """Add a carrier definition to a specific site on an existing carrier."""
         parameters = LayoutAddCarrierToSiteParameters(
             labware_name=labware_id,
@@ -117,40 +141,52 @@ class DeckLabwareCommandsMixin:
             carrier=carrier_id,
             site=site,
         )
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addCarrierToSite",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
     def add_tube_carrier(
         self,
         labware_definition: str,
         left_track: int,
         labware_id: str | None = None,
-    ) -> CommandResponse:
-        """Add a sample tube carrier definition to the active deck layout."""
+    ) -> LayoutAddLabwareResponse:
+        """Add a sample tube carrier definition to the active deck layout.
+
+        The carrier comes with its tubes already loaded (its definition is a rack of tube
+        positions, e.g. "Sample carrier with 24 positions with preloaded 15x100 tubes"); nothing
+        else has to be added before pipetting. Address a tube as ``"<carrier>@<position>"``
+        (``"Tubes@1"`` .. ``"Tubes@24"``). ``get_labware_coordinates(carrier)`` lists every
+        position and ``get_labware_spec(carrier)`` its layout. The site queries
+        (get_labware_on_carrier, get_occupied_carrier_sites, get_top_labware) are for carriers
+        with sites and return nothing for a tube carrier. Use ``add_tubes_to_carrier`` only to put
+        a different tube type in some positions.
+        """
         parameters = LayoutAddCarrierParameters(
             labware_name=labware_id,
             labware_definition=labware_definition,
             left_track=left_track,
         )
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addSampleTubeCarrier",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
     def add_tubes_to_carrier(
         self,
         labware_name: str,
         positions: list[dict[str, Any] | TubePositionInput],
     ) -> LayoutAddTubesToCarrierResponse:
-        """Add tubes to a sample tube carrier and return their absolute coordinates.
+        """Replace the tubes in some positions of a sample tube carrier with another tube type,
+        and return their absolute coordinates. Not needed for the carrier's own tubes: a tube
+        carrier comes with them loaded (see ``add_tube_carrier``).
 
         Args:
             labware_name: Name of the sample tube carrier on the deck.
@@ -159,6 +195,12 @@ class DeckLabwareCommandsMixin:
                 ``tube`` (tube labware definition filename from the SDK's
                 ``Labware/Tubes/`` directory, e.g. ``"Tub_17x75_FlipTop_A00"``),
                 and optional ``xOffset``/``yOffset``/``zOffset`` in mm.
+                ``zOffset`` -- the height of the tube's bottom above the carrier base, the
+                offset that matters most -- defaults to where the carrier's own tubes sit
+                (its definition's first container height, typically 10 mm, which accounts
+                for the carrier's base). Pass it only to put tubes higher or lower than that,
+                as the full height (e.g. 15 to raise them 5 mm on a 10 mm carrier); 0 would
+                put them on the carrier base.
 
         Returns:
             LayoutAddTubesToCarrierResponse with each tube's resulting x, y, z.
@@ -167,6 +209,13 @@ class DeckLabwareCommandsMixin:
             p if isinstance(p, TubePositionInput) else TubePositionInput.model_validate(p)
             for p in positions
         ]
+        if any(p.z_offset is None for p in normalized):
+            definition = self.labware_get_params_from_id(labware_name).return_parameters.definition  # type: ignore[attr-defined]
+            carrier_z = tube_carrier_z_offset(definition)
+            normalized = [
+                p if p.z_offset is not None else p.model_copy(update={"z_offset": carrier_z})
+                for p in normalized
+            ]
         parameters = LayoutAddTubesToCarrierParameters(
             labware_name=labware_name,
             positions=normalized,
@@ -325,7 +374,7 @@ class DeckLabwareCommandsMixin:
         carrier_id: str,
         site: str,
         plate_id: str | None = None,
-    ) -> CommandResponse:
+    ) -> LayoutAddLabwareResponse:
         """Add a plate to a carrier site in the active layout."""
         parameters = LayoutAddPlateParameters(
             labware_name=plate_id,
@@ -333,13 +382,13 @@ class DeckLabwareCommandsMixin:
             carrier=carrier_id,
             site=site,
         )
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addPlate",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
     def add_lidded_plate(
         self,
@@ -376,7 +425,7 @@ class DeckLabwareCommandsMixin:
         carrier_id: str,
         site: str,
         lid_id: str | None = None,
-    ) -> CommandResponse:
+    ) -> LayoutAddLabwareResponse:
         """Add a lid to a carrier site in the active layout."""
         parameters = LayoutAddPlateParameters(
             labware_name=lid_id,
@@ -384,13 +433,13 @@ class DeckLabwareCommandsMixin:
             carrier=carrier_id,
             site=site,
         )
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addLid",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
 
     def add_reservoir(
@@ -399,7 +448,7 @@ class DeckLabwareCommandsMixin:
         carrier_id: str,
         site: str,
         labware_id: str | None = None,
-    ) -> CommandResponse:
+    ) -> LayoutAddLabwareResponse:
         """Add a reservoir to a carrier site in the active deck layout."""
         parameters = LayoutAddPlateParameters(
             labware_name=labware_id,
@@ -407,33 +456,33 @@ class DeckLabwareCommandsMixin:
             carrier=carrier_id,
             site=site,
         )
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addReservoir",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
     def add_tip_support(
         self,
         carrier_id: str,
         site: str,
-    ) -> CommandResponse:
+    ) -> LayoutAddLabwareResponse:
         """Add a tip support to a carrier site in the active layout."""
         parameters = LayoutAddTipSupportParameters(
             carrier=carrier_id,
             site=site,
         )
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addTipSupport",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
-    def remove_labware(self, labware_name: str) -> CommandResponse:
+    def remove_labware(self, labware_name: str) -> LayoutRemoveLabwareResponse:
         """Remove the specified labware from the active deck layout.
 
         Split wells (``split_wells``) of the labware, or of labware on a removed
@@ -450,7 +499,7 @@ class DeckLabwareCommandsMixin:
         )
         self._tilted_labware_state().pop(labware_name.lower(), None)
         vars(self).get("_tilt_settings", {}).pop(labware_name.lower(), None)
-        return response
+        return _typed(LayoutRemoveLabwareResponse, response)
 
     def _labware_on_removed_carrier(self, labware_name: str) -> list[str]:
         """Split-well parents on *labware_name* if it is a carrier (only asked while any are split)."""
@@ -469,31 +518,31 @@ class DeckLabwareCommandsMixin:
     def add_1ml_core_grip(
         self,
         grip_type: CoreGripType = CoreGripType.STANDARD,
-    ) -> CommandResponse:
+    ) -> LayoutAddTransportToolResponse:
         """Add a 1 mL CO-RE grip tool to the layout."""
         parameters = Add1mLCoreGripParameters(type=grip_type)
-        return self._run(
+        return _typed(LayoutAddTransportToolResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.add1mLCoreGrip",
                 parameters=parameters.model_dump(by_alias=True),
             )
-        )
+        ))
 
-    def add_5ml_core_grip(self) -> CommandResponse:
+    def add_5ml_core_grip(self) -> LayoutAddTransportToolResponse:
         """Add a 5 mL CO-RE grip tool to the layout."""
-        return self._run(
+        return _typed(LayoutAddTransportToolResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.add5mLCoreGrip",
             )
-        )
+        ))
 
     def add_qcg(
         self,
         qcg_type: QCGType = QCGType.QCG,
         track: int | None = None,
-    ) -> CommandResponse:
+    ) -> LayoutAddTransportToolResponse:
         """Add a QCG (Quad CO-RE Grip) tool to the layout.
 
         On a Vantage, *track* places the QCG (it occupies 2 tracks) somewhere other
@@ -504,33 +553,33 @@ class DeckLabwareCommandsMixin:
             raise ValueError("add_qcg track is only supported for Vantage instrument type")
 
         parameters = AddQCGParameters(type=qcg_type, track=track)
-        return self._run(
+        return _typed(LayoutAddTransportToolResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addQCG",
                 parameters=parameters.model_dump(by_alias=True, exclude_none=True),
             )
-        )
+        ))
 
-    def remove_transport_tool(self, tool_id: int) -> CommandResponse:
+    def remove_transport_tool(self, tool_id: int) -> LayoutRemoveTransportToolResponse:
         """Remove a transport tool from the layout by ID."""
         parameters = RemoveTransportToolParameters(tool_id=tool_id)
-        return self._run(
+        return _typed(LayoutRemoveTransportToolResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.removeTransportTool",
                 parameters=parameters.model_dump(by_alias=True),
             )
-        )
+        ))
 
-    def add_channel_liquid_waste(self) -> CommandResponse:
+    def add_channel_liquid_waste(self) -> LayoutAddLabwareResponse:
         """Add a channel liquid waste container to the active deck layout."""
-        return self._run(
+        return _typed(LayoutAddLabwareResponse, self._run(
             self._connected_instrument.venus.send_command(
                 category="Deck Layout",
                 action_name="labware.addChannelLiquidWaste",
             )
-        )
+        ))
 
     def add_liquid_waste(self, track: int | None = None) -> CommandResponse:
         """Add a liquid waste container to the active deck layout (Vantage only)."""

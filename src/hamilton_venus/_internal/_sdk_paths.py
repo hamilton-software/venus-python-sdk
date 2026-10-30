@@ -73,6 +73,17 @@ def detect_instrument_type() -> str:
     return "star"
 
 
+def installed_instrument_type() -> str | None:
+    """``"vantage"`` or ``"star"`` for the installed VENUS, like :func:`detect_instrument_type`,
+    but ``None`` when the registry doesn't say (no VENUS, non-Windows, or the key is
+    unreadable) instead of assuming STAR -- for callers that refuse a mismatch and must not
+    refuse on a guess."""
+    name = read_instrument_cfg_name()
+    if name is None:
+        return None
+    return detect_instrument_type()
+
+
 def get_sdk_executor_hsl_path() -> Path:
     return _sdk_path(str(get_sdk_install_path()), "Method", "VENUS_SDK_Executor.hsl")
 

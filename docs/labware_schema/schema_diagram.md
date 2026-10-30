@@ -1,6 +1,6 @@
 # Labware Schema — Class Diagrams
 
-Visual reference for the labware schema (`urn:hamilton:schemas:microlab:labware:v1`). Rendered as Mermaid `classDiagram` blocks. Requires a Mermaid renderer (VS Code: install **"Markdown Preview Mermaid Support"** extension; GitHub renders natively).
+Visual reference for the labware schema (`urn:hamilton:schemas:microlab:labware:v1`, defined in [`labware.schema.json`](labware.schema.json) and its sibling `*.schema.json` files in this folder). Field names and required markers below mirror those files. Rendered as Mermaid `classDiagram` blocks. Requires a Mermaid renderer (VS Code: install **"Markdown Preview Mermaid Support"** extension; GitHub renders natively).
 
 ## Conventions
 
@@ -91,7 +91,7 @@ classDiagram
 - `schemaVersion` matches `^1\.\d+\.\d+(-[a-z0-9.]+)?$` (any 1.x.y; current target `1.0.0-alpha.1`)
 - `id` follows `PublisherIdentifier` pattern; cross-references (`contentsRef`, `labwareRef`) follow `PublisherRef` (see §8)
 - The class-matching block (`probe`, `tool`, `assembly`, `tipRack`) is required for its `labwareClass`; additional class blocks may accompany it for multi-role labware. `lid` and classes `plate`, `tube_rack`, `carrier`, `reservoir`, `tube`, `adapter` carry no dedicated class block — their required completeness aspects are stated in the next constraint
-- What a *complete* definition of each **defined** class must carry — containers, seating features, sites — is enforced by the base schema's root coupling, so the catalog rejects an incomplete definition of a defined class (HTTP 422). A custom class matches no branch and is validated on the base schema alone (tour §10.6, ADR-MLAPI-0033 Compliance §1)
+- What a *complete* definition of each **defined** class must carry — containers, seating features, sites — is enforced by the base schema's root coupling, so the catalog rejects an incomplete definition of a defined class (HTTP 422). A custom class matches no branch and is validated on the base schema alone (tour §10.6)
 
 ---
 
@@ -110,7 +110,7 @@ classDiagram
         +Number rowPitch
         +Point3D firstContainerCenter
         +ContainerDefinition containerDefinition
-        String iterationOrder
+        +String iterationOrder
         NamingConvention namingConvention
         Map containerOverrides
         Map customAttributes
@@ -197,7 +197,7 @@ classDiagram
 
 **Enum values**
 
-- `ContainerGrid.iterationOrder`: `column_major` (default) | `row_major`
+- `ContainerGrid.iterationOrder`: `column_major` (default) | `row_major` — required on every grid despite the schema `default`
 - `NamingConvention.rowAxis`: `x | y`; `rowStyle` / `columnStyle`: `alpha | numeric`
 - `OpeningDimensions.shape`: `circle | rectangle | rounded_rectangle`
 - `VolumeModel.segments` items are the shared geometry `Solid3D` (§9) — six volume-precise primitives, a flat bottom-to-top stack with no per-segment transform
@@ -207,7 +207,7 @@ classDiagram
 
 - `VolumeModel` requires at least one of `lookupTable`, `segments`, `inferredFromShape`. **Runtime precedence: `lookupTable` > `segments` > `inferredFromShape`**.
 - `volumeModel` is required on a `ContainerDefinition` only when it holds liquid directly (no `contentsRef`); a tip/tube position omits it and delegates its occupant's volume to the `contentsRef` target. `totalDepth` is always required.
-- `pipettingChannelGeometry` is the shared geometry `CylindricalConicalGeometry` (§9): what firmware-restricted pipetting channels receive for this container — a truncated cone joined flush under a cylindrical shaft. Optional and supplementary, never a `volumeModel` tier: volume math ignores it, and a container carrying it must still carry a `volumeModel` (`dependentRequired`). When absent, the runtime derives the shape from `volumeModel.segments`. Deliberately not validated against the volume model (authored deviation is intended; ADR-MLAPI-0043 §2.3). The `coneBottomDiameter ≤ cylinderDiameter` domain rule is a catalog check (validation-rules 2.9).
+- `pipettingChannelGeometry` is the shared geometry `CylindricalConicalGeometry` (§9): what firmware-restricted pipetting channels receive for this container — a truncated cone joined flush under a cylindrical shaft. Optional and supplementary, never a `volumeModel` tier: volume math ignores it, and a container carrying it must still carry a `volumeModel` (`dependentRequired`). When absent, the runtime derives the shape from `volumeModel.segments`. Deliberately not validated against the volume model (authored deviation is intended). The `coneBottomDiameter ≤ cylinderDiameter` domain rule is a catalog check (validation_rules 2.9).
 - `VolumeModel.segments` items are the geometry `Solid3D` (§9); its six primitives and per-type required dimensions are listed there. Segments form a flat bottom-to-top stack — no per-segment `origin` or `rotationZ`.
 - All dimensional fields use **diameter** (not radius), consistent with `OpeningDimensions` and `InferredShape` and matching manufacturer spec-sheet conventions. Volume-integral consumers divide by 2 once.
 - `InferredShape` shape-specific required fields:
@@ -230,10 +230,11 @@ classDiagram
     class ProbeData {
         +Boolean isReusable
         +Boolean isConductive
+        +Array supportedLLDModes
         +Number maxVolume
         +Number length
         +Number diameter
-        Array supportedLLDModes
+        Number maxTipCapacity
         Number deadVolume
         Boolean hasFilter
         String probeType
@@ -424,7 +425,7 @@ classDiagram
 - `BarcodeLocation.symbology`: `code128 | code39 | itf | datamatrix | qr | pdf417 | unknown`
 - `BarcodeLocation.orientation`: `horizontal | vertical | null`
 - `PresenceDetectionZone.compatibleSensors` items: `optical | capacitive | ultrasonic | weight | vision` (recommended; open snake_case vocabulary — a consumer skips zones naming sensors it lacks)
-- `Shape2D.shape` (reused by PresenceDetectionZone.footprint and LabwareSite.footprint): `circle | rectangle`
+- `Shape2D.shape` (reused by PresenceDetectionZone.footprint and LabwareSite.footprint): `circle | rectangle | polygon`
 - `VisualModel.modelFormat`: `obj | stl | gltf | glb | step` (recommended; open snake_case vocabulary — a renderer falls back to the bounding box on an unknown format)
 - `VisualModel.modelOrigin`: `left_front_bottom | center_center_bottom | center_center_center`
 
@@ -442,6 +443,7 @@ classDiagram
 - `Shape2D` shape-specific required fields (applies to `PresenceDetectionZone.footprint`, `LabwareSite.footprint`):
   - `circle` → `diameter`
   - `rectangle` → `width` + `depth`
+  - `polygon` → `vertices`
 - `VisualModel.color` pattern `^#[0-9A-Fa-f]{6}$`; `opacity` range `[0, 1]`
 
 ---
@@ -542,7 +544,7 @@ classDiagram
 - `PublisherRef`: `^[a-z][a-z0-9_-]*:[A-Za-z0-9][A-Za-z0-9_-]*$`
   - Used by: `contentsRef`, `labwareRef`
   - Examples: `hamilton:nunc_96_flat`, `hamilton:probe_core_300ul`
-  - References are bare and resolve to the catalog's current representation when used; MicrolabAPI pins loaded content by content hash at execution time and records it in audit entries — pinning is never written into documents
+  - References are bare and resolve to the catalog's current representation when used; the runtime pins loaded content by content hash at execution time and records it in audit entries — pinning is never written into documents
 
 **Rules**
 
@@ -606,6 +608,7 @@ classDiagram
         Number width
         Number depth
         Number diameter
+        Array vertices
     }
 
     class Solid3D {
@@ -658,9 +661,9 @@ classDiagram
 
 **Enum values**
 
-- `Shape2D.shape`: `rectangle | circle`
+- `Shape2D.shape`: `rectangle | circle | polygon`
 - `Solid3D.type`: `cylinder | rectangular_prism | conical_frustum | rectangular_frustum | spherical_cap | paraboloid` (the shared 3D solid-primitive catalog)
-- `CylindricalConicalGeometry` is a named shared type, **not** a `Solid3D` variant (the solid catalog stays closed): the restricted pipetting-channel container shape — a truncated cone joined flush under a cylindrical shaft (the cone's upper diameter *is* `cylinderDiameter`). Heights may be 0 (cone-only or shaft-only); `coneBottomDiameter` present exactly when `coneHeight > 0` and never exceeds `cylinderDiameter` (ADR-MLAPI-0034 §2.4)
+- `CylindricalConicalGeometry` is a named shared type, **not** a `Solid3D` variant (the solid catalog stays closed): the restricted pipetting-channel container shape — a truncated cone joined flush under a cylindrical shaft (the cone's upper diameter *is* `cylinderDiameter`). Heights may be 0 (cone-only or shaft-only); `coneBottomDiameter` present exactly when `coneHeight > 0` and never exceeds `cylinderDiameter`
 - `Alignment.name`: **open vocabulary** — an interface-identity name (footprint/role or product), e.g. `sbs_rim | sbs_lid | mfx_module | pcr96_well_cradle`; the common mechanisms (rim seat, nest, pin-and-hole, well-cradle, …) are recorded in conventions §5. Optional `publisher:` prefix for vendor-private matings. Pattern `^([a-z][a-z0-9_-]*:)?[a-z][a-z0-9_-]+$`; matched by exact string equality between feature and receptacle.
 
 **Constraints**

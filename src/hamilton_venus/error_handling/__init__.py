@@ -30,7 +30,6 @@ Example usage:
 References:
     - Main documentation: docs/error_handling.md
     - Profile JSON files: src/hamilton_venus/error_handling/profiles/
-    - Design documentation: docs/design/error-handling/
 """
 
 from hamilton_venus.error_handling.access_actions import (

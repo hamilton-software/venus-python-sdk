@@ -978,7 +978,7 @@ def _candidate_backends() -> list[object]:
     return _com32.candidate_backends(
         progid=_PROGID,
         bin_dirs=[_ODTC_LIB_DIR],
-        tl_bin_dir=None,  # Inheco's own WCF client, not Hamilton's TransportLayer stack -- see Open Risks
+        tl_bin_dir=None,  # Inheco's own WCF client, not Hamilton's TransportLayer stack
         env_vars=(_PY32_ENV,),
         error_cls=ODTCError,
         diagnosis=odtc_com_diagnosis(),
@@ -1743,7 +1743,7 @@ class ODTCManager:
 
 #: Best guess by analogy with HHC's ProgramData log tree; the ODTC's own
 #: ``Inheco ODTC Interface.dll.config`` has no NLog/log4net section, so this
-#: grant is likely a no-op -- shipped anyway since it is harmless. See Open Risks.
+#: grant is likely a no-op -- shipped anyway since it is harmless.
 _ODTC_DATA_DIR = os.path.join(
     os.environ.get("PROGRAMDATA", r"C:\ProgramData"),
     "Hamilton", "Drivers", "Venus", "Inheco ODTC",

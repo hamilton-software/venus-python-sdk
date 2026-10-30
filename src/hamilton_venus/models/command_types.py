@@ -26,7 +26,6 @@ from hamilton_venus.models.enums import (
     EjectMode,
     GripInverse,
     InteriorLightState,
-    LabwareType,
     LightColor,
     MPH96Pattern,
     MPH96PreAirAspirate,
@@ -431,9 +430,10 @@ class LabwareDefinitionParameters(_WireModel):
 
 
 class LabwareDefinitionImportParameters(_WireModel):
+    """``labware.importLabwareDefinition``: VENUS works out the labware type from the file."""
+
     labware_definition: str | None = Field(None, alias="labwareDefinition")
     labware_path: str = Field(..., alias="labwarePath")
-    labware_type: LabwareType = Field(..., alias="labwareType")
 
 
 class LabwareNameParameters(_WireModel):
@@ -1526,6 +1526,40 @@ class ShowTipCountersResponse(CommandResponse):
     )
 
 
+class ModelConversionReport(_ResponseModel):
+    """What happened to the 3D models an imported definition refers to."""
+
+    converted: list[str] = Field(default_factory=list, description="Models converted to .gltf in Labware\\Models.")
+    already_present: list[str] = Field(default_factory=list, description="Models whose .gltf was already there.")
+    missing: list[str] = Field(default_factory=list, description="Referenced model files that were not found.")
+    failed: list[str] = Field(default_factory=list, description="Models the converter could not convert (with why).")
+    models_path: str = ""
+    definition_updated: bool = Field(False, description="Whether the stored definition now refers to the .gltf models.")
+
+
+class LabwareDefinitionImportReturnParameters(_ResponseModel):
+    """What ``labware_definition_import_definition`` returns: VENUS's message, the converted
+    definition, and what happened to its 3D models (``.x`` / ``.hxx`` converted to glTF)."""
+
+    message: str = ""
+    definition: dict[str, Any] = Field(default_factory=dict)
+    labware_name: str = Field("", alias="labwareName")
+    models: ModelConversionReport | None = None
+
+    def to_labware_definition(self) -> LabwareDefinition:
+        """Parse :attr:`definition` into a typed :class:`LabwareDefinition`."""
+        from hamilton_venus.models.labware_definition import LabwareDefinition as _LabwareDefinition
+
+        return _LabwareDefinition.model_validate(self.definition)
+
+
+class LabwareDefinitionImportResponse(CommandResponse):
+    return_parameters: LabwareDefinitionImportReturnParameters = Field(
+        default_factory=LabwareDefinitionImportReturnParameters,
+        alias="returnParameters",
+    )
+
+
 class LabwareDefinitionSingleResponse(CommandResponse):
     return_parameters: LabwareDefinitionSingleReturnParameters = Field(
         default_factory=LabwareDefinitionSingleReturnParameters,
@@ -1841,6 +1875,74 @@ class TransportPresentAndScanReturnParameters(_ResponseModel):
 class TransportPresentAndScanResponse(CommandResponse):
     return_parameters: TransportPresentAndScanReturnParameters = Field(
         default_factory=TransportPresentAndScanReturnParameters,
+        alias="returnParameters",
+    )
+
+
+class _ReadableByName(_ResponseModel):
+    """Return parameters that still read like the dict they were: ``rp["labwareName"]``, ``rp.get("labwareName")``,
+    ``"labwareName" in rp`` (by wire name), next to the typed attributes (``rp.labware_name``)."""
+
+    def __getitem__(self, key: str) -> Any:
+        dumped = self.model_dump(by_alias=True)
+        if key in dumped:
+            return dumped[key]
+        raise KeyError(key)
+
+    def get(self, key: str, default: Any = None) -> Any:
+        return self.model_dump(by_alias=True).get(key, default)
+
+    def __contains__(self, key: object) -> bool:
+        return key in self.model_dump(by_alias=True)
+
+
+class LayoutAddLabwareReturnParameters(_ReadableByName):
+    """What the add commands return (addCarrier, addCarrierToSite, addSampleTubeCarrier, addPlate, addLid,
+    addReservoir, addTipSupport, addChannelLiquidWaste): the name VENUS gave the labware (the one asked for, or
+    the one it generated), in lower case."""
+
+    labware_name: str = Field("", alias="labwareName")
+
+
+class LayoutAddLabwareResponse(CommandResponse):
+    return_parameters: LayoutAddLabwareReturnParameters = Field(
+        default_factory=LayoutAddLabwareReturnParameters,
+        alias="returnParameters",
+    )
+
+
+class LayoutAddTransportToolReturnParameters(_ReadableByName):
+    """What add1mLCoreGrip, add5mLCoreGrip and addQCG return: the tool's labware name and its transport id."""
+
+    labware_name: str = Field("", alias="labwareName")
+    transport_id: int = Field(0, alias="transportID")
+
+
+class LayoutAddTransportToolResponse(CommandResponse):
+    return_parameters: LayoutAddTransportToolReturnParameters = Field(
+        default_factory=LayoutAddTransportToolReturnParameters,
+        alias="returnParameters",
+    )
+
+
+class LayoutRemoveLabwareReturnParameters(_ReadableByName):
+    labware_removed: list[str] = Field(default_factory=list, alias="labwareRemoved")
+
+
+class LayoutRemoveLabwareResponse(CommandResponse):
+    return_parameters: LayoutRemoveLabwareReturnParameters = Field(
+        default_factory=LayoutRemoveLabwareReturnParameters,
+        alias="returnParameters",
+    )
+
+
+class LayoutRemoveTransportToolReturnParameters(_ReadableByName):
+    message: str = ""
+
+
+class LayoutRemoveTransportToolResponse(CommandResponse):
+    return_parameters: LayoutRemoveTransportToolReturnParameters = Field(
+        default_factory=LayoutRemoveTransportToolReturnParameters,
         alias="returnParameters",
     )
 
@@ -2166,7 +2268,10 @@ class TubePositionInput(_WireModel):
     tube: str
     x_offset: float = Field(0.0, alias="xOffset")
     y_offset: float = Field(0.0, alias="yOffset")
-    z_offset: float = Field(0.0, alias="zOffset")
+    # Height of the tube's bottom above the carrier base, in mm. None: the height the carrier's
+    # own tubes sit at (its definition's firstContainerCenter.z, typically 10 mm) --
+    # add_tubes_to_carrier fills it in. 0 would put the tube on the carrier base.
+    z_offset: float | None = Field(None, alias="zOffset")
 
 
 class LayoutAddTubesToCarrierParameters(_WireModel):

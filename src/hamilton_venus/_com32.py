@@ -31,7 +31,7 @@ import sys
 
 _IS_64BIT = sys.maxsize > 2**32
 
-#: Where the SDK ships its private 32-bit CPython (populated by the installer build).
+#: Where a private 32-bit CPython is looked up when one is bundled with the SDK.
 _BUNDLED_PY32 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_com32_py32", "python.exe")
 
 _WORKER_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_com32_worker.py")

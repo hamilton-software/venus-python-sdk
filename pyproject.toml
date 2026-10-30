@@ -56,9 +56,9 @@ setup = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/HamiltonCompany/hamilton-venus-sdk"
-Repository = "https://github.com/HamiltonCompany/hamilton-venus-sdk"
-Issues = "https://github.com/HamiltonCompany/hamilton-venus-sdk/issues"
+Documentation = "https://github.com/hamilton-software/venus-python-sdk"
+Repository = "https://github.com/hamilton-software/venus-python-sdk"
+Issues = "https://discourse.hamiltoncompany.com/c/our-software/python-sdk"
 
 [build-system]
 requires = ["setuptools>=75", "setuptools-scm>=8"]

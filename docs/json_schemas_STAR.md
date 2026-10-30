@@ -1,6 +1,8 @@
 # Hamilton VENUS SDK — Command Catalog
 
-> API base: `http://localhost:42400/api/vector/v3/run-messages`  
+> **Who needs this page?** This is the raw VENUS WebAPI wire format for STAR commands. Most users should call the typed `StarClient` methods instead (see [STAR Commands](star_commands.md)). Use this page when calling `star.send_command(category=..., action_name=..., parameters=...)` for commands without an SDK method, or when debugging the JSON the SDK sends. `send_command` builds the `channel`/`data` envelope for you; some examples below show only the inner `data` object.
+
+> API base: `http://localhost:42400/api/vector/v3/run-messages` (default `base_url`; see [Configuration](configuration.md))  
 > All commands are sent as `POST { "channel": "action", "data": { "category", "actionName", "parameters" } }`
 
 ---
@@ -817,7 +819,7 @@
 ```
 > `capacitiveLLD`: 0=OFF, 1=MAX, 2=HIGH, 3=MID, 4=LOW, 5=FROM LABWARE  
 > `volumes`: single value `100` or array values `[100,50,100,50,100,50,100,50]`
-> `liquidClass`, `AspirateMode`, `capacitiveLLD`, `pressureLLD`, `liquidFollowing`, `submergeDepth`, `fixedHeight`, `maxLLDDifference`, `mixCycles`, `mixPosition`, `mixVolume`, `airTransportRetractDist`, `touchOff`, and `touchOffHeight` all can accept single values or array values  
+> `liquidClass`, `aspirateMode`, `capacitiveLLD`, `pressureLLD`, `liquidFollowing`, `submergeDepth`, `fixedHeight`, `maxLLdDifference`, `mixCycles`, `mixPosition`, `mixVolume`, `airTransportRetractDist`, `touchOff`, and `touchOffHeight` all can accept single values or array values  
 > Optional: `madEnabled` (bool, default `false`), `madThreshold` (int, default `30`, Range: 1–1023), `ADC` (bool, default `false`), `tipTrackingFactor` (float, default `1.0`, single value only, Range: 0.1–5.0) – liquid-following movement factor; `0.5` tracks half the distance, `2.0` twice
 **Returns:**
 ```json
@@ -1286,7 +1288,7 @@
 ```
 > `capacitiveLLD`: 0=OFF, 1=MAX, 2=HIGH, 3=MID, 4=LOW, 5=FROM LABWARE  
 > `volumes`: single value `100` or array values `[100,50,100,50,100,50,100,50]`
-> `liquidClass`, `AspirateMode`, `capacitiveLLD`, `pressureLLD`, `liquidFollowing`, `submergeDepth`, `fixedHeight`, `maxLLDDifference`, `mixCycles`, `mixPosition`, `mixVolume`, `airTransportRetractDist`, `touchOff`, and `touchOffHeight` all can accept single values or array values  
+> `liquidClass`, `aspirateMode`, `capacitiveLLD`, `pressureLLD`, `liquidFollowing`, `submergeDepth`, `fixedHeight`, `maxLLdDifference`, `mixCycles`, `mixPosition`, `mixVolume`, `airTransportRetractDist`, `touchOff`, and `touchOffHeight` all can accept single values or array values  
 > Optional: `madEnabled` (bool, default `false`), `madThreshold` (int, default `30`, Range: 1–1023), `ADC` (bool, default `false`), `tipTrackingFactor` (float, default `1.0`, single value only, Range: 0.1–5.0) – liquid-following movement factor; `0.5` tracks half the distance, `2.0` twice
 **Returns:**
 ```json
@@ -1637,13 +1639,13 @@
 ---
 ### MPH96
 
-#### mph96.tipPickUp
+#### mph96.tipPickup
 ```json
 {
   "channel": "action",
   "data": {
     "category": "Instrument",
-    "actionName": "mph96.tipPickUp",
+    "actionName": "mph96.tipPickup",
     "parameters": {
       "tipPool": "300 uL Tips",
       "preAirAspirate": 0
@@ -1666,7 +1668,7 @@ PreAirAspirate Enum:
   "remainingTips": 368
 }
 ```
-#### mph96.tipPickUpPartial
+#### mph96.tipPickupPartial
 ```json
 {
   "channel": "action",

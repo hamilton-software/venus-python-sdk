@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 10/21/2026 10:26:16 PM
+// Generated at 10/25/2026 10:33:00 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -20,6 +20,7 @@ function GetTipSupportSequence( variable i_strTipSupport, sequence & o_seqTipSup
 function GetTipSupports( variable & o_arrTipSupports[] ) void { }
 function GetTips_ATML( variable i_strTipCounter, variable i_blnAvailable, sequence & o_seqPositions ) variable {  return (0); }
 function InitializeNTRWaste_ATML( sequence i_seqNTR ) void { }
+function InitializeTipCounterParallel( variable i_strTipSequenceName, sequence i_seqTipSequence, variable i_intRackType ) void { }
 function InitializeTipCounter_ATML( device & ML_STAR, variable i_strTipCounter, variable i_intRackType, sequence & io_seqTipSequence ) void { }
 function InitializeTipSupport_ATML( device & ML_STAR, sequence & io_seqTipSequence ) void { }
 function IsLabwareTips( device & Device, variable i_strLabware, variable & o_strTipCounter ) variable {  return (0); }
@@ -40,4 +41,4 @@ function UpdateTipSupportTracking( variable i_strLabwareName, sequence i_seqPosi
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-10-21 22:26$$checksum=f53e7faf$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-25 22:33$$checksum=d3788d45$$length=083$$

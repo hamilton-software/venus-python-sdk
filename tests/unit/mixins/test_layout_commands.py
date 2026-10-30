@@ -375,3 +375,76 @@ class TestLayoutCommands:
             category="Deck Layout",
             action_name="status.getTransportToolIds",
         )
+
+
+class TestAddCommandsReturnTheLabwareName:
+    """The add commands return what VENUS documents (docs/json_schemas_System.md): typed, and readable like a dict."""
+
+    @pytest.mark.parametrize(
+        "method,kwargs",
+        [
+            ("add_carrier", {"labware_definition": "TIP_CAR_480BC", "left_track": 1}),
+            ("add_carrier_to_site", {"labware_definition": "X", "carrier_id": "c", "site": "1"}),
+            ("add_tube_carrier", {"labware_definition": "X", "left_track": 1}),
+            ("add_plate", {"labware_definition": "X", "carrier_id": "c", "site": "1"}),
+            ("add_lid", {"labware_definition": "X", "carrier_id": "c", "site": "1"}),
+            ("add_reservoir", {"labware_definition": "X", "carrier_id": "c", "site": "1"}),
+            ("add_tip_support", {"carrier_id": "c", "site": "1"}),
+            ("add_channel_liquid_waste", {}),
+        ],
+    )
+    def test_labware_name_is_typed_and_still_readable_as_a_dict(self, config, mock_async_star_class, method, kwargs):
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(
+                return_status="Success", return_code=0, return_parameters={"labwareName": "tip_car_480bc_0001"}
+            )
+        )
+
+        with StarClient(config) as client:
+            result = getattr(client, method)(**kwargs)
+
+        assert result.success is True
+        assert result.return_parameters.labware_name == "tip_car_480bc_0001"
+        assert result.return_parameters["labwareName"] == "tip_car_480bc_0001"  # existing scripts read it like this
+        assert (
+            result.return_parameters.get("labwareName") == "tip_car_480bc_0001"
+            and "labwareName" in result.return_parameters
+        )
+        assert result.model_dump(mode="json", by_alias=True)["returnParameters"] == {
+            "labwareName": "tip_car_480bc_0001"
+        }
+
+    @pytest.mark.parametrize("method,kwargs", [("add_1ml_core_grip", {}), ("add_5ml_core_grip", {}), ("add_qcg", {})])
+    def test_transport_tools_return_their_name_and_id(self, config, mock_async_star_class, method, kwargs):
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(
+                return_status="Success",
+                return_code=0,
+                return_parameters={"labwareName": "CoreGrip1mL", "transportID": 1},
+            )
+        )
+
+        with StarClient(config) as client:
+            result = getattr(client, method)(**kwargs)
+
+        assert result.return_parameters.labware_name == "CoreGrip1mL" and result.return_parameters.transport_id == 1
+        assert result.return_parameters["transportID"] == 1
+
+    def test_remove_commands_return_what_was_removed(self, config, mock_async_star_class):
+        star = mock_async_star_class.return_value
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(
+                return_status="Success", return_code=0, return_parameters={"labwareRemoved": ["reservoir 1"]}
+            )
+        )
+        with StarClient(config) as client:
+            assert client.remove_labware("reservoir 1").return_parameters.labware_removed == ["reservoir 1"]
+        star.venus.send_command = AsyncMock(
+            return_value=CommandResponse(
+                return_status="Success", return_code=0, return_parameters={"message": "toolId 11 was removed"}
+            )
+        )
+        with StarClient(config) as client:
+            assert client.remove_transport_tool(11).return_parameters.message == "toolId 11 was removed"

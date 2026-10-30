@@ -32,8 +32,8 @@ _CHANNEL_ITEM = re.compile(r"^\s*(\d+)\s*\.\s*(.+)$", re.DOTALL)
 
 #: Channels assumed for a per-channel module when the caller passes neither
 #: ``channels=`` nor the ``"1.<desc>;2.<desc>"`` micro-syntax. Eight is the
-#: standard 1mL/5mL head count on STAR and Vantage, and matches the demo app's
-#: own default for every other channels= parameter (``_all_channels_default``).
+#: standard 1mL/5mL head count on STAR and Vantage, and matches the default
+#: for every other channels= parameter (``_all_channels_default``).
 _DEFAULT_CHANNELS = [1, 2, 3, 4, 5, 6, 7, 8]
 
 
@@ -104,8 +104,7 @@ class ErrorSimulator:
         is_channel_module = Module(module_info.table) in CHANNEL_MODULES
         # A per-channel module with no explicit channels and no per-channel
         # micro-syntax: apply the one error to all channels rather than failing.
-        # `not channels` covers both channels=None and an empty list (which the
-        # demo app sends when its Channels field is left blank).
+        # `not channels` covers both channels=None and an empty list.
         effective_channels = channels
         if is_channel_module and not channels:
             effective_channels = _DEFAULT_CHANNELS
