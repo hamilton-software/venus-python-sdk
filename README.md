@@ -5,15 +5,26 @@ Provides a Python interface for programming Hamilton automated-liquid-handling i
 ## Requirements
 
 - Windows machine with Hamilton VENUS installed. The SDK talks to the VENUS WebAPI.
-- Python 3.11+
+- Python 3.12+ (the SDK alone runs on 3.11; the apps and the installer need 3.12)
 
 ## Installation
 
-**PyPI:** Coming soon. For now, install from this repository as shown in [Development Installation](#development-installation).
+Install [Git LFS](https://git-lfs.com) first: the desktop apps and the installer are stored with it. Then clone this repository wherever you want the SDK to live, and run the installer from it:
+
+```powershell
+git lfs install
+git clone <repository url> venus-python-sdk
+cd venus-python-sdk
+.\VenusPythonSdkInstaller.exe
+```
+
+That folder is the install: nothing is copied out of it. Choose what to install and, if you want, a different Python environment (the default is a `.venv` in the folder). The desktop apps are ready to open in `tools\Hamilton ...\`, each with its guide. To update, run `git pull` and re-run the installer.
+
+**PyPI:** Coming soon.
 
 ### Development Installation
 
-Clone this repository (see [Project Links](#project-links)), then install it in editable mode from the repository root. Using a virtual environment is recommended:
+To work on the SDK itself without the installer, clone this repository (see [Project Links](#project-links)), then install it in editable mode from the repository root. Using a virtual environment is recommended:
 
 ```powershell
 python -m venv .venv

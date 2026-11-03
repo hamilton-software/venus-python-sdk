@@ -14,6 +14,12 @@ Quick-reference index for the SDK documentation. If you are new to the SDK, star
 
 ---
 
+## Tools
+
+The tools are under [`tools/`](../tools/). Each desktop app's folder is ready to use and holds its guide: [AI Assistant](<../tools/Hamilton AI Assistant/ai-assistant-app.md>), [SDK Studio](<../tools/Hamilton SDK Studio/sdk-studio.md>), [Script Manager](<../tools/Hamilton Script Manager/script-manager.md>) and [Log Viewer](<../tools/Hamilton Log Viewer/log-viewer.md>). The AI assistant setup is in [`tools/ai_harness`](../tools/ai_harness/ai-assistants.md), and the [MCP guide](../tools/mcp_server/mcp-guide.md) and [error monitoring guide](../tools/mcp_server/mcp-error-monitoring.md) are in `tools/mcp_server`.
+
+---
+
 ## Reference Guides
 
 | Guide | What it covers |

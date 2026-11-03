@@ -1,0 +1,612 @@
+/* Run views shared by the Script Manager and the Log Viewer: trace pane, file browser,
+   run summary, Sample Tracking, labware report and TADM transfer modal.
+   Uses the host app's OneHamilton design tokens (--bg-surface, --text-primary, ...). */
+
+/* =====================================================
+   Terminal tab
+   ===================================================== */
+.activity-log {
+    flex: 1;
+    background: var(--bg-surface);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+.log-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    flex-shrink: 0;
+    gap: 12px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-muted);
+}
+.log-header h3 { font-size: 14px; font-weight: 700; color: var(--text-base); text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; }
+.log-controls { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; justify-content: flex-end; flex-wrap: wrap; }
+#console-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border-muted);
+    border-radius: 100px;
+    padding: 5px 12px;
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.filter-chip:hover { border-color: var(--color-primary); color: var(--text-base); }
+.filter-chip.active { background: var(--color-primary); border-color: var(--color-primary); color: #ffffff; }
+
+#console-lines {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 14px 20px;
+    font-family: 'Roboto Flex', monospace, system-ui;
+    font-size: 12px;
+}
+#console-lines.no-wrap { overflow-x: auto; }
+.log-line { white-space: pre-wrap; word-break: break-all; margin: 1px 0; }
+#console-lines.no-wrap .log-line { white-space: pre; word-break: normal; }
+.log-cat-terminal { color: var(--text-base); }
+.log-cat-venus { color: var(--color-secondary-3); }
+.log-cat-communication { color: var(--color-secondary-4); }
+.log-cat-comtrace { color: var(--color-info); }
+.log-cat-debug { color: var(--text-muted); }
+.log-cat-info { color: var(--color-primary); }
+.log-cat-error { color: var(--msg-error-border); }
+
+/* Syntax highlighting within a line, layered on top of the category color
+   above -- structural tokens (levels, loggers, literals, traceback frames)
+   keep their own color regardless of which category bucket the line landed
+   in, so e.g. a quoted string still reads as a string on an all-red error
+   line. */
+.log-ts { color: var(--text-muted); }
+.tok-time { opacity: 0.7; }
+.tok-level-debug { color: var(--text-muted); font-weight: 700; }
+.tok-level-info { color: var(--color-info); font-weight: 700; }
+.tok-level-warning { color: var(--trace-warning); font-weight: 700; }
+.tok-level-error, .tok-level-critical { color: var(--color-negative); font-weight: 700; }
+.tok-venus { color: var(--color-secondary-3); font-weight: 700; }
+.tok-logger { color: var(--color-secondary-4); font-weight: 600; }
+.tok-string { color: var(--color-positive); }
+.tok-number { color: var(--trace-warning); }
+.tok-bool { color: var(--color-secondary-3); font-weight: 600; }
+.tok-key { color: var(--text-label); font-style: italic; }
+.tok-traceback { color: var(--color-negative); font-weight: 700; }
+.tok-path { color: var(--color-secondary-4); }
+.tok-lineno { color: var(--trace-warning); }
+.tok-func { color: var(--color-primary); font-style: italic; }
+.tok-exception { color: var(--color-negative); font-weight: 700; }
+
+/* VenusTrace-specific markers. Plain colored text (no pill background) --
+   reusing the message-bar palette for hue only, since a filled background
+   read as too bright/heavy in light mode across a dense trace. */
+.tok-field-label { color: var(--text-label); font-weight: 700; }
+.tok-comm-label { color: var(--color-secondary-3); font-weight: 700; }
+.tok-id-value { color: var(--msg-info-border); font-weight: 700; }
+.tok-action-value { color: var(--msg-success-border); font-weight: 700; }
+.tok-star-step { color: var(--trace-warning); font-weight: 700; }
+.tok-channel { color: var(--color-secondary-3); font-weight: 700; }
+.tok-labware-well, .tok-response-value, .tok-progress-value { color: var(--color-secondary-4); font-weight: 600; }
+.tok-volume { color: var(--trace-warning); font-weight: 700; }
+
+/* COM Trace lines: "COM Trace:" label (mirrors .tok-venus), direction char,
+   and the firmware command. Everything after the command stays the plain
+   .log-cat-comtrace body colour. */
+.tok-comtrace { color: var(--color-secondary-3); font-weight: 700; }
+.tok-comm-dir { color: var(--text-muted); font-weight: 700; }
+.tok-comm-cmd { color: var(--trace-warning); font-weight: 700; }
+/* The "Venus:" / "Communication:" / "Info:" / ... filter-name label that
+   leads every non-Terminal line (replaces the raw date + [LEVEL] prefix).
+   Inherits the line's .log-cat-* colour, just bold. */
+.tok-cat-label { font-weight: 700; }
+
+.log-footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 8px 16px;
+    flex-shrink: 0;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-muted);
+}
+.log-footer-toggle { gap: 8px; }
+.log-footer-toggle .toggle-switch { width: 34px; height: 18px; }
+.log-footer-toggle .slider:before { height: 12px; width: 12px; }
+.log-footer-toggle input:checked + .slider:before { transform: translateX(14px); }
+.log-footer-toggle span:last-child { font-size: 12px; }
+.log-search { margin-left: auto; }
+.log-search-input {
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-muted);
+    border-radius: 100px;
+    background: var(--bg-surface-2);
+    color: var(--text-base);
+    width: 220px;
+}
+.log-search-input:focus { outline: none; border-color: var(--color-primary); }
+
+/* =====================================================
+   File browser modal
+   ===================================================== */
+.file-browser-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+}
+.file-browser-toolbar { display: flex; gap: 8px; align-items: stretch; flex-shrink: 0; }
+.file-browser-path {
+    flex: 1;
+    min-width: 0;
+    font-family: 'Roboto Flex', monospace, system-ui;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg-surface-3);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    padding: 0 10px;
+}
+.file-browser-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+}
+.file-browser-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text-base);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-muted);
+}
+.file-browser-row:last-child { border-bottom: none; }
+.file-browser-row:hover { background: var(--bg-surface-3); }
+.file-browser-icon { flex-shrink: 0; display: flex; color: var(--text-muted); }
+.file-browser-row.is-dir .file-browser-icon { color: var(--color-primary); }
+.file-browser-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-browser-empty { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
+.file-browser-row.is-selected, .file-browser-row.is-selected:hover { background: var(--color-primary); color: #ffffff; }
+.file-browser-row.is-selected .file-browser-icon { color: #ffffff; }
+.file-browser-save-row { display: flex; gap: 8px; flex-shrink: 0; padding-top: 4px; }
+.file-browser-save-row input {
+    flex: 1;
+    min-width: 0;
+    height: 36px;
+    font-size: 13px;
+    color: var(--text-base);
+    background: var(--bg-surface-3);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    padding: 0 12px;
+}
+
+/* =====================================================
+   Summary tab
+   ===================================================== */
+#summary-view-body { flex: 1; min-height: 0; overflow-y: auto; padding: 16px; }
+.summary-empty-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    text-align: center;
+    padding: 32px;
+}
+
+.summary-stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.summary-stat-tile {
+    flex: 1 1 140px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+    padding: 12px 14px;
+}
+.summary-stat-label {
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+.summary-stat-value { font-size: 20px; font-weight: 700; color: var(--text-base); }
+.summary-stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.summary-section { margin-bottom: 24px; }
+.summary-section-title {
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-base);
+    margin-bottom: 10px;
+}
+
+.summary-error-table {
+    background: var(--bg-card);
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.summary-error-row {
+    display: grid;
+    grid-template-columns: 90px 0.7fr 1.3fr 140px;
+    gap: 10px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-muted);
+    font-size: 12px;
+    align-items: baseline;
+}
+.summary-error-row:last-child { border-bottom: none; }
+.summary-error-header {
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    background: var(--bg-surface-2);
+}
+.summary-error-name { color: var(--text-base); font-weight: 600; }
+.summary-error-line { color: var(--text-muted); font-weight: 400; }
+.summary-error-detail { color: var(--text-muted); padding-right: 16px; white-space: pre-wrap; }
+.summary-error-recovery { color: var(--color-primary); font-weight: 600; }
+.summary-error-recovery-none { color: var(--text-muted); font-weight: 400; }
+
+.summary-pie-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.summary-pie-chart { width: 160px; height: 160px; flex-shrink: 0; }
+.summary-pie-legend { display: flex; flex-direction: column; gap: 6px; }
+.summary-pie-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-base); }
+.summary-pie-legend-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+.summary-tadm-filter-row { margin-bottom: 12px; }
+/* Bordered pie-chart card -- Tips/Plates/Lids Used by Type and Volume
+   Consumed from Reservoirs all share this same card boundary. .summary-pie-
+   card-row lays out up to 3 of them side by side (wrapping on narrow
+   windows) under one shared "Labware Used" section title; Tips Used by Type
+   uses the bare card directly since it's the only one under its title. */
+.summary-pie-card-row { display: flex; flex-wrap: wrap; gap: 16px; }
+.summary-pie-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+    padding: 12px;
+}
+.summary-pie-card-title { font-size: 13px; font-weight: 700; color: var(--text-base); margin-bottom: 8px; }
+
+/* Two fixed columns, not an auto-fit/responsive count -- curves rendered
+   full-width (the old single-column stack) came out oversized; capping to a
+   pair per row (e.g. an aspirate on the left, its matching dispense on the
+   right -- tadm_groups is already in the chronological order VENUS executed
+   them in, so a transfer's aspirate/dispense pair land adjacent and so
+   side-by-side here) keeps each chart a sane, comparable size regardless of
+   window width. */
+.summary-tadm-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+/* One block per liquid class (Summary tab and the labware report). */
+.summary-tadm-lc-section { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.summary-tadm-lc-section:last-child { margin-bottom: 0; }
+.summary-tadm-lc-title {
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-base);
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-muted);
+}
+
+/* Labware report (Sample Tracking card "Report" button). */
+.labware-report-content { width: 92%; max-width: 1280px; max-height: 90vh; display: flex; flex-direction: column; }
+/* The body scrolls as a whole; its sections keep their natural height instead
+   of shrinking (the table's own scroll area would otherwise collapse). */
+.labware-report-content .modal-body { gap: 20px; }
+.labware-report-content .modal-body > * { flex-shrink: 0; }
+/* Stat cards: the Summary tab's tiles, kept on one line each. */
+.labware-report-stats { margin-bottom: 0; }
+.labware-report-stats .summary-stat-tile { flex: 1 1 120px; min-width: 0; }
+.labware-report-stats .summary-stat-value { font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.labware-report-stat-alert { border-color: var(--msg-error-border); background: var(--msg-error-bg); }
+.labware-report-stat-alert .summary-stat-value { color: var(--color-negative); }
+[data-theme="dark"] .labware-report-stat-alert .summary-stat-value { color: #ff6e6e; }
+.labware-report-section { display: flex; flex-direction: column; }
+/* Scrolls both ways inside its own capped height, so the horizontal scrollbar
+   is always on screen instead of sitting below the last row of a long table. */
+.labware-report-table-wrap {
+    overflow: auto;
+    max-height: min(48vh, 520px);
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+    background: var(--bg-card);
+}
+.labware-report-table-wrap::-webkit-scrollbar-corner { background: transparent; }
+.labware-report-sticky { position: sticky; left: 10px; width: max-content; max-width: 100%; }
+.labware-report-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; color: var(--text-base); }
+.labware-report-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--bg-surface-2);
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-base-2);
+    padding: 8px 10px;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border-muted);
+}
+.labware-report-table td { padding: 5px 10px; border-bottom: 1px solid var(--border-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.labware-report-table tbody tr:last-child td { border-bottom: none; }
+.labware-report-well-row td { background: var(--bg-surface-2); font-weight: 700; color: var(--text-base); padding-top: 7px; padding-bottom: 7px; }
+.labware-report-row-error td { background: var(--msg-error-bg); }
+.labware-report-row-error td:first-child { box-shadow: inset 3px 0 0 var(--msg-error-border); }
+.labware-report-error,
+.labware-report-flagged { color: var(--color-negative); font-weight: 600; }
+[data-theme="dark"] .labware-report-error,
+[data-theme="dark"] .labware-report-flagged { color: #ff6e6e; }
+/* Error and recovery lines under a highlighted transfer. */
+.labware-report-table .labware-report-error-detail td { padding: 0 10px 8px 22px; }
+.labware-report-error-list.labware-report-sticky { left: 22px; }
+.labware-report-error-list { display: flex; flex-direction: column; gap: 4px; }
+.labware-report-error-item { display: flex; flex-wrap: wrap; gap: 2px 14px; align-items: baseline; }
+.labware-report-error-what { color: var(--color-negative); font-weight: 600; }
+[data-theme="dark"] .labware-report-error-what { color: #ff6e6e; }
+.labware-report-error-recovery { color: var(--text-base-2); }
+.labware-report-tadm { display: flex; flex-direction: column; gap: 12px; }
+.labware-report-tadm > .summary-section-title { margin-bottom: 0; }
+.summary-tadm-group {
+    /* Grid items default to min-width: auto, which can refuse to shrink
+       below the canvas's intrinsic size and blow out the column -- same
+       fix flex items need for the equivalent overflow. */
+    min-width: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+    padding: 12px;
+}
+.summary-tadm-group-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+.summary-tadm-group-title { font-size: 13px; font-weight: 700; color: var(--text-base); }
+.summary-tadm-group-counts { font-size: 11px; color: var(--text-muted); }
+
+/* TADM chart, adapted from demo_app's canvas.js renderTadmChart -- same
+   markup/classes so the chrome matches exactly, plus disabled/error/flagged
+   legend-item modifiers this app's version needs and demo_app's doesn't. */
+.tadm-chart-wrap { position: relative; display: block; width: 100%; }
+.tadm-canvas { display: block; width: 100%; height: auto; border-radius: 4px; cursor: crosshair; }
+.tadm-tooltip {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    background: var(--bg-card);
+    border: 1px solid var(--border-muted);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--text-base);
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+.tadm-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; }
+.tadm-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); cursor: pointer; user-select: none; }
+.tadm-legend-item:hover { color: var(--text-base); }
+.tadm-legend-item.disabled { opacity: 0.35; }
+.tadm-legend-item.error { color: var(--color-negative); font-weight: 600; }
+.tadm-legend-item.flagged { color: var(--trace-warning); font-weight: 600; }
+.tadm-legend-swatch { width: 18px; height: 3px; border-radius: 2px; flex-shrink: 0; }
+
+/* =====================================================
+   Sample Tracking tab
+   ===================================================== */
+#sample-tracking-view-body { flex: 1; min-height: 0; overflow-y: auto; padding: 16px; }
+.sample-tracking-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+
+.sample-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 16px; align-items: start; }
+/* Every card is the same fixed width -- its grid track, capped -- whatever it
+   holds: a card must not change width (and reflow its neighbours) when an
+   Error badge appears or a well's breakdown opens with long text. Padding
+   lives on .sample-card-body / .sample-card-footer, not on the card. */
+.sample-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.sample-card-body { padding: 14px; min-width: 0; }
+.sample-card-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border-muted);
+}
+/* One line, always: the title gives way (ellipsis) before anything wraps, and
+   the Error badge keeps its place at the right edge. */
+.sample-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: nowrap; min-height: 22px; }
+.sample-card-title { font-weight: 700; color: var(--text-base); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sample-card-class { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; white-space: nowrap; }
+.sample-card-barcode {
+    font-size: 11px;
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+    background: var(--bg-surface-3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.sample-card-error-badge { background: var(--color-negative); color: #ffffff; margin-left: auto; flex-shrink: 0; }
+/* A plate wider than the card (e.g. 384-well) scrolls inside it. */
+.sample-plate-grid-container { min-width: 0; }
+.sample-plate-grid { width: max-content; max-width: 100%; overflow-x: auto; }
+
+/* border/padding/radius give the grid (row/column labels + every well) a
+   visible boundary, echoing a real labware footprint on the deck rather than
+   floating loose wells against the card background. */
+.sample-plate-grid { display: grid; gap: 3px; align-items: center; border: 1px solid var(--border-muted); border-radius: 6px; padding: 6px; }
+.sample-well-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sample-well {
+    aspect-ratio: 1 / 1;
+    min-width: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--border-muted);
+    background: var(--bg-surface-2);
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.sample-well:hover { border-color: var(--color-primary); }
+.sample-well.sample-well-active { border-color: var(--text-muted); }
+.sample-well.sample-well-error { box-shadow: inset 0 0 0 2px var(--color-negative); }
+.sample-well.sample-well-multi-source { position: relative; }
+.sample-well.sample-well-multi-source::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-base);
+}
+.sample-well.sample-well-selected { box-shadow: 0 0 0 2px var(--color-primary); }
+.sample-well.sample-well-error.sample-well-selected { box-shadow: 0 0 0 2px var(--color-primary), inset 0 0 0 2px var(--color-negative); }
+
+.sample-tube-list { display: flex; flex-direction: column; gap: 6px; }
+.sample-tube-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-muted);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.sample-tube-row.sample-well-error { border-color: var(--color-negative); }
+.sample-tube-well { font-weight: 600; color: var(--text-base); }
+.sample-tube-volume { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+
+.sample-well-breakdown {
+    background: var(--bg-surface-2);
+    border: 1px solid var(--border-muted);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 6px;
+    font-size: 12px;
+    /* Guarantees a readable minimum even for a single short step (e.g. just
+       "Aspirated out") -- this is also what drives .sample-card (width:
+       max-content) to expand past a collapsed 1-column well grid. */
+    min-width: 260px;
+}
+.sample-well-breakdown-header { font-weight: 600; color: var(--text-base); margin-bottom: 6px; }
+.sample-breakdown-step {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 3px 0;
+    color: var(--text-base-2);
+    flex-wrap: nowrap;
+}
+.sample-breakdown-time { font-variant-numeric: tabular-nums; color: var(--text-muted); flex: 0 0 88px; }
+.sample-breakdown-source { flex: 1 1 0; min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; overflow-wrap: anywhere; }
+.sample-breakdown-fixed { flex-shrink: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sample-breakdown-volume { flex-basis: 62px; text-align: right; }
+.sample-breakdown-step-clickable { cursor: pointer; border-radius: 4px; font-weight: 600; color: var(--text-base); }
+.sample-breakdown-step-clickable:hover { background: var(--bg-surface-3); }
+.sample-source-swatch { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.sample-breakdown-barcode {
+    font-size: 10px;
+    font-family: 'Roboto Flex', system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+    background: var(--bg-surface-3);
+    border-radius: 4px;
+    padding: 1px 6px;
+}
+.sample-step-removal {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: var(--bg-surface-3);
+    color: var(--text-muted);
+}
+.sample-step-error {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: var(--color-negative);
+    color: #ffffff;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+/* Error and recovery line under a breakdown step. */
+.sample-breakdown-error {
+    overflow-wrap: anywhere;
+    margin: 0 0 4px 0;
+    padding-left: 8px;
+    border-left: 2px solid var(--color-negative);
+    color: var(--color-negative);
+    font-weight: 600;
+}
+[data-theme="dark"] .sample-breakdown-error { color: #ff6e6e; }
+
+/* =====================================================
+   TADM transfer modal (Sample Tracking tab)
+   ===================================================== */
+.tadm-transfer-subtitle { color: var(--text-muted); font-size: 13px; margin: 0 0 12px; }
+.tadm-transfer-panel + .tadm-transfer-panel { margin-top: 16px; }
+.tadm-transfer-panel-title { font-weight: 600; color: var(--text-base); margin-bottom: 6px; }
+.tadm-transfer-chart { min-height: 60px; }
+
+/* A trace line jumped to from elsewhere (e.g. an error incident's "Show in trace"). */
+@keyframes log-line-flash { from { background: rgba(0, 153, 136, 0.3); } to { background: transparent; } }
+.log-line-flash { animation: log-line-flash 2s ease-out; }

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "hamilton-venus",
+  "version": "1.0.0",
+  "description": "Control Hamilton STAR and Vantage instruments from Claude Code: the VENUS Python SDK MCP server, Hamilton liquid handling, labware and liquid class skills, and an approval prompt before any command that moves real hardware.",
+  "author": {
+    "name": "Hamilton Company"
+  },
+  "keywords": ["hamilton", "venus", "liquid-handling", "laboratory-automation"]
+}

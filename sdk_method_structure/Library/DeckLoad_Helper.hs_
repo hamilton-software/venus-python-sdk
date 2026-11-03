@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 9/2/2026 9:05:50 PM
+// Generated at 10/30/2026 4:02:57 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -21,4 +21,4 @@ function InitializeSpecifiedDeck( variable & o_strSpecifiedDeckFound ) void { }
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-09-02 21:05$$checksum=e19bb603$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-30 16:02$$checksum=a3632ef7$$length=083$$

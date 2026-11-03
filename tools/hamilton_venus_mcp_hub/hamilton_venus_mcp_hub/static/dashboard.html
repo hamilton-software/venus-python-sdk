@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hamilton VENUS MCP Hub</title>
+<link rel="stylesheet" href="/static/hub.css" />
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/static/img/logo.png" alt="Hamilton" /></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h1 class="page-title">Fleet overview</h1>
+      <span class="page-subtitle" id="meta">connecting&hellip;</span>
+      <div class="page-header-right">
+        <button class="dark-mode-btn" id="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle dark mode"></button>
+      </div>
+    </div>
+    <main>
+      <div class="card error-card" id="interventions-card" hidden>
+        <div class="card-body">
+          <h2 id="interventions-heading">Needs an operator</h2>
+          <div id="intervention-list"></div>
+          <div class="form-inline" id="operator-name-row" style="margin-top: 10px;">
+            <label class="muted" for="operator-name">Your name (recorded with each decision)</label>
+            <input id="operator-name" autocomplete="name" />
+          </div>
+          <div id="intervention-error" style="color: var(--color-negative); font-size: 12px; min-height: 1.2em; margin-top: 6px;"></div>
+        </div>
+      </div>
+
+      <div class="card error-card" id="holds-card" hidden>
+        <div class="card-body">
+          <h2>On hold &mdash; waiting for recovery</h2>
+          <p class="muted" style="margin: 0 0 8px;">The instrument is paused in place (VENUS is still running). Recover at the instrument, then resume from the orchestrator or agent driving it (resume, resume from a step, or release).</p>
+          <table id="holds-table">
+            <thead>
+              <tr><th>Spoke</th><th>Step</th><th>Command</th><th>Why</th><th>Error</th><th>Held for</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card error-card" id="session-prompts-card" hidden>
+        <div class="card-body">
+          <h2>Waiting on an operator &mdash; instrument error prompt</h2>
+          <p class="muted" style="margin: 0 0 8px;">A command is blocked on an instrument error. It continues once whoever drives the session answers it (<code>resolve_operator_prompt</code> on the spoke). Open the instrument to see its error history.</p>
+          <table id="session-prompts-table">
+            <thead>
+              <tr><th>Spoke</th><th>Code</th><th>Error</th><th>Options</th><th>Waiting since</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2>Spokes</h2>
+          <table id="spokes-table">
+            <thead>
+              <tr><th>ID</th><th>Instrument</th><th>URL</th><th>Connection</th><th>Status</th><th>State</th><th>Detail</th><th>Session</th><th>Last seen</th><th>Connection error</th><th></th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="card-footer" style="justify-content: flex-start;">
+          <form id="add-spoke-form" class="form-inline" style="width: 100%;">
+            <input id="new-spoke-id" placeholder="id (e.g. star3)" autocomplete="off" style="flex: 0 1 160px;" />
+            <input id="new-spoke-url" placeholder="url (e.g. http://192.168.1.13:8000/mcp)" autocomplete="off" style="flex: 1 1 auto;" />
+            <button type="submit" class="btn btn-primary">Add spoke</button>
+          </form>
+        </div>
+        <div class="card-body" style="padding-top: 0;">
+          <div id="add-spoke-error" style="color: var(--color-negative); font-size: 12px; min-height: 1.2em;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2>Discover spokes</h2>
+          <p class="muted">Scans this network (and this computer, on other ports) for spokes that aren't connected yet.</p>
+          <button id="discover-btn" class="btn btn-secondary" type="button">Search for spokes</button>
+          <span id="discover-status" class="muted" style="margin-left: 10px;"></span>
+          <table id="discover-table" hidden style="margin-top: 12px;">
+            <thead>
+              <tr><th>Name</th><th>URL</th><th></th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="empty-row" id="discover-empty" hidden>No new spokes found.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2>Low consumables</h2>
+          <div class="empty-row" id="consumables-empty" hidden>Nothing is running low across the fleet.</div>
+          <table id="consumables-table" hidden>
+            <thead>
+              <tr><th>Instrument</th><th>Kind</th><th>Item</th><th>Level</th><th>Percent</th><th>Updated</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <p class="muted" id="consumables-error-note" style="font-size: 12px; margin: 8px 0 0;" hidden></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2>Recent outbound commands</h2>
+          <table id="activity-table">
+            <thead>
+              <tr><th>Time</th><th>Spoke</th><th>Tool</th><th>Status</th><th>Latency</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="empty-row" id="empty-activity" hidden>No commands sent yet.</div>
+          <p class="muted" id="activity-truncated-note" style="font-size: 12px; margin: 8px 0 0;" hidden></p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="/static/hub.js"></script>
+<script>
+  const POLL_MS = 2000;
+
+  function statusPill(ok) {
+    return ok
+      ? '<span class="pill ok">connected</span>'
+      : '<span class="pill err">disconnected</span>';
+  }
+
+  const STATE_PILL = { idle: "ok", running: "run", error: "err", unreachable: "dim", unknown: "dim" };
+
+  // The spoke's own status, pushed by the spoke the moment it changes -- VENUS's status-light
+  // colors: green running, red error, blue hold, white idle; amber paused; grey terminated.
+  const STATUS_PILL = { idle: "st-idle", running: "ok", error: "err", hold: "run", paused: "st-paused", terminated: "dim" };
+
+  function spokeStatusPill(s) {
+    const st = s.status;
+    if (!s.connected || !st || !st.status) return '<span class="pill dim">&mdash;</span>';
+    const since = st.since ? ` since ${clockTime(st.since)}` : "";
+    const title = `${st.detail ? st.detail + " — " : ""}${st.source || ""}${since}`;
+    return `<span class="pill ${STATUS_PILL[st.status] || "dim"}" title="${esc(title)}">${esc(st.status)}</span>`;
+  }
+
+  function statePill(s) {
+    const label = s.state === "running" && s.paused ? "paused" : s.state;
+    return `<span class="pill ${STATE_PILL[s.state] || "dim"}">${esc(label)}</span>`;
+  }
+
+  // session_active/connection_id reflect an interactive start_session/connect_instrument
+  // session on the spoke -- independent of run_script's own state/run above. A session can
+  // be active (and being driven by individual call_sdk_command calls, whether through an
+  // orchestrator_client card or any other direct MCP client) with no script run in progress
+  // at all, and vice versa.
+  function sessionCell(s) {
+    if (!s.session_active) return '<span class="pill dim">none</span>';
+    const idText = s.connection_id
+      ? `<span class="mono muted" style="margin-left: 6px; font-size: 11px;" title="connection_id">${esc(s.connection_id)}</span>`
+      : "";
+    return `<span class="pill run">active</span>${idText}`;
+  }
+
+  function stateDetail(s) {
+    const parts = [];
+    if (s.run) parts.push(`${s.run.script} (${s.run.simulate ? "Simulated" : "Live"}, ${Math.round(s.run.elapsed_s)}s)`);
+    if (s.state_detail) parts.push(s.state_detail);
+    const cc = s.command_control;
+    if (cc && cc.hold && (cc.state === "held" || cc.state === "resuming")) {
+      parts.push(`${cc.state === "held" ? "HELD" : "resuming"} at step ${cc.hold.step} (${cc.hold.command})`);
+    }
+    return parts.join(" — ");
+  }
+
+  function renderHolds(holds) {
+    const card = document.getElementById("holds-card");
+    card.hidden = holds.length === 0;
+    const now = Date.now() / 1000;
+    document.querySelector("#holds-table tbody").innerHTML = holds.map(h => `
+      <tr>
+        <td>${esc(h.spoke_id)}</td>
+        <td class="mono">${esc(h.step)}</td>
+        <td class="mono">${esc(h.command)}</td>
+        <td><span class="pill ${h.reason === "error" ? "err" : "run"}">${h.reason === "error" ? "error (cancelled)" : "stop"}</span>${h.state === "resuming" ? ' <span class="pill run">resuming</span>' : ""}</td>
+        <td style="white-space: pre-wrap; font-size: 12px;">${esc(h.message || "")}</td>
+        <td class="mono">${Math.max(0, Math.round(now - h.since))}s</td>
+      </tr>
+    `).join("");
+  }
+
+  // Only what is waiting right now; the history of past errors lives on each instrument's page.
+  function renderSessionPrompts(spokes) {
+    const rows = spokes.flatMap(s => (s.session_prompts || []).map(p => ({ spoke_id: s.id, ...p })));
+    document.getElementById("session-prompts-card").hidden = rows.length === 0;
+    document.querySelector("#session-prompts-table tbody").innerHTML = rows.map(p => `
+      <tr>
+        <td><a href="/spokes/${encodeURIComponent(p.spoke_id)}">${esc(p.spoke_id)}</a></td>
+        <td class="mono">${esc(p.code ?? "")}</td>
+        <td style="white-space: pre-wrap; font-size: 12px;">${esc(p.title ?? "")}</td>
+        <td class="mono">${esc((p.top_level_actions || []).join(", "))}</td>
+        <td class="mono">${p.timestamp ? esc(new Date(p.timestamp).toLocaleTimeString()) : ""}</td>
+      </tr>
+    `).join("");
+  }
+
+  // The page polls every couple of seconds. Rebuilding a prompt on every poll would throw away
+  // what the operator is in the middle of choosing (a dropdown snapping back to its default), so
+  // the list is only rebuilt when what it shows has actually changed.
+  let lastInterventionSignature = null;
+  // Unlock/lock door and raise/lower load tray do not answer the error: the spoke asks again
+  // (a new prompt for the same error) once the instrument has carried the action out. Until
+  // then the card stays up, disabled, instead of disappearing and coming back.
+  let accessHoldUntil = 0;
+  let interventionSelects = []; // [{ key, select }] of the cards currently shown
+
+  function renderInterventions(items, operatorGateConfigured) {
+    const card = document.getElementById("interventions-card");
+    const list = document.getElementById("intervention-list");
+    if (items.length === 0 && Date.now() < accessHoldUntil) return;
+    card.hidden = items.length === 0;
+    const signature = JSON.stringify([
+      !!operatorGateConfigured,
+      items.map(p => [p.spoke_id, p.run_id, p.prompt_id, p.title, p.code, p.options, p.channel_errors]),
+    ]);
+    if (signature === lastInterventionSignature) return;
+    lastInterventionSignature = signature;
+    // Without a hub token nothing here is ever actionable from this dashboard -- the "Needs an
+    // operator" framing (and the name field for attributing a decision) implies a workflow that
+    // structurally cannot happen, so drop it entirely and just label this as read-only.
+    document.getElementById("interventions-heading").textContent =
+      operatorGateConfigured ? "Needs an operator" : "Instrument alerts (informational)";
+    document.getElementById("operator-name-row").hidden = !operatorGateConfigured;
+    // A prompt asked again after an access action keeps what the operator had picked.
+    const keptSelections = new Map(interventionSelects.map(s => [s.key, s.select.value]));
+    interventionSelects = [];
+    accessHoldUntil = 0;
+    list.replaceChildren();
+    for (const p of items) {
+      const item = document.createElement("div");
+      item.className = "card";
+      item.style.marginBottom = "10px";
+      item.style.boxShadow = "none";
+      item.style.border = "1px solid var(--border-muted)";
+      const body = document.createElement("div");
+      body.className = "card-body";
+      const title = document.createElement("strong");
+      title.textContent = p.title || "A run needs a decision";
+      body.append(title);
+      const where = document.createElement("div");
+      where.className = "muted";
+      where.style.margin = "4px 0 8px";
+      where.textContent = `${p.spoke_id}${p.script ? " — " + p.script : ""}${p.code ? " — error " + p.code : ""}`;
+      body.append(where);
+      for (const row of p.channel_errors || []) {
+        const pre = document.createElement("pre");
+        pre.style.whiteSpace = "pre-wrap";
+        pre.style.margin = "6px 0";
+        pre.style.font = "inherit";
+        pre.textContent = (row.channels && row.channels.length ? "Channel " + row.channels.join(", ") + ": " : "") + row.message;
+        body.append(pre);
+      }
+      if (!operatorGateConfigured) {
+        // No hub token: this can only ever be resolved at the instrument itself (VENUS's own
+        // local operator dialog) -- showing disabled dropdowns/buttons here would suggest a
+        // remote decision is possible when it structurally isn't, so show nothing but the
+        // error information above.
+        const notice = document.createElement("div");
+        notice.className = "muted";
+        notice.style.marginTop = "10px";
+        notice.textContent = "This must be resolved at the instrument directly (VENUS's own error dialog) — the hub has no operator token configured to relay a decision.";
+        body.append(notice);
+        item.append(body);
+        list.append(item);
+        continue;
+      }
+      const selects = [];
+      for (const row of p.channel_errors || []) {
+        if (!(row.actions || []).length || !(row.detail_uuids || []).length) continue;
+        const select = document.createElement("select");
+        select.style.marginRight = "8px";
+        for (const a of row.actions) {
+          const o = document.createElement("option");
+          o.textContent = a.name;
+          o.value = a.id;
+          if (a.id === row.default_action_id) o.selected = true;
+          select.append(o);
+        }
+        const key = p.spoke_id + "|" + (row.detail_uuids || []).join("|");
+        const kept = keptSelections.get(key);
+        if (kept !== undefined && [...select.options].some(o => o.value === kept)) select.value = kept;
+        interventionSelects.push({ key, select });
+        selects.push({ row, select });
+        body.append(select);
+      }
+      const buttons = document.createElement("div");
+      buttons.style.marginTop = "10px";
+      buttons.style.display = "flex";
+      buttons.style.gap = "8px";
+      if (selects.length) {
+        const apply = document.createElement("button");
+        apply.className = "btn btn-primary";
+        apply.textContent = "Apply choices";
+        apply.addEventListener("click", () => {
+          const picks = {};
+          for (const { row, select } of selects) for (const uuid of row.detail_uuids || []) picks[uuid] = Number(select.value);
+          resolveIntervention(p, { channel_actions: picks });
+        });
+        buttons.append(apply);
+      }
+      const accessActions = p.access_actions || [];
+      for (const option of p.options || []) {
+        if (accessActions.some(a => a.key === option)) continue;
+        const b = document.createElement("button");
+        b.className = "btn btn-primary";
+        b.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+        b.addEventListener("click", () => resolveIntervention(p, { action: option }));
+        buttons.append(b);
+      }
+      body.append(buttons);
+      if (accessActions.length) {
+        const access = document.createElement("div");
+        access.style.marginTop = "10px";
+        access.style.display = "flex";
+        access.style.gap = "8px";
+        access.style.alignItems = "center";
+        const status = document.createElement("span");
+        status.className = "muted";
+        for (const a of accessActions) {
+          const b = document.createElement("button");
+          b.className = "btn";
+          b.textContent = a.label;
+          b.addEventListener("click", async () => {
+            item.querySelectorAll("button, select").forEach(el => { el.disabled = true; });
+            status.textContent = a.label + "...";
+            accessHoldUntil = Date.now() + 30000;
+            if (!(await resolveIntervention(p, { action: a.key }))) {
+              accessHoldUntil = 0;
+              status.textContent = "";
+              item.querySelectorAll("button, select").forEach(el => { el.disabled = false; });
+            }
+          });
+          access.append(b);
+        }
+        access.append(status);
+        body.append(access);
+      }
+      item.append(body);
+      list.append(item);
+    }
+    document.getElementById("intervention-error").textContent = "";
+  }
+
+  async function resolveIntervention(p, choice) {
+    const errorEl = document.getElementById("intervention-error");
+    errorEl.textContent = "";
+    const operator = document.getElementById("operator-name").value.trim();
+    try { localStorage.setItem("operatorName", operator); } catch (e) { /* storage unavailable */ }
+    try {
+      const res = await fetch("/api/interventions/resolve", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ spoke_id: p.spoke_id, run_id: p.run_id, prompt_id: p.prompt_id, operator, ...choice }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) errorEl.textContent = body.error || `Failed (HTTP ${res.status})`;
+      poll();
+      return res.ok;
+    } catch (err) {
+      errorEl.textContent = "Failed to send the decision: " + err;
+    }
+    poll();
+    return false;
+  }
+
+  try {
+    document.getElementById("operator-name").value = localStorage.getItem("operatorName") || "";
+  } catch (e) { /* storage unavailable */ }
+
+  function renderSpokes(spokes) {
+    const body = document.querySelector("#spokes-table tbody");
+    body.innerHTML = spokes.map(s => `
+      <tr>
+        <td><a href="/spokes/${encodeURIComponent(s.id)}">${esc(s.id)}</a></td>
+        <td>${s.instrument_type ? `<span class="pill dim">${esc(s.instrument_type)}</span>` : ""}</td>
+        <td class="muted">${esc(s.url)}</td>
+        <td>${statusPill(s.connected)}</td>
+        <td>${spokeStatusPill(s)}</td>
+        <td>${statePill(s)}</td>
+        <td class="wrap muted">${esc(stateDetail(s))}</td>
+        <td>${sessionCell(s)}</td>
+        <td class="mono">${relativeTime(s.last_seen)}</td>
+        <td class="wrap muted">${esc(s.last_error ?? "")}</td>
+        <td><button class="btn-ghost" data-remove-id="${esc(s.id)}">Remove</button></td>
+      </tr>
+    `).join("");
+    body.querySelectorAll("button[data-remove-id]").forEach(btn => {
+      btn.addEventListener("click", () => removeSpoke(btn.dataset.removeId));
+    });
+  }
+
+  const ACTIVITY_ROWS_SHOWN = 25;
+
+  function renderActivity(entries) {
+    const body = document.querySelector("#activity-table tbody");
+    const empty = document.getElementById("empty-activity");
+    const note = document.getElementById("activity-truncated-note");
+    empty.hidden = entries.length > 0;
+    const shown = entries.slice(0, ACTIVITY_ROWS_SHOWN);  // entries is already newest-first
+    body.innerHTML = shown.map(e => `
+      <tr>
+        <td class="mono">${clockTime(e.timestamp)}</td>
+        <td>${esc(e.spoke_id)}</td>
+        <td>${esc(e.tool_name)}</td>
+        <td>${e.status === "success" ? '<span class="pill ok">success</span>' : '<span class="pill err">error</span>'}</td>
+        <td class="mono">${e.latency_ms.toFixed(0)} ms</td>
+      </tr>
+    `).join("");
+    note.hidden = entries.length <= ACTIVITY_ROWS_SHOWN;
+    note.textContent = `Showing the most recent ${ACTIVITY_ROWS_SHOWN} of ${entries.length}.`;
+  }
+
+  let lastSpokes = [];
+
+  async function poll() {
+    try {
+      const res = await fetch("/api/status.json", { cache: "no-store" });
+      const data = await res.json();
+      const connected = data.spokes.filter(s => s.connected).length;
+      document.getElementById("meta").textContent =
+        `uptime ${Math.floor(data.hub.uptime_s)}s · ${connected}/${data.spokes.length} spokes connected`;
+      renderSpokes(data.spokes);
+      renderInterventions(data.pending_interventions || [], data.hub.operator_gate_configured);
+      renderHolds(data.command_holds || []);
+      renderSessionPrompts(data.spokes);
+      renderActivity(data.recent_activity);
+      lastSpokes = data.spokes;
+      renderSidebar(lastSpokes, null);
+    } catch (err) {
+      document.getElementById("meta").textContent = "lost connection to hub — retrying…";
+    } finally {
+      setTimeout(poll, POLL_MS);
+    }
+  }
+
+  const CONSUMABLES_POLL_MS = 15000;  // fans out to every spoke -- not worth the 2s cadence poll() uses
+
+  function renderLowConsumables(data) {
+    const table = document.getElementById("consumables-table");
+    const empty = document.getElementById("consumables-empty");
+    const errorNote = document.getElementById("consumables-error-note");
+    const rows = data.low_items || [];
+    if (!rows.length) {
+      table.hidden = true;
+      empty.hidden = false;
+    } else {
+      empty.hidden = true;
+      table.hidden = false;
+      document.querySelector("#consumables-table tbody").innerHTML = rows.map(r => `
+        <tr>
+          <td><a href="/spokes/${encodeURIComponent(r.spoke_id)}">${esc(r.spoke_id)}</a></td>
+          <td>${esc(r.kind)}</td>
+          <td>${esc(r.label || r.item_key)}</td>
+          <td class="mono">${esc(formatConsumableLevel(r))}</td>
+          <td class="mono">${r.percent !== null && r.percent !== undefined ? Math.round(r.percent * 100) + "%" : "—"}</td>
+          <td class="mono muted" title="${esc(r.last_updated || "")}">${esc(formatLocalDateTime(r.last_updated))}</td>
+        </tr>
+      `).join("");
+    }
+    const errorSpokes = Object.keys(data.errors || {});
+    errorNote.hidden = errorSpokes.length === 0;
+    errorNote.textContent = errorSpokes.length
+      ? `Could not read consumables from: ${errorSpokes.join(", ")}.`
+      : "";
+  }
+
+  async function pollConsumables() {
+    try {
+      const res = await fetch("/api/fleet-consumables.json", { cache: "no-store" });
+      renderLowConsumables(await res.json());
+    } catch (err) {
+      // Leave the last-known table in place rather than clearing it over a transient fetch error.
+    } finally {
+      setTimeout(pollConsumables, CONSUMABLES_POLL_MS);
+    }
+  }
+
+  async function removeSpoke(id) {
+    if (!confirm(`Remove spoke "${id}"? This is saved -- it stays gone across a hub restart too, unless HAMILTON_MCP_SPOKES still lists it.`)) {
+      return;
+    }
+    try {
+      const res = await fetch(`/api/spokes/${encodeURIComponent(id)}`, { method: "DELETE" });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        alert(body.error || `Failed to remove spoke (HTTP ${res.status})`);
+      }
+    } catch (err) {
+      alert("Failed to remove spoke: " + err);
+    }
+    poll();
+  }
+
+  document.getElementById("add-spoke-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const errorEl = document.getElementById("add-spoke-error");
+    errorEl.textContent = "";
+    const idInput = document.getElementById("new-spoke-id");
+    const urlInput = document.getElementById("new-spoke-url");
+    const id = idInput.value.trim();
+    const url = urlInput.value.trim();
+    if (!id || !url) {
+      errorEl.textContent = "Both id and url are required.";
+      return;
+    }
+    try {
+      const res = await fetch("/api/spokes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, url }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        errorEl.textContent = body.error || `Failed to add spoke (HTTP ${res.status})`;
+        return;
+      }
+      idInput.value = "";
+      urlInput.value = "";
+      poll();
+    } catch (err) {
+      errorEl.textContent = "Failed to add spoke: " + err;
+    }
+  });
+
+  async function discoverSpokes() {
+    const btn = document.getElementById("discover-btn");
+    const status = document.getElementById("discover-status");
+    const table = document.getElementById("discover-table");
+    const empty = document.getElementById("discover-empty");
+    btn.disabled = true;
+    status.textContent = "Scanning… this can take a few seconds.";
+    table.hidden = true;
+    empty.hidden = true;
+    try {
+      const res = await fetch("/api/spokes/discover", { cache: "no-store" });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        status.textContent = body.error || `Scan failed (HTTP ${res.status})`;
+        return;
+      }
+      const found = body.spokes || [];
+      status.textContent = found.length
+        ? `Found ${found.length} spoke${found.length === 1 ? "" : "s"}.`
+        : "Scan complete.";
+      if (!found.length) {
+        empty.hidden = false;
+        return;
+      }
+      table.hidden = false;
+      document.querySelector("#discover-table tbody").innerHTML = found.map((s) => `
+        <tr>
+          <td>${esc(s.name)}</td>
+          <td class="muted">${esc(s.url)}</td>
+          <td><button class="btn btn-primary" data-connect-url="${esc(s.url)}" data-connect-name="${esc(s.name)}">Connect</button></td>
+        </tr>
+      `).join("");
+      document.querySelectorAll("#discover-table button[data-connect-url]").forEach((btnEl) => {
+        btnEl.addEventListener("click", () => {
+          document.getElementById("new-spoke-id").value = btnEl.dataset.connectName;
+          document.getElementById("new-spoke-url").value = btnEl.dataset.connectUrl;
+          document.getElementById("new-spoke-id").scrollIntoView({ behavior: "smooth", block: "center" });
+          document.getElementById("new-spoke-id").focus();
+        });
+      });
+    } catch (err) {
+      status.textContent = "Scan failed: " + err;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+  document.getElementById("discover-btn").addEventListener("click", discoverSpokes);
+
+  poll();
+  pollConsumables();
+</script>
+</body>
+</html>

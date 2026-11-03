@@ -1,0 +1,33 @@
+{
+ "version": 1,
+ "commands": {
+  "labware_definition_add_definition": {
+   "hidden": true,
+   "description": "Same as labware_add_definition (hidden as a duplicate)."
+  },
+  "labware_definition_delete_definition": {
+   "hidden": true,
+   "description": "Same as labware_delete_definition (hidden as a duplicate)."
+  },
+  "labware_definition_get_definition": {
+   "hidden": true,
+   "description": "Same as labware_get_definition (hidden as a duplicate)."
+  },
+  "labware_definition_get_definitions": {
+   "hidden": true,
+   "description": "Same as labware_get_definitions (hidden as a duplicate)."
+  },
+  "labware_definition_get_params_from_id": {
+   "hidden": true,
+   "description": "Same as labware_get_params_from_id (hidden as a duplicate)."
+  },
+  "labware_definition_get_types": {
+   "hidden": true,
+   "description": "Same as labware_get_types (hidden as a duplicate)."
+  },
+  "labware_definition_update_definition": {
+   "hidden": true,
+   "description": "Same as labware_update_definition (hidden as a duplicate)."
+  }
+ }
+}

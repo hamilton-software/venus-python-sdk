@@ -1,0 +1,16 @@
+{
+  "name": "hamilton",
+  "owner": {
+    "name": "Hamilton Company"
+  },
+  "metadata": {
+    "description": "Hamilton VENUS Python SDK plugins, installed locally by the VENUS Python SDK installer."
+  },
+  "plugins": [
+    {
+      "name": "hamilton-venus",
+      "source": "./hamilton-venus",
+      "description": "Hamilton STAR / Vantage control through the VENUS Python SDK MCP server, with Hamilton skills and a hardware approval gate."
+    }
+  ]
+}

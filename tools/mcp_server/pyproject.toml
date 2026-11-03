@@ -1,0 +1,20 @@
+[project]
+name = "hamilton-venus-mcp"
+version = "0.1.0"
+description = "MCP server exposing the Hamilton VENUS Python SDK (via hamilton-workflow-framework session management) as tools for AI agents"
+requires-python = ">=3.12"
+dependencies = [
+    "hamilton-venus-sdk",
+    "hamilton-workflow-framework",
+    "mcp>=1.2,<2",
+]
+
+[project.scripts]
+hamilton-venus-mcp = "hamilton_venus_mcp.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["hamilton_venus_mcp*"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,115 @@
+{
+ "version": 1,
+ "commands": {
+  "tip_pool_get_available_tips": {
+   "label": "Get Available Tips",
+   "group": "Tips",
+   "description": "Return the available tip positions for a tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "tip_pool_get_empty_tips": {
+   "label": "Get Empty Tips",
+   "group": "Tips",
+   "description": "Return the empty tip positions for a tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "tip_pool_get_missing_racks": {
+   "label": "Get Missing Racks",
+   "group": "Tips",
+   "description": "Return missing tip racks for a tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "tip_pool_get_tip_counter": {
+   "label": "Get Tip Counter",
+   "group": "Tips",
+   "description": "Return the tip counter state for the specified tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "tip_pool_get_tip_counters": {
+   "label": "Get All Tip Counters",
+   "group": "Tips",
+   "description": "Return the tip counter state for every tip pool."
+  },
+  "tip_pool_initialize_tip_counter": {
+   "label": "Initialize Tip Counter",
+   "group": "Tips",
+   "description": "Initialize the tip counter for a tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "tip_pool_reset_tip_counter": {
+   "label": "Reset Tip Counter",
+   "group": "Tips",
+   "description": "Reset the tip counter for the specified tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "tip_pool_set_tip_counter": {
+   "label": "Set Tip Counter",
+   "group": "Tips",
+   "description": "Directly set the per-slot tip state for a tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    },
+    "available_tips": {
+     "label": "Available Tips (JSON)",
+     "order": 1,
+     "help": "List of {\"<position>\": \"<TipRackState member name>\"} dicts"
+    }
+   }
+  },
+  "tip_pool_show_tip_counter": {
+   "label": "Show Tip Counter",
+   "group": "Tips",
+   "description": "Show the tip counter dialog for the specified tip pool.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "tip_pool_show_tip_counters": {
+   "label": "Show Tip Counters",
+   "group": "Tips",
+   "description": "Show the tip counter dialog for the specified tip pools, or every tip pool if omitted.",
+   "params": {
+    "tip_pools": {
+     "label": "Tip Pools",
+     "order": 0,
+     "help": "Leave empty to show every tip pool"
+    }
+   }
+  }
+ }
+}

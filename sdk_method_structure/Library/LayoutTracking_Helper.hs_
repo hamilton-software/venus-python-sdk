@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 10/27/2026 6:18:15 PM
+// Generated at 10/30/2026 3:36:12 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -62,4 +62,4 @@ function UpdateCarrierTrack( variable i_strCarrier, variable i_intNewTrack ) voi
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-10-27 18:18$$checksum=0bb0a278$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-30 15:36$$checksum=f3c146be$$length=083$$

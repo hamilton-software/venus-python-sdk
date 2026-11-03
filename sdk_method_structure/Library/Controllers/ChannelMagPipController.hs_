@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 10/23/2026 4:17:57 PM
+// Generated at 10/30/2026 4:24:20 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -22,4 +22,4 @@ function channels_MagPip_tipPickup( device & ML_STAR ) variable {  return (0); }
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-10-23 16:17$$checksum=f24db55c$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-30 16:24$$checksum=8c774fd7$$length=083$$

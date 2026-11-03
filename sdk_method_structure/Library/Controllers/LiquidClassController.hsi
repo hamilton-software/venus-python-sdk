@@ -2115,13 +2115,19 @@ HSLJsonLib::GetJson(l_objReturn, l_strReturnJSON);
 // {{{ 583 1 0 "a64199a0_cec8_497e_84c2dc3c9940a816" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Release(l_objJSON);
 // }} ""
-// {{{ 584 1 0 "83013a5c_92d3_4fe3_9bc352c52074d14b" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 584 1 0 "0396ed6a_298b_4ebd_bf5be6918e548f0f" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Release(l_objReturn);
 // }} ""
-// {{{ 585 1 0 "03f450ba_c835_4988_98f1526169db1603" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+// {{{ 585 1 0 "4be04b1a_29fa_46d9_9892ce3c4265a116" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLJsonLib::Release(l_objJSONOriginal);
+// }} ""
+// {{{ 586 1 0 "4e8061c9_2ed1_4657_aa718ed95018d179" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLJsonLib::Release(l_objLiquidClass);
+// }} ""
+// {{{ 587 1 0 "03f450ba_c835_4988_98f1526169db1603" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
 API_Helper::Command_Finish(SDK::CurrentID, l_blnSuccess, l_strReturnJSON);
 // }} ""
-// {{{ 586 1 0 "d4501d2b_07b1_49d3_80f6d5f5ea276d44" "{9EC997CD-FD3B-4280-811B-49E99DCF062C}"
+// {{{ 588 1 0 "d4501d2b_07b1_49d3_80f6d5f5ea276d44" "{9EC997CD-FD3B-4280-811B-49E99DCF062C}"
 return (ASWGLOBAL::BOOL::TRUE);
 // }} ""
 // {{{ 5 "liquidClass_updateLiquidClass" "End"
@@ -2131,4 +2137,4 @@ return (ASWGLOBAL::BOOL::TRUE);
 // {{{ 2 "LibraryNamespace" "End"
 } // library namespace
 // }} ""
-// $$author=Bare_B$$valid=0$$time=2026-10-23 18:11$$checksum=f06188c6$$length=085$$
+// $$author=Bare_B$$valid=0$$time=2026-10-30 16:36$$checksum=1cefe077$$length=085$$

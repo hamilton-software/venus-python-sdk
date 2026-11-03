@@ -1,0 +1,846 @@
+{
+ "version": 1,
+ "commands": {
+  "add_reagent": {
+   "label": "Add Reagent",
+   "group": "Advanced",
+   "subgroup": "Workflows",
+   "description": "Distribute a reagent from one or more sources to destination wells (with optional pre/post-aliquot).",
+   "params": {
+    "reagent_source": {
+     "label": "Reagent Source",
+     "order": 0,
+     "widget": "plate"
+    },
+    "dest_plate": {
+     "label": "Destination Plate",
+     "order": 1,
+     "widget": "plate"
+    },
+    "volume": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 3
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 4
+    },
+    "multi_dispense": {
+     "label": "Multi Dispense",
+     "order": 5
+    },
+    "pre_aliquot_volume": {
+     "label": "Pre-Aliquot Volume (uL)",
+     "order": 6
+    },
+    "pre_aliquot_disposal": {
+     "label": "Pre-Aliquot Disposal",
+     "order": 7
+    },
+    "post_aliquot_volume": {
+     "label": "Post-Aliquot Volume (uL)",
+     "order": 8
+    },
+    "post_aliquot_height": {
+     "label": "Post-Aliquot Height (mm)",
+     "order": 9
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 10
+    },
+    "optimized_tip_pickup": {
+     "label": "Optimized Tip Pickup",
+     "order": 11
+    },
+    "aspirate_settings": {
+     "label": "Aspirate Settings Profile",
+     "order": 12,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "dispense_settings": {
+     "label": "Dispense Settings Profile",
+     "order": 13,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    },
+    "transfer_csv": {
+     "label": "Transfer CSV Path",
+     "order": 14
+    },
+    "follow_csv_order": {
+     "label": "Follow CSV Order",
+     "order": 15
+    }
+   }
+  },
+  "clear_simulated_errors": {
+   "label": "Clear Simulated Errors",
+   "group": "Advanced",
+   "subgroup": "Error Simulation",
+   "description": "Reset every firmware command to its 'no error' reply."
+  },
+  "copy_plate": {
+   "label": "Copy Plate",
+   "group": "Advanced",
+   "subgroup": "Workflows",
+   "description": "Copy liquid from a source plate to one or more destination plates.",
+   "params": {
+    "source_plate_id": {
+     "label": "Source Plate ID",
+     "order": 0,
+     "widget": "plate"
+    },
+    "dest_plate_id": {
+     "label": "Destination Plate ID",
+     "order": 1,
+     "widget": "plate"
+    },
+    "volume": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 3
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 4
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 5
+    },
+    "reuse_tips": {
+     "label": "Reuse Tips",
+     "order": 6
+    },
+    "aspirate_settings": {
+     "label": "Aspirate Settings Profile",
+     "order": 7,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "dispense_settings": {
+     "label": "Dispense Settings Profile",
+     "order": 8,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    }
+   }
+  },
+  "firmware_command": {
+   "label": "Send Firmware Command",
+   "group": "Advanced",
+   "description": "Send a raw firmware command to the instrument (advanced/low-level). Requires the safety bypass token.",
+   "params": {
+    "command": {
+     "label": "Command",
+     "order": 0
+    },
+    "parameters": {
+     "label": "Parameters",
+     "order": 1
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 2,
+     "help": "Type 'OVERRIDE_SAFETY_CHECKS' to confirm you want to bypass safety checks."
+    }
+   }
+  },
+  "hit_picking": {
+   "label": "Hit Picking",
+   "group": "Advanced",
+   "subgroup": "Workflows",
+   "description": "Transfer liquid according to a CSV-defined hit-picking list.",
+   "params": {
+    "transfer_csv": {
+     "label": "Transfer CSV Path",
+     "order": 0
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 1
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 2
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 3
+    },
+    "optimized_tip_pickup": {
+     "label": "Optimized Tip Pickup",
+     "order": 4
+    },
+    "change_tips": {
+     "label": "Change Tips",
+     "order": 5
+    },
+    "minimize_tips": {
+     "label": "Minimize Tips",
+     "order": 6
+    },
+    "follow_csv_order": {
+     "label": "Follow CSV Order",
+     "order": 7
+    },
+    "aspirate_settings": {
+     "label": "Aspirate Settings Profile",
+     "order": 8,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "dispense_settings": {
+     "label": "Dispense Settings Profile",
+     "order": 9,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    }
+   }
+  },
+  "pool_samples": {
+   "label": "Pool Samples",
+   "group": "Advanced",
+   "subgroup": "Workflows",
+   "description": "Pool samples from source wells into destination wells.",
+   "params": {
+    "source_plate": {
+     "label": "Source Plate",
+     "order": 0,
+     "widget": "plate"
+    },
+    "dest_plate": {
+     "label": "Destination Plate",
+     "order": 1,
+     "widget": "plate"
+    },
+    "pool_size": {
+     "label": "Pool Size",
+     "order": 2
+    },
+    "volume_per_source": {
+     "label": "Volume Per Source (uL)",
+     "order": 3
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 4
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 5
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 6
+    },
+    "source_order": {
+     "label": "Source Order",
+     "order": 7
+    },
+    "dest_order": {
+     "label": "Destination Order",
+     "order": 8
+    },
+    "mix_after_pool": {
+     "label": "Mix After Pool",
+     "order": 9
+    },
+    "reuse_tips_within_pool": {
+     "label": "Reuse Tips Within Pool",
+     "order": 10
+    },
+    "optimized_tip_pickup": {
+     "label": "Optimized Tip Pickup",
+     "order": 11
+    },
+    "aspirate_settings": {
+     "label": "Aspirate Settings Profile",
+     "order": 12,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "dispense_settings": {
+     "label": "Dispense Settings Profile",
+     "order": 13,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    }
+   }
+  },
+  "replicate_samples": {
+   "label": "Replicate Samples",
+   "group": "Advanced",
+   "subgroup": "Workflows",
+   "description": "Replicate samples from source wells into multiple destination wells.",
+   "params": {
+    "source_plate": {
+     "label": "Source Plate",
+     "order": 0,
+     "widget": "plate"
+    },
+    "dest_plate": {
+     "label": "Destination Plate",
+     "order": 1,
+     "widget": "plate"
+    },
+    "replicates_per_source": {
+     "label": "Replicates Per Source",
+     "order": 2
+    },
+    "volume_per_replicate": {
+     "label": "Volume Per Replicate (uL)",
+     "order": 3
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 4
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 5
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 6
+    },
+    "source_order": {
+     "label": "Source Order",
+     "order": 7
+    },
+    "dest_order": {
+     "label": "Destination Order",
+     "order": 8
+    },
+    "multi_dispense": {
+     "label": "Multi Dispense",
+     "order": 9
+    },
+    "pre_aliquot_volume": {
+     "label": "Pre-Aliquot Volume (uL)",
+     "order": 10
+    },
+    "pre_aliquot_disposal": {
+     "label": "Pre-Aliquot Disposal",
+     "order": 11
+    },
+    "post_aliquot_volume": {
+     "label": "Post-Aliquot Volume (uL)",
+     "order": 12
+    },
+    "post_aliquot_height": {
+     "label": "Post-Aliquot Height (mm)",
+     "order": 13
+    },
+    "optimized_tip_pickup": {
+     "label": "Optimized Tip Pickup",
+     "order": 14
+    },
+    "aspirate_settings": {
+     "label": "Aspirate Settings Profile",
+     "order": 15,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "dispense_settings": {
+     "label": "Dispense Settings Profile",
+     "order": 16,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    }
+   }
+  },
+  "serial_dilution_by_dilution_factor": {
+   "label": "Serial Dilution (By Factor)",
+   "group": "Advanced",
+   "subgroup": "Workflows",
+   "description": "Perform a serial dilution across columns, specifying a dilution factor instead of diluent volume.",
+   "params": {
+    "plate_id": {
+     "label": "Plate ID",
+     "order": 0,
+     "widget": "plate"
+    },
+    "start_column": {
+     "label": "Start Column",
+     "order": 1
+    },
+    "num_dilutions": {
+     "label": "Number Of Dilutions",
+     "order": 2
+    },
+    "transfer_volume": {
+     "label": "Transfer Volume (uL)",
+     "order": 3
+    },
+    "dilution_factor": {
+     "label": "Dilution Factor",
+     "order": 4
+    },
+    "diluent_source": {
+     "label": "Diluent Source",
+     "order": 5,
+     "widget": "plate"
+    },
+    "diluent_liquid_class": {
+     "label": "Diluent Liquid Class",
+     "order": 6
+    },
+    "diluent_tip_pool": {
+     "label": "Diluent Tip Pool",
+     "order": 7
+    },
+    "transfer_liquid_class": {
+     "label": "Transfer Liquid Class",
+     "order": 8
+    },
+    "transfer_tip_pool": {
+     "label": "Transfer Tip Pool",
+     "order": 9
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 10
+    },
+    "exclude_columns": {
+     "label": "Exclude Columns",
+     "order": 11
+    },
+    "exclude_rows": {
+     "label": "Exclude Rows",
+     "order": 12
+    },
+    "mix_after_dispense": {
+     "label": "Mix After Dispense",
+     "order": 13
+    },
+    "diluent_multi_dispense": {
+     "label": "Diluent Multi Dispense",
+     "order": 14
+    },
+    "reuse_tips": {
+     "label": "Reuse Tips",
+     "order": 15
+    },
+    "discard_last_excess": {
+     "label": "Discard Last Excess",
+     "order": 16
+    },
+    "waste_location": {
+     "label": "Waste Location",
+     "order": 17
+    },
+    "optimized_tip_pickup": {
+     "label": "Optimized Tip Pickup",
+     "order": 18
+    },
+    "diluent_asp_settings": {
+     "label": "Diluent Aspirate Settings Profile",
+     "order": 19,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "diluent_disp_settings": {
+     "label": "Diluent Dispense Settings Profile",
+     "order": 20,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    },
+    "transfer_asp_settings": {
+     "label": "Transfer Aspirate Settings Profile",
+     "order": 21,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "transfer_disp_settings": {
+     "label": "Transfer Dispense Settings Profile",
+     "order": 22,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    }
+   }
+  },
+  "serial_dilution_by_volume": {
+   "label": "Serial Dilution (By Volume)",
+   "group": "Advanced",
+   "subgroup": "Workflows",
+   "description": "Perform a serial dilution across columns, specifying diluent volume directly.",
+   "params": {
+    "plate_id": {
+     "label": "Plate ID",
+     "order": 0,
+     "widget": "plate"
+    },
+    "start_column": {
+     "label": "Start Column",
+     "order": 1
+    },
+    "num_dilutions": {
+     "label": "Number Of Dilutions",
+     "order": 2
+    },
+    "transfer_volume": {
+     "label": "Transfer Volume (uL)",
+     "order": 3
+    },
+    "diluent_volume": {
+     "label": "Diluent Volume (uL)",
+     "order": 4
+    },
+    "diluent_source": {
+     "label": "Diluent Source",
+     "order": 5,
+     "widget": "plate"
+    },
+    "diluent_liquid_class": {
+     "label": "Diluent Liquid Class",
+     "order": 6
+    },
+    "diluent_tip_pool": {
+     "label": "Diluent Tip Pool",
+     "order": 7
+    },
+    "transfer_liquid_class": {
+     "label": "Transfer Liquid Class",
+     "order": 8
+    },
+    "transfer_tip_pool": {
+     "label": "Transfer Tip Pool",
+     "order": 9
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 10
+    },
+    "exclude_columns": {
+     "label": "Exclude Columns",
+     "order": 11
+    },
+    "exclude_rows": {
+     "label": "Exclude Rows",
+     "order": 12
+    },
+    "mix_after_dispense": {
+     "label": "Mix After Dispense",
+     "order": 13
+    },
+    "diluent_multi_dispense": {
+     "label": "Diluent Multi Dispense",
+     "order": 14
+    },
+    "reuse_tips": {
+     "label": "Reuse Tips",
+     "order": 15
+    },
+    "discard_last_excess": {
+     "label": "Discard Last Excess",
+     "order": 16
+    },
+    "waste_location": {
+     "label": "Waste Location",
+     "order": 17
+    },
+    "optimized_tip_pickup": {
+     "label": "Optimized Tip Pickup",
+     "order": 18
+    },
+    "diluent_asp_settings": {
+     "label": "Diluent Aspirate Settings Profile",
+     "order": 19,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "diluent_disp_settings": {
+     "label": "Diluent Dispense Settings Profile",
+     "order": 20,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    },
+    "transfer_asp_settings": {
+     "label": "Transfer Aspirate Settings Profile",
+     "order": 21,
+     "help": "Name of a 'Define Aspirate Settings' step earlier in the sequence.",
+     "profile_source": "define_aspirate_settings"
+    },
+    "transfer_disp_settings": {
+     "label": "Transfer Dispense Settings Profile",
+     "order": 22,
+     "help": "Name of a 'Define Dispense Settings' step earlier in the sequence.",
+     "profile_source": "define_dispense_settings"
+    }
+   }
+  },
+  "simulate_error": {
+   "label": "Inject Simulated Error",
+   "group": "Advanced",
+   "subgroup": "Error Simulation",
+   "description": "Make the next firmware step on a module return a chosen error (writes <instrument>_Simulator.cfg). Simulation mode only.",
+   "params": {
+    "module": {
+     "label": "Module",
+     "order": 0,
+     "help": "Pick a module, or type one (1mL, 5mL, X1, MPH96, MPH384, iSWAP/IPG, Autoload/IDL, MagPip).",
+     "widget": "sim_module"
+    },
+    "step": {
+     "label": "Firmware Step",
+     "order": 1,
+     "help": "Pick a step for the module, or type words (fuzzy-matched).",
+     "widget": "sim_step"
+    },
+    "error": {
+     "label": "Error Description",
+     "order": 2,
+     "help": "Pick an error for the module, or type words (fuzzy-matched), or \"1.<desc>;2.<desc>\" per channel.",
+     "widget": "sim_error"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 3,
+     "help": "Per-channel modules (1mL/5mL/X1/MagPip) only; leave blank to apply to all 8 channels"
+    }
+   }
+  },
+  "simulate_error_by_code": {
+   "label": "Inject Simulated Error (by code)",
+   "group": "Advanced",
+   "subgroup": "Error Simulation",
+   "description": "Write a raw firmware error code with no keyword matching.",
+   "params": {
+    "firmware_command": {
+     "label": "Firmware Command",
+     "order": 0,
+     "help": "e.g. \"C0AS\""
+    },
+    "error_code": {
+     "label": "Error Code",
+     "order": 1,
+     "help": "e.g. \"37\" or \"06/88\""
+    },
+    "error_recovery": {
+     "label": "Error Recovery",
+     "order": 2
+    }
+   }
+  },
+  "teach_well": {
+   "label": "Teach Well",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Find a plate well's four walls and bottom, and compare with the labware definition. Pick up a needle first.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0,
+     "widget": "plate"
+    },
+    "well": {
+     "label": "Well",
+     "order": 1,
+     "help": "Default: the first position. A well near the plate center is best."
+    },
+    "well_width": {
+     "label": "Well Width (mm)",
+     "order": 2,
+     "help": "Default: from the labware definition."
+    },
+    "step_distance": {
+     "label": "Step Distance (mm)",
+     "order": 3
+    },
+    "safe_clearance": {
+     "label": "Safe Clearance (mm)",
+     "order": 4
+    },
+    "search_depth": {
+     "label": "Search Depth (mm)",
+     "order": 5,
+     "help": "How far into the well each wall probe goes."
+    },
+    "bottom_search_margin": {
+     "label": "Bottom Search Margin (mm)",
+     "order": 6
+    },
+    "z_offset": {
+     "label": "Z Offset (mm)",
+     "order": 7,
+     "help": "Added to the measured bottom."
+    },
+    "teach_z_only": {
+     "label": "Teach Z Only",
+     "order": 8
+    },
+    "move_to_well": {
+     "label": "Move To Well First",
+     "order": 9
+    },
+    "traverse_z": {
+     "label": "Traverse Z (mm)",
+     "order": 10
+    },
+    "register": {
+     "label": "Save Taught Position",
+     "order": 11,
+     "help": "Needs Carrier and Site."
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 12,
+     "widget": "carrier"
+    },
+    "site": {
+     "label": "Site",
+     "order": 13
+    }
+   }
+  },
+  "teaching_eject_needle": {
+   "label": "Eject Teaching Needle",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Return the teaching needle to its pickup position."
+  },
+  "teaching_get_channel": {
+   "label": "Get Teaching Channel",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Return the 1 mL channel used for teaching."
+  },
+  "teaching_get_labware_dimensions": {
+   "label": "Get Labware Dimensions",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Labware center, bottom and height, and a well's center, bottom and depth.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0,
+     "widget": "plate"
+    },
+    "well": {
+     "label": "Well",
+     "order": 1,
+     "help": "Default: the first position."
+    }
+   }
+  },
+  "teaching_is_needle_picked_up": {
+   "label": "Is Needle Picked Up?",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Whether the teaching channel holds a teaching needle."
+  },
+  "teaching_measure_wall": {
+   "label": "Measure Wall (XY)",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Step toward one wall, probing Z, until the needle stalls on the wall top. Start inside the well at its entrance.",
+   "params": {
+    "direction": {
+     "label": "Direction",
+     "order": 0
+    },
+    "safe_height": {
+     "label": "Safe Height (mm)",
+     "order": 1,
+     "help": "Above the labware, 100-334."
+    },
+    "min_search_z": {
+     "label": "Min Search Z (mm)",
+     "order": 2,
+     "help": "2-3 mm inside the well."
+    },
+    "well_width": {
+     "label": "Well Width (mm)",
+     "order": 3,
+     "help": "2-100; the farthest it travels."
+    },
+    "step_distance": {
+     "label": "Step Distance (mm)",
+     "order": 4,
+     "help": "0.3-2.4 (default 0.6)."
+    }
+   }
+  },
+  "teaching_measure_z": {
+   "label": "Measure Z Height",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Search down until the needle stalls and return the stall height.",
+   "params": {
+    "z_start": {
+     "label": "Start Z (mm)",
+     "order": 0,
+     "help": "100-334"
+    },
+    "z_min": {
+     "label": "Min Z (mm)",
+     "order": 1,
+     "help": "100-334; the search stops here."
+    },
+    "z_end": {
+     "label": "End Z (mm)",
+     "order": 2,
+     "help": "-1 returns to the start height."
+    },
+    "slow": {
+     "label": "Slow Speed",
+     "order": 3
+    }
+   }
+  },
+  "teaching_move_channel": {
+   "label": "Move Teaching Channel",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Move the teaching needle; omitted axes stay where they are.",
+   "params": {
+    "x": {
+     "label": "X (mm)",
+     "order": 0
+    },
+    "y": {
+     "label": "Y (mm)",
+     "order": 1
+    },
+    "z": {
+     "label": "Z (mm)",
+     "order": 2,
+     "help": "105-245"
+    },
+    "z_traverse": {
+     "label": "Traverse Z (mm)",
+     "order": 3,
+     "help": "105-245. Default: the current Z."
+    }
+   }
+  },
+  "teaching_pickup_needle": {
+   "label": "Pick Up Teaching Needle",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Pick up a teaching needle with the teaching channel."
+  },
+  "teaching_set_channel": {
+   "label": "Set Teaching Channel",
+   "group": "Advanced",
+   "subgroup": "Teaching",
+   "description": "Set the 1 mL channel used for teaching. Not allowed while a needle is held; reset on every connect.",
+   "params": {
+    "channel": {
+     "label": "Channel",
+     "order": 0
+    }
+   }
+  }
+ }
+}

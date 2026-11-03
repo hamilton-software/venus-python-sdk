@@ -1,0 +1,883 @@
+{
+ "version": 1,
+ "commands": {
+  "core_5ml_eject_grips": {
+   "label": "CO-RE Eject Grips (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Eject the 5mL CO-RE gripper's grip tool."
+  },
+  "core_5ml_hold_lid": {
+   "label": "CO-RE Hold Lid (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Grip and hold a lid (5mL CO-RE gripper).",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "grip_height_from_top": {
+     "label": "Grip Height From Top (mm)",
+     "order": 1
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 2
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 3
+    },
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 4
+    },
+    "front_channel": {
+     "label": "Front Channel",
+     "order": 5
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 6
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 7
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 8
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 9
+    }
+   }
+  },
+  "core_5ml_present_and_scan": {
+   "label": "CO-RE Present And Scan (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Present labware for barcode scanning (5mL CO-RE gripper).",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 3
+    },
+    "track": {
+     "label": "Track",
+     "order": 4
+    },
+    "z_minimal_position": {
+     "label": "Z Minimal Position (mm)",
+     "order": 5
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 6
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 7
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 8
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 9
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 10
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 11
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 12
+    }
+   }
+  },
+  "core_5ml_transport": {
+   "label": "CO-RE Move Labware (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Grip and move labware to a carrier site with the 5mL CO-RE gripper.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 3
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 4
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 5
+    },
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 6
+    },
+    "front_channel": {
+     "label": "Front Channel",
+     "order": 7
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 8
+    },
+    "press_distance": {
+     "label": "Press Distance (mm)",
+     "order": 9
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 10
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 11
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 12
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 13
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 14
+    }
+   }
+  },
+  "core_5ml_transport_is_holding_labware": {
+   "label": "CO-RE Is Holding Labware? (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Query whether the 5mL CO-RE gripper is currently holding labware."
+  },
+  "core_5ml_transport_return_plate": {
+   "label": "CO-RE Return Labware (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Return previously-gripped labware to its origin (5mL CO-RE gripper).",
+   "params": {
+    "mode": {
+     "label": "Mode",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 3
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 4
+    },
+    "press_distance": {
+     "label": "Press Distance (mm)",
+     "order": 5
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 6
+    }
+   }
+  },
+  "core_5ml_transport_to_waste": {
+   "label": "CO-RE Move To Waste (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Grip labware and move it to the waste location (5mL CO-RE gripper).",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 1
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 2
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 3
+    },
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 4
+    },
+    "front_channel": {
+     "label": "Front Channel",
+     "order": 5
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 6
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 7
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 8
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 9
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 10
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 11
+    }
+   }
+  },
+  "core_5ml_transport_tracking_clear": {
+   "label": "CO-RE Clear Held Labware (5mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (5mL)",
+   "description": "Clear the 5mL CO-RE gripper's internally tracked held-labware state."
+  },
+  "core_eject_grips": {
+   "label": "CO-RE Eject Grips (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Eject the 1mL CO-RE gripper's grip tool."
+  },
+  "core_hold_lid": {
+   "label": "CO-RE Hold Lid (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Grip and hold a lid (1mL CO-RE gripper).",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "grip_height_from_top": {
+     "label": "Grip Height From Top (mm)",
+     "order": 1
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 2
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 3
+    },
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 4
+    },
+    "front_channel": {
+     "label": "Front Channel",
+     "order": 5
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 6
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 7
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 8
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 9
+    }
+   }
+  },
+  "core_present_and_scan": {
+   "label": "CO-RE Present And Scan (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Present labware for barcode scanning (1mL CO-RE gripper).",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 3
+    },
+    "track": {
+     "label": "Track",
+     "order": 4
+    },
+    "z_minimal_position": {
+     "label": "Z Minimal Position (mm)",
+     "order": 5
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 6
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 7
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 8
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 9
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 10
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 11
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 12
+    }
+   }
+  },
+  "core_transport": {
+   "label": "CO-RE Move Labware (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Grip and move labware to a carrier site with the 1mL CO-RE gripper.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 3
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 4
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 5
+    },
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 6
+    },
+    "front_channel": {
+     "label": "Front Channel",
+     "order": 7
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 8
+    },
+    "press_distance": {
+     "label": "Press Distance (mm)",
+     "order": 9
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 10
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 11
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 12
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 13
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 14
+    }
+   }
+  },
+  "core_transport_is_holding_labware": {
+   "label": "CO-RE Is Holding Labware? (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Query whether the 1mL CO-RE gripper is currently holding labware."
+  },
+  "core_transport_return_plate": {
+   "label": "CO-RE Return Labware (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Return previously-gripped labware to its origin (1mL CO-RE gripper).",
+   "params": {
+    "mode": {
+     "label": "Mode",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 3
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 4
+    },
+    "press_distance": {
+     "label": "Press Distance (mm)",
+     "order": 5
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 6
+    }
+   }
+  },
+  "core_transport_to_waste": {
+   "label": "CO-RE Move To Waste (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Grip labware and move it to the waste location (1mL CO-RE gripper).",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 1
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 2
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 3
+    },
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 4
+    },
+    "front_channel": {
+     "label": "Front Channel",
+     "order": 5
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 6
+    },
+    "x_acceleration": {
+     "label": "X Acceleration",
+     "order": 7
+    },
+    "grip_close_speed": {
+     "label": "Grip Close Speed",
+     "order": 8
+    },
+    "grip_z_speed": {
+     "label": "Grip Z Speed",
+     "order": 9
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 10
+    },
+    "eject_grip": {
+     "label": "Eject Grip",
+     "order": 11
+    }
+   }
+  },
+  "core_transport_tracking_clear": {
+   "label": "CO-RE Clear Held Labware (1mL)",
+   "group": "Transport",
+   "subgroup": "CO-RE (1mL)",
+   "description": "Clear the 1mL CO-RE gripper's internally tracked held-labware state."
+  },
+  "iswap_get_labware": {
+   "label": "iSWAP Get Labware",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Grip labware with the iSWAP transport tool.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 1
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 2
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 3
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 4
+    },
+    "tolerance": {
+     "label": "Tolerance (mm)",
+     "order": 5
+    },
+    "grip_inverse": {
+     "label": "Grip Inverse",
+     "order": 6
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 7
+    }
+   }
+  },
+  "iswap_get_labware_complex_movement": {
+   "label": "iSWAP Get Labware (Complex Movement)",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Grip labware in a hotel with iSWAP complex movement.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 1
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 2
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 3
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 4
+    },
+    "tolerance": {
+     "label": "Tolerance (mm)",
+     "order": 5
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 6
+    },
+    "retract_distance": {
+     "label": "Retract Distance (mm)",
+     "order": 7
+    },
+    "lift_height": {
+     "label": "Lift Height (mm)",
+     "order": 8
+    },
+    "orientation": {
+     "label": "Orientation",
+     "order": 9
+    }
+   }
+  },
+  "iswap_is_holding_labware": {
+   "label": "iSWAP Is Holding Labware?",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Query whether the iSWAP tool is currently holding labware."
+  },
+  "iswap_park": {
+   "label": "iSWAP Park",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Park the iSWAP transport tool."
+  },
+  "iswap_present_and_scan": {
+   "label": "iSWAP Present And Scan",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Present labware for barcode scanning with the iSWAP tool.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "track": {
+     "label": "Track",
+     "order": 3
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 4
+    },
+    "z_minimal_position": {
+     "label": "Z Minimal Position (mm)",
+     "order": 5
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 6
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 7
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 8
+    },
+    "tolerance": {
+     "label": "Tolerance (mm)",
+     "order": 9
+    },
+    "grip_inverse": {
+     "label": "Grip Inverse",
+     "order": 10
+    },
+    "place_rotation": {
+     "label": "Place Rotation",
+     "order": 11
+    }
+   }
+  },
+  "iswap_put_labware": {
+   "label": "iSWAP Put Labware",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Place gripped labware at a carrier site.",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    },
+    "site": {
+     "label": "Site",
+     "order": 1
+    },
+    "place_rotation": {
+     "label": "Place Rotation",
+     "order": 2
+    }
+   }
+  },
+  "iswap_put_labware_complex_movement": {
+   "label": "iSWAP Put Labware (Complex Movement)",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Place gripped labware into a hotel with iSWAP complex movement.",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    },
+    "site": {
+     "label": "Site",
+     "order": 1
+    },
+    "retract_distance": {
+     "label": "Retract Distance (mm)",
+     "order": 2
+    },
+    "lift_height": {
+     "label": "Lift Height (mm)",
+     "order": 3
+    },
+    "orientation": {
+     "label": "Orientation",
+     "order": 4
+    },
+    "place_rotation": {
+     "label": "Place Rotation",
+     "order": 5
+    }
+   }
+  },
+  "iswap_tracking_clear": {
+   "label": "iSWAP Clear Held Labware",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Clear the iSWAP tool's internally tracked held-labware state."
+  },
+  "iswap_transport": {
+   "label": "iSWAP Move Labware",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Grip and move labware to a carrier site with the iSWAP tool.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 3
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 4
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 5
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 6
+    },
+    "tolerance": {
+     "label": "Tolerance (mm)",
+     "order": 7
+    },
+    "grip_inverse": {
+     "label": "Grip Inverse",
+     "order": 8
+    },
+    "place_rotation": {
+     "label": "Place Rotation",
+     "order": 9
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 10
+    }
+   }
+  },
+  "iswap_transport_to_waste": {
+   "label": "iSWAP Move To Waste",
+   "group": "Transport",
+   "subgroup": "iSWAP",
+   "description": "Grip labware and move it to the waste location with the iSWAP tool.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "grip_height_above_bottom": {
+     "label": "Grip Height Above Bottom (mm)",
+     "order": 1
+    },
+    "grip_width": {
+     "label": "Grip Width (mm)",
+     "order": 2
+    },
+    "grip_open": {
+     "label": "Grip Open (mm)",
+     "order": 3
+    },
+    "grip_force": {
+     "label": "Grip Force",
+     "order": 4
+    },
+    "tolerance": {
+     "label": "Tolerance (mm)",
+     "order": 5
+    },
+    "grip_inverse": {
+     "label": "Grip Inverse",
+     "order": 6
+    },
+    "offset_grip": {
+     "label": "Offset Grip (mm)",
+     "order": 7
+    }
+   }
+  }
+ }
+}

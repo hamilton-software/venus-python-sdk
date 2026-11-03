@@ -834,6 +834,9 @@ FirmwareHelper::FWSend_Vantage(Device, l_strArm, l_strModule, Translate("AA"), T
 // {{ 941 1 0 "7595a434_5c33_426a_834c7358d8061c33" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
 }
 // }} ""
+// {{{ 942 1 0 "7e1732ef_a31f_4770_a7a4ec75f1181c44" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLJsonLib::Release(l_objTrackingFile);
+// }} ""
 // {{{ 5 "ResetChannelFW" "End"
 }
 // }} ""
@@ -2076,31 +2079,31 @@ private object l_objSystem;
 private object l_objConfig;
 // {{ 5 "SetTeachingChannel" "InitLocals"
 // }} ""
-// {{{ 943 1 0 "3e23aecb_6664_49b2_a3da5fdcc87087e2" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 944 1 0 "3e23aecb_6664_49b2_a3da5fdcc87087e2" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Create(l_objConfig);
 // }} ""
-// {{{ 944 1 0 "db6c7156_75e1_4e6c_ab6d83ff0e63c10a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 945 1 0 "db6c7156_75e1_4e6c_ab6d83ff0e63c10a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Create(l_objSystem);
 // }} ""
-// {{{ 945 1 0 "d9c551a5_142b_46dd_b03e58c9c451e6fa" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 946 1 0 "d9c551a5_142b_46dd_b03e58c9c451e6fa" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Load(l_objConfig, SDK::SystemConfigFile);
 // }} ""
-// {{{ 946 1 0 "316c4c2d_4076_4b2f_9636a7966105cbca" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 947 1 0 "316c4c2d_4076_4b2f_9636a7966105cbca" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::GetJsonProperty(l_objConfig, Translate("system"), l_objSystem);
 // }} ""
-// {{{ 947 1 0 "028d04fc_0683_4277_a36bcf7a662ad7e9" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 948 1 0 "028d04fc_0683_4277_a36bcf7a662ad7e9" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::SetIntegerProperty(l_objSystem, Translate("teachingChannel"), i_intTeachingChannel);
 // }} ""
-// {{{ 948 1 0 "cc98fcb6_0ddc_490d_87e14f8d1d450baf" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 949 1 0 "cc98fcb6_0ddc_490d_87e14f8d1d450baf" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::SetJsonProperty(l_objConfig, Translate("system"), l_objSystem);
 // }} ""
-// {{{ 949 1 0 "55dfaffa_e315_451b_aec80b2803c0f9b2" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 950 1 0 "55dfaffa_e315_451b_aec80b2803c0f9b2" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Release(l_objSystem);
 // }} ""
-// {{{ 950 1 0 "25be562e_edad_473d_a8fffea4319b6f66" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 951 1 0 "25be562e_edad_473d_a8fffea4319b6f66" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Save(l_objConfig, SDK::SystemConfigFile, 1);
 // }} ""
-// {{{ 951 1 0 "2d9e9b45_5767_446a_b02ebd6ea0190139" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+// {{{ 952 1 0 "2d9e9b45_5767_446a_b02ebd6ea0190139" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
 HSLJsonLib::Release(l_objConfig);
 // }} ""
 // {{{ 5 "SetTeachingChannel" "End"
@@ -3470,4 +3473,4 @@ return (1);
 // {{{ 2 "LibraryNamespace" "End"
 } // library namespace
 // }} ""
-// $$author=Bare_B$$valid=0$$time=2026-10-29 18:08$$checksum=b09832df$$length=085$$
+// $$author=Bare_B$$valid=0$$time=2026-10-30 16:41$$checksum=a286ad49$$length=085$$

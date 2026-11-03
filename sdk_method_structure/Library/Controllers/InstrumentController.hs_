@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 10/5/2026 4:51:13 PM
+// Generated at 10/30/2026 4:07:51 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -21,4 +21,4 @@ function status_terminate(  ) variable {  return (0); }
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-10-05 16:51$$checksum=992b3edc$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-30 16:07$$checksum=17563b32$$length=083$$

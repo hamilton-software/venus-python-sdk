@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 10/23/2026 4:47:14 PM
+// Generated at 10/30/2026 3:46:34 PM
 
 #pragma global
 #ifndef HSL_RUNTIME
@@ -36,4 +36,4 @@ function _UpdateDeviceEnableStatus( variable i_strNameSpace, variable i_blnEnabl
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=Bare_B$$valid=0$$time=2026-10-23 16:47$$checksum=63e3bf69$$length=083$$
+// $$author=Bare_B$$valid=0$$time=2026-10-30 15:46$$checksum=09b1ae96$$length=083$$

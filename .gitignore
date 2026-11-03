@@ -39,3 +39,19 @@ logs/
 # VENUS executor temporary artifacts
 sdk_method_structure/Library/Executors/~Hx*
 .vscode/settings.json
+
+# Tools (tools/<app>): per-run build output and runtime state written by the apps, not source
+**/shell*/bin/
+**/shell*/obj/
+**/shell*/publish/
+tools/*/backend/data/
+
+# Written by the installer for this PC
+.mcp.json
+Start MCP Spoke.bat
+Start MCP Hub.bat
+tools/*/appsettings.local.json
+/mcp_scripts/
+
+# Debug symbols
+*.pdb

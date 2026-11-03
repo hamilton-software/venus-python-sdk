@@ -1,0 +1,29 @@
+{
+  "description": "Ask a person before the AI moves real Hamilton hardware; log executed hardware calls.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*hamilton-venus__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"{{VENV}}/Scripts/python.exe\" \"${CLAUDE_PLUGIN_ROOT}/hooks/hardware_gate.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__.*hamilton-venus__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"{{VENV}}/Scripts/python.exe\" \"${CLAUDE_PLUGIN_ROOT}/hooks/hardware_gate.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

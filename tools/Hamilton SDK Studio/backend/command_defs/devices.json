@@ -1,0 +1,1336 @@
+{
+ "version": 1,
+ "commands": {
+  "hhc_connect": {
+   "label": "Connect HeaterCooler",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Open the HHC daisy chain and register its units (returns firmware/temp/verification).",
+   "params": {
+    "address": {
+     "label": "Address (COM/USB)",
+     "order": 0
+    },
+    "keep_alive": {
+     "label": "Keep-alive (s)",
+     "order": 1
+    }
+   }
+  },
+  "hhc_get_device_ids": {
+   "label": "Get HeaterCooler Device IDs",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Return all registered HeaterCooler units."
+  },
+  "hhc_get_status": {
+   "label": "Get HeaterCooler Status",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Return temperature, time-remaining and control state per unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "hhc_hold_temp_for_time": {
+   "label": "Hold Temp For Time",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Hold the unit(s) at a target temperature for a number of minutes.",
+   "params": {
+    "target": {
+     "label": "Target (C)",
+     "order": 0,
+     "min": 0,
+     "max": 110
+    },
+    "minutes": {
+     "label": "Minutes",
+     "order": 1
+    },
+    "tolerance": {
+     "label": "Tolerance (C)",
+     "order": 2
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 3
+    }
+   }
+  },
+  "hhc_identify": {
+   "label": "Identify HeaterCooler",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Blink the display so an operator can locate the unit(s).",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "hhc_self_diagnostic": {
+   "label": "Self Diagnostic",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Read the self-diagnostic toggle, or set it first when 'enable' is given.",
+   "params": {
+    "enable": {
+     "label": "Enable",
+     "order": 0
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "hhc_set_display": {
+   "label": "Set Display",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Turn the display on/off and/or set brightness (0-100%).",
+   "params": {
+    "on": {
+     "label": "On",
+     "order": 0
+    },
+    "brightness": {
+     "label": "Brightness (%)",
+     "order": 1,
+     "min": 0,
+     "max": 100
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 2
+    }
+   }
+  },
+  "hhc_set_verification_date": {
+   "label": "Set Verification Date",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Record the verification / calibration date (YYYY-MM-DD).",
+   "params": {
+    "date": {
+     "label": "Date (YYYY-MM-DD)",
+     "order": 0
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "hhc_start_temp_control": {
+   "label": "Start Temp Control",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Drive the unit(s) to a target temperature (0-110 C).",
+   "params": {
+    "target": {
+     "label": "Target (C)",
+     "order": 0,
+     "min": 0,
+     "max": 110
+    },
+    "tolerance": {
+     "label": "Tolerance (C)",
+     "order": 1
+    },
+    "wait": {
+     "label": "Wait for band",
+     "order": 2
+    },
+    "timeout": {
+     "label": "Timeout (s)",
+     "order": 3
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 4
+    }
+   }
+  },
+  "hhc_stop_temp_control": {
+   "label": "Stop Temp Control",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Stop temperature control on the unit(s).",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "hhc_terminate": {
+   "label": "Terminate HeaterCooler Connection",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Disconnect every HeaterCooler unit and release the connection."
+  },
+  "hhc_wait_for_temp_control": {
+   "label": "Wait For Temp Control",
+   "group": "Devices",
+   "subgroup": "Heater Cooler",
+   "description": "Block until the unit(s) reach their temperature band.",
+   "params": {
+    "timeout": {
+     "label": "Timeout (s)",
+     "order": 0
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "hhs_create_star_device": {
+   "label": "Create HHS STAR Device",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Register a heater-shaker device attached via the STAR node.",
+   "params": {
+    "node": {
+     "label": "Node",
+     "order": 0
+    }
+   }
+  },
+  "hhs_create_usb_device": {
+   "label": "Create HHS USB Device",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Register a heater-shaker device attached via USB.",
+   "params": {
+    "node": {
+     "label": "Node",
+     "order": 0
+    }
+   }
+  },
+  "hhs_get_device_ids": {
+   "label": "Get HHS Device IDs",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Return all registered heater-shaker device IDs."
+  },
+  "hhs_get_status": {
+   "label": "Get HHS Status",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Return the status of all heater-shaker devices."
+  },
+  "hhs_set_plate_lock": {
+   "label": "Set Plate Lock",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Lock/unlock the plate on a device (all devices if none specified).",
+   "params": {
+    "lock": {
+     "label": "Lock",
+     "order": 0
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "hhs_start_shaker": {
+   "label": "Start Shaker",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Start shaking at the given speed.",
+   "params": {
+    "speed": {
+     "label": "Speed",
+     "order": 0
+    },
+    "time": {
+     "label": "Time (s, 0=indefinite)",
+     "order": 1
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 2
+    }
+   }
+  },
+  "hhs_start_temp_control": {
+   "label": "Start Temp Control",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Start temperature control at the given setpoint.",
+   "params": {
+    "temperature": {
+     "label": "Temperature (C)",
+     "order": 0
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "hhs_stop_shaker": {
+   "label": "Stop Shaker",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Stop shaking.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "hhs_stop_temp_control": {
+   "label": "Stop Temp Control",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Stop temperature control.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "hhs_terminate": {
+   "label": "Terminate HHS Connection",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Disconnect all HHS devices and release the connection."
+  },
+  "hhs_wait_for_shaker": {
+   "label": "Wait For Shaker",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Block until shaking stops.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "hhs_wait_for_temp_control": {
+   "label": "Wait For Temp Control",
+   "group": "Devices",
+   "subgroup": "Heater Shaker",
+   "description": "Block until temperature control setpoint is reached.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "inheco_tec_connect": {
+   "label": "Connect InhecoTEC",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Verify a controller answers on the bus and scan its 6 device slots.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    }
+   }
+  },
+  "inheco_tec_get_firmware_version": {
+   "label": "Get InhecoTEC Firmware Version",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Read one firmware field (0=bootstrap, 1=application, 2=serial, 3=hardware, 4=copyright).",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "selector": {
+     "label": "Selector",
+     "order": 1,
+     "min": 0,
+     "max": 4
+    }
+   }
+  },
+  "inheco_tec_get_identification": {
+   "label": "Get InhecoTEC Identification",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Read device type, serial number, runtime and calibration date for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID (0=controller)",
+     "order": 1,
+     "min": 0,
+     "max": 6
+    }
+   }
+  },
+  "inheco_tec_get_reservoir_status": {
+   "label": "Get InhecoTEC Reservoir Status",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Read the reservoir/refill status for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    }
+   }
+  },
+  "inheco_tec_get_sensor_values": {
+   "label": "Get InhecoTEC Sensor Value",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Read one controller housing sensor (0-9; see docs -- replicates an apparent vendor bug).",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "selector": {
+     "label": "Selector",
+     "order": 1,
+     "min": 0,
+     "max": 9
+    }
+   }
+  },
+  "inheco_tec_get_shaker_status": {
+   "label": "Get InhecoTEC Shaker Status",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Read shaker run status, revolutions and shape for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    }
+   }
+  },
+  "inheco_tec_get_temperature_status": {
+   "label": "Get InhecoTEC Temperature Status",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Read actual/target temperature, limits and heater status for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    },
+    "temperature_selector": {
+     "label": "Temperature Selector",
+     "order": 2,
+     "min": 1,
+     "max": 3
+    }
+   }
+  },
+  "inheco_tec_send_command": {
+   "label": "Send Raw InhecoTEC Command",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Send a raw ASCII command string and return the raw response (escape hatch).",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "command": {
+     "label": "Command",
+     "order": 1
+    }
+   }
+  },
+  "inheco_tec_set_shaker_revolutions": {
+   "label": "Set InhecoTEC Shaker Revolutions",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Set shaker speed in RPM (60-3000, or 0 to clamp without shaking).",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    },
+    "rpm": {
+     "label": "RPM",
+     "order": 2,
+     "min": 0,
+     "max": 3000
+    }
+   }
+  },
+  "inheco_tec_set_shaker_shape": {
+   "label": "Set InhecoTEC Shaker Shape",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Set shaker motion shape (0=Circular CCW .. 5=LeftRight).",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    },
+    "shape": {
+     "label": "Shape",
+     "order": 2,
+     "min": 0,
+     "max": 5
+    }
+   }
+  },
+  "inheco_tec_set_target_temperature": {
+   "label": "Set InhecoTEC Target Temperature",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Set the target temperature (degC) for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    },
+    "target_c": {
+     "label": "Target (C)",
+     "order": 2,
+     "min": 0.0,
+     "max": 199.9
+    }
+   }
+  },
+  "inheco_tec_set_touchscreen": {
+   "label": "Set InhecoTEC Touchscreen",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Turn the controller's own touchscreen on/off.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "enabled": {
+     "label": "Enabled",
+     "order": 1
+    }
+   }
+  },
+  "inheco_tec_start_shaker": {
+   "label": "Start InhecoTEC Shaker",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Start shaking for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    }
+   }
+  },
+  "inheco_tec_start_temperature_control": {
+   "label": "Start InhecoTEC Temperature Control",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Start heating/cooling toward the target for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    }
+   }
+  },
+  "inheco_tec_stop_shaker": {
+   "label": "Stop InhecoTEC Shaker",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Stop shaking for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    }
+   }
+  },
+  "inheco_tec_stop_temperature_control": {
+   "label": "Stop InhecoTEC Temperature Control",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Stop temperature control for a slot.",
+   "params": {
+    "controller_id": {
+     "label": "Controller ID",
+     "order": 0,
+     "min": 0,
+     "max": 7
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1,
+     "min": 1,
+     "max": 6
+    }
+   }
+  },
+  "inheco_tec_terminate": {
+   "label": "Terminate InhecoTEC Connection",
+   "group": "Devices",
+   "subgroup": "Inheco TEC",
+   "description": "Disconnect every InhecoTEC controller and release the connection.",
+   "params": {
+    "stop_all_devices": {
+     "label": "Stop All Devices First",
+     "order": 0
+    }
+   }
+  },
+  "media_fill_connect": {
+   "label": "Connect Media Fill Module",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Connect and initialize the module on a COM port (returns device id and firmware).",
+   "params": {
+    "com_port": {
+     "label": "COM Port",
+     "order": 0,
+     "help": "e.g. COM5"
+    }
+   }
+  },
+  "media_fill_disconnect": {
+   "label": "Disconnect Media Fill Module",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Disconnect one module; its active pumps stop.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "media_fill_fill_trough": {
+   "label": "Fill Trough",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Start a pump; it runs until the trough's sensor triggers or the timeout elapses.",
+   "params": {
+    "pump_id": {
+     "label": "Pump (1-4)",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "speed": {
+     "label": "Speed (30-100 %)",
+     "order": 1,
+     "min": 30,
+     "max": 100
+    },
+    "timeout": {
+     "label": "Timeout (s)",
+     "order": 2
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 3
+    }
+   }
+  },
+  "media_fill_get_device_ids": {
+   "label": "Get Media Fill Device IDs",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "List connected modules: device id, COM port, firmware."
+  },
+  "media_fill_get_last_error_message": {
+   "label": "Get Last Error Message",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Read the vendor driver's last error message."
+  },
+  "media_fill_get_liquid_level_sensor_state": {
+   "label": "Get Liquid Level Sensor",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "0 = liquid not detected; 1 = liquid detected, sensor unplugged, or controller off.",
+   "params": {
+    "pump_id": {
+     "label": "Pump (1-4)",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "media_fill_get_pump_direction": {
+   "label": "Get Pump Direction",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Read a pump's motor direction (0 counter-clockwise, 1 clockwise).",
+   "params": {
+    "pump_id": {
+     "label": "Pump (1-4)",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "media_fill_get_status": {
+   "label": "Get Media Fill Status",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Firmware, every pump's direction and sensor, and the last error message (read-only).",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "media_fill_set_pump_direction": {
+   "label": "Set Pump Direction",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Set a pump's motor direction. Every pump starts each run counter-clockwise.",
+   "params": {
+    "pump_id": {
+     "label": "Pump (1-4)",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "direction": {
+     "label": "Direction",
+     "order": 1
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 2
+    }
+   }
+  },
+  "media_fill_stop_pump": {
+   "label": "Stop Pump",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Stop one pump and keep the module connected (2.0 library only).",
+   "params": {
+    "pump_id": {
+     "label": "Pump (1-4)",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "media_fill_terminate": {
+   "label": "Terminate Media Fill Connections",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Disconnect every module (stopping their pumps)."
+  },
+  "media_fill_wait_for_pump": {
+   "label": "Wait For Pump",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Block until the pump has finished pumping.",
+   "params": {
+    "pump_id": {
+     "label": "Pump (1-4)",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 1
+    }
+   }
+  },
+  "media_fill_waste_pump_no_sensor": {
+   "label": "Pump Out (No Sensor)",
+   "group": "Devices",
+   "subgroup": "Media Fill Module",
+   "description": "Run the pump in reverse of its set (fill) direction, ignoring the sensor, for the full timeout (max 20 s with the 2.0 library, 720 s with 1.1).",
+   "params": {
+    "pump_id": {
+     "label": "Pump (1-4)",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "speed": {
+     "label": "Speed (30-100 %)",
+     "order": 1,
+     "min": 30,
+     "max": 100
+    },
+    "timeout": {
+     "label": "Timeout (s)",
+     "order": 2,
+     "min": 1,
+     "max": 720
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 3
+    }
+   }
+  },
+  "odtc_abort": {
+   "label": "Abort ODTC",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Abort the in-progress method on the unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_close_door": {
+   "label": "Close ODTC Door",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Close the unit's plate door.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_connect": {
+   "label": "Connect ODTC",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Register one ODTC unit and lock it for this connection (returns firmware/serial/state).",
+   "params": {
+    "device_ip": {
+     "label": "Device IP",
+     "order": 0
+    },
+    "device_port": {
+     "label": "Device Port",
+     "order": 1
+    },
+    "local_ip": {
+     "label": "Local IP",
+     "order": 2
+    },
+    "initialize": {
+     "label": "Initialize",
+     "order": 3
+    }
+   }
+  },
+  "odtc_get_device_ids": {
+   "label": "Get ODTC Device IDs",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Return the device_id of every currently registered ODTC unit."
+  },
+  "odtc_get_run_data": {
+   "label": "Get ODTC Run Data",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Return the run-data log for the unit's most recent (or in-progress) run.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_get_status": {
+   "label": "Get ODTC Status",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Return state / locked / door-open per unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_get_temperature": {
+   "label": "Get ODTC Temperature",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Return block + lid temperature per unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_open_door": {
+   "label": "Open ODTC Door",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Open the unit's plate door.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_pause": {
+   "label": "Pause ODTC",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Pause the in-progress method on the unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_resume": {
+   "label": "Resume ODTC",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Resume a paused method on the unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_run_protocol": {
+   "label": "Run ODTC Protocol (file)",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Upload and run a PCR protocol from a vendor-authored MethodSet XML file.",
+   "params": {
+    "protocol": {
+     "label": "Protocol XML File Path",
+     "order": 0
+    },
+    "method_name": {
+     "label": "Method Name (optional)",
+     "order": 1
+    },
+    "priority": {
+     "label": "Priority",
+     "order": 2
+    },
+    "device_id": {
+     "label": "Device ID",
+     "order": 3
+    },
+    "wait": {
+     "label": "Wait for completion",
+     "order": 4
+    },
+    "timeout": {
+     "label": "Timeout (s)",
+     "order": 5
+    }
+   }
+  },
+  "odtc_stop_method": {
+   "label": "Stop ODTC Method",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Stop the in-progress method on the unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_terminate": {
+   "label": "Terminate All ODTC Units",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Unlock and disconnect every registered ODTC unit."
+  },
+  "odtc_terminate_device": {
+   "label": "Terminate ODTC Unit",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Unlock and disconnect one ODTC unit.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    }
+   }
+  },
+  "odtc_wait_for_protocol": {
+   "label": "Wait For ODTC Protocol",
+   "group": "Devices",
+   "subgroup": "Inheco ODTC",
+   "description": "Block until the unit's in-progress protocol run completes.",
+   "params": {
+    "device_id": {
+     "label": "Device ID",
+     "order": 0
+    },
+    "timeout": {
+     "label": "Timeout (s)",
+     "order": 1
+    }
+   }
+  },
+  "tilt_module_connect": {
+   "label": "Connect Tilt Module System",
+   "group": "Devices",
+   "subgroup": "Tilt Module",
+   "description": "Open the COM port for a system (1200 baud, 8E1). Call once per system, before initializing.",
+   "params": {
+    "system_id": {
+     "label": "System ID",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "com_port": {
+     "label": "COM Port",
+     "order": 1,
+     "min": 1,
+     "max": 255
+    }
+   }
+  },
+  "tilt_module_error_message": {
+   "label": "Tilt Module Error Text",
+   "group": "Devices",
+   "subgroup": "Tilt Module",
+   "description": "Text for a Tilt Module return code (firmware 0..7, communication -1..-11).",
+   "params": {
+    "error_code": {
+     "label": "Error Code",
+     "order": 0
+    }
+   }
+  },
+  "tilt_module_get_status": {
+   "label": "Get Tilt Module Status",
+   "group": "Devices",
+   "subgroup": "Tilt Module",
+   "description": "Initialized/powered state, firmware and the last commanded angle (the module has no position read-back).",
+   "params": {
+    "system_id": {
+     "label": "System ID",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "module_name": {
+     "label": "Module Name",
+     "order": 1,
+     "help": "The module's two-character name on the chain (hamilton-tilt-module --probe COMn reports it)."
+    }
+   }
+  },
+  "tilt_module_initialize": {
+   "label": "Initialize Tilt Module",
+   "group": "Devices",
+   "subgroup": "Tilt Module",
+   "description": "Reset the error state, home the module to horizontal and read its firmware version.",
+   "params": {
+    "system_id": {
+     "label": "System ID",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "module_name": {
+     "label": "Module Name",
+     "order": 1,
+     "help": "The module's two-character name on the chain (hamilton-tilt-module --probe COMn reports it)."
+    }
+   }
+  },
+  "tilt_module_move_to_position": {
+   "label": "Move Tilt Module",
+   "group": "Devices",
+   "subgroup": "Tilt Module",
+   "description": "Tilt the module to 0-10 whole degrees (0 = horizontal; the right side lifts) and wait for it. Follow with Tilt Labware at the same angle so VENUS pipettes into the tilted wells.",
+   "params": {
+    "system_id": {
+     "label": "System ID",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "module_name": {
+     "label": "Module Name",
+     "order": 1,
+     "help": "The module's two-character name on the chain (hamilton-tilt-module --probe COMn reports it)."
+    },
+    "angle": {
+     "label": "Angle (degrees)",
+     "order": 2,
+     "min": 0,
+     "max": 10
+    }
+   }
+  },
+  "tilt_module_terminate_communication": {
+   "label": "Disconnect Tilt Module System",
+   "group": "Devices",
+   "subgroup": "Tilt Module",
+   "description": "Close a system's COM port. Terminate every module on it first.",
+   "params": {
+    "system_id": {
+     "label": "System ID",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    }
+   }
+  },
+  "tilt_module_terminate_module": {
+   "label": "Terminate Tilt Module",
+   "group": "Devices",
+   "subgroup": "Tilt Module",
+   "description": "Return the module to horizontal, then power it off (not powered off if it cannot return).",
+   "params": {
+    "system_id": {
+     "label": "System ID",
+     "order": 0,
+     "min": 1,
+     "max": 4
+    },
+    "module_name": {
+     "label": "Module Name",
+     "order": 1,
+     "help": "The module's two-character name on the chain (hamilton-tilt-module --probe COMn reports it)."
+    }
+   }
+  },
+  "wxs_get_weight": {
+   "label": "Get Weight",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Get a stable or dynamic weight value from the balance.",
+   "params": {
+    "weigh_immediately": {
+     "label": "Weigh Immediately",
+     "order": 0
+    }
+   }
+  },
+  "wxs_initialize_balance": {
+   "label": "Initialize Balance",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Establish a connection to the WXS balance.",
+   "params": {
+    "port": {
+     "label": "COM Port",
+     "order": 0
+    },
+    "time_out_seconds": {
+     "label": "Timeout (s)",
+     "order": 1,
+     "min": 0,
+     "max": 60
+    },
+    "trials": {
+     "label": "Trials",
+     "order": 2,
+     "min": 1,
+     "max": 10
+    }
+   }
+  },
+  "wxs_internal_calibration": {
+   "label": "Internal Calibration",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Start an internal adjustment (calibration) procedure on the balance."
+  },
+  "wxs_reset_scale": {
+   "label": "Reset Scale",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Reset the balance scale."
+  },
+  "wxs_set_scale_parameters": {
+   "label": "Set Scale Parameters",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Set general balance parameters (weighing mode, vibration, stability, weight unit, auto zero).",
+   "params": {
+    "weighing_mode": {
+     "label": "Weighing Mode",
+     "order": 0,
+     "min": 0,
+     "max": 1
+    },
+    "vibration": {
+     "label": "Vibration",
+     "order": 1,
+     "min": 0,
+     "max": 4
+    },
+    "stability": {
+     "label": "Stability",
+     "order": 2,
+     "min": 0,
+     "max": 5
+    },
+    "weight_unit": {
+     "label": "Weight Unit",
+     "order": 3,
+     "min": 0,
+     "max": 31
+    },
+    "auto_zero": {
+     "label": "Auto Zero",
+     "order": 4
+    }
+   }
+  },
+  "wxs_set_zero": {
+   "label": "Set Zero",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Set a new zero point on the balance, clearing the tare memory.",
+   "params": {
+    "zero_immediately": {
+     "label": "Zero Immediately",
+     "order": 0
+    }
+   }
+  },
+  "wxs_tare": {
+   "label": "Tare",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Tare the balance and return the tare weight change.",
+   "params": {
+    "tare_immediately": {
+     "label": "Tare Immediately",
+     "order": 0
+    }
+   }
+  },
+  "wxs_terminate_balance": {
+   "label": "Terminate Balance",
+   "group": "Devices",
+   "subgroup": "WXS Balance",
+   "description": "Terminate the connection to the balance."
+  }
+ }
+}

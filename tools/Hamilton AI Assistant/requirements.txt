@@ -1,0 +1,5 @@
+# What the installer pip-installs into the venv for the AI Assistant (on top of the SDK, the
+# workflow framework, the MCP server and app-requirements.txt). Keep in step with pyproject.toml.
+# Pinned: backend/agent_runner.py relies on this version's engine and options.
+claude-agent-sdk==0.2.174
+httpx>=0.27,<1

@@ -1,0 +1,1148 @@
+{
+ "version": 1,
+ "commands": {
+  "add_1ml_core_grip": {
+   "label": "Add 1mL CO-RE Grip",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a 1mL CO-RE gripper tool to the layout.",
+   "params": {
+    "grip_type": {
+     "label": "Grip Type",
+     "order": 0
+    }
+   }
+  },
+  "add_5ml_core_grip": {
+   "label": "Add 5mL CO-RE Grip",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a 5mL CO-RE gripper tool to the layout."
+  },
+  "add_carrier": {
+   "label": "Add Carrier",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a carrier definition to the active deck layout.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0,
+     "help": "Catalog value string, e.g. 'TIP_CAR_480BC' (see LABWARE.CARRIER.* in hamilton_venus.catalog)"
+    },
+    "left_track": {
+     "label": "Left Track",
+     "order": 1
+    },
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 2
+    }
+   }
+  },
+  "add_carrier_to_site": {
+   "label": "Add Carrier To Site",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a carrier definition to a specific site on an existing carrier.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0,
+     "help": "Catalog value string, e.g. 'TIP_CAR_480BC' (see LABWARE.CARRIER.* in hamilton_venus.catalog)"
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 3
+    }
+   }
+  },
+  "add_channel_liquid_waste": {
+   "label": "Add Channel Liquid Waste",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a channel liquid waste site to the layout."
+  },
+  "add_lid": {
+   "label": "Add Lid",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a standalone lid to a carrier site.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "lid_id": {
+     "label": "Lid ID",
+     "order": 3
+    }
+   }
+  },
+  "add_lidded_plate": {
+   "label": "Add Lidded Plate",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a lidded plate; returns both plate and lid names.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "plate_id": {
+     "label": "Plate ID",
+     "order": 3
+    },
+    "lid_definition": {
+     "label": "Lid Definition",
+     "order": 4
+    }
+   }
+  },
+  "add_liquid_waste": {
+   "label": "Add Liquid Waste",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a liquid waste container to the layout (Vantage only).",
+   "params": {
+    "track": {
+     "label": "Track",
+     "order": 0
+    }
+   }
+  },
+  "add_ntr": {
+   "label": "Add Nested Tip Rack (NTR)",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a nested tip rack to a carrier site.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "stack": {
+     "label": "Stack",
+     "order": 3
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 4
+    }
+   }
+  },
+  "add_plate": {
+   "label": "Add Plate",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a plate to a carrier site in the active layout.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "plate_id": {
+     "label": "Plate ID",
+     "order": 3
+    }
+   }
+  },
+  "add_qcg": {
+   "label": "Add QCG",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a QCG gripper tool to the layout. Track is Vantage only (QCG occupies 2 tracks).",
+   "params": {
+    "qcg_type": {
+     "label": "QCG Type",
+     "order": 0
+    },
+    "track": {
+     "label": "Track",
+     "order": 1
+    }
+   }
+  },
+  "add_reservoir": {
+   "label": "Add Reservoir",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a reservoir to a carrier site in the active deck layout.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 3
+    }
+   }
+  },
+  "add_tip_box": {
+   "label": "Add Tip Box",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a tip box to a carrier site in the active layout.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    },
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 1,
+     "help": "Catalog value string (see LABWARE.TIP_RACK.* in hamilton_venus.catalog)"
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 2,
+     "help": "Deck instance ID of a tip-box carrier added via Add Carrier (e.g. LABWARE.CARRIER.HAM_MLTIPBOX_CAR_BASE_1ML) -- a regular tip-rack carrier such as TIP_CAR_480BC will not fit a tip box."
+    },
+    "site": {
+     "label": "Site",
+     "order": 3
+    }
+   }
+  },
+  "add_tip_rack": {
+   "label": "Add Tip Rack",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a tip rack to a carrier site in the active layout.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    },
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 1,
+     "help": "Catalog value string, e.g. 'HTF' (see LABWARE.TIP_RACK.* in hamilton_venus.catalog)"
+    },
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 2
+    },
+    "site": {
+     "label": "Site",
+     "order": 3
+    }
+   }
+  },
+  "add_tip_support": {
+   "label": "Add Tip Support",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a tip support to a carrier site.",
+   "params": {
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 0
+    },
+    "site": {
+     "label": "Site",
+     "order": 1
+    }
+   }
+  },
+  "add_transport_site": {
+   "label": "Add Transport Site",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a custom transport site at explicit coordinates.",
+   "params": {
+    "site_name": {
+     "label": "Site Name",
+     "order": 0
+    },
+    "x_center": {
+     "label": "X Center",
+     "order": 1
+    },
+    "y_center": {
+     "label": "Y Center",
+     "order": 2
+    },
+    "z_bottom": {
+     "label": "Z Bottom",
+     "order": 3
+    },
+    "angle_index": {
+     "label": "Angle Index",
+     "order": 4
+    }
+   }
+  },
+  "add_tube_carrier": {
+   "label": "Add Tube Carrier",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add a sample tube carrier to the active layout.",
+   "params": {
+    "labware_definition": {
+     "label": "Labware Definition",
+     "order": 0
+    },
+    "left_track": {
+     "label": "Left Track",
+     "order": 1
+    },
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 2
+    }
+   }
+  },
+  "add_tubes_to_carrier": {
+   "label": "Add Tubes To Carrier",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Add tubes to positions on a tube carrier.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "positions": {
+     "label": "Tube Positions",
+     "order": 1,
+     "help": "Fetch the carrier's available sites, then assign a tube type (and optional x/y/z offsets) to each position you want to fill.",
+     "widget": "tube_positions"
+    }
+   }
+  },
+  "clear_taught_locations": {
+   "label": "Clear Taught Locations",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Empty both maps, leaving a canonical empty file in place."
+  },
+  "deck_delete_saved": {
+   "label": "Delete Saved Deck",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Delete a saved deck layout.",
+   "params": {
+    "deck_name": {
+     "label": "Deck Name",
+     "order": 0
+    }
+   }
+  },
+  "deck_get_previous": {
+   "label": "Get Previous Deck",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Return whether a previous deck layout is available."
+  },
+  "deck_get_rack_ids_from_deck": {
+   "label": "Get Rack IDs From Deck",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Return rack IDs found in a deck file.",
+   "params": {
+    "path": {
+     "label": "File Path",
+     "order": 0,
+     "widget": "file_path"
+    },
+    "carrier_filter": {
+     "label": "Carrier Filter",
+     "order": 1
+    },
+    "only_floating_racks": {
+     "label": "Only Floating Racks",
+     "order": 2
+    }
+   }
+  },
+  "deck_get_saved": {
+   "label": "Get Saved Decks",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Return the list of saved deck layouts."
+  },
+  "deck_import": {
+   "label": "Import Deck",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Import a deck layout from a file path.",
+   "params": {
+    "path": {
+     "label": "File Path",
+     "order": 0,
+     "widget": "file_path"
+    }
+   }
+  },
+  "deck_import_rack_as_site": {
+   "label": "Import Rack As Site",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Import a rack from a deck file as a labware site.",
+   "params": {
+    "path": {
+     "label": "File Path",
+     "order": 0,
+     "widget": "file_path"
+    },
+    "target_labware_name": {
+     "label": "Target Labware Name",
+     "order": 1
+    },
+    "carrier_filter": {
+     "label": "Carrier Filter",
+     "order": 2
+    },
+    "only_floating_racks": {
+     "label": "Only Floating Racks",
+     "order": 3
+    },
+    "site_name": {
+     "label": "Site Name",
+     "order": 4
+    }
+   }
+  },
+  "deck_load": {
+   "label": "Load Deck",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Load a saved deck layout, or the previous deck.",
+   "params": {
+    "deck_name": {
+     "label": "Deck Name",
+     "order": 0
+    },
+    "previous": {
+     "label": "Load Previous",
+     "order": 1
+    }
+   }
+  },
+  "deck_save": {
+   "label": "Save Deck",
+   "group": "Deck & Labware",
+   "subgroup": "Deck Files",
+   "description": "Save the active deck layout under the given name.",
+   "params": {
+    "deck_name": {
+     "label": "Deck Name",
+     "order": 0
+    },
+    "overwrite": {
+     "label": "Overwrite",
+     "order": 1
+    }
+   }
+  },
+  "get_added_carriers": {
+   "label": "Get Added Carriers",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return all carriers added to the active layout."
+  },
+  "get_added_plates": {
+   "label": "Get Added Plates",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return all plates added to the active layout."
+  },
+  "get_added_reservoirs": {
+   "label": "Get Added Reservoirs",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return all reservoirs added to the active layout."
+  },
+  "get_added_tip_racks": {
+   "label": "Get Added Tip Racks",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return all tip racks added to the active layout."
+  },
+  "get_available_carrier_sites": {
+   "label": "Get Available Carrier Sites",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the available (unoccupied) sites on a carrier.",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    }
+   }
+  },
+  "get_available_tracks": {
+   "label": "Get Available Tracks",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the deck tracks currently available (unoccupied)."
+  },
+  "get_labware_coordinates": {
+   "label": "Get Labware Coordinates",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return one well's coordinates, or -- with no well -- the labware origin plus every well's coordinates (origin only for a carrier).",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "well": {
+     "label": "Well",
+     "order": 1
+    }
+   }
+  },
+  "get_labware_location": {
+   "label": "Get Labware Location",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the location (carrier/site) of the specified labware.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    }
+   }
+  },
+  "get_labware_on_carrier": {
+   "label": "Get Labware On Carrier",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the labware currently placed on a carrier.",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    }
+   }
+  },
+  "get_labware_positions": {
+   "label": "Get Labware Positions",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return all positions of the specified labware.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    }
+   }
+  },
+  "get_occupied_carrier_sites": {
+   "label": "Get Occupied Carrier Sites",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the occupied sites on a carrier.",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    }
+   }
+  },
+  "get_occupied_tracks": {
+   "label": "Get Occupied Tracks",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the deck tracks currently occupied."
+  },
+  "get_split_wells": {
+   "label": "Get Split Wells",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the wells currently split, with their slots.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0,
+     "widget": "plate"
+    }
+   }
+  },
+  "get_taught_locations": {
+   "label": "Get Taught Locations",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Return the whole TaughtLocations.json (both keyed maps)."
+  },
+  "get_taught_offset": {
+   "label": "Get Taught Offset",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Direct lookup of the offset recorded for a carrier/site.",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    },
+    "site": {
+     "label": "Site",
+     "order": 1
+    }
+   }
+  },
+  "get_taught_position": {
+   "label": "Get Taught Position",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Direct lookup of a labware item's position at one carrier/site.",
+   "params": {
+    "labware": {
+     "label": "Labware",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    }
+   }
+  },
+  "get_taught_positions": {
+   "label": "Get Taught Positions",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Every taught position for a labware item, keyed by \"<carrier>/<site>\".",
+   "params": {
+    "labware": {
+     "label": "Labware",
+     "order": 0
+    }
+   }
+  },
+  "get_tilted_labware": {
+   "label": "Get Tilted Labware",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return every plate currently tilted, with its angle."
+  },
+  "get_top_labware": {
+   "label": "Get Top Labware",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return the topmost labware stacked at a carrier site.",
+   "params": {
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 0
+    },
+    "site": {
+     "label": "Site",
+     "order": 1
+    }
+   }
+  },
+  "get_transport_tool": {
+   "label": "Get Transport Tool",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return a transport tool matching the given filters (mutually exclusive).",
+   "params": {
+    "is_1ml": {
+     "label": "Is 1mL",
+     "order": 0
+    },
+    "is_qcg": {
+     "label": "Is QCG",
+     "order": 1
+    },
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 2
+    }
+   }
+  },
+  "get_transport_tool_ids": {
+   "label": "Get Transport Tool IDs",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Return all known transport tool IDs."
+  },
+  "is_labware_tilted": {
+   "label": "Is Labware Tilted",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Whether Tilt Labware has left a plate tilted.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    }
+   }
+  },
+  "is_track_occupied": {
+   "label": "Is Track Occupied? (Status)",
+   "group": "Deck & Labware",
+   "subgroup": "Status Queries",
+   "description": "Query whether the specified deck track is occupied.",
+   "params": {
+    "track_id": {
+     "label": "Track ID",
+     "order": 0
+    }
+   }
+  },
+  "labware_add_definition": {
+   "label": "Add Labware Definition",
+   "group": "Deck & Labware",
+   "subgroup": "Labware",
+   "description": "Add a new labware definition from a full geometry object.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "labware_definition": {
+     "label": "Labware Definition (JSON)",
+     "order": 1,
+     "help": "Full LabwareDefinition geometry object; see hamilton_venus.models for the schema"
+    }
+   }
+  },
+  "labware_delete_definition": {
+   "label": "Delete Labware Definition",
+   "group": "Deck & Labware",
+   "subgroup": "Labware",
+   "description": "Delete a labware definition.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    }
+   }
+  },
+  "labware_get_definition": {
+   "label": "Get Labware Definition",
+   "group": "Deck & Labware",
+   "subgroup": "Labware",
+   "description": "Return a single labware definition.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    }
+   }
+  },
+  "labware_get_definitions": {
+   "label": "Get Labware Definitions",
+   "group": "Deck & Labware",
+   "subgroup": "Labware",
+   "description": "Return labware definitions, optionally filtered by name.",
+   "params": {
+    "filter": {
+     "label": "Filter",
+     "order": 0
+    }
+   }
+  },
+  "labware_get_params_from_id": {
+   "label": "Get Labware Params From ID",
+   "group": "Deck & Labware",
+   "subgroup": "Labware",
+   "description": "Return labware definition parameters for a placed labware ID.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    }
+   }
+  },
+  "labware_get_types": {
+   "label": "Get Labware Types",
+   "group": "Deck & Labware",
+   "subgroup": "Labware",
+   "description": "Return all known labware type names."
+  },
+  "labware_update_definition": {
+   "label": "Update Labware Definition",
+   "group": "Deck & Labware",
+   "subgroup": "Labware",
+   "description": "Update an existing labware definition from a full geometry object.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "labware_definition": {
+     "label": "Labware Definition (JSON)",
+     "order": 1
+    }
+   }
+  },
+  "move_carrier": {
+   "label": "Move Carrier",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Move a carrier to a new site.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "left_track": {
+     "label": "Left Track",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    }
+   }
+  },
+  "register_taught_offset": {
+   "label": "Register Taught Offset",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Record a relative X/Y/Z (+ angle) correction for a carrier/site, keyed \"<carrier>/<site>\".",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    },
+    "site": {
+     "label": "Site",
+     "order": 1
+    },
+    "dx": {
+     "label": "Delta X (mm)",
+     "order": 2
+    },
+    "dy": {
+     "label": "Delta Y (mm)",
+     "order": 3
+    },
+    "dz": {
+     "label": "Delta Z (mm)",
+     "order": 4
+    },
+    "d_angle": {
+     "label": "Delta Angle (deg)",
+     "order": 5
+    },
+    "note": {
+     "label": "Note",
+     "order": 6
+    }
+   }
+  },
+  "register_taught_position": {
+   "label": "Register Taught Position",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Record absolute X/Y/Z (+ angle) coordinates for a labware item at a carrier/site.",
+   "params": {
+    "labware": {
+     "label": "Labware",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    },
+    "x": {
+     "label": "X (mm)",
+     "order": 3
+    },
+    "y": {
+     "label": "Y (mm)",
+     "order": 4
+    },
+    "z": {
+     "label": "Z (mm)",
+     "order": 5
+    },
+    "angle": {
+     "label": "Angle (deg)",
+     "order": 6
+    },
+    "note": {
+     "label": "Note",
+     "order": 7
+    }
+   }
+  },
+  "remove_labware": {
+   "label": "Remove Labware",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Remove labware from the active layout.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    }
+   }
+  },
+  "remove_split_wells": {
+   "label": "Remove Split Wells",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Remove split wells; pipetting goes to the well centres again.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0,
+     "help": "Empty for every split well.",
+     "widget": "plate"
+    },
+    "consolidate_volumes": {
+     "label": "Consolidate Volumes",
+     "order": 1
+    }
+   }
+  },
+  "remove_taught_offset": {
+   "label": "Remove Taught Offset",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Delete one carrier/site offset. Returns True if it existed.",
+   "params": {
+    "carrier": {
+     "label": "Carrier",
+     "order": 0
+    },
+    "site": {
+     "label": "Site",
+     "order": 1
+    }
+   }
+  },
+  "remove_taught_position": {
+   "label": "Remove Taught Position",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Delete one carrier/site combination for a labware, or -- with carrier and site left blank -- every taught position for it.",
+   "params": {
+    "labware": {
+     "label": "Labware",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    }
+   }
+  },
+  "remove_transport_tool": {
+   "label": "Remove Transport Tool",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Remove a transport tool from the layout.",
+   "params": {
+    "tool_id": {
+     "label": "Tool ID",
+     "order": 0
+    }
+   }
+  },
+  "resolve_taught_location": {
+   "label": "Resolve Taught Location",
+   "group": "Deck & Labware",
+   "subgroup": "Taught Locations",
+   "description": "Resolve the way VENUS does: labware-at-site first, then the carrier/site offset.",
+   "params": {
+    "labware": {
+     "label": "Labware",
+     "order": 0
+    },
+    "carrier": {
+     "label": "Carrier",
+     "order": 1
+    },
+    "site": {
+     "label": "Site",
+     "order": 2
+    }
+   }
+  },
+  "shift_labware": {
+   "label": "Shift Labware",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Shift labware's position relative to its current placement.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "relative_x": {
+     "label": "Relative X (mm)",
+     "order": 1
+    },
+    "relative_y": {
+     "label": "Relative Y (mm)",
+     "order": 2
+    },
+    "relative_z": {
+     "label": "Relative Z (mm)",
+     "order": 3
+    },
+    "relative_angle": {
+     "label": "Relative Angle",
+     "order": 4
+    }
+   }
+  },
+  "split_wells": {
+   "label": "Split Wells",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Let several channels pipette side by side into large wells (6/12/24-well, 50 mL tubes): places channel-pitch slots in each well; pipetting with 2+ channels on a split well is routed to its slots automatically.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0,
+     "widget": "plate"
+    },
+    "wells": {
+     "label": "Wells",
+     "order": 1,
+     "help": "Selector without the labware, e.g. A1, A1:B3, row:A."
+    },
+    "channel_type": {
+     "label": "Channel Type",
+     "order": 2,
+     "help": "1 mL channels (9 mm pitch) or 5 mL channels (18 mm)."
+    },
+    "fit": {
+     "label": "Fit",
+     "order": 3,
+     "help": "Position: keep the aim (at a wall: as many channels as fit, as close as they fit). Max channels: most channels, moving away from the aim only as needed."
+    },
+    "tip_end_height_mm": {
+     "label": "Tip End Height (mm)",
+     "order": 4,
+     "help": "Tip end above the well floor; defaults to tilt_labware's, else 0."
+    },
+    "wall_margin_mm": {
+     "label": "Low Wall Margin (mm)",
+     "order": 5,
+     "help": "Gap kept to the low wall; defaults to tilt_labware's, else 1.0."
+    },
+    "high_wall_margin_mm": {
+     "label": "High Wall Margin (mm)",
+     "order": 6,
+     "help": "Gap kept to the high wall; defaults to tilt_labware's, else 2.0."
+    }
+   }
+  },
+  "tilt_labware": {
+   "label": "Tilt Labware",
+   "group": "Deck & Labware",
+   "subgroup": "Carrier & Labware Setup",
+   "description": "Offset every well of a plate to match a tilt (0-10 degrees; 0 returns it to flat). Plates only; transport is refused while tilted. Does not move the tilt hardware.",
+   "params": {
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 0
+    },
+    "tilt_degrees": {
+     "label": "Tilt (degrees)",
+     "order": 1,
+     "help": "The angle the tilt module is commanded to, 0 (flat) to 10; fractions allowed."
+    },
+    "pivot_point": {
+     "label": "Pivot Point",
+     "order": 2
+    },
+    "pivot_x_offset_mm": {
+     "label": "Pivot X Offset (mm)",
+     "order": 3,
+     "help": "Measured hinge offset from the pivot point; positive toward -X."
+    },
+    "pivot_z_offset_mm": {
+     "label": "Pivot Z Offset (mm)",
+     "order": 4,
+     "help": "Measured hinge offset below the labware base; positive toward -Z."
+    },
+    "well_position": {
+     "label": "Well Position",
+     "order": 5,
+     "help": "Aim at the well centre, or as close to the low (deepest) or high wall as one tip fits."
+    },
+    "measured_tilt_degrees": {
+     "label": "Measured Tilt (degrees)",
+     "order": 6,
+     "help": "The angle the plate really sits at, if not the commanded one (e.g. 10.8); up to 15."
+    },
+    "tip_end_height_mm": {
+     "label": "Tip End Height (mm)",
+     "order": 7,
+     "help": "Tip end above the well floor (the fixed height); 0 is the most conservative."
+    },
+    "wall_margin_mm": {
+     "label": "Low Wall Margin (mm)",
+     "order": 8,
+     "help": "Gap kept between the tip and the low wall."
+    },
+    "high_wall_margin_mm": {
+     "label": "High Wall Margin (mm)",
+     "order": 9,
+     "help": "Gap kept between the tip and the high wall, which leans in over the tip."
+    }
+   }
+  }
+ }
+}

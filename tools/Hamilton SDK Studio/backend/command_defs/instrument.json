@@ -1,0 +1,355 @@
+{
+ "version": 1,
+ "commands": {
+  "autoload_get_carrier_sensor_status": {
+   "label": "Get Carrier Sensor Status",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Return the autoload's carrier sensor status."
+  },
+  "autoload_is_track_occupied": {
+   "label": "Is Track Occupied?",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Query whether the specified autoload track currently holds a carrier.",
+   "params": {
+    "track_id": {
+     "label": "Track ID",
+     "order": 0
+    }
+   }
+  },
+  "autoload_load_carrier_by_id": {
+   "label": "Load Carrier By ID",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Load a carrier via the autoload, identified by carrier ID.",
+   "params": {
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 0
+    },
+    "scan_positions": {
+     "label": "Scan Positions",
+     "order": 1,
+     "help": "Or a list of ints; enum covers the common cases"
+    }
+   }
+  },
+  "autoload_load_carrier_by_track": {
+   "label": "Load Carrier By Track",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Load a carrier via the autoload, identified by track.",
+   "params": {
+    "track_id": {
+     "label": "Track ID",
+     "order": 0
+    },
+    "scan_positions": {
+     "label": "Scan Positions",
+     "order": 1
+    }
+   }
+  },
+  "autoload_move": {
+   "label": "Autoload Move To Track",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Move the autoload shuttle to the specified deck track.",
+   "params": {
+    "track_id": {
+     "label": "Track ID",
+     "order": 0
+    }
+   }
+  },
+  "autoload_park_left": {
+   "label": "Autoload Park Left",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Park the autoload shuttle to the left."
+  },
+  "autoload_park_right": {
+   "label": "Autoload Park Right",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Park the autoload shuttle to the right."
+  },
+  "autoload_unload_carrier_by_id": {
+   "label": "Unload Carrier By ID",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Unload a carrier via the autoload, identified by carrier ID.",
+   "params": {
+    "carrier_id": {
+     "label": "Carrier ID",
+     "order": 0
+    }
+   }
+  },
+  "autoload_unload_carrier_by_track": {
+   "label": "Unload Carrier By Track",
+   "group": "Instrument",
+   "subgroup": "Autoload",
+   "description": "Unload a carrier via the autoload, identified by track.",
+   "params": {
+    "track_id": {
+     "label": "Track ID",
+     "order": 0
+    }
+   }
+  },
+  "front_cover_is_closed": {
+   "label": "Is Cover Closed?",
+   "group": "Instrument",
+   "subgroup": "Front Cover",
+   "description": "Query the front cover closed-state."
+  },
+  "front_cover_lock": {
+   "label": "Lock Front Cover",
+   "group": "Instrument",
+   "subgroup": "Front Cover",
+   "description": "Lock the front cover through the system command channel."
+  },
+  "front_cover_unlock": {
+   "label": "Unlock Front Cover",
+   "group": "Instrument",
+   "subgroup": "Front Cover",
+   "description": "Unlock the front cover through the system command channel."
+  },
+  "instrument_connect": {
+   "label": "Connect Instrument",
+   "group": "Instrument",
+   "description": "Connect to the instrument runtime, optionally initializing it.",
+   "params": {
+    "initialize": {
+     "label": "Initialize",
+     "order": 0
+    }
+   }
+  },
+  "instrument_disable_cleanup": {
+   "label": "Disable Cleanup",
+   "group": "Instrument",
+   "description": "Disable the automatic cleanup routine."
+  },
+  "instrument_get_configuration": {
+   "label": "Get Configuration",
+   "group": "Instrument",
+   "description": "Return the instrument's configuration."
+  },
+  "instrument_get_daily_maintenance_data": {
+   "label": "Get Daily Maintenance Data",
+   "group": "Instrument",
+   "subgroup": "Maintenance",
+   "description": "Return daily maintenance data."
+  },
+  "instrument_get_deck_dimensions": {
+   "label": "Get Deck Dimensions",
+   "group": "Instrument",
+   "description": "Return the instrument's deck dimensions."
+  },
+  "instrument_get_deck_tracks": {
+   "label": "Get Deck Tracks",
+   "group": "Instrument",
+   "description": "Return the instrument's deck track layout."
+  },
+  "instrument_get_serial_number": {
+   "label": "Get Serial Number",
+   "group": "Instrument",
+   "description": "Return the instrument's serial number."
+  },
+  "instrument_get_verification_data": {
+   "label": "Get Verification Data",
+   "group": "Instrument",
+   "subgroup": "Maintenance",
+   "description": "Return verification data."
+  },
+  "instrument_get_waste_locations": {
+   "label": "Get Waste Locations",
+   "group": "Instrument",
+   "description": "Return the instrument's configured waste locations."
+  },
+  "instrument_get_weekly_maintenance_data": {
+   "label": "Get Weekly Maintenance Data",
+   "group": "Instrument",
+   "subgroup": "Maintenance",
+   "description": "Return weekly maintenance data."
+  },
+  "instrument_init": {
+   "label": "Initialize Instrument",
+   "group": "Instrument",
+   "description": "Initialize the instrument, optionally forcing re-initialization.",
+   "params": {
+    "force_init": {
+     "label": "Force Init",
+     "order": 0
+    }
+   }
+  },
+  "instrument_is_connected": {
+   "label": "Is Connected?",
+   "group": "Instrument",
+   "description": "Query whether the instrument runtime is connected."
+  },
+  "instrument_is_idle": {
+   "label": "Is Idle?",
+   "group": "Instrument",
+   "description": "Query whether the instrument runtime is idle."
+  },
+  "instrument_terminate": {
+   "label": "Terminate Method",
+   "group": "Instrument",
+   "description": "Terminate the current method execution."
+  },
+  "load_tray_lower": {
+   "label": "Lower Load Tray",
+   "group": "Instrument",
+   "subgroup": "Load Tray",
+   "description": "Lower the Vantage load tray to the loading position."
+  },
+  "load_tray_raise": {
+   "label": "Raise Load Tray",
+   "group": "Instrument",
+   "subgroup": "Load Tray",
+   "description": "Raise the Vantage load tray to the operational position."
+  },
+  "pip_arm_get_x_position": {
+   "label": "Get Arm X Position",
+   "group": "Instrument",
+   "subgroup": "Pipetting Arm",
+   "description": "Return the pipetting arm's current X position.",
+   "params": {
+    "arm_id": {
+     "label": "Arm ID",
+     "order": 0
+    }
+   }
+  },
+  "pip_arm_move": {
+   "label": "Move Arm",
+   "group": "Instrument",
+   "subgroup": "Pipetting Arm",
+   "description": "Move the pipetting arm directly.",
+   "params": {
+    "value": {
+     "label": "Value",
+     "order": 0
+    },
+    "coordinate_mode": {
+     "label": "Coordinate Mode",
+     "order": 1
+    },
+    "arm_id": {
+     "label": "Arm ID",
+     "order": 2
+    },
+    "speed": {
+     "label": "Speed",
+     "order": 3
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 4,
+     "help": "Optional. VENUS applies its normal safety checks when left blank. Type 'OVERRIDE_SAFETY_CHECKS' to bypass them."
+    }
+   }
+  },
+  "pip_arm_park_left": {
+   "label": "Park Arm Left",
+   "group": "Instrument",
+   "subgroup": "Pipetting Arm",
+   "description": "Park the pipetting arm to the left.",
+   "params": {
+    "arm_id": {
+     "label": "Arm ID",
+     "order": 0
+    }
+   }
+  },
+  "pip_arm_park_right": {
+   "label": "Park Arm Right",
+   "group": "Instrument",
+   "subgroup": "Pipetting Arm",
+   "description": "Park the pipetting arm to the right.",
+   "params": {
+    "arm_id": {
+     "label": "Arm ID",
+     "order": 0
+    }
+   }
+  },
+  "status_light_set_front_light": {
+   "label": "Set Status Light",
+   "group": "Instrument",
+   "subgroup": "Status Light",
+   "description": "Set color, blink, and discrete progress level in one command.",
+   "params": {
+    "color": {
+     "label": "Color",
+     "order": 0
+    },
+    "blink": {
+     "label": "Blink",
+     "order": 1
+    },
+    "progress": {
+     "label": "Progress (0-5)",
+     "order": 2,
+     "help": "0 = off",
+     "min": 0,
+     "max": 5
+    }
+   }
+  },
+  "status_light_set_interior_light": {
+   "label": "Set Interior Light",
+   "group": "Instrument",
+   "subgroup": "Status Light",
+   "description": "Set the Vantage interior light state, intensity, blink interval, and color mix.",
+   "params": {
+    "light_state": {
+     "label": "Light State",
+     "order": 0
+    },
+    "light_intensity": {
+     "label": "Intensity (0-100)",
+     "order": 1,
+     "min": 0,
+     "max": 100
+    },
+    "blink_interval": {
+     "label": "Blink Interval (ms)",
+     "order": 2,
+     "min": 1,
+     "max": 10000
+    },
+    "white": {
+     "label": "White (0-100)",
+     "order": 3,
+     "min": 0,
+     "max": 100
+    },
+    "red": {
+     "label": "Red (0-100)",
+     "order": 4,
+     "min": 0,
+     "max": 100
+    },
+    "green": {
+     "label": "Green (0-100)",
+     "order": 5,
+     "min": 0,
+     "max": 100
+    },
+    "blue": {
+     "label": "Blue (0-100)",
+     "order": 6,
+     "min": 0,
+     "max": 100
+    }
+   }
+  }
+ }
+}

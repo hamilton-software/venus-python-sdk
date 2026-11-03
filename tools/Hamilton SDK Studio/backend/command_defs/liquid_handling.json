@@ -1,0 +1,1139 @@
+{
+ "version": 1,
+ "commands": {
+  "aspirate": {
+   "label": "Aspirate",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Aspirate liquid at the given positions.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 3
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 4
+    },
+    "mad_enabled": {
+     "label": "MAD Enabled",
+     "order": 5,
+     "help": "Monitored Air Displacement. Unset uses VENUS's default (disabled)."
+    },
+    "mad_threshold": {
+     "label": "MAD Threshold",
+     "order": 6,
+     "help": "MAD pressure threshold, range 1-1023. Unset uses VENUS's default (30)."
+    },
+    "adc": {
+     "label": "ADC",
+     "order": 7,
+     "help": "Aspiration/Dispense Control (TADM-based). Unset uses VENUS's default (disabled)."
+    }
+   }
+  },
+  "aspirate_5ml": {
+   "label": "Aspirate (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Aspirate liquid at the given positions using 5mL channels.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 3
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 4
+    },
+    "mad_enabled": {
+     "label": "MAD Enabled",
+     "order": 5,
+     "help": "Monitored Air Displacement. Unset uses VENUS's default (disabled)."
+    },
+    "mad_threshold": {
+     "label": "MAD Threshold",
+     "order": 6,
+     "help": "MAD pressure threshold, range 1-1023. Unset uses VENUS's default (30)."
+    },
+    "adc": {
+     "label": "ADC",
+     "order": 7,
+     "help": "Aspiration/Dispense Control (TADM-based). Unset uses VENUS's default (disabled)."
+    }
+   }
+  },
+  "aspirate_magpip": {
+   "label": "Aspirate (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Aspirate liquid at the given positions using the MagPip channels.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 3
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 4
+    },
+    "mad_enabled": {
+     "label": "MAD Enabled",
+     "order": 5,
+     "help": "Monitored Air Displacement. Unset uses VENUS's default (disabled)."
+    },
+    "mad_threshold": {
+     "label": "MAD Threshold",
+     "order": 6,
+     "help": "MAD pressure threshold, range 1-1023. Unset uses VENUS's default (30)."
+    },
+    "adc": {
+     "label": "ADC",
+     "order": 7,
+     "help": "Aspiration/Dispense Control (TADM-based). Unset uses VENUS's default (disabled)."
+    },
+    "tadm": {
+     "label": "TADM (JSON object)",
+     "order": 8,
+     "help": "{\"enabled\": 0-2, \"recording\": 0-2} -- enabled: 0 off/1 recording/2 monitoring; recording: 0 none/1 errors/2 all. Unset omits the object."
+    }
+   }
+  },
+  "aspirate_mph96": {
+   "label": "MPH96 Aspirate",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Aspirate liquid with the MPH96 head.",
+   "params": {
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 0
+    },
+    "mph_pattern": {
+     "label": "Pattern",
+     "order": 1,
+     "help": "List of well/position IDs, or leave blank for all"
+    },
+    "volume": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "liquid_class": {
+     "label": "Liquid Class",
+     "order": 3
+    }
+   }
+  },
+  "detect_liquid_level": {
+   "label": "Detect Liquid Level (1mL)",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Detect liquid level at the given positions using 1mL channels.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "capacitive_lld": {
+     "label": "Capacitive LLD",
+     "order": 2
+    },
+    "pressure_lld": {
+     "label": "Pressure LLD",
+     "order": 3
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 4
+    }
+   }
+  },
+  "detect_liquid_level_5ml": {
+   "label": "Detect Liquid Level (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Detect liquid level at the given positions using 5mL channels.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "capacitive_lld": {
+     "label": "Capacitive LLD",
+     "order": 2
+    },
+    "pressure_lld": {
+     "label": "Pressure LLD",
+     "order": 3
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 4
+    }
+   }
+  },
+  "detect_liquid_level_magpip": {
+   "label": "Detect Liquid Level (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Detect liquid level at the given positions using the MagPip channels.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "capacitive_lld": {
+     "label": "Capacitive LLD",
+     "order": 2
+    },
+    "pressure_lld": {
+     "label": "Pressure LLD",
+     "order": 3
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 4
+    }
+   }
+  },
+  "dispense": {
+   "label": "Dispense",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Dispense liquid at the given positions.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 3
+    },
+    "adc": {
+     "label": "ADC",
+     "order": 4,
+     "help": "Aspiration/Dispense Control (TADM-based). Unset uses VENUS's default (disabled)."
+    }
+   }
+  },
+  "dispense_5ml": {
+   "label": "Dispense (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Dispense liquid at the given positions using 5mL channels.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 3
+    },
+    "adc": {
+     "label": "ADC",
+     "order": 4,
+     "help": "Aspiration/Dispense Control (TADM-based). Unset uses VENUS's default (disabled)."
+    }
+   }
+  },
+  "dispense_magpip": {
+   "label": "Dispense (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Dispense liquid at the given positions using the MagPip channels.",
+   "params": {
+    "positions": {
+     "label": "Positions",
+     "order": 0,
+     "help": "DSL string, e.g. 'Plate1@col:1'. Combine multiple labware with ';', e.g. 'Plate1@A1;Plate2@B2'"
+    },
+    "channels": {
+     "label": "Channels",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 3
+    },
+    "adc": {
+     "label": "ADC",
+     "order": 4,
+     "help": "Aspiration/Dispense Control (TADM-based). Unset uses VENUS's default (disabled)."
+    },
+    "tadm": {
+     "label": "TADM (JSON object)",
+     "order": 5,
+     "help": "{\"enabled\": 0-2, \"recording\": 0-2}. Unset omits the object."
+    }
+   }
+  },
+  "dispense_mph96": {
+   "label": "MPH96 Dispense",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Dispense liquid with the MPH96 head.",
+   "params": {
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 0
+    },
+    "mph_pattern": {
+     "label": "Pattern",
+     "order": 1,
+     "help": "List of well/position IDs, or leave blank for all"
+    },
+    "volume": {
+     "label": "Volume (uL)",
+     "order": 2
+    }
+   }
+  },
+  "dispense_on_the_fly": {
+   "label": "Dispense On The Fly",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Dispense while the arm is moving across a labware row.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "labware_surface_distance": {
+     "label": "Surface Distance (mm)",
+     "order": 3
+    },
+    "start_x_offset": {
+     "label": "Start X Offset",
+     "order": 4
+    },
+    "x_speed": {
+     "label": "X Speed",
+     "order": 5
+    },
+    "x_acceleration_distance": {
+     "label": "X Acceleration Distance (mm)",
+     "order": 6
+    },
+    "dispense_direction": {
+     "label": "Dispense Direction",
+     "order": 7
+    },
+    "excluded_positions": {
+     "label": "Excluded Positions",
+     "order": 8,
+     "help": "Comma-separated well/position IDs to skip"
+    }
+   }
+  },
+  "dispense_on_the_fly_5ml": {
+   "label": "Dispense On The Fly (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Dispense while the 5mL arm is moving across a labware row.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "labware_surface_distance": {
+     "label": "Surface Distance (mm)",
+     "order": 3
+    },
+    "start_x_offset": {
+     "label": "Start X Offset",
+     "order": 4
+    },
+    "x_speed": {
+     "label": "X Speed",
+     "order": 5
+    },
+    "x_acceleration_distance": {
+     "label": "X Acceleration Distance (mm)",
+     "order": 6
+    },
+    "dispense_direction": {
+     "label": "Dispense Direction",
+     "order": 7
+    },
+    "excluded_positions": {
+     "label": "Excluded Positions",
+     "order": 8,
+     "help": "Comma-separated well/position IDs to skip"
+    }
+   }
+  },
+  "dispense_on_the_fly_magpip": {
+   "label": "Dispense On The Fly (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Dispense while the MagPip arm is moving across a labware row.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "labware_name": {
+     "label": "Labware Name",
+     "order": 1
+    },
+    "volumes": {
+     "label": "Volume (uL)",
+     "order": 2
+    },
+    "labware_surface_distance": {
+     "label": "Surface Distance (mm)",
+     "order": 3
+    },
+    "start_x_offset": {
+     "label": "Start X Offset",
+     "order": 4
+    },
+    "x_speed": {
+     "label": "X Speed",
+     "order": 5
+    },
+    "x_acceleration_distance": {
+     "label": "X Acceleration Distance (mm)",
+     "order": 6
+    },
+    "dispense_direction": {
+     "label": "Dispense Direction",
+     "order": 7
+    },
+    "excluded_positions": {
+     "label": "Excluded Positions",
+     "order": 8,
+     "help": "Comma-separated well/position IDs to skip"
+    },
+    "adc": {
+     "label": "ADC",
+     "order": 9,
+     "help": "Aspiration/Dispense Control (TADM-based). Unset uses VENUS's default (disabled)."
+    },
+    "tadm": {
+     "label": "TADM (JSON object)",
+     "order": 10,
+     "help": "{\"enabled\": 0-2, \"recording\": 0-2}. Unset omits the object."
+    }
+   }
+  },
+  "get_liquid_class": {
+   "label": "Get Liquid Class",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Return a single liquid class definition.",
+   "params": {
+    "name": {
+     "label": "Name",
+     "order": 0
+    }
+   }
+  },
+  "get_liquid_classes": {
+   "label": "Get Liquid Classes",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Return liquid classes matching the given filters (-1 = no filter).",
+   "params": {
+    "tip_type": {
+     "label": "Tip Type",
+     "order": 0
+    },
+    "device": {
+     "label": "Device",
+     "order": 1
+    },
+    "dispense_mode": {
+     "label": "Dispense Mode",
+     "order": 2,
+     "help": "Plain int filter, not the DispenseMode enum"
+    },
+    "is_original": {
+     "label": "Is Original",
+     "order": 3
+    },
+    "has_tadm_enabled": {
+     "label": "Has TADM Enabled",
+     "order": 4
+    }
+   }
+  },
+  "get_liquid_devices": {
+   "label": "Get Liquid Devices",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Return the known liquid-handling devices."
+  },
+  "get_liquid_names": {
+   "label": "Get Liquid Names",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Return the known liquid names."
+  },
+  "get_status": {
+   "label": "Get Channel Status (1mL)",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Return current X/Y/Z position and tip-loaded status for every 1mL channel."
+  },
+  "get_status_5ml": {
+   "label": "Get Channel Status (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Return current X/Y/Z position and tip-loaded status for every 5mL channel."
+  },
+  "get_status_magpip": {
+   "label": "Get Channel Status (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Return current X/Y/Z position and tip-loaded status for every MagPip channel."
+  },
+  "get_status_mph96": {
+   "label": "MPH96 Get Status",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Return the MPH96 head's current X/Y/Z position and tip-loaded status."
+  },
+  "get_tip_types": {
+   "label": "Get Tip Types",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Return the known tip types."
+  },
+  "move_axis": {
+   "label": "Move Channel Axis (1mL)",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Move 1mL channels directly to absolute X/Y/Z coordinates.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "x": {
+     "label": "X (mm)",
+     "order": 1,
+     "help": "Shared by all channels (gantry X). Single value only."
+    },
+    "y": {
+     "label": "Y (mm)",
+     "order": 2,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "z": {
+     "label": "Z (mm)",
+     "order": 3,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 4,
+     "help": "Optional. VENUS applies its normal safety checks when left blank. Type 'OVERRIDE_SAFETY_CHECKS' to bypass them."
+    }
+   }
+  },
+  "move_axis_5ml": {
+   "label": "Move Channel Axis (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Move 5mL channels directly to absolute X/Y/Z coordinates.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "x": {
+     "label": "X (mm)",
+     "order": 1,
+     "help": "Shared by all channels (gantry X). Single value only."
+    },
+    "y": {
+     "label": "Y (mm)",
+     "order": 2,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "z": {
+     "label": "Z (mm)",
+     "order": 3,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 4,
+     "help": "Optional. VENUS applies its normal safety checks when left blank. Type 'OVERRIDE_SAFETY_CHECKS' to bypass them."
+    }
+   }
+  },
+  "move_axis_magpip": {
+   "label": "Move Channel Axis (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Move MagPip channels directly to absolute X/Y/Z coordinates.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "x": {
+     "label": "X (mm)",
+     "order": 1,
+     "help": "Shared by all channels (gantry X). Single value only."
+    },
+    "y": {
+     "label": "Y (mm)",
+     "order": 2,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "z": {
+     "label": "Z (mm)",
+     "order": 3,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 4,
+     "help": "Optional. VENUS applies its normal safety checks when left blank. Type 'OVERRIDE_SAFETY_CHECKS' to bypass them."
+    }
+   }
+  },
+  "move_axis_relative": {
+   "label": "Move Channel Axis Relative (1mL)",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Move 1mL channels by a relative X/Y/Z offset from their current position (reads position via Get Channel Status first).",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "x": {
+     "label": "X Offset (mm)",
+     "order": 1,
+     "help": "Shared by all channels (gantry X). Single value only."
+    },
+    "y": {
+     "label": "Y Offset (mm)",
+     "order": 2,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "z": {
+     "label": "Z Offset (mm)",
+     "order": 3,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 4,
+     "help": "Optional. VENUS applies its normal safety checks when left blank. Type 'OVERRIDE_SAFETY_CHECKS' to bypass them."
+    }
+   }
+  },
+  "move_axis_relative_magpip": {
+   "label": "Move Channel Axis Relative (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Move MagPip channels by a relative X/Y/Z offset from their current position (reads position via Get Channel Status first).",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "x": {
+     "label": "X Offset (mm)",
+     "order": 1,
+     "help": "Shared by all channels (gantry X). Single value only."
+    },
+    "y": {
+     "label": "Y Offset (mm)",
+     "order": 2,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "z": {
+     "label": "Z Offset (mm)",
+     "order": 3,
+     "help": "Single value applies to every channel, or one per channel."
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 4,
+     "help": "Optional. VENUS applies its normal safety checks when left blank. Type 'OVERRIDE_SAFETY_CHECKS' to bypass them."
+    }
+   }
+  },
+  "mph96_clear_tip_support": {
+   "label": "MPH96 Clear Tip Support",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Clear a tip support used by the MPH96 head.",
+   "params": {
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 0
+    }
+   }
+  },
+  "mph96_detect_liquid_level": {
+   "label": "MPH96 Detect Liquid Level",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Detect liquid level with the MPH96 head.",
+   "params": {
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 0
+    },
+    "mph_pattern": {
+     "label": "Pattern",
+     "order": 1
+    },
+    "capacitive_lld": {
+     "label": "Capacitive LLD",
+     "order": 2
+    }
+   }
+  },
+  "mph96_move_axis": {
+   "label": "MPH96 Move Axis",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Move an MPH96 axis directly.",
+   "params": {
+    "axis": {
+     "label": "Axis",
+     "order": 0
+    },
+    "value": {
+     "label": "Value",
+     "order": 1
+    },
+    "mode": {
+     "label": "Coordinate Mode",
+     "order": 2
+    },
+    "safety_bypass_token": {
+     "label": "Safety Bypass Token",
+     "order": 3,
+     "help": "Optional. VENUS applies its normal safety checks when left blank. Type 'OVERRIDE_SAFETY_CHECKS' to bypass them."
+    }
+   }
+  },
+  "mph96_park_back": {
+   "label": "MPH96 Park Back",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Park the MPH96 head to the back."
+  },
+  "mph96_park_front": {
+   "label": "MPH96 Park Front",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Park the MPH96 head to the front."
+  },
+  "pull_liquid_classes": {
+   "label": "Pull Liquid Classes",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Pull the named liquid classes from VENUS.",
+   "params": {
+    "names": {
+     "label": "Names",
+     "order": 0
+    }
+   }
+  },
+  "push_liquid_classes": {
+   "label": "Push Liquid Classes",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Push the named liquid classes to VENUS.",
+   "params": {
+    "names": {
+     "label": "Names",
+     "order": 0
+    }
+   }
+  },
+  "tip_check": {
+   "label": "Tip Check",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Return current tip status for active 1mL channels."
+  },
+  "tip_check_5ml": {
+   "label": "Tip Check (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Return current tip status for active 5mL channels."
+  },
+  "tip_check_magpip": {
+   "label": "Tip Check (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Return current tip status for active MagPip channels."
+  },
+  "tip_eject": {
+   "label": "Tip Eject",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Eject tips from the specified channels.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "eject_mode": {
+     "label": "Eject Mode",
+     "order": 1
+    },
+    "positions": {
+     "label": "Positions",
+     "order": 2,
+     "help": "DSL string, required for POSITIONS mode. Combine multiple labware with ';'"
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 3
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 4,
+     "help": "required for TIP_POOL mode"
+    }
+   }
+  },
+  "tip_eject_5ml": {
+   "label": "Tip Eject (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Eject 5mL tips from the specified channels.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "eject_mode": {
+     "label": "Eject Mode",
+     "order": 1
+    },
+    "positions": {
+     "label": "Positions",
+     "order": 2,
+     "help": "DSL string, required for POSITIONS mode. Combine multiple labware with ';'"
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 3
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 4,
+     "help": "required for TIP_POOL mode"
+    }
+   }
+  },
+  "tip_eject_magpip": {
+   "label": "Tip Eject (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Eject tips from the specified MagPip channels.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "eject_mode": {
+     "label": "Eject Mode",
+     "order": 1
+    },
+    "positions": {
+     "label": "Positions",
+     "order": 2,
+     "help": "DSL string, required for POSITIONS mode. Combine multiple labware with ';'"
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 3
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 4,
+     "help": "required for TIP_POOL mode"
+    }
+   }
+  },
+  "tip_eject_mph96": {
+   "label": "MPH96 Tip Eject",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Eject tips from the MPH96 head.",
+   "params": {
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 0
+    },
+    "mph_pattern": {
+     "label": "Pattern",
+     "order": 1
+    },
+    "eject_mode": {
+     "label": "Eject Mode",
+     "order": 2
+    }
+   }
+  },
+  "tip_pick_up_mph96": {
+   "label": "MPH96 Tip Pickup",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Pick up a full 96-tip rack with the MPH96 head.",
+   "params": {
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 0
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 1
+    },
+    "pre_air_aspirate": {
+     "label": "Pre Air Aspirate",
+     "order": 2
+    },
+    "pre_air_volume": {
+     "label": "Pre Air Volume (uL)",
+     "order": 3
+    }
+   }
+  },
+  "tip_pick_up_mph96_partial": {
+   "label": "MPH96 Tip Pickup (Partial)",
+   "group": "Liquid Handling",
+   "subgroup": "MPH96",
+   "description": "Pick up a partial pattern of tips with the MPH96 head.",
+   "params": {
+    "mode": {
+     "label": "Mode",
+     "order": 0
+    },
+    "count": {
+     "label": "Count",
+     "order": 1
+    },
+    "labware_id": {
+     "label": "Labware ID",
+     "order": 2
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 3
+    },
+    "mph_pickup_side": {
+     "label": "Pickup Side",
+     "order": 4
+    },
+    "pre_air_aspirate": {
+     "label": "Pre Air Aspirate",
+     "order": 5
+    },
+    "pre_air_volume": {
+     "label": "Pre Air Volume (uL)",
+     "order": 6
+    }
+   }
+  },
+  "tip_pickup": {
+   "label": "Tip Pickup",
+   "group": "Liquid Handling",
+   "subgroup": "1mL Channels",
+   "description": "Pick up tips on the specified channels.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "positions": {
+     "label": "Positions",
+     "order": 1,
+     "help": "DSL string, e.g. 'TipRack1@col:1'. Combine multiple labware with ';', e.g. 'TipRack1@col:1;TipRack2@col:1'"
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 2
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 3
+    },
+    "optimized_pickup": {
+     "label": "Optimized Pickup",
+     "order": 4
+    }
+   }
+  },
+  "tip_pickup_5ml": {
+   "label": "Tip Pickup (5mL)",
+   "group": "Liquid Handling",
+   "subgroup": "5mL Channels",
+   "description": "Pick up 5mL tips on the specified channels.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "positions": {
+     "label": "Positions",
+     "order": 1,
+     "help": "DSL string, e.g. 'TipRack1@col:1'. Combine multiple labware with ';', e.g. 'TipRack1@col:1;TipRack2@col:1'"
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 2
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 3
+    },
+    "optimized_pickup": {
+     "label": "Optimized Pickup",
+     "order": 4
+    }
+   }
+  },
+  "tip_pickup_magpip": {
+   "label": "Tip Pickup (MagPip)",
+   "group": "Liquid Handling",
+   "subgroup": "MagPip Channels",
+   "description": "Pick up tips on the specified MagPip channels.",
+   "params": {
+    "channels": {
+     "label": "Channels",
+     "order": 0
+    },
+    "positions": {
+     "label": "Positions",
+     "order": 1,
+     "help": "DSL string, e.g. 'TipRack1@col:1'. Combine multiple labware with ';'"
+    },
+    "well_order": {
+     "label": "Well Order",
+     "order": 2
+    },
+    "tip_pool": {
+     "label": "Tip Pool",
+     "order": 3
+    },
+    "optimized_pickup": {
+     "label": "Optimized Pickup",
+     "order": 4
+    }
+   }
+  },
+  "update_liquid_class": {
+   "label": "Update Liquid Class",
+   "group": "Liquid Handling",
+   "subgroup": "Liquid Classes",
+   "description": "Update a liquid class from a full definition object.",
+   "params": {
+    "definition": {
+     "label": "Definition (JSON)",
+     "order": 0,
+     "help": "Full LiquidClassDefinition object; see hamilton_venus.models for the schema"
+    }
+   }
+  }
+ }
+}

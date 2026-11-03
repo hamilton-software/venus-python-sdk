@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Instrument — Hamilton VENUS MCP Hub</title>
+<link rel="stylesheet" href="/static/hub.css" />
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/static/img/logo.png" alt="Hamilton" /></div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h1 class="page-title" id="page-title">Instrument</h1>
+      <span class="page-subtitle" id="meta">connecting&hellip;</span>
+      <div class="page-header-right">
+        <a class="btn btn-secondary" href="/dashboard">Back to fleet</a>
+        <button class="dark-mode-btn" id="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle dark mode"></button>
+      </div>
+    </div>
+    <main>
+      <div class="card" id="not-found-card" hidden>
+        <div class="card-body"><p class="muted" id="not-found-text"></p></div>
+      </div>
+
+      <div id="page-content">
+        <div class="card">
+          <div class="card-body">
+            <div style="display:flex; align-items:center; gap: 12px; margin-bottom: 14px;">
+              <h2 style="margin:0;">Current run</h2>
+              <span id="run-state-pill"></span>
+            </div>
+            <div id="run-empty" class="empty-row" hidden>No run has happened on this spoke yet.</div>
+            <div id="run-details" hidden>
+              <div class="stat-row" style="margin-bottom: 16px;">
+                <div class="stat"><span class="stat-label">Script</span><span class="stat-value" id="run-script" style="font-size:16px;">—</span></div>
+                <div class="stat"><span class="stat-label">Mode</span><span class="stat-value" id="run-mode" style="font-size:16px;">—</span></div>
+                <div class="stat"><span class="stat-label">Elapsed</span><span class="stat-value" id="run-elapsed" style="font-size:16px;">—</span></div>
+                <div class="stat"><span class="stat-label">Line</span><span class="stat-value" id="run-line" style="font-size:16px;">—</span></div>
+                <div class="stat"><span class="stat-label">Instrument serial</span><span class="stat-value" id="run-serial" style="font-size:16px;">—</span></div>
+                <div class="stat"><span class="stat-label">VENUS run GUID</span><span class="stat-value mono" id="run-guid" style="font-size:12px; word-break:break-all;">—</span></div>
+              </div>
+              <div id="run-error-box" class="muted" hidden style="color: var(--color-negative); margin-bottom: 12px;"></div>
+              <h3 style="font-size: 14px; margin: 0 0 8px;">Live trace</h3>
+              <div class="trace-toolbar">
+                <div class="trace-chips" id="live-trace-chips"></div>
+              </div>
+              <div class="trace-body" id="live-trace-body"></div>
+              <div class="trace-footer" id="live-trace-footer">
+                <label class="toggle-label"><span class="toggle-switch"><input type="checkbox" id="live-trace-wrap" checked /><span class="slider"></span></span><span>Word wrap</span></label>
+                <label class="toggle-label"><span class="toggle-switch"><input type="checkbox" id="live-trace-autoscroll" checked /><span class="slider"></span></span><span>Auto-scroll</span></label>
+                <input class="trace-search" id="live-trace-search" type="search" placeholder="Search trace…" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card error-card" id="attention-card" style="margin-top: 20px;" hidden>
+          <div class="card-body">
+            <h2>Needs attention</h2>
+            <div id="attention-list"></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-body">
+            <h2>Instrument errors</h2>
+            <p class="muted" style="margin: -8px 0 10px; font-size: 13px;">Failed commands, holds and operator prompts, newest first. They stay listed after the instrument has recovered (the hub keeps the last 200 until it restarts).</p>
+            <div id="errors-empty" class="empty-row" hidden>No instrument errors reported since the hub started.</div>
+            <table id="errors-table" hidden>
+              <thead>
+                <tr><th>When</th><th>Session</th><th>Step</th><th>Command</th><th>What</th><th>Error</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-body">
+            <h2>Consumables</h2>
+            <div id="consumables-empty" class="empty-row" hidden>Nothing tracked on this spoke yet.</div>
+            <table id="consumables-table" hidden>
+              <thead>
+                <tr><th>Kind</th><th>Item</th><th>Level</th><th>Percent</th><th>Status</th><th>Updated</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-body">
+            <h2>Run history</h2>
+            <p class="muted" style="margin: -8px 0 10px; font-size: 13px;">Click a run to view its summary and trace below.</p>
+            <div id="runs-empty" class="empty-row" hidden>No runs recorded yet.</div>
+            <table id="runs-table" hidden>
+              <thead>
+                <tr><th>Started</th><th>Script</th><th>Status</th><th>Mode</th><th>Duration</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="modal-backdrop" id="run-detail-card" hidden>
+          <div class="modal" role="dialog" aria-modal="true" aria-labelledby="run-detail-title">
+            <div class="modal-header">
+              <h2 id="run-detail-title" style="margin:0;">Run detail</h2>
+              <span id="detail-run-id" class="muted mono" style="font-size: 12px;"></span>
+              <button class="btn-ghost" style="margin-left: auto;" id="close-run-detail-btn" aria-label="Close run detail">Close</button>
+            </div>
+            <div class="modal-body">
+            <div id="detail-loading" class="empty-row">Loading&hellip;</div>
+            <div id="detail-body" hidden>
+              <div class="detail-grid">
+                <div class="card detail-card"><div class="card-body">
+                  <h3 class="detail-card-title">Run</h3>
+                  <div class="stat-row">
+                    <div class="stat"><span class="stat-label">Mode</span><span class="stat-value" id="detail-mode" style="font-size:16px;">—</span></div>
+                    <div class="stat"><span class="stat-label">Instrument serial</span><span class="stat-value" id="detail-serial" style="font-size:16px;">—</span></div>
+                    <div class="stat"><span class="stat-label">VENUS run GUID</span><span class="stat-value mono" id="detail-guid" style="font-size:12px; word-break:break-all;">—</span></div>
+                  </div>
+                </div></div>
+                <div class="card detail-card"><div class="card-body">
+                  <h3 class="detail-card-title">Summary</h3>
+                  <div id="detail-summary-empty" class="empty-row" hidden></div>
+                  <div id="detail-summary" class="stat-row" hidden>
+                    <div class="stat"><span class="stat-label">Result</span><span class="stat-value" id="summary-result" style="font-size:16px;">—</span></div>
+                    <div class="stat"><span class="stat-label">Duration</span><span class="stat-value" id="summary-duration" style="font-size:16px;">—</span></div>
+                    <div class="stat"><span class="stat-label">Steps</span><span class="stat-value" id="summary-steps" style="font-size:16px;">—</span></div>
+                    <div class="stat"><span class="stat-label">Errors</span><span class="stat-value" id="summary-errors" style="font-size:16px;">—</span></div>
+                  </div>
+                </div></div>
+              </div>
+
+              <div class="detail-grid" id="summary-tables"></div>
+              <div class="detail-grid" id="detail-tracked"></div>
+
+              <div class="card detail-card"><div class="card-body">
+                <h3 class="detail-card-title">Trace</h3>
+                <div id="detail-events-empty" class="empty-row" hidden></div>
+                <div id="detail-events-note" class="muted" style="font-size: 12px; margin-bottom: 6px;" hidden>Only the last part of this run's trace was saved (it ran before full traces were kept).</div>
+                <div class="trace-toolbar" id="detail-trace-toolbar" hidden>
+                  <div class="trace-chips" id="detail-trace-chips"></div>
+                </div>
+                <div class="trace-body" id="detail-events" hidden></div>
+                <div class="trace-footer" id="detail-trace-footer" hidden>
+                  <label class="toggle-label"><span class="toggle-switch"><input type="checkbox" id="detail-trace-wrap" checked /><span class="slider"></span></span><span>Word wrap</span></label>
+                  <label class="toggle-label"><span class="toggle-switch"><input type="checkbox" id="detail-trace-autoscroll" checked /><span class="slider"></span></span><span>Auto-scroll</span></label>
+                  <input class="trace-search" id="detail-trace-search" type="search" placeholder="Search trace…" />
+                </div>
+              </div></div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="/static/hub.js"></script>
+<script src="/static/trace.js"></script>
+<script>
+  const POLL_MS = 4000;
+  const SPOKE_ID = decodeURIComponent(location.pathname.replace(/^\/spokes\//, ""));
+  document.getElementById("page-title").textContent = SPOKE_ID;
+  document.title = SPOKE_ID + " — Hamilton VENUS MCP Hub";
+
+  const RUN_STATE_PILL = {
+    running: "run", paused: "run", completed: "ok", stopped: "dim", failed: "err", starting: "dim",
+  };
+
+  const liveTrace = new TraceView(
+    document.getElementById("live-trace-body"),
+    document.getElementById("live-trace-chips"),
+    document.getElementById("live-trace-search"),
+    "hub.trace.hiddenCategories",
+    document.getElementById("live-trace-wrap"),
+    document.getElementById("live-trace-autoscroll"),
+  );
+  const detailTrace = new TraceView(
+    document.getElementById("detail-events"),
+    document.getElementById("detail-trace-chips"),
+    document.getElementById("detail-trace-search"),
+    "hub.trace.hiddenCategories",
+    document.getElementById("detail-trace-wrap"),
+    document.getElementById("detail-trace-autoscroll"),
+  );
+  let liveRunId = null;
+  let liveSinceSeq = 0;
+
+  function asList(payload) {
+    if (!payload) return [];
+    if (Array.isArray(payload.result)) return payload.result;
+    if (Array.isArray(payload)) return payload;
+    return [];
+  }
+
+  function renderRun(run) {
+    const empty = document.getElementById("run-empty");
+    const details = document.getElementById("run-details");
+    const pill = document.getElementById("run-state-pill");
+    if (!run || run.status === "error") {
+      empty.hidden = false;
+      empty.textContent = (run && run.message) || "No run has happened on this spoke yet.";
+      details.hidden = true;
+      pill.innerHTML = "";
+      liveRunId = null;
+      return;
+    }
+    empty.hidden = true;
+    details.hidden = false;
+    const pillClass = (RUN_STATE_PILL[run.status] || "dim") + (run.status === "running" ? " pulse" : "");
+    pill.innerHTML = `<span class="pill ${pillClass}">${esc(run.status)}</span>`;
+    document.getElementById("run-script").textContent = run.script || "—";
+    document.getElementById("run-mode").textContent = run.simulate === false ? "Live" : "Simulated";
+    document.getElementById("run-elapsed").textContent = run.elapsed_s !== undefined ? formatDuration(run.elapsed_s) : "—";
+    document.getElementById("run-line").textContent = run.current_line ?? "—";
+    document.getElementById("run-serial").textContent = run.instrument_serial || "—";
+    document.getElementById("run-guid").textContent = run.venus_run_guid || "—";
+    const errBox = document.getElementById("run-error-box");
+    if (run.error && run.error.message) {
+      errBox.hidden = false;
+      errBox.textContent = "Error: " + run.error.message;
+    } else {
+      errBox.hidden = true;
+    }
+    if (run.run_id !== liveRunId) {
+      // A different run than the one the live trace was tailing (a new run started, or this
+      // is the first time we've seen one) -- start its trace from scratch.
+      liveRunId = run.run_id;
+      liveSinceSeq = 0;
+      liveTrace.clear();
+    }
+  }
+
+  function renderConsumables(levels) {
+    const rows = asList(levels);
+    const table = document.getElementById("consumables-table");
+    const empty = document.getElementById("consumables-empty");
+    if (!rows.length) {
+      table.hidden = true;
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+    table.hidden = false;
+    document.querySelector("#consumables-table tbody").innerHTML = rows.map(r => `
+      <tr>
+        <td>${esc(r.kind)}</td>
+        <td>${esc(r.label || r.item_key)}</td>
+        <td class="mono">${esc(formatConsumableLevel(r))}</td>
+        <td class="mono">${r.percent !== null && r.percent !== undefined ? Math.round(r.percent * 100) + "%" : "—"}</td>
+        <td>${r.low ? '<span class="pill err">low</span>' : '<span class="pill ok">ok</span>'}</td>
+        <td class="mono muted" title="${esc(r.last_updated || "")}">${esc(formatLocalDateTime(r.last_updated))}</td>
+      </tr>
+    `).join("");
+  }
+
+  function errorKindPill(e) {
+    if (e.kind === "operator_prompt") {
+      return e.resolved_at ? '<span class="pill ok">prompt answered</span>' : '<span class="pill err">operator prompt</span>';
+    }
+    return e.kind === "held" ? '<span class="pill err">held</span>' : '<span class="pill err">failed</span>';
+  }
+
+  function renderErrors(errors) {
+    const rows = asList(errors);
+    document.getElementById("errors-empty").hidden = rows.length > 0;
+    document.getElementById("errors-table").hidden = rows.length === 0;
+    document.querySelector("#errors-table tbody").innerHTML = rows.map(e => `
+      <tr>
+        <td class="mono">${e.at ? esc(new Date(e.at * 1000).toLocaleString()) : ""}</td>
+        <td class="mono muted" title="${esc(e.session_id ?? "")}">${esc((e.session_id ?? "").slice(0, 8))}</td>
+        <td class="mono">${esc(e.step ?? "")}</td>
+        <td class="mono">${esc(e.command ?? e.code ?? "")}</td>
+        <td>${errorKindPill(e)}</td>
+        <td style="white-space: pre-wrap; font-size: 12px;">${esc([e.error_type, e.message].filter(Boolean).join(": "))}</td>
+      </tr>
+    `).join("");
+  }
+
+  // What is waiting on a person right now: a held command and any session operator prompts.
+  function renderAttention(spoke) {
+    const items = [];
+    const cc = spoke.command_control;
+    if (cc && cc.hold && (cc.state === "held" || cc.state === "resuming")) {
+      const h = cc.hold;
+      items.push(`<div><span class="pill err">held</span> step ${esc(h.step)} <span class="mono">${esc(h.command)}</span>${h.message ? ` &mdash; <span style="white-space: pre-wrap; font-size: 12px;">${esc(h.message)}</span>` : ""}<div class="muted" style="font-size: 12px;">Recover, then resume, resume from a step, or release it from whatever drives this instrument.</div></div>`);
+    }
+    for (const p of spoke.session_prompts || []) {
+      items.push(`<div><span class="pill err">operator prompt</span> <span class="mono">${esc(p.code ?? "")}</span> ${esc(p.title ?? "")}<div class="muted" style="font-size: 12px;">Options: ${esc((p.top_level_actions || []).join(", "))}. Answer with resolve_operator_prompt on the spoke.</div></div>`);
+    }
+    document.getElementById("attention-card").hidden = items.length === 0;
+    document.getElementById("attention-list").innerHTML = items.join("");
+  }
+
+  function renderRuns(runs) {
+    const rows = asList(runs);
+    const table = document.getElementById("runs-table");
+    const empty = document.getElementById("runs-empty");
+    if (!rows.length) {
+      table.hidden = true;
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+    table.hidden = false;
+    document.querySelector("#runs-table tbody").innerHTML = rows.map(r => `
+      <tr class="run-row" data-run-id="${esc(r.run_id)}" style="cursor: pointer;">
+        <td class="mono" title="${esc(r.started_at || "")}">${esc(formatLocalDateTime(r.started_at))}</td>
+        <td>${esc(r.script || "")}</td>
+        <td><span class="pill ${RUN_STATE_PILL[r.status] || "dim"}">${esc(r.status)}</span></td>
+        <td>${r.simulate === false ? "Live" : "Simulated"}</td>
+        <td class="mono">${formatDuration(r.elapsed_s)}</td>
+      </tr>
+    `).join("");
+    document.querySelectorAll("#runs-table tr.run-row").forEach(tr => {
+      tr.addEventListener("click", () => openRunDetail(tr.dataset.runId));
+    });
+  }
+
+  function closeRunDetail() {
+    document.getElementById("run-detail-card").hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+  document.getElementById("close-run-detail-btn").addEventListener("click", closeRunDetail);
+  // Clicking the dimmed backdrop (but not the dialog itself) or pressing Esc also closes it.
+  document.getElementById("run-detail-card").addEventListener("click", e => {
+    if (e.target === e.currentTarget) closeRunDetail();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !document.getElementById("run-detail-card").hidden) closeRunDetail();
+  });
+
+  // One card per table. `wide` cards (long text: errors, labware) span the whole row.
+  function renderTrackedTable(title, rows, columns, wide) {
+    if (!rows.length) return "";
+    const head = columns.map(c => `<th>${esc(c.label)}</th>`).join("");
+    const body = rows.map(row => `<tr>${columns.map(c => `<td class="mono">${esc(c.get(row))}</td>`).join("")}</tr>`).join("");
+    return `<div class="card detail-card${wide ? " wide" : ""}"><div class="card-body">
+      <h4 class="detail-card-title">${esc(title)}</h4>
+      <div class="table-wrap"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>
+    </div></div>`;
+  }
+
+  function renderRunDetail(data) {
+    const run = data.run && data.run.status !== "error" ? data.run : null;
+    const summary = data.summary && data.summary.status !== "error" ? data.summary.summary : null;
+    const summaryError = data.summary && data.summary.status === "error" ? data.summary.message : null;
+    const events = data.events && data.events.status !== "error" ? asList(data.events.events || data.events) : null;
+    const eventsError = data.events && data.events.status === "error" ? data.events.message : null;
+
+    document.getElementById("detail-loading").hidden = true;
+    document.getElementById("detail-body").hidden = false;
+    document.getElementById("detail-mode").textContent = run ? (run.simulate === false ? "Live" : "Simulated") : "—";
+    document.getElementById("detail-serial").textContent = (run && run.instrument_serial) || "—";
+    document.getElementById("detail-guid").textContent = (run && run.venus_run_guid) || "—";
+
+    const summaryEmpty = document.getElementById("detail-summary-empty");
+    const summaryBody = document.getElementById("detail-summary");
+    if (summary) {
+      summaryEmpty.hidden = true;
+      summaryBody.hidden = false;
+      document.getElementById("summary-result").textContent = summary.result || "—";
+      document.getElementById("summary-duration").textContent = formatDuration(summary.duration_seconds);
+      document.getElementById("summary-steps").textContent = summary.step_count ?? "—";
+      document.getElementById("summary-errors").textContent = summary.error_count ?? "—";
+      const tables = [];
+      tables.push(renderTrackedTable("Tips used", summary.tips_by_type || [], [
+        { label: "Type", get: r => r.tip_type }, { label: "Kind", get: r => r.kind_label }, { label: "Count", get: r => r.count },
+      ]));
+      tables.push(renderTrackedTable("Reservoir volumes drawn", summary.reservoir_volumes || [], [
+        { label: "Labware", get: r => r.labware }, { label: "Volume", get: r => formatVolumeUl(r.volume_ul) },
+      ]));
+      tables.push(renderTrackedTable("Plates added", summary.plates_by_type || [], [
+        { label: "Definition", get: r => r.labware_definition }, { label: "Count", get: r => r.count },
+      ]));
+      tables.push(renderTrackedTable("Failed steps", summary.failed_steps || [], [
+        { label: "Line", get: r => r.line ?? "—" }, { label: "Action", get: r => r.action_name || "—" }, { label: "Error", get: r => r.message || "" },
+      ], true));
+      tables.push(renderTrackedTable("Instrument errors", summary.instrument_errors || [], [
+        { label: "Code", get: r => r.code || "—" }, { label: "Detail", get: r => r.detail || "" }, { label: "Recovery", get: r => r.recovery_action || "" },
+      ], true));
+      document.getElementById("summary-tables").innerHTML = tables.join("");
+    } else {
+      summaryEmpty.hidden = false;
+      summaryBody.hidden = true;
+      summaryEmpty.textContent = summaryError || "No summary available for this run.";
+      document.getElementById("summary-tables").innerHTML = "";
+    }
+
+    const tracked = [];
+    if (run) {
+      tracked.push(renderTrackedTable("Tip pools", Object.values(run.tips || {}), [
+        { label: "Pool", get: r => r.tip_pool }, { label: "Remaining", get: r => r.remaining ?? "—" },
+        { label: "Capacity", get: r => r.capacity ?? "—" }, { label: "Picked up", get: r => r.picked_up },
+      ]));
+      tracked.push(renderTrackedTable("Reagents", Object.values(run.reagents || {}), [
+        { label: "Key", get: r => r.key }, { label: "Remaining", get: r => formatVolumeUl(r.remaining_volume_ul) },
+        { label: "Total", get: r => formatVolumeUl(r.total_volume_ul) }, { label: "Percent full", get: r => r.percent_full != null ? Math.round(r.percent_full * 100) + "%" : "—" },
+      ]));
+      tracked.push(renderTrackedTable("Labware added", run.labware || [], [
+        { label: "Method", get: r => r.method }, { label: "Name", get: r => r.labware_name || "—" }, { label: "Definition", get: r => r.definition || "—" },
+      ], true));
+    }
+    document.getElementById("detail-tracked").innerHTML = tracked.join("") ||
+      '<div class="card detail-card wide"><div class="card-body"><div class="empty-row">Nothing tracked for this run.</div></div></div>';
+
+    const eventsEmpty = document.getElementById("detail-events-empty");
+    const eventsBody = document.getElementById("detail-events");
+    const eventsToolbar = document.getElementById("detail-trace-toolbar");
+    const eventsFooter = document.getElementById("detail-trace-footer");
+    document.getElementById("detail-events-note").hidden = !(data.events && data.events.partial);
+    if (events && events.length) {
+      eventsEmpty.hidden = true;
+      eventsToolbar.hidden = false;
+      eventsFooter.hidden = false;
+      eventsBody.hidden = false;
+      detailTrace.setEntries(events);
+    } else {
+      eventsEmpty.hidden = false;
+      eventsToolbar.hidden = true;
+      eventsFooter.hidden = true;
+      eventsBody.hidden = true;
+      eventsEmpty.textContent = eventsError || "No trace available -- this run has aged out of the spoke's in-memory event buffer.";
+    }
+  }
+
+  async function openRunDetail(runId) {
+    const card = document.getElementById("run-detail-card");
+    card.hidden = false;
+    document.body.classList.add("modal-open");
+    document.getElementById("close-run-detail-btn").focus();
+    document.getElementById("detail-run-id").textContent = runId;
+    document.getElementById("detail-loading").hidden = false;
+    document.getElementById("detail-body").hidden = true;
+    card.querySelector(".modal-body").scrollTop = 0;
+    try {
+      const res = await fetch(`/api/spokes/${encodeURIComponent(SPOKE_ID)}/runs/${encodeURIComponent(runId)}/detail.json`, { cache: "no-store" });
+      const data = await res.json();
+      renderRunDetail(data);
+    } catch (err) {
+      document.getElementById("detail-loading").textContent = "Failed to load run detail: " + err;
+    }
+  }
+
+  async function poll() {
+    try {
+      const statusRes = await fetch("/api/status.json", { cache: "no-store" });
+      const status = await statusRes.json();
+      renderSidebar(status.spokes, SPOKE_ID);
+
+      const res = await fetch(`/api/spokes/${encodeURIComponent(SPOKE_ID)}/detail.json`, { cache: "no-store" });
+      if (res.status === 404) {
+        document.getElementById("not-found-card").hidden = false;
+        document.getElementById("not-found-text").textContent = `No spoke named "${SPOKE_ID}" is configured on this hub.`;
+        document.getElementById("page-content").hidden = true;
+        document.getElementById("meta").textContent = "unknown spoke";
+        setTimeout(poll, POLL_MS);
+        return;
+      }
+      const data = await res.json();
+      document.getElementById("not-found-card").hidden = true;
+      document.getElementById("page-content").hidden = false;
+      const s = data.spoke;
+      const sessionText = s.session_active
+        ? `session: active${s.connection_id ? ` (${s.connection_id})` : ""}`
+        : "session: none";
+      document.getElementById("meta").textContent =
+        `${s.instrument_type ? s.instrument_type + " · " : ""}${s.connected ? "connected" : "unreachable"} · state: ${s.state} · ${sessionText} · last seen ${relativeTime(s.last_seen)}`;
+      renderAttention(s);
+      renderErrors(data.errors);
+      renderRun(data.run);
+      renderConsumables(data.consumables.levels);
+      renderRuns(data.runs);
+    } catch (err) {
+      document.getElementById("meta").textContent = "lost connection to hub — retrying…";
+    } finally {
+      setTimeout(poll, POLL_MS);
+    }
+  }
+
+  // Self-paced: while a run is going the endpoint long-polls (it blocks briefly server-side until
+  // something happens), so calling it again right away is already a gentle loop. Once the run has
+  // finished the endpoint answers instantly, so we must wait ourselves or this becomes a tight
+  // loop that opens a fresh spoke session hundreds of times a minute.
+  const LIVE_TRACE_IDLE_MS = 5000;
+  async function liveTraceLoop() {
+    if (!liveRunId) {
+      setTimeout(liveTraceLoop, 2000);
+      return;
+    }
+    const runIdAtRequestTime = liveRunId;
+    let delayMs = 0;
+    try {
+      const res = await fetch(
+        `/api/spokes/${encodeURIComponent(SPOKE_ID)}/current-run/events.json?since_seq=${liveSinceSeq}`,
+        { cache: "no-store" },
+      );
+      const data = await res.json();
+      const payload = data.events;
+      if (payload && payload.status !== "error" && runIdAtRequestTime === liveRunId) {
+        const fresh = payload.events || [];
+        liveTrace.append(fresh);
+        liveSinceSeq = payload.next_since_seq ?? liveSinceSeq;
+        if (payload.finished && !fresh.length) delayMs = LIVE_TRACE_IDLE_MS;
+      } else {
+        delayMs = 2000;
+      }
+    } catch (err) {
+      delayMs = 2000;
+    } finally {
+      setTimeout(liveTraceLoop, delayMs);
+    }
+  }
+
+  poll();
+  liveTraceLoop();
+</script>
+</body>
+</html>

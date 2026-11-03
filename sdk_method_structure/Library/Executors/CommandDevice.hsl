@@ -6,4 +6,4 @@ DeviceID = GetDeviceRef(SDK::DeviceName);
 STARController::statusLight_setFrontLight(DeviceID);
 }
 
-// $$author=Bare_B$$valid=2$$time=2026-10-27 18:19$$checksum=5aaa6d51$$length=083$$
+// $$author=Bare_B$$valid=2$$time=2026-10-30 16:45$$checksum=9930018a$$length=083$$
