@@ -6,7 +6,9 @@ If you discover a security vulnerability in this project, report it responsibly.
 
 **Do not open a public GitHub issue.**
 
-Instead, email: **[security@hamiltoncompany.com](mailto:psirt@hamiltoncompany.com)**
+Instead, if you have questions, reach out to technical support or post on the Hamilton discourse.
+
+**[Join the Hamilton Robotics Discussion Platform](https://discourse.hamiltoncompany.com/c/our-software/python-sdk)**
 
 Include:
 
